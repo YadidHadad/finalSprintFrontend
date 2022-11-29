@@ -10,8 +10,9 @@
 
 
 import { store } from './store/store'
-import appHeader from './cmps/kanban-header.vue'
+import appHeader from './cmps/app-header.vue'
 import userMsg from './cmps/user-msg.vue'
+
 import { userService } from './services/user.service'
 
 

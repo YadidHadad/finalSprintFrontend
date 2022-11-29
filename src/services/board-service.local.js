@@ -11,17 +11,17 @@ export const boardService = {
     save,
     remove,
     getEmptyBoard,
-    addBoardActivity
+    // addBoardActivity
 }
 window.cs = boardService
 
 
 async function query(filterBy = { title: '' }) {
     var boards = await storageService.query(STORAGE_KEY)
-    if (filterBy.title) {
-        const regex = new RegExp(filterBy.title, 'i')
-        boards = boards.filter(board => regex.test(board.title))
-    }
+    // if (filterBy.title) {
+    //     const regex = new RegExp(filterBy.title, 'i')
+    //     boards = boards.filter(board => regex.test(board.title))
+    // }
     // if (filterBy.price) {
     //     boards = boards.filter(board => board.price <= filterBy.price)
     // }
@@ -48,23 +48,23 @@ async function save(board) {
     return savedBoard
 }
 
-async function addBoardActivity(boardId, txt) {
-    // Later, this is all done by the backend
-    const board = await getById(boardId)
-    if (!board.activities) board.activities = []
+// async function addBoardActivity(boardId, txt) {
+//     // Later, this is all done by the backend
+//     const board = await getById(boardId)
+//     if (!board.activities) board.activities = []
 
-    const msg = {
-        id: utilService.makeId(),
-        createdAt: Date.now(),
-        byMember: userService.getLoggedinUser(),
-        txt
-    }
+//     const msg = {
+//         id: utilService.makeId(),
+//         createdAt: Date.now(),
+//         byMember: userService.getLoggedinUser(),
+//         txt
+//     }
 
-    board.activities.push(msg)
-    await storageService.put(STORAGE_KEY, board)
+//     board.activities.push(msg)
+//     await storageService.put(STORAGE_KEY, board)
 
-    return activity
-}
+//     return activity
+// }
 
 function getEmptyBoard(
     title = '',
