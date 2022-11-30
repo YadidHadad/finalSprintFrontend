@@ -49,7 +49,7 @@ export default {
         headerBackground() {
             if (!this.rgb) return
             // return { backgroundColor: `rgb(${+this.rgb.value[0] + 40},${+this.rgb.value[1] + 40},${+this.rgb.value[2] + 40})` }
-            return this.rgb.isDark ? utilService.getBCG(this.rgb.value, -40, 1) : utilService.getBCG(this.rgb.value, 40, 1)
+            return this.rgb.isDark ? utilService.getBCG(this.rgb.value, -20, 1) : utilService.getBCG(this.rgb.value, +20, 1)
         },
         buttonBackground() {
             if (!this.rgb) return

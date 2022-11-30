@@ -15,10 +15,6 @@ header {
 
     .create-btn {
         @include btn($type: regular);
-
-        &:hover {
-            // background-color: red !important;
-        }
     }
 
     .logo {

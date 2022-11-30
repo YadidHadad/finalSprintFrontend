@@ -1,15 +1,39 @@
 .board-header {
     padding: 1rem;
     width: 100%;
-    min-height: 100px;
     color: $textDark;
-    &.isDark {
-        color: $textLight;
+
+    & * {
+        color: $textDark;
     }
 
-    h1 {
-        font-size: 2rem;
+    &.isDark {
+        * {
+            color: $textLight;
+        }
+    }
+
+    input {
+        border: none;
+        font-size: 20px;
         font-family: "kanit-regular";
         font-weight: bold;
+        margin-inline-end: 1rem;
+        background-color: transparent;
+        width: fit-content;
+        padding-inline: 1rem;
+
+        &:focus {
+            background-color: white;
+            color: $textDark;
+        }
+    }
+
+    .btn {
+        @include btn($type: regular);
+
+        .txt {
+            margin-inline-start: 0.5rem;
+        }
     }
 }
