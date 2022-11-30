@@ -1,8 +1,10 @@
 <template>
-  <section class="main-container">
+  <section class="main-layout">
     <user-msg />
     <app-header />
-    <router-view />
+    <main class="app-main">
+      <router-view />
+    </main>
   </section>
 </template>
 
@@ -16,6 +18,7 @@ import userMsg from './cmps/user-msg.vue'
 import { userService } from './services/user.service'
 
 
+
 export default {
 
   created() {
@@ -23,9 +26,19 @@ export default {
     const user = userService.getLoggedinUser()
     if (user) store.commit({ type: 'setLoggedinUser', user })
   },
+  data() {
+    return {
+    }
+  },
   components: {
     appHeader,
     userMsg
+  },
+  computed: {
+
+
+
+
   },
 }
 </script>

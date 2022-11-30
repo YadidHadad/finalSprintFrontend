@@ -1,34 +1,57 @@
 <template>
-    <section class="board" v-if="board">
-        <board-header :board-header="board.title" />
-        <group-list @addGroup="addNewGroup" :groups="board.groups" />
+    <section class="board-details" v-if="board" :style="boardBGC">
+        <board-nav></board-nav>
+        <h1>{{ board.title }}</h1>
     </section>
+
 </template>
 
 <script>
 import { boardService } from '../services/board.service.local'
-import boardHeader from '.././cmps/board-header.vue'
-import groupList from '../cmps/group-list.vue'
+import { FastAverageColor } from 'fast-average-color';
+
+import boardNav from '../cmps/board-nav.vue'
+
+const fac = new FastAverageColor();
+
 export default {
 
     data() {
         return {
-            board: null
+            board: null,
+            style: 'src/assets/img/bgc-img-def.jpg',
+            color: null
+
         }
+    },
+    components: {
+        boardNav
     },
     async created() {
         const { id } = this.$route.params
         this.board = await boardService.getById(id)
+        this.color = await this.avgColor()
+        console.log(this.color)
+
+
     },
     methods: {
-        addNewGroup(group) {
-            this.board.groups.push(group)
-            this.$store.dispatch({ type: 'addBoard', board: { ...this.board } })
+        async avgColor() {
+            const url = this.style
+            try {
+                const color = await fac.getColorAsync(url)
+                return color
+            } catch (err) {
+                console.log(`err:`, err)
+            }
         }
     },
-    components: {
-        boardHeader,
-        groupList
-    }
+
+    computed: {
+        boardBGC() {
+            return { backgroundImage: `url(${this.style})` }
+
+        },
+    },
 }
 </script>
