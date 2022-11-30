@@ -1,5 +1,5 @@
 <template>
-    <section v-if="board" class="board-details" :style="boardBGC">
+    <section v-if="board" class="board-details flex row" :style="boardBGC">
         <board-nav :color="color"></board-nav>
         <board-header :board-header="board.title" />
         <group-list @addGroup="addNewGroup" :groups="board.groups" :boardId="board._id" />
