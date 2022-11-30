@@ -3,6 +3,8 @@
         <board-nav></board-nav>
         <board-header :board-header="board.title" />
         <group-list @addGroup="addNewGroup" :groups="board.groups" :boardId="board._id"/>
+
+        <router-view class="task-details-view"></router-view>
     </section>
 
 </template>
