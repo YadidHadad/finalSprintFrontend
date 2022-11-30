@@ -1,5 +1,5 @@
 <template>
-    <h1>{{ boardHeader }}</h1>
+    <h1>{{ title || 'Board Title' }}</h1>
 </template>
 
 
@@ -8,7 +8,7 @@
 export default {
     name: 'board-header',
     props: {
-        boardHeader: {
+        title: {
             type: String,
             required: true,
         }

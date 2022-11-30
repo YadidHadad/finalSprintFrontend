@@ -1,9 +1,9 @@
 <template>
   <section class="main-layout">
     <user-msg />
-    <app-header :color="getColor" />
+    <app-header :rgb="getRGB" />
     <main class="app-main">
-      <router-view @setColor="setColor" />
+      <router-view @setRGB="setRGB" />
     </main>
   </section>
 </template>
@@ -28,7 +28,7 @@ export default {
   },
   data() {
     return {
-      color: null,
+      rgb: null,
       isDark: false
     }
   },
@@ -37,14 +37,14 @@ export default {
     userMsg
   },
   methods: {
-    setColor(color) {
-      this.color = color
-      this.isDark = color.isDark
+    setRGB(rgb) {
+      this.rgb = rgb
+      this.isDark = rgb.isDark
     }
   },
   computed: {
-    getColor() {
-      return this.color
+    getRGB() {
+      return this.rgb
     },
 
   },

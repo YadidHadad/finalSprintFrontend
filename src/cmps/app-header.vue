@@ -24,14 +24,15 @@
 </template>
 <script>
 
+import { utilService } from '../services/util.service'
 
 
 export default {
     name: '',
-    props: ['color'],
+    props: ['rgb'],
     components: {},
     created() {
-        console.log(`color:`, this.color)
+        console.log(`rgb:`, this.rgb)
     },
     data() {
         return {
@@ -41,19 +42,24 @@ export default {
 
     },
     computed: {
+        isDark() {
+            if (!this.rgb) return false
+            return this.rgb.isDark
+        },
         headerBackground() {
-            if (!this.color) return
-            return { backgroundColor: this.color.rgb }
+            if (!this.rgb) return
+            // return { backgroundColor: `rgb(${+this.rgb.value[0] + 40},${+this.rgb.value[1] + 40},${+this.rgb.value[2] + 40})` }
+            return this.rgb.isDark ? utilService.getBCG(this.rgb.value, -40, 1) : utilService.getBCG(this.rgb.value, 40, 1)
         },
         buttonBackground() {
-            if (!this.color) return
-            return this.color.isDark ? { backgroundColor: this.color.rgb, filter: 'brightness(50%)' } : { backgroundColor: this.color.rgb, filter: 'brightness(85%)' }
+            if (!this.rgb) return
+            return this.rgb.isDark ? utilService.getBCG(this.rgb.value, 30, 1) : utilService.getBCG(this.rgb.value, -30, 1)
         },
-        isDark() {
-            if (!this.color) return false
-            return this.color.isDark
-        }
+
     },
+
+
 }
+
 </script>
 

@@ -36,25 +36,15 @@
     src: url(/src/assets/fonts/trellicons/trellicons.ttf);
 }
 
-
-
-.trellicons{
+.trellicons {
     font-family: "trellicons";
 
-    &.members-icon::before {
-        content: '\f007';
-    }
-
-    &.settings-icon::before {
-        content: '\f013';
-    }
-
     &.plus-icon::before {
-        content: '\2b';
+        content: "\2b";
     }
 
     &.arrow-down-icon::before {
-        content: '\2b';
+        content: "\2b";
     }
 }
 
@@ -62,98 +52,100 @@
     font-family: "icomoon";
 
     &.members-icon::before {
-        content: '\e946';
+        content: "\e946";
     }
 
     &.labels::before {
-        content: '\e93f';
+        content: "\e93f";
     }
 
     &.checklist::before {
-        content: '\e91a';
+        content: "\e91a";
     }
 
     &.dates::before {
-        // content: '\e91a';  
+        // content: '\e91a';
     }
 
     &.attachment::before {
-        content: '\e908';
+        content: "\e908";
     }
 
     &.location::before {
-        content: '\e944';
+        content: "\e944";
     }
 
     &.move::before {
-        content: '\e94a';
+        content: "\e94a";
     }
 
     &.copy::before {
-        content: '\e91f';
+        content: "\e91f";
     }
 
     &.copy::before {
-        content: '\e91f';
+        content: "\e91f";
     }
 
     &.template::before {
-        content: '\e96e';
+        content: "\e96e";
     }
 
     &.watch::before {
-        content: '\e969';
+        content: "\e969";
     }
 
     &.archive::before {
-        content: '\e907';
+        content: "\e907";
     }
 
     &.share::before {
-        content: '\e963';
+        content: "\e963";
     }
 
     &.cover::before {
-        content: '\e914';
+        content: "\e914";
     }
 
     &.star::before {
-        content: '\e966';
+        content: "\e966";
     }
 
     &.icon-add:before {
-        content: '\e901';
+        content: "\e901";
     }
 }
-
 
 .fa-regular {
     font-family: "fa-regular";
 
     &.trello-icon::before {
-        content: '\f181';
+        content: "\f181";
     }
-    &.settings-icon::before{
-        content: '\f013';  
+    &.settings-icon::before {
+        content: "\f013";
     }
 
     &.plus-icon::before {
-        content: '\2b';
+        content: "\2b";
     }
 
     &.arrow-down-icon::before {
-        content: '\2b';
+        content: "\2b";
     }
 
     &.dates-icon::before {
-        content: '\f017';
+        content: "\f017";
     }
 
     &.boards-icon::before {
-        content: '\f017';
+        content: "\f017";
     }
-    &.pen-icon::before{
-        content: '\f044';  
+    &.pen-icon::before {
+        content: "\f044";
+    }
+    &.user-icon::before {
+        content: "\f007";
     }
 }
 
@@ -161,15 +153,16 @@
     font-family: "fa-brands";
 
     &.trello-icon::before {
-        content: '\f181';
+        content: "\f181";
     }
-    
 }
-.fa-solid{
+.fa-solid {
     font-family: "fa-solid";
 
-    &.grid-icon::before{
-        content: '\f58e';  
+    &.grid-icon::before {
+        content: "\f58e";
+    }
+    &.settings-icon::before {
+        content: "\f013";
     }
 }
-

@@ -1,11 +1,14 @@
 <template>
     <section v-if="board" class="board-details flex row" :style="boardBGC">
-        <board-nav :color="color"></board-nav>
-        <board-header :board-header="board.title" />
-        <group-list @addGroup="addNewGroup" :groups="board.groups" :boardId="board._id" />
+        <board-nav :rgb="rgb"></board-nav>
+        <section class="flex column">
+            <board-header :title="board.title" />
+            <group-list @addGroup="addNewGroup" :groups="board.groups" :boardId="board._id" />
+        </section>
     </section>
 
 </template>
+
 
 <script>
 import { boardService } from '../services/board.service.local'
@@ -22,9 +25,9 @@ export default {
     data() {
         return {
             board: null,
-            style: 'src/assets/img/bgc-img-2.jpg',
-            color: {
-                rgb: '',
+            style: 'src/assets/img/bgc-img-3.jpg',
+            rgb: {
+                value: [],
                 isDark: false,
             },
 
@@ -40,10 +43,10 @@ export default {
         this.board = await boardService.getById(id)
         const avgColor = await this.avgColor()
         console.log(avgColor)
-        this.color.rgb = avgColor.rgb
-        this.color.isDark = avgColor.isDark
-        console.log(this.color)
-        this.$emit('setColor', this.color)
+        this.rgb.value = avgColor.value
+        this.rgb.isDark = avgColor.isDark
+        console.log(this.rgb)
+        this.$emit('setRGB', this.rgb)
 
 
     },
@@ -67,8 +70,10 @@ export default {
     computed: {
         boardBGC() {
             return { backgroundImage: `url(${this.style})` }
-
         },
+        color() {
+            return this.rgb
+        }
     },
 }
 </script>
