@@ -1,8 +1,8 @@
 <template>
-    <section class="board-details" v-if="board" :style="boardBGC">
-        <board-nav></board-nav>
+    <section v-if="board" class="board-details" :style="boardBGC">
+        <board-nav :color="color"></board-nav>
         <board-header :board-header="board.title" />
-        <group-list @addGroup="addNewGroup" :groups="board.groups" :boardId="board._id"/>
+        <group-list @addGroup="addNewGroup" :groups="board.groups" :boardId="board._id" />
     </section>
 
 </template>

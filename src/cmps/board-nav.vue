@@ -1,5 +1,5 @@
 <template>
-    <section v-if="color" class="board-nav" :style="style" :class="{ dark: isDark }">
+    <section class="board-nav" :style="style" :class="{ dark: isDark }">
 
 
         navbar
@@ -15,15 +15,19 @@ export default {
     },
     data() {
         return {
-            isDark: this.color.isDark
         }
     },
     methods: {},
     computed: {
         style() {
+            if (!this.color) return false
 
             console.log(this.color.rgb)
             return { backgroundColor: this.color.rgb }
+        },
+        isDark() {
+            if (!this.color) return false
+            return this.color.isDark
         }
     },
 }
