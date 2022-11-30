@@ -1,17 +1,27 @@
 <template>
-    <section class="board-nav">
+    <section v-if="color" class="board-nav" :style="style">
     </section>
 </template>
 <script>
 export default {
-    name: '',
-    props: [],
+    name: 'board-nav',
+    props: ['color'],
     components: {},
-    created() { },
+    created() {
+
+    },
     data() {
         return {}
     },
     methods: {},
-    computed: {},
+    computed: {
+        style() {
+
+
+
+            console.log(this.color)
+            return { backgroundColor: this.color.rgb } || { backgroundColor: white }
+        }
+    },
 }
 </script>

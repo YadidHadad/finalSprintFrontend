@@ -1,9 +1,9 @@
 <template>
   <section class="main-layout">
     <user-msg />
-    <app-header />
+    <app-header :style="headerColor" />
     <main class="app-main">
-      <router-view />
+      <router-view @setHeaderColor="setHeaderColor" />
     </main>
   </section>
 </template>
@@ -34,7 +34,15 @@ export default {
     appHeader,
     userMsg
   },
-  computed: {
+  methods: {
+
+
+
+    headerColor(color) {
+
+      console.log(color)
+      // return { backgroundColor: this.color.rgb } || { backgroundColor: white }
+    }
 
 
 

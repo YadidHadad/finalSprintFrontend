@@ -1,6 +1,6 @@
 <template>
-    <section class="board-details" v-if="board" :style="boardBGC">
-        <board-nav></board-nav>
+    <section class="board-details flex row" v-if="board" :style="boardBGC">
+        <board-nav :color="color"></board-nav>
         <h1>{{ board.title }}</h1>
     </section>
 
@@ -19,7 +19,7 @@ export default {
     data() {
         return {
             board: null,
-            style: 'src/assets/img/bgc-img-def.jpg',
+            style: 'src/assets/img/bgc-img-2.jpg',
             color: null
 
         }
@@ -32,6 +32,7 @@ export default {
         this.board = await boardService.getById(id)
         this.color = await this.avgColor()
         console.log(this.color)
+        this.$emit('setHeaderColor', this.color)
 
 
     },
