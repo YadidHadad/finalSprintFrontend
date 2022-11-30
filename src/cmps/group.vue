@@ -1,5 +1,5 @@
 <template>
-    <div class="group flex column">
+    <div class="group">
         <h1>{{ group.title }}</h1>
         <ul>
             <li v-for="task in group.tasks" :key="task.id">
