@@ -1,16 +1,123 @@
 @font-face {
-    font-family: fa-regular;
-    src: url(../../fonts/fa/fa-regular-400.ttf);
+    font-family: "fa-regular";
+    src: url("../../fonts/fa/fa-regular-400.ttf");
 }
 @font-face {
-    font-family: kanit-regular;
-    src: url(../../fonts/kanit/Kanit-Regular.ttf);
+    font-family: "kanit-regular";
+    src: url("../../fonts/kanit/Kanit-Regular.ttf");
 }
 @font-face {
-    font-family: mochlypopne-regular;
-    src: url(../../fonts/mochlypopne/MochiyPopOne-Regular.ttf);
+    font-family: "mochlypopne-regular";
+    src: url("../../fonts/mochlypopne/MochiyPopOne-Regular.ttf");
 }
 @font-face {
-    font-family: opensans-italic;
-    src: url(../../fonts/opensans/OpenSans-Italic-VariableFont_wdth\,wght.ttf);
+    font-family: "opensans-italic";
+    src: url("../../fonts/opensans/OpenSans-Italic-VariableFont_wdth\,wght.ttf");
 }
+@font-face {
+    font-family: "icomoon";
+    src: url("../../fonts/icomoon/icomoon.ttf");
+}
+@font-face {
+    font-family: "trellicons";
+    src: url("../../fonts/trellicons/trellicons.ttf");
+}
+
+
+
+.trellicons{
+    font-family: "trellicons";
+
+    &.trello-icon::before{
+        content: '\f181';  
+    }
+    &.members-icon::before{
+        content: '\f007';  
+    }
+    &.settings-icon::before{
+        content: '\f013';  
+    }
+    &.plus-icon::before{
+        content: '\2b';  
+    }
+    &.arrow-down-icon::before{
+        content: '\2b';  
+    }
+}
+
+.icomoon{
+    font-family: "icomoon";
+    
+    &.members-icon::before{
+        content: '\e946';  
+    }
+    &.labels::before{
+        content: '\e93f';  
+    }
+    &.checklist::before{
+        content: '\e91a';  
+    }
+    &.dates::before{
+        // content: '\e91a';  
+    }
+    &.attachment::before{
+        content: '\e908';  
+    }
+    &.location::before{
+        content: '\e944';  
+    }
+    &.move::before{
+        content: '\e94a';  
+    }
+    &.copy::before{
+        content: '\e91f';  
+    }
+    &.copy::before{
+        content: '\e91f';  
+    }
+    &.template::before{
+        content: '\e96e';  
+    }
+    &.watch::before{
+        content: '\e969';  
+    }
+    &.archive::before{
+        content: '\e907';  
+    }
+    &.share::before{
+        content: '\e963';  
+    }
+    &.cover::before{
+        content: '\e914';  
+    }
+    &.star::before{
+        content: '\e966';  
+    }
+}
+
+
+.fa{
+    font-family: "fa-regular";
+
+    &.trello-icon::before{
+        content: '\f181';  
+    }
+
+    &.settings-icon::before{
+        content: '\f013';  
+    }
+    &.plus-icon::before{
+        content: '\2b';  
+    }
+    &.arrow-down-icon::before{
+        content: '\2b';  
+    }
+    &.dates-icon::before{
+        content: '\f017';  
+    }
+    &.boards-icon::before{
+        content: '\f017';  
+    }
+}
+
+
