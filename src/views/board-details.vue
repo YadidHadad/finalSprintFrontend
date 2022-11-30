@@ -22,7 +22,7 @@ export default {
     data() {
         return {
             board: null,
-            style: 'src/assets/img/bgc-img-def.jpg',
+            style: 'src/assets/img/bgc-img-2.jpg',
             color: null
 
         }
@@ -37,6 +37,7 @@ export default {
         this.board = await boardService.getById(id)
         this.color = await this.avgColor()
         console.log(this.color)
+        this.$emit('setHeaderColor', this.color)
 
 
     },
