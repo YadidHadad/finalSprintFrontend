@@ -1,17 +1,21 @@
 <template>
-    <div class="group">
-        <h1>{{ group.title }}</h1>
-        <ul>
+    <div class="group flex column">
+        <div class="flex justify-between">
+            <h3>{{ group.title }}</h3>
+            <span class="fa-solid dots-icon"></span>
+        </div>
+        <ul class="clean-list flex column">
             <li v-for="task in group.tasks" :key="task.id">
                 <task-preview :task="task" :boardId="boardId" />
             </li>
         </ul>
-        <button v-if="!isCardOpen" @click="toggleCard"><span class="fa-regular plus-icon"></span> Add a card</button>
+   
+        <button class="add-card-btn" v-if="!isCardOpen" @click="toggleCard"><span class="fa-regular plus-icon"></span> Add a card</button>
         <form v-if="isCardOpen" @submit.prevent="addTask" class="flex ">
-            <input v-model="task.title" type="text" name="add-task" placeholder="Enter a title for this card...">
-            <div class="add-list-btns">
+            <textarea v-model="task.title" type="textarea" name="add-task"  rows="4" placeholder="Enter a title for this card..."></textarea>
+            <div class="add-list-btns flex">
                 <button class="add-list-btn">Add card</button>
-                <button type="button" @click.stop="toggleCard">X</button>
+                <button type="button" @click.stop="toggleCard"><span class="fa-solid X-icon"></span></button>
             </div>
         </form>
         <router-view></router-view>

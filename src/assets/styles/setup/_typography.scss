@@ -184,6 +184,15 @@
     &.arrow-icon::before {
         content: "\f053";
     }
+    &.dots-icon::before {
+        color: $clr9;
+        content: "\f141";
+    }
+    &.X-icon::before {
+        color: $clr9;
+        font-size: rem(20px);
+        content: "\f00d";
+    }
 
     & {
         // transform: rotate(180deg);

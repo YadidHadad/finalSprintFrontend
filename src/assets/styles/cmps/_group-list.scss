@@ -1,6 +1,7 @@
 .group-list {
     margin-top: rem(10px);
-    gap: 10px;
+    gap: rem(8px);
+    font-family: Arial, Helvetica, sans-serif;
 
     .add-new-list {
         width: 272px;
@@ -8,20 +9,25 @@
         .open-add-list {
             background-color: $clr14;
             width: 100%;
-            padding: rem(6px) rem(8px);
+            padding: rem(14px) rem(18px);
             color: $clr12;
+            text-align: left;
+            border-radius: 5px;
         }
     }
 
     form {
         background-color: $clr12;
-        padding: rem(4px);
+        gap: rem(8px);
 
-        gap: 4px;
-
-        input {
+        textarea {
+            padding-left: rem(8px);
+            height: rem(55px);
             margin: 0;
             width: 100%;
+            resize: none;
+            border: none;
+            border-radius: 5px;
         }
 
         .add-list-btns {
@@ -34,16 +40,45 @@
         button {
             width: fit-content;
             margin: 0;
+            border-radius: 5px;
 
             &.add-list-btn {
-                margin-right: rem(16px);
+                font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+                font-size: rem(14px);
                 color: $clr12;
                 background-color: $clr3;
-                padding: rem(4px) rem(12px);
+                padding: rem(6px) rem(12px);
             }
 
         }
 
-        transition: all 1s;
     }
+}
+
+.group-list-form {
+    padding: rem(10px) !important;
+    border-radius: 5px;
+
+    input {
+        padding: rem(8px) rem(12px);
+        margin: 0;
+        width: 100%;
+        resize: none;
+        border: none;
+        border-radius: 5px;
+    }
+button{
+    margin-right: rem(15px) !important;
+}
+
+}
+
+.slid-in-enter-active,
+.slid-in-leave-active {
+    transition: opacity 0.5s ease;
+}
+
+.slid-in-enter-from,
+.slid-in-leave-to {
+    opacity: 0;
 }
