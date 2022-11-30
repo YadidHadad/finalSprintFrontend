@@ -1,17 +1,20 @@
 <template>
     <section class="group-list">
-        <button v-if="!isFormOpen" @click="toggleForm"><span>+ </span>Add a list</button>
-        <form v-if="isFormOpen" @submit.prevent="$emit('addGroup', {...this.group })">
+        <ul>
+            <group v-for="group in groups" :group="group" :key="group.id" />
+        </ul>
+        <button v-if="!isFormOpen" @click="toggleForm"><span class="icomoon icon-add"></span>Add a list</button>
+        <form v-if="isFormOpen" @submit.prevent="$emit('addGroup', { ...this.group })">
             <input v-model="group.title" type="text" name="add-list" placeholder="Enter list title...">
             <button>Add list</button>
             <button type="button" @click="toggleForm">X</button>
         </form>
-        <group v-for="group in groups" :key="group.id" />
     </section>
 </template>
 
 <script>
 import group from './group.vue';
+import { utilService } from '../services/util.service.js';
 export default {
     name: 'group-list',
     props: {
@@ -25,6 +28,7 @@ export default {
         return {
             isFormOpen: false,
             group: {
+                id: utilService.makeId(),
                 title: ''
             }
         }

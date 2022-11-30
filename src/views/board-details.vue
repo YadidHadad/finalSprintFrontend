@@ -22,8 +22,8 @@ export default {
     },
     methods: {
         addNewGroup(group) {
-            console.log(group);
-            this.$store.dispatch({type:'', })
+            this.board.groups.push(group)
+            this.$store.dispatch({ type: 'addBoard', board: { ...this.board } })
         }
     },
     components: {
