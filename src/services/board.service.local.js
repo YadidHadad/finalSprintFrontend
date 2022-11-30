@@ -46,10 +46,13 @@ function saveTask(boardId, groupId, task, activity) {
     // return board
     // return task
 }
-async function saveGroup(boardId, groupId, activity) {
+async function saveGroup(boardId, group, activity) {
     try {
         const board = await getById(boardId)
-        
+        board.groups.push(group)
+        const newBoard = await save(board)
+
+
     }
     catch {
 
@@ -123,6 +126,23 @@ function getEmptyBoard(
 //         {},
 //         { backgroundColor: "red" },
 //         ['important', 'urgent'],
+//         [
+//             {
+//                 "id": "g101",
+//                 "title": "Group 1",
+//                 "archivedAt": 1589983468418,
+//                 "tasks": [
+//                     {
+//                         "id": "c101",
+//                         "title": "Replace logo"
+//                     },
+//                     {
+//                         "id": "c102",
+//                         "title": "Add Samples"
+//                     }
+//                 ],
+//                 "style": {}
+//             }],
 //         [],
 //         []))
 //     await storageService.post(STORAGE_KEY, getEmptyBoard(
@@ -131,6 +151,23 @@ function getEmptyBoard(
 //         {},
 //         { backgroundColor: "red" },
 //         ['important', 'urgent', 'best'],
+//         [
+//             {
+//                 "id": "g101",
+//                 "title": "Group 1",
+//                 "archivedAt": 1589983468418,
+//                 "tasks": [
+//                     {
+//                         "id": "c101",
+//                         "title": "Replace logo"
+//                     },
+//                     {
+//                         "id": "c102",
+//                         "title": "Add Samples"
+//                     }
+//                 ],
+//                 "style": {}
+//             },],
 //         [],
 //         []))
 //     await storageService.post(STORAGE_KEY, getEmptyBoard(

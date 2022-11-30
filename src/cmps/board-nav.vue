@@ -1,9 +1,14 @@
 <template>
-    <section class="board-nav flex column" :style="style" :class="{ isDark: isDark }">
+    <section class="board-nav flex column" :style="style" :class="{ isDark: isDark }, { navIsHidden: navIsHidden }">
+        <div class="nav-title flex row align-center justify-between" :class="{ isDark: isDark }">
+            <span>Workspace</span>
+            <button class="btn-regular btn-toggle" @click="toggleBoardNav"> <span
+                    class="fa-solid arrow-icon"></span></button>
+        </div>
 
         <button v-for="btn in btns" class="btn-nav" :class="{ isDark: isDark }">
             <span :class="btn.icon"></span>
-            {{ btn.txt }}
+            <span>{{ btn.txt }}</span>
         </button>
         <div class="nav-title flex row align-center justify-between">
             <span>Your Boards</span>
@@ -28,7 +33,7 @@ export default {
     },
     data() {
         return {
-
+            navIsHidden: true,
             btns: [
                 {
                     txt: 'Boards',
@@ -45,7 +50,11 @@ export default {
             ]
         }
     },
-    methods: {},
+    methods: {
+        toggleBoardNav() {
+            this.navIsHidden = !this.navIsHidden
+        }
+    },
     computed: {
         style() {
             if (!this.rgb) return false
