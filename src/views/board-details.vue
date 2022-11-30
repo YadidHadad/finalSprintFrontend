@@ -1,14 +1,17 @@
 <template>
     <section class="board-details" v-if="board" :style="boardBGC">
         <board-nav></board-nav>
-        <h1>{{ board.title }}</h1>
+        <board-header :board-header="board.title" />
+        <group-list @addGroup="addNewGroup" :groups="board.groups" />
     </section>
 
 </template>
 
 <script>
 import { boardService } from '../services/board.service.local'
-import { FastAverageColor } from 'fast-average-color';
+import boardHeader from '.././cmps/board-header.vue'
+import groupList from '../cmps/group-list.vue'
+import { FastAverageColor } from 'fast-average-color'
 
 import boardNav from '../cmps/board-nav.vue'
 
@@ -25,7 +28,9 @@ export default {
         }
     },
     components: {
-        boardNav
+        boardNav,
+        boardHeader,
+        groupList
     },
     async created() {
         const { id } = this.$route.params
@@ -44,6 +49,10 @@ export default {
             } catch (err) {
                 console.log(`err:`, err)
             }
+        },
+        addNewGroup(group) {
+            this.board.groups.push(group)
+            this.$store.dispatch({ type: 'addBoard', board: { ...this.board } })
         }
     },
 
