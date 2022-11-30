@@ -109,8 +109,6 @@ const board = {
                 {
                     "id": "c104",
                     "title": "Help me",
-                    "status": "in-progress", // monday
-                    "priority": "high",//monday
                     "description": "description",
                     "comments": [
                         {

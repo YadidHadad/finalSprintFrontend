@@ -1,12 +1,19 @@
 <template>
     <section class="group-list flex">
-            <group v-for="group in groups" :group="group" :boardId="boardId" :key="group.id" />
-        <button v-if="!isFormOpen" @click="toggleForm"><span class="fa-regular plus-icon"></span> Add a list</button>
-        <form v-if="isFormOpen" @submit.prevent="$emit('addGroup', { ...this.group })">
-            <input v-model="group.title" type="text" name="add-list" placeholder="Enter list title...">
-            <button>Add list</button>
-            <button type="button" @click="toggleForm">X</button>
-        </form>
+        <group @addTask="$emit('addTask', $event)" v-for="group in groups" :group="group" :boardId="boardId"
+            :key="group.id" />
+        <section class="add-new-list">
+            <button class="open-add-list" v-if="!isFormOpen" @click="toggleForm"><span
+                    class="fa-regular plus-icon"></span> Add a
+                list</button>
+            <form v-if="isFormOpen" @submit.prevent="$emit('addGroup', { ...this.group })" class="flex ">
+                <input v-model="group.title" type="text" name="add-list" placeholder="Enter list title...">
+                <div class="add-list-btns">
+                    <button class="add-list-btn">Add list</button>
+                    <button type="button" @click="toggleForm">X</button>
+                </div>
+            </form>
+        </section>
     </section>
 </template>
 
