@@ -1,8 +1,27 @@
 header {
-    background-color: $clr5;
-    padding: 10px;
+    // background-color: $clr5;
+    padding: 6px 4px;
     display: flex;
     justify-content: space-between;
+    font-size: 0.8rem;
+
+    .header-btn{
+        height: 32px;
+        min-width: 32px;
+        padding: 0 0.5rem;
+        font-size: 20px;
+        
+    }
+
+    .create-btn{
+        @include btn;
+    }
+
+    .logo{
+        padding: 0 0.5rem;
+        font-family: "kanit-regular";
+        font-weight: bold;
+    }
 
     .loggedin-user {
         background-color: $clr1;
