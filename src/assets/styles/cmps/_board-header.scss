@@ -1,0 +1,15 @@
+.board-header {
+    padding: 1rem;
+    width: 100%;
+    min-height: 100px;
+    color: $textDark;
+    &.isDark {
+        color: $textLight;
+    }
+
+    h1 {
+        font-size: 2rem;
+        font-family: "kanit-regular";
+        font-weight: bold;
+    }
+}

@@ -42,7 +42,23 @@ function saveTask(boardId, groupId, task, activity) {
 
     // TODO: find the task, and update
     board.activities.unshift(activity)
-    saveBoard(board)
+    save(board)
+    // return board
+    // return task
+}
+async function saveGroup(boardId, groupId, activity) {
+    try {
+        const board = await getById(boardId)
+        
+    }
+    catch {
+
+    }
+
+
+    // TODO: find the task, and update
+    board.activities.unshift(activity)
+    save(board)
     // return board
     // return task
 }
@@ -100,61 +116,61 @@ function getEmptyBoard(
 }
 
 
-// ; (async () => {
-//     await storageService.post(STORAGE_KEY, getEmptyBoard(
-//         'Amir and Gal',
-//         true,
-//         {},
-//         { backgroundColor: "red" },
-//         ['important', 'urgent'],
-//         [],
-//         []))
-//     await storageService.post(STORAGE_KEY, getEmptyBoard(
-//         'Yadid',
-//         false,
-//         {},
-//         { backgroundColor: "red" },
-//         ['important', 'urgent', 'best'],
-//         [],
-//         []))
-//     await storageService.post(STORAGE_KEY, getEmptyBoard(
-//         "Testing board", //title
-//         false, //isStarred
-//         {}, //createdBy
-//         {}, //style
-//         [ //labels
-//             {
-//                 "id": "l101",
-//                 "title": "Done",
-//                 "color": "#61bd4f"
-//             },
-//             {
-//                 "id": "l102",
-//                 "title": "Progress",
-//                 "color": "#61bd33"
-//             }
-//         ],
-//         [ //groups
-//         {
-//             "id": "g101",
-//             "title": "Group 1",
-//             "archivedAt": 1589983468418,
-//             "tasks": [
-//                 {
-//                     "id": "c101",
-//                     "title": "Replace logo"
-//                 },
-//                 {
-//                     "id": "c102",
-//                     "title": "Add Samples"
-//                 }
-//             ],
-//             "style": {}
-//         },
-//     ],
-//     [], //members
-//     [], //activities
-//     ))
+; (async () => {
+    await storageService.post(STORAGE_KEY, getEmptyBoard(
+        'Amir and Gal',
+        true,
+        {},
+        { backgroundColor: "red" },
+        ['important', 'urgent'],
+        [],
+        []))
+    await storageService.post(STORAGE_KEY, getEmptyBoard(
+        'Yadid',
+        false,
+        {},
+        { backgroundColor: "red" },
+        ['important', 'urgent', 'best'],
+        [],
+        []))
+    await storageService.post(STORAGE_KEY, getEmptyBoard(
+        "Testing board", //title
+        false, //isStarred
+        {}, //createdBy
+        {}, //style
+        [ //labels
+            {
+                "id": "l101",
+                "title": "Done",
+                "color": "#61bd4f"
+            },
+            {
+                "id": "l102",
+                "title": "Progress",
+                "color": "#61bd33"
+            }
+        ],
+        [ //groups
+            {
+                "id": "g101",
+                "title": "Group 1",
+                "archivedAt": 1589983468418,
+                "tasks": [
+                    {
+                        "id": "c101",
+                        "title": "Replace logo"
+                    },
+                    {
+                        "id": "c102",
+                        "title": "Add Samples"
+                    }
+                ],
+                "style": {}
+            },
+        ],
+        [], //members
+        [], //activities
+    ))
 
 
-// })()
+})()

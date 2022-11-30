@@ -1,7 +1,48 @@
-.board-nav{
-    width: 260px ;
+.board-nav {
+    width: 260px;
     height: 100%;
-    background-color: lightblue;
-    opacity: 0.8;
     backdrop-filter: blur(2px);
+    padding: 12px 0 0 0;
+    box-shadow: inset -1px 0px 0px rgba(255, 255, 255, 0.33);
+
+    & * {
+        color: $textDark;
+    }
+
+    &.isDark {
+        box-shadow: inset -1px 0px 0px rgba(255, 255, 255, 0.33);
+
+        * {
+            color: $textLight;
+        }
+    }
+
+    .btn {
+        &-nav {
+            @include btn($type: "board-nav");
+
+            border-radius: 0;
+            color: white;
+            padding-inline-start: 1rem;
+
+            span {
+                margin-inline-end: 0.5rem;
+            }
+        }
+        &-regular {
+            @include btn($type: "board-nav");
+
+            border-radius: 3px;
+            height: 2rem;
+            aspect-ratio: 1/1;
+            color: white;
+            margin-inline-start: 0;
+            margin-inline-end: 1rem;
+        }
+    }
+    .nav-title {
+        font-weight: bold;
+        margin-block-start: 1rem;
+        padding-inline-start: 1rem;
+    }
 }

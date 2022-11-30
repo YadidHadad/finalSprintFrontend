@@ -1,26 +1,61 @@
 <template>
-    <section v-if="color" class="board-nav" :style="style">
+    <section class="board-nav flex column" :style="style" :class="{ isDark: isDark }">
+
+        <button v-for="btn in btns" class="btn-nav" :class="{ isDark: isDark }">
+            <span :class="btn.icon"></span>
+            {{ btn.txt }}
+        </button>
+        <div class="nav-title flex row align-center justify-between">
+            <span>Your Boards</span>
+            <button class="btn-regular"> <span class="fa-regular plus-icon"></span></button>
+        </div>
+
+
     </section>
 </template>
+
+
+
 <script>
+import { utilService } from '../services/util.service'
+
 export default {
     name: 'board-nav',
-    props: ['color'],
+    props: ['rgb'],
     components: {},
     created() {
 
     },
     data() {
-        return {}
+        return {
+
+            btns: [
+                {
+                    txt: 'Boards',
+                    icon: 'fa-brands trello-icon'
+                },
+                {
+                    txt: 'Members',
+                    icon: 'fa-regular user-icon'
+                },
+                {
+                    txt: 'Settings',
+                    icon: 'fa-solid settings-icon'
+                },
+            ]
+        }
     },
     methods: {},
     computed: {
         style() {
-
-
-
-            console.log(this.color)
-            return { backgroundColor: this.color.rgb } || { backgroundColor: white }
+            if (!this.rgb) return false
+            console.log(this.rgb.value)
+            console.log(`rgba(${+this.rgb.value[0] + 20},${+this.rgb.value[1] + 20},${+this.rgb.value[2] + 20}, 0.5)`)
+            return this.rgb.isDark ? utilService.getBCG(this.rgb.value, 0, 0.8) : utilService.getBCG(this.rgb.value, -0, 0.8)
+        },
+        isDark() {
+            if (!this.rgb) return false
+            return this.rgb.isDark
         }
     },
 }

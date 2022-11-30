@@ -1,9 +1,9 @@
 <template>
   <section class="main-layout">
     <user-msg />
-    <app-header :style="headerColor" />
+    <app-header :rgb="getRGB" />
     <main class="app-main">
-      <router-view @setHeaderColor="setHeaderColor" />
+      <router-view @setRGB="setRGB" />
     </main>
   </section>
 </template>
@@ -28,6 +28,8 @@ export default {
   },
   data() {
     return {
+      rgb: null,
+      isDark: false
     }
   },
   components: {
@@ -35,17 +37,15 @@ export default {
     userMsg
   },
   methods: {
-
-
-
-    headerColor(color) {
-
-      console.log(color)
-      // return { backgroundColor: this.color.rgb } || { backgroundColor: white }
+    setRGB(rgb) {
+      this.rgb = rgb
+      this.isDark = rgb.isDark
     }
-
-
-
+  },
+  computed: {
+    getRGB() {
+      return this.rgb
+    },
 
   },
 }

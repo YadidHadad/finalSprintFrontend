@@ -1,13 +1,15 @@
 <template>
-    <section class="board-details" v-if="board" :style="boardBGC">
-        <board-nav></board-nav>
-        <board-header :board-header="board.title" />
-        <group-list @addGroup="addNewGroup" :groups="board.groups" :boardId="board._id"/>
-
+    <section v-if="board" class="board-details flex row" :style="boardBGC">
+        <board-nav :rgb="rgb"></board-nav>
+        <section class="flex column grow">
+            <board-header :title="board.title" :class="{ isDark: rgb.isDark }" :rgb="rgb" />
+            <group-list @addTask="addNewTask" @addGroup="addNewGroup" :groups="board.groups" :boardId="board._id" />
+        </section>
         <router-view class="task-details-view"></router-view>
     </section>
 
 </template>
+
 
 <script>
 import { boardService } from '../services/board.service.local'
@@ -24,8 +26,11 @@ export default {
     data() {
         return {
             board: null,
-            style: 'src/assets/img/bgc-img-2.jpg',
-            color: null
+            style: 'src/assets/img/bgc-img-3.jpg',
+            rgb: {
+                value: [],
+                isDark: false,
+            },
 
         }
     },
@@ -37,9 +42,12 @@ export default {
     async created() {
         const { id } = this.$route.params
         this.board = await boardService.getById(id)
-        this.color = await this.avgColor()
-        console.log(this.color)
-        this.$emit('setHeaderColor', this.color)
+        const avgColor = await this.avgColor()
+        console.log(avgColor)
+        this.rgb.value = avgColor.value
+        this.rgb.isDark = avgColor.isDark
+        console.log(this.rgb)
+        this.$emit('setRGB', this.rgb)
 
 
     },
@@ -48,6 +56,7 @@ export default {
             const url = this.style
             try {
                 const color = await fac.getColorAsync(url)
+                console.log(`avg color:`, color)
                 return color
             } catch (err) {
                 console.log(`err:`, err)
@@ -56,14 +65,20 @@ export default {
         addNewGroup(group) {
             this.board.groups.push(group)
             this.$store.dispatch({ type: 'addBoard', board: { ...this.board } })
+        },
+        addNewTask(group) {
+            this.board.groups.push(group)
+            this.$store.dispatch({ type: 'addBoard', board: { ...this.board } })
         }
     },
 
     computed: {
         boardBGC() {
             return { backgroundImage: `url(${this.style})` }
-
         },
+        color() {
+            return this.rgb
+        }
     },
 }
 </script>

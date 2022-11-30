@@ -1,27 +1,27 @@
 /* Breakpoint mixins */
 
 @mixin for-mobile-layout {
-    @media (max-width: calc($mobile-breakpoint + 40px)) {
-        @content;
-    }
+  @media (max-width: calc($mobile-breakpoint + 40px)) {
+    @content;
+  }
 }
 
 @mixin for-narrow-layout {
-    @media (min-width: calc($mobile-breakpoint + 40px)) {
-        @content;
-    }
+  @media (min-width: calc($mobile-breakpoint + 40px)) {
+    @content;
+  }
 }
 
 @mixin for-normal-layout {
-    @media (min-width: calc($narrow-breakpoint + 40px)) {
-        @content;
-    }
+  @media (min-width: calc($narrow-breakpoint + 40px)) {
+    @content;
+  }
 }
 
 @mixin for-wide-layout {
-    @media (min-width: calc($normal-breakpoint + 40px)) {
-        @content;
-    }
+  @media (min-width: calc($normal-breakpoint + 40px)) {
+    @content;
+  }
 }
 
 // @mixin layoutGTC($max) {
@@ -33,99 +33,100 @@
 
 /* Media  Mixins */
 @mixin aspect-ratio($width, $height) {
-    position: relative;
-    overflow: hidden;
-    &::before {
-      display: block;
-      content: "";
-      width: 100%;
-      padding-top: calc(($height / $width) * 100%);
-    }
-    > * {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-    }
-  
-    > img {
-      height: 100%;
-      object-fit: cover;
-    }
+  position: relative;
+  overflow: hidden;
+  &::before {
+    display: block;
+    content: "";
+    width: 100%;
+    padding-top: calc(($height / $width) * 100%);
   }
-  
-  // Mixin for removing hover efects on iphone screen
-  @mixin hover-supported {    
-    @media not all and (pointer: coarse) {
-        &:hover {
-            @content;
-        }
-    }
+  > * {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
   }
 
+  > img {
+    height: 100%;
+    object-fit: cover;
+  }
+}
 
-  
-  // Buttons
-  
-  @mixin btn($type: regular, $bg: $clr1, $clr: $clr3, $padding: em(24px) em(44px), $hover: darken($bg, 8%)) {
-    display: inline-flex;
-    align-items: center;
-    text-decoration: none;
-    // text-transform: uppercase;
-    border-radius: 3px;
-    padding: 4px 6px;
-    line-height: 1.25;
-    font-size: 14px;
+// Mixin for removing hover efects on iphone screen
+@mixin hover-supported {
+  @media not all and (pointer: coarse) {
+    &:hover {
+      @content;
+    }
+  }
+}
+
+// Buttons
+
+@mixin btn($type: regular, $bg: $clr1, $clr: $clr3, $padding: em(8px) em(8px), $hover: darken($bg, 50%)) {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  // text-transform: uppercase;
+  border-radius: 3px;
+  padding: $padding;
+  line-height: 1.25;
+  font-size: 1rem;
+  font-variation-settings: "wght" 430;
+  border: none;
+  cursor: pointer;
+
+  transition: background-color 0.2s;
+
+  @if $type == regular {
+    &:hover {
+      filter: brightness(120%) !important;
+    }
+
+    &.isDark:hover {
+      filter: brightness(80%) !important;
+    }
+  } @else if $type == "board-nav" {
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+  }
+  // } @else if $type == dark {
+  //   // background-color: $clr2;
+  //   // color: $clr3;
+  //   &:hover {
+  //     background-color: $clr1;
+  //     color: $clr3;
+  //   }
+  // } @else if $type == light {
+  //   // background-color: $clr3;
+  //   // color: $clr2;
+  //   &:hover {
+  //     background-color: $clr1;
+  //     color: $clr3;
+  //   }
+  // }
+}
+
+// Type
+
+@mixin type($type: bold) {
+  // type options:
+  // 1.bold
+  // 2.boldCondensed
+  // 3.condensed
+  @if $type == bold {
     font-variation-settings: "wght" 430;
-    border: none;
-    cursor: pointer;
-  
-    transition: background-color 0.2s;
-  
-    @if $type == regular {
-      background-color: $bg;
-      color: $clr;
-      &:hover {
-        background-color: $hover;
-      }
-    } @else if $type == dark {
-      background-color: $clr2;
-      color: $clr3;
-      &:hover {
-        background-color: $clr1;
-        color: $clr3;
-      }
-    } @else if $type == light {
-      background-color: $clr3;
-      color: $clr2;
-      &:hover {
-        background-color: $clr1;
-        color: $clr3;
-      }
-    }
+  } @else if $type == boldCondensed {
+    font-variation-settings: "wght" 430, "wdth" 80;
+    letter-spacing: em(6.72px);
+  } @else if $type == condensed {
+    font-variation-settings: "wdth" 80;
+    letter-spacing: em(6.72px);
+  } @else if $type == light {
+    font-variation-settings: "wght" 200;
   }
-  
-  // Type
-  
-  @mixin type($type: bold) {
-    // type options: 
-    // 1.bold 
-    // 2.boldCondensed 
-    // 3.condensed
-    @if $type == bold {
-      font-variation-settings: "wght" 430;
-    } 
-    @else if $type == boldCondensed {
-      font-variation-settings: "wght" 430, "wdth" 80;
-      letter-spacing: em(6.72px);
-    } 
-    @else if $type == condensed {
-      font-variation-settings: "wdth" 80;
-      letter-spacing: em(6.72px);
-    }
-    @else if $type == light {
-      font-variation-settings: "wght" 200;
-    }
-  }
-  
+}
