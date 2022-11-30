@@ -72,37 +72,37 @@ function getEmptyBoard(
     createdBy = {},
     style = {},
     labels = [],
+    groups=[],
     members = [],
     activities = []) {
     return {
-        _id: utilService.makeId(),
         title,
         isStarred,
         createdBy,
         style,
         labels,
+        groups,
         members,
         activities,
     }
 }
 
 
-// TEST DATA
 // ; (async () => {
 //     await storageService.post(STORAGE_KEY, getEmptyBoard(
-//         title = 'Amir and Gal',
-//         isStarred = true,
-//         createdBy = {},
-//         style = { backgroundColor: "red" },
-//         labels = ['important', 'urgent'],
-//         members = [],
-//         activities = []))
+//         'Amir and Gal',
+//         true,
+//         {},
+//         { backgroundColor: "red" },
+//         ['important', 'urgent'],
+//         [],
+//         []))
 //     await storageService.post(STORAGE_KEY, getEmptyBoard(
-//         title = 'Yadid',
-//         isStarred = false,
-//         createdBy = {},
-//         style = { backgroundColor: "red" },
-//         labels = ['important', 'urgent', 'best'],
-//         members = [],
-//         activities = []))
+//         'Yadid',
+//         false,
+//         {},
+//         { backgroundColor: "red" },
+//         ['important', 'urgent', 'best'],
+//         [],
+//         []))
 // })()

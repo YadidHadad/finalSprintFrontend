@@ -1,0 +1,14 @@
+.board-preview {
+    width: 200px;
+    border-radius: 20px;
+    background-color: $clr2;
+    color: $clr1;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    h2 {
+        margin: 0;
+    }
+}
