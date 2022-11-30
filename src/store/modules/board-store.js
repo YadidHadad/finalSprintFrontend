@@ -2,14 +2,23 @@ import { boardService } from '../../services/board.service.local'
 
 export const boardStore = {
     state: {
-        boards: []
+        boards: [],
+        editedTask: null,
+        board: null
     },
     getters: {
         boards({ boards }) { return boards },
+        getEditedTask({ editedTask }) { return editedTask },
+        board({ board }) { return board },
     },
     mutations: {
         setBoards(state, { boards }) {
             state.boards = boards
+        },
+        setBoard(state, { boardId }) {
+            const currBoard = state.boards.find(b => b._id === boardId)
+            state.board = currBoard
+            console.log(currBoard);
         },
         addBoard(state, { board }) {
             state.boards.push(board)
@@ -22,14 +31,50 @@ export const boardStore = {
         removeBoard(state, { boardId }) {
             state.boards = state.boards.filter(board => board._id !== boardId)
         },
-        getTaskById(state, {taskId}) {
-            console.log(taskId);
-        }
-        // addBoardMsg(state, { boardId, msg }) {
-        //     const board = state.boards.find(board => board._id === boardId)
-        //     if (!board.msgs) board.msgs = []
-        //     board.msgs.push(msg)
-        // },
+        updateTask(state, { payload }) {
+            const idx = state.boards.findIndex(b => b._id === payload.boardId)
+            console.log(idx);
+            state.boards[idx].groups.forEach(g => {
+                if (g.tasks) {
+                    const taskIdx = g.tasks.findIndex(t => t.id === payload.task.id)
+                    if (taskIdx !== -1) {
+                        g.tasks.splice(taskIdx, 1, payload.task)
+                    }
+                    console.log(state.boards);
+                }
+            })
+        },
+        setEditedTask(state, { taskId }) {
+            // state.boards.some(board => {
+            //     board.tasks.find(task => {
+            //         if(task.id === taskId) {
+            //             state.editedTask = task
+            //             return true
+            //         }
+            //         return false
+            //     })
+            // })
+            state.boards.forEach(board => {
+                if (board.groups) {
+                    board.groups.forEach(group => {
+                        if (group.tasks) {
+                            group.tasks.forEach(task => {
+                                if (task.id === taskId)
+                                    state.editedTask = task
+                            })
+                        }
+                    })
+                }
+            })
+
+            console.log(state.editedTask);
+
+            // addBoardMsg(state, { boardId, msg }) {
+            //     const board = state.boards.find(board => board._id === boardId)
+            //     if (!board.msgs) board.msgs = []
+            //     board.msgs.push(msg)
+            // },
+        },
     },
     actions: {
         async addBoard(context, { board }) {
@@ -71,9 +116,13 @@ export const boardStore = {
                 throw err
             }
         },
-        async updateTask(task, activity) {
+        updateTask(context, { payload }) {
             //update the task add new activity
             //and send socket to server task-updated
+            context.commit({ type: 'updateTask', payload })
+            const board = context.state.boards.find(b => b._id === payload.boardId)
+            // console.log(board);
+            boardService.save(board)
         }
         // async addBoardMsg(context, { boardId, txt }) {
         //     try {

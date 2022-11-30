@@ -46,10 +46,13 @@ function saveTask(boardId, groupId, task, activity) {
     // return board
     // return task
 }
-async function saveGroup(boardId, groupId, activity) {
+async function saveGroup(boardId, group, activity) {
     try {
         const board = await getById(boardId)
+        board.groups.push(group)
+        const newBoard = await save(board)
         
+
     }
     catch {
 

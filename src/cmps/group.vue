@@ -3,9 +3,7 @@
         <h1>{{ group.title }}</h1>
         <ul>
             <li v-for="task in group.tasks" :key="task.id">
-                <router-link :to="`/board/${boardId}/task/${task.id}`">
-                    <task-preview :task="task" />
-                </router-link>
+                    <task-preview :task="task" :boardId="boardId"/>
             </li>
         </ul>
         <button v-if="!isCardOpen" @click="toggleCard"><span class="fa-regular plus-icon"></span> Add a card</button>

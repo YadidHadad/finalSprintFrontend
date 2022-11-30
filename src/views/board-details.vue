@@ -5,6 +5,7 @@
             <board-header :title="board.title" :class="{ isDark: rgb.isDark }" :rgb="rgb" />
             <group-list @addTask="addNewTask" @addGroup="addNewGroup" :groups="board.groups" :boardId="board._id" />
         </section>
+        <router-view class="task-details-view"></router-view>
     </section>
 
 </template>
@@ -17,6 +18,7 @@ import groupList from '../cmps/group-list.vue'
 import { FastAverageColor } from 'fast-average-color'
 
 import boardNav from '../cmps/board-nav.vue'
+import { boardStore } from '../store/modules/board-store'
 
 const fac = new FastAverageColor();
 
@@ -61,13 +63,36 @@ export default {
                 console.log(`err:`, err)
             }
         },
-        addNewGroup(group) {
+
+        async addNewGroup(group) {
             this.board.groups.push(group)
-            this.$store.dispatch({ type: 'addBoard', board: { ...this.board } })
+            try {
+                this.$store.dispatch({ type: 'addBoard', board: { ...this.board } })
+
+            }
+            catch (err) {
+                this.board.groups.pop()
+            }
         },
-        addNewTask(group) {
+        // 
+        async addNewTask(group) {
+            // optimistic
             this.board.groups.push(group)
-            this.$store.dispatch({ type: 'addBoard', board: { ...this.board } })
+            try {
+                this.$store.dispatch({ type: 'addBoard', board: { ...this.board } })
+            } catch (err) {
+                this.board.groups.pop()
+            }
+            // pacimict
+            let boardToSave = structuredClone(this.board)
+            boardToSave.groups.push(group)
+            try {
+
+                var board = this.$store.dispatch({ type: 'addBoard', board: boardToSave })
+                this.board = board
+            } catch (err) {
+
+            }
         }
     },
 

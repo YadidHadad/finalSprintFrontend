@@ -38,7 +38,14 @@ export default {
             group: {
                 id: utilService.makeId(),
                 title: ''
-            }
+            },
+        //    activity : {
+        //         "id": utilService.makeId(),
+        //         "txt": "Changed Color",
+        //         "createdAt": Date.now(),
+        //         "byMember": 'Moshe',
+        //         "task": task
+        //     }
         }
     },
     methods: {

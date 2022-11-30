@@ -1,0 +1,11 @@
+.labels-preview {
+    display: flex;
+
+    div {
+        width: 50px;
+    }
+
+    >* {
+        margin-inline-end: 5px;
+    }
+}
