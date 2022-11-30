@@ -9,11 +9,6 @@ import boardDetails from './views/board-details.vue'
 import taskDetails from './views/task-details.vue'
 
 
-
-
-import taskDetailsTest from './views/task-details-test.vue'
-
-
 const routes = [
   {
     path: '/',
@@ -53,7 +48,7 @@ const routes = [
       {
         path: '/board/:id/task/:taskId',
         name: 'task-details',
-        component: taskDetailsTest
+        component: taskDetails
       },
     ]
   },

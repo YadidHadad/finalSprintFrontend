@@ -5,9 +5,7 @@
     <ul v-if="boards" class="board-list">
       <li v-for="board in boards" :key="board._id">
         <pre>{{ board }}</pre>
-        <router-link :to="`/board/${board._id}`">
-          <board-preview :board="board" />
-        </router-link>
+        <board-preview :board="board" @click="goToBoard(board._id)" />
         <button @click="removeBoard(board._id)">x</button>
         <button @click="updateBoard(board)">Update</button>
         <hr />
@@ -96,6 +94,10 @@ export default {
     },
     printBoardToConsole(board) {
       console.log('Board msgs:', board.msgs)
+    },
+    goToBoard(id) {
+      this.$router.push(`/board/${id}`)
+      this.$store.commit({ type: 'setBoard', boardId: id })
     }
   },
   components: {

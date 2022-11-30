@@ -1,10 +1,11 @@
 <template>
     <section v-if="board" class="board-details flex row" :style="boardBGC">
         <board-nav :rgb="rgb"></board-nav>
-        <section class="flex column">
-            <board-header :title="board.title" />
+        <section class="flex column grow">
+            <board-header :title="board.title" :class="{ isDark: rgb.isDark }" :rgb="rgb" />
             <group-list @addTask="addNewTask" @addGroup="addNewGroup" :groups="board.groups" :boardId="board._id" />
         </section>
+        <router-view class="task-details-view"></router-view>
     </section>
 
 </template>
