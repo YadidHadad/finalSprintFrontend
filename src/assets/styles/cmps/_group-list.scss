@@ -1,3 +1,49 @@
 .group-list {
-    gap: 10px
+    margin-top: rem(10px);
+    gap: 10px;
+
+    .add-new-list {
+        width: 272px;
+
+        .open-add-list {
+            background-color: $clr14;
+            width: 100%;
+            padding: rem(6px) rem(8px);
+            color: $clr12;
+        }
+    }
+
+    form {
+        background-color: $clr12;
+        padding: rem(4px);
+
+        gap: 4px;
+
+        input {
+            margin: 0;
+            width: 100%;
+        }
+
+        .add-list-btns {
+            margin: 0 !important;
+        }
+
+        height: fit-content;
+        flex-wrap: wrap;
+
+        button {
+            width: fit-content;
+            margin: 0;
+
+            &.add-list-btn {
+                margin-right: rem(16px);
+                color: $clr12;
+                background-color: $clr3;
+                padding: rem(4px) rem(12px);
+            }
+
+        }
+
+        transition: all 1s;
+    }
 }

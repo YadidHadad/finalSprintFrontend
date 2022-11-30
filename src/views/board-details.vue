@@ -3,7 +3,7 @@
         <board-nav :rgb="rgb"></board-nav>
         <section class="flex column">
             <board-header :title="board.title" />
-            <group-list @addGroup="addNewGroup" :groups="board.groups" :boardId="board._id" />
+            <group-list @addTask="addNewTask" @addGroup="addNewGroup" :groups="board.groups" :boardId="board._id" />
         </section>
     </section>
 
@@ -62,6 +62,10 @@ export default {
             }
         },
         addNewGroup(group) {
+            this.board.groups.push(group)
+            this.$store.dispatch({ type: 'addBoard', board: { ...this.board } })
+        },
+        addNewTask(group) {
             this.board.groups.push(group)
             this.$store.dispatch({ type: 'addBoard', board: { ...this.board } })
         }

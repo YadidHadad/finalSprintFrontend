@@ -42,7 +42,23 @@ function saveTask(boardId, groupId, task, activity) {
 
     // TODO: find the task, and update
     board.activities.unshift(activity)
-    saveBoard(board)
+    save(board)
+    // return board
+    // return task
+}
+async function saveGroup(boardId, groupId, activity) {
+    try {
+        const board = await getById(boardId)
+        
+    }
+    catch {
+
+    }
+
+
+    // TODO: find the task, and update
+    board.activities.unshift(activity)
+    save(board)
     // return board
     // return task
 }
