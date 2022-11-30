@@ -1,7 +1,10 @@
 <template>
   <div class="container home">
+    <span class="fa-brands trello-icon "></span>
+
     <ul v-if="boards" class="board-list">
       <li v-for="board in boards" :key="board._id">
+        <pre>{{board}}</pre>
         <router-link :to="`/board/${board._id}`">
           <board-preview :board="board" />
         </router-link>
@@ -94,7 +97,7 @@ export default {
     }
   },
   components: {
-    boardPreview,
+    boardPreview
   }
 
 

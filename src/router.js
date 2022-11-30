@@ -9,6 +9,10 @@ import boardDetails from './views/board-details.vue'
 import taskDetails from './views/task-details.vue'
 
 
+
+import taskDetailsTest from './views/task-details-test.vue'
+
+
 const routes = [
   {
     path: '/',
@@ -34,6 +38,11 @@ const routes = [
     path: '/user/:id',
     name: 'user-details',
     component: userDetails
+  },
+  {
+    path: '/task',
+    name: 'task-details-test',
+    component: taskDetailsTest
   },
   {
     path: '/board/:id',

@@ -1,36 +1,37 @@
 @font-face {
     font-family: "fa-regular";
-    src: url("../../fonts/fa/fa-regular-400.ttf");
+    src: url(/src/assets/fonts/fa/fa-regular-400.ttf);
+}
+@font-face {
+    font-family: "fa-brands";
+    src: url(/src/assets/fonts/fa/fa-brands-400.ttf);
 }
 @font-face {
     font-family: "kanit-regular";
-    src: url("../../fonts/kanit/Kanit-Regular.ttf");
+    src: url(/src/assets/fonts/kanit/Kanit-Regular.ttf);
 }
 @font-face {
     font-family: "mochlypopne-regular";
-    src: url("../../fonts/mochlypopne/MochiyPopOne-Regular.ttf");
+    src: url(/src/assets/fonts/mochlypopne/MochiyPopOne-Regular.ttf);
 }
 @font-face {
     font-family: "opensans-italic";
-    src: url("../../fonts/opensans/OpenSans-Italic-VariableFont_wdth\,wght.ttf");
+    src: url(/src/assets/fonts/opensans/OpenSans-Italic-VariableFont_wdth\,wght.ttf);
 }
 @font-face {
     font-family: "icomoon";
-    src: url("../../fonts/icomoon/icomoon.ttf");
+    src: url(/src/assets/fonts/icomoon/icomoon.ttf);
 }
 @font-face {
     font-family: "trellicons";
-    src: url("../../fonts/trellicons/trellicons.ttf");
+    src: url(/src/assets/fonts/trellicons/trellicons.ttf);
 }
 
 
 
 .trellicons{
-    font-family: "trellicons";
+    font-family: trellicons;
 
-    &.trello-icon::before{
-        content: '\f181';  
-    }
     &.members-icon::before{
         content: '\f007';  
     }
@@ -96,7 +97,7 @@
 }
 
 
-.fa{
+.fa-regular{
     font-family: "fa-regular";
 
     &.trello-icon::before{
@@ -117,6 +118,14 @@
     }
     &.boards-icon::before{
         content: '\f017';  
+    }
+}
+
+.fa-brands{
+    font-family: "fa-brands";
+
+    &.trello-icon::before{
+        content: '\f181';  
     }
 }
 
