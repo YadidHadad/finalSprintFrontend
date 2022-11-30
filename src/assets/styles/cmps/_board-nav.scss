@@ -4,4 +4,13 @@
     background-color: lightblue;
     opacity: 0.8;
     backdrop-filter: blur(2px);
+
+
+    & * {
+        color: $textDark !important;
+    }
+
+    &.isDark * {
+        color: $textLight !important;
+    }
 }

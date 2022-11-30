@@ -20,7 +20,10 @@ export default {
         return {
             board: null,
             style: 'src/assets/img/bgc-img-2.jpg',
-            color: null
+            color: {
+                rgb: '',
+                isDark: false,
+            },
 
         }
     },
@@ -30,9 +33,12 @@ export default {
     async created() {
         const { id } = this.$route.params
         this.board = await boardService.getById(id)
-        this.color = await this.avgColor()
+        const avgColor = await this.avgColor()
+        console.log(avgColor)
+        this.color.rgb = avgColor.rgb
+        this.color.isDark = avgColor.isDark
         console.log(this.color)
-        this.$emit('setHeaderColor', this.color)
+        this.$emit('setColor', this.color)
 
 
     },
@@ -41,6 +47,7 @@ export default {
             const url = this.style
             try {
                 const color = await fac.getColorAsync(url)
+                console.log(`avg color:`, color)
                 return color
             } catch (err) {
                 console.log(`err:`, err)
