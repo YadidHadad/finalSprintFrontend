@@ -2,7 +2,7 @@
     <div class="group flex column">
         <h1>{{ group.title }}</h1>
         <ul>
-            <li v-for="task in group.tasks">
+            <li v-for="task in group.tasks" :key="group.id">
                 <router-link :to="`/board/${boardId}/task/${task.id}`">
                     <task-preview :task="task"/>
                 </router-link>

@@ -8,7 +8,7 @@
             <input type="text" placeholder="Search labels...">
             <h5>Labels</h5>
             <ul class="label-color-list">
-                <li v-for="(c,index) in baseColors">
+                <li v-for="(c,index) in baseColors" :key="index">
                     <input type="checkbox" @change="updateLabels(index , $event)">
                     <div class="label-color" :style="{ backgroundColor: c }"></div>
                     <span class="fa-regular pen-icon"></span>
