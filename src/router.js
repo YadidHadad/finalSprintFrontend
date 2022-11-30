@@ -1,6 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 
-import kanbanApp from './views/kanban-app.vue'
+import homePage from './views/home-page.vue'
 // import chat from './views/chat.vue'
 // import reviewApp from './views/review-app.vue'
 import loginSignup from './views/login-signup.vue'
@@ -10,15 +10,10 @@ import taskDetails from './views/task-details.vue'
 
 
 const routes = [
-  // {
-  //   path: '/',
-  //   name: 'home',
-  //   component: home
-  // },
   {
     path: '/',
-    name: 'kanban-app',
-    component: kanbanApp
+    name: 'home-page',
+    component: homePage
   },
   // {
   //   path: '/review',
