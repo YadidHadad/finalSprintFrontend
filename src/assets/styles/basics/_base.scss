@@ -14,19 +14,16 @@ html {
 }
 
 body {
-    font-size: rem(18px);
     margin: 0;
+    // background-color: lightblue;
+    font-size: 0.8rem;
+    font-family: "opensans" ;
 }
 
 h1, h2, h3, h4, h5, h6 {
     font-family: caveat;
     margin: 0 0 0.6em;
     line-height: 1;
-}
-
-
-section, main, footer {
-    padding: 5px;
 }
 
 // img {
@@ -45,3 +42,10 @@ a:hover {
     text-decoration: underline;
 }
 
+button {
+    margin: 0;
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}

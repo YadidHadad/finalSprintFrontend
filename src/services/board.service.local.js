@@ -36,6 +36,17 @@ async function remove(boardId) {
     await storageService.remove(STORAGE_KEY, boardId)
 }
 
+function saveTask(boardId, groupId, task, activity) {
+    const board = getById(boardId)
+    // PUT /api/board/b123/task/t678
+
+    // TODO: find the task, and update
+    board.activities.unshift(activity)
+    saveBoard(board)
+    // return board
+    // return task
+}
+
 async function save(board) {
     var savedBoard
     if (board._id) {
@@ -76,6 +87,7 @@ function getEmptyBoard(
     members = [],
     activities = []) {
     return {
+        _id: utilService.makeId(),
         title,
         isStarred,
         createdBy,

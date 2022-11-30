@@ -1,6 +1,7 @@
 <template>
-    <section class="">
-    </section>
+    <button class="fancy-btn">
+        <slot></slot>
+    </button>
 </template>
 <script>
 export default {
@@ -12,8 +13,6 @@ export default {
         return {}
     },
     methods: {},
-    computed: {
-
-    },
+    computed: {},
 }
 </script>
