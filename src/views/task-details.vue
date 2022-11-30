@@ -14,11 +14,12 @@
 export default {
     data() {
         return {
-            task: null
+            // task: null
         }
     },
     created() {
         const { id } = this.$route.params
+        console.log('hi');
         // this.task = this.$store.commit({ type: 'getTaskById', taskId: id })
     },
 }

@@ -2,7 +2,7 @@
     <section class="board-details" v-if="board" :style="boardBGC">
         <board-nav></board-nav>
         <board-header :board-header="board.title" />
-        <group-list @addGroup="addNewGroup" :groups="board.groups" />
+        <group-list @addGroup="addNewGroup" :groups="board.groups" :boardId="board._id"/>
     </section>
 
 </template>

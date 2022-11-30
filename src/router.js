@@ -10,6 +10,7 @@ import taskDetails from './views/task-details.vue'
 
 
 
+
 import taskDetailsTest from './views/task-details-test.vue'
 
 
@@ -39,28 +40,28 @@ const routes = [
     name: 'user-details',
     component: userDetails
   },
-  {
-    path: '/task',
-    name: 'task-details-test',
-    component: taskDetailsTest
-  },
+  // {
+  //   path: '/task',
+  //   name: 'task-details-test',
+  //   component: taskDetailsTest
+  // },
   {
     path: '/board/:id',
     name: 'board-details',
     component: boardDetails,
-    // children: [
-    //   {
-    //     path: '/task/:id',
-    //     name: 'task-details',
-    //     component: taskDetails
-    //   },
-    // ]
+    children: [
+      {
+        path: '/board/:id/task/:taskId',
+        name: 'task-details',
+        component: taskDetailsTest
+      },
+    ]
   },
-  {
-    path: '/task/:id',
-    name: 'task-details',
-    component: taskDetails
-  },
+  // {
+  //   path: '/task/:id',
+  //   name: 'task-details',
+  //   component: taskDetails
+  // },
 ]
 
 
