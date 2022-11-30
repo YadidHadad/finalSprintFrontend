@@ -1,15 +1,15 @@
 <template>
     <section class="labels-edit">
         <div class="labels-edit-header">
-            <h3>Labels</h3>
-            <button @click="closeDetails">X</button>
+            <div class="text-header">Labels</div>
+            <button @click.stop="closeEdit">X</button>
         </div>
         <div class="labels-edit-main">
             <input type="text" placeholder="Search labels...">
-            <h5>Labels</h5>
+            <p>Labels</p>
             <ul class="label-color-list">
                 <li v-for="(c,index) in baseColors" :key="index">
-                    <input type="checkbox" @change="updateLabels(index , $event)">
+                    <input class="check-box" type="checkbox" @change="updateLabels(index , $event)">
                     <div class="label-color" :style="{ backgroundColor: c }"></div>
                     <span class="fa-regular pen-icon"></span>
                 </li>
@@ -27,8 +27,8 @@ export default {
         }
     },
     methods: {
-        closeDetails() {
-            this.$emit('closeDetails')
+        closeEdit() {
+            this.$emit('closeEdit')
         },
         updateLabels(idx) {
             this.$emit('updateLabels' , this.baseColors[idx])

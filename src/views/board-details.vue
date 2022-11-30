@@ -5,7 +5,7 @@
             <board-header :title="board.title" :class="{ isDark: rgb.isDark }" :rgb="rgb" />
             <group-list @addTask="addNewTask" @addGroup="addNewGroup" :groups="board.groups" :boardId="board._id" />
         </section>
-        <router-view class="task-details-view"></router-view>
+        <!-- <router-view class="task-details-view"></router-view> -->
     </section>
 
 </template>

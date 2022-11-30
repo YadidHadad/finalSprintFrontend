@@ -1,11 +1,14 @@
 .task-details {
+    font-size: 1rem;
     background-color: $clr1;
+    min-height: 600px;
     border: 1px solid black;
     position: absolute;
     padding: 0 8px 16px 8px;
     z-index: 100;
     right: 50%;
-    top: 10%;
+    top: 0;
+    bottom: 100px;
     transform: translateX(50%);
     border-radius: 3px;
     display: grid;
@@ -15,7 +18,7 @@
         "header header"
         "main aside";
     grid-template-columns: 1fr 170px;
-    // grid-template-rows: 1fr min-content;
+    grid-template-rows: 100px 1fr;
 
     .task-header {
         grid-area: header;
@@ -31,6 +34,10 @@
         padding-inline-start: 8px;
         padding-inline-end: 16px;
         justify-self: end;
+
+        button {
+            padding: 6px 12px;
+        }
     }
 
     .task-details-main {
@@ -40,9 +47,19 @@
         gap: 10px;
     }
 
+    .desc-container {
+        display: flex;
+        flex-direction: column;
+    }
 
     textarea {
         min-height: 110px;
         padding: 8px 12px;
+    }
+
+    .task-activities {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
 }

@@ -15,15 +15,20 @@
             <button>Cover</button>
         </div>
         <div class="task-details-main">
-            <labels-preview :labels="labels"/>
-            <textarea placeholder="Add a more detailed description..." v-model="task.desc">
-                {{ task.desc }}
-            </textarea>
-        </div>
-        <!-- <div class="task-activities">
-            <h1>activities</h1>
-        </div> -->
+            <labels-preview :labels="labels" />
 
+            <div class="desc-container">
+                <h3>Description</h3>
+                <textarea placeholder="Add a more detailed description..." v-model="task.desc">
+                    {{ task.desc }}
+                </textarea>
+            </div>
+
+            <div class="task-activities">
+                <h1>activities</h1>
+                <button>Show details</button>
+            </div>
+        </div>
 
         <component v-if=detailsPicked.isPicked :is="detailsPicked.type" @closeEdit="closeEdit"
             v-click-outside="closeEdit" @updateLabels="updateLabels">
