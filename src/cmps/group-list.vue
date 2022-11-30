@@ -3,7 +3,7 @@
         <ul>
             <group v-for="group in groups" :group="group" :key="group.id" />
         </ul>
-        <button v-if="!isFormOpen" @click="toggleForm"><span class="icomoon icon-add"></span>Add a list</button>
+        <button v-if="!isFormOpen" @click="toggleForm"><span class="fa-regular plus-icon"></span> Add a list</button>
         <form v-if="isFormOpen" @submit.prevent="$emit('addGroup', { ...this.group })">
             <input v-model="group.title" type="text" name="add-list" placeholder="Enter list title...">
             <button>Add list</button>
