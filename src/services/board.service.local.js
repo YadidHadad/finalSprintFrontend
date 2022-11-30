@@ -72,7 +72,7 @@ function getEmptyBoard(
     createdBy = {},
     style = {},
     labels = [],
-    groups=[],
+    groups = [],
     members = [],
     activities = []) {
     return {
@@ -105,4 +105,44 @@ function getEmptyBoard(
 //         ['important', 'urgent', 'best'],
 //         [],
 //         []))
+//     await storageService.post(STORAGE_KEY, getEmptyBoard(
+//         "Testing board", //title
+//         false, //isStarred
+//         {}, //createdBy
+//         {}, //style
+//         [ //labels
+//             {
+//                 "id": "l101",
+//                 "title": "Done",
+//                 "color": "#61bd4f"
+//             },
+//             {
+//                 "id": "l102",
+//                 "title": "Progress",
+//                 "color": "#61bd33"
+//             }
+//         ],
+//         [ //groups
+//         {
+//             "id": "g101",
+//             "title": "Group 1",
+//             "archivedAt": 1589983468418,
+//             "tasks": [
+//                 {
+//                     "id": "c101",
+//                     "title": "Replace logo"
+//                 },
+//                 {
+//                     "id": "c102",
+//                     "title": "Add Samples"
+//                 }
+//             ],
+//             "style": {}
+//         },
+//     ],
+//     [], //members
+//     [], //activities
+//     ))
+
+
 // })()

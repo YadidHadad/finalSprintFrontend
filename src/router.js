@@ -48,13 +48,18 @@ const routes = [
     path: '/board/:id',
     name: 'board-details',
     component: boardDetails,
-    children: [
-      {
-        path: '/task/:id',
-        name: 'task-details',
-        component: taskDetails
-      },
-    ]
+    // children: [
+    //   {
+    //     path: '/task/:id',
+    //     name: 'task-details',
+    //     component: taskDetails
+    //   },
+    // ]
+  },
+  {
+    path: '/task/:id',
+    name: 'task-details',
+    component: taskDetails
   },
 ]
 
