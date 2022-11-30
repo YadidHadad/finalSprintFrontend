@@ -1,7 +1,6 @@
 <template>
     <section class="group-list flex">
-        <group @addTask="$emit('addTask', $event)" v-for="group in groups" :group="group" :boardId="boardId"
-            :key="group.id" />
+        <group @addTask="addTask" v-for="group in groups" :group="group" :boardId="boardId" :key="group.id" />
         <section class="add-new-list">
             <button class="open-add-list" v-if="!isFormOpen" @click="toggleForm"><span
                     class="fa-regular plus-icon"></span> Add a
@@ -39,18 +38,18 @@ export default {
                 id: utilService.makeId(),
                 title: ''
             },
-        //    activity : {
-        //         "id": utilService.makeId(),
-        //         "txt": "Changed Color",
-        //         "createdAt": Date.now(),
-        //         "byMember": 'Moshe',
-        //         "task": task
-        //     }
+
         }
     },
+    
     methods: {
         toggleForm() {
             this.isFormOpen = !this.isFormOpen
+        },
+
+        addTask(groupId, task, activity) {
+            task.id = utilService.makeId()
+            this.$emit('addTask', groupId, task, activity)
         }
     },
 

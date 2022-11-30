@@ -51,7 +51,7 @@ async function saveGroup(boardId, group, activity) {
         const board = await getById(boardId)
         board.groups.push(group)
         const newBoard = await save(board)
-        
+
 
     }
     catch {
@@ -119,61 +119,95 @@ function getEmptyBoard(
 }
 
 
-; (async () => {
-    await storageService.post(STORAGE_KEY, getEmptyBoard(
-        'Amir and Gal',
-        true,
-        {},
-        { backgroundColor: "red" },
-        ['important', 'urgent'],
-        [],
-        []))
-    await storageService.post(STORAGE_KEY, getEmptyBoard(
-        'Yadid',
-        false,
-        {},
-        { backgroundColor: "red" },
-        ['important', 'urgent', 'best'],
-        [],
-        []))
-    await storageService.post(STORAGE_KEY, getEmptyBoard(
-        "Testing board", //title
-        false, //isStarred
-        {}, //createdBy
-        {}, //style
-        [ //labels
-            {
-                "id": "l101",
-                "title": "Done",
-                "color": "#61bd4f"
-            },
-            {
-                "id": "l102",
-                "title": "Progress",
-                "color": "#61bd33"
-            }
-        ],
-        [ //groups
-            {
-                "id": "g101",
-                "title": "Group 1",
-                "archivedAt": 1589983468418,
-                "tasks": [
-                    {
-                        "id": "c101",
-                        "title": "Replace logo"
-                    },
-                    {
-                        "id": "c102",
-                        "title": "Add Samples"
-                    }
-                ],
-                "style": {}
-            },
-        ],
-        [], //members
-        [], //activities
-    ))
+// ; (async () => {
+//     await storageService.post(STORAGE_KEY, getEmptyBoard(
+//         'Amir and Gal',
+//         true,
+//         {},
+//         { backgroundColor: "red" },
+//         ['important', 'urgent'],
+//         [
+//             {
+//                 "id": "g101",
+//                 "title": "Group 1",
+//                 "archivedAt": 1589983468418,
+//                 "tasks": [
+//                     {
+//                         "id": "c101",
+//                         "title": "Replace logo"
+//                     },
+//                     {
+//                         "id": "c102",
+//                         "title": "Add Samples"
+//                     }
+//                 ],
+//                 "style": {}
+//             }],
+//         [],
+//         []))
+//     await storageService.post(STORAGE_KEY, getEmptyBoard(
+//         'Yadid',
+//         false,
+//         {},
+//         { backgroundColor: "red" },
+//         ['important', 'urgent', 'best'],
+//         [
+//             {
+//                 "id": "g101",
+//                 "title": "Group 1",
+//                 "archivedAt": 1589983468418,
+//                 "tasks": [
+//                     {
+//                         "id": "c101",
+//                         "title": "Replace logo"
+//                     },
+//                     {
+//                         "id": "c102",
+//                         "title": "Add Samples"
+//                     }
+//                 ],
+//                 "style": {}
+//             },],
+//         [],
+//         []))
+//     await storageService.post(STORAGE_KEY, getEmptyBoard(
+//         "Testing board", //title
+//         false, //isStarred
+//         {}, //createdBy
+//         {}, //style
+//         [ //labels
+//             {
+//                 "id": "l101",
+//                 "title": "Done",
+//                 "color": "#61bd4f"
+//             },
+//             {
+//                 "id": "l102",
+//                 "title": "Progress",
+//                 "color": "#61bd33"
+//             }
+//         ],
+//         [ //groups
+//             {
+//                 "id": "g101",
+//                 "title": "Group 1",
+//                 "archivedAt": 1589983468418,
+//                 "tasks": [
+//                     {
+//                         "id": "c101",
+//                         "title": "Replace logo"
+//                     },
+//                     {
+//                         "id": "c102",
+//                         "title": "Add Samples"
+//                     }
+//                 ],
+//                 "style": {}
+//             },
+//         ],
+//         [], //members
+//         [], //activities
+//     ))
 
 
-})()
+// })()

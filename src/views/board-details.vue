@@ -72,27 +72,33 @@ export default {
             }
             catch (err) {
                 this.board.groups.pop()
+                console.log(err);
+                showErrorMsg("Cannot add list");
             }
         },
-        // 
-        async addNewTask(group) {
-            // optimistic
-            this.board.groups.push(group)
+
+        async addNewTask(groupId, task, activity) {
+            const groupIdx = this.board.groups.findIndex((group) => group.id === groupId)
+            this.board.groups[groupIdx].tasks.push(task)
+            this.board.activities.push(activity)
             try {
                 this.$store.dispatch({ type: 'addBoard', board: { ...this.board } })
             } catch (err) {
-                this.board.groups.pop()
+                this.board.groups[groupIdx].tasks.pop()
+                this.board.activities.push(activity.txt = "Cannot add task")
+                console.log(err);
+                showErrorMsg("Cannot add task");
             }
             // pacimict
-            let boardToSave = structuredClone(this.board)
-            boardToSave.groups.push(group)
-            try {
+            // let boardToSave = structuredClone(this.board)
+            // boardToSave.groups.push(group)
+            // try {
 
-                var board = this.$store.dispatch({ type: 'addBoard', board: boardToSave })
-                this.board = board
-            } catch (err) {
+            //     var board = this.$store.dispatch({ type: 'addBoard', board: boardToSave })
+            //     this.board = board
+            // } catch (err) {
 
-            }
+            // }
         }
     },
 
