@@ -1,0 +1,34 @@
+.labels-edit {
+    display: flex;
+    flex-direction: column;
+
+
+    .labels-edit-header {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .labels-edit-main {
+        padding: 12px 12px  0px 12px;
+        display: grid;
+
+        button {
+            justify-self: center;
+        }
+    }
+
+    .label-color-list{
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+
+        li {
+            display: flex;
+        }
+    }
+
+    .label-color {
+        flex-grow: 1;
+        border-radius: 3px;
+    }
+}
