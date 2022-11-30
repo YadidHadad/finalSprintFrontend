@@ -1,5 +1,5 @@
 <template>
-  <section class="main-layout" :style="userBGC">
+  <section class="main-layout">
     <user-msg />
     <app-header />
     <main class="app-main">
@@ -17,9 +17,6 @@ import userMsg from './cmps/user-msg.vue'
 
 import { userService } from './services/user.service'
 
-import { FastAverageColor } from 'fast-average-color';
-
-const fac = new FastAverageColor();
 
 
 export default {
@@ -31,7 +28,6 @@ export default {
   },
   data() {
     return {
-      url: 'src/assets/img/bgc-img-def.jpg'
     }
   },
   components: {
@@ -40,25 +36,8 @@ export default {
   },
   computed: {
 
-    userBGC() {
-      // console.log('back')
-      return { backgroundImage: this.url }
-      // return { backgroundColor: 'red' }
-      // return "{ backgroundColor: 	#880808 }"
-    },
-    avgColor() {
 
-      const url = this.url
 
-      fac.getColorAsync(url)
-        .then(color => {
-          container.style.backgroundColor = color.rgba;
-          container.style.color = color.isDark ? '#fff' : '#000';
-        })
-        .catch(e => {
-          console.log(e);
-        });
-    }
 
   },
 }

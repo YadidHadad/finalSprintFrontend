@@ -1,0 +1,39 @@
+.task-details {
+    background-color: $clr1;
+    border: 1px solid black;
+    border-radius: 3px;
+    display: grid;
+    max-width: 770px;
+    grid-template-areas:
+        "header header"
+        "main aside";
+    grid-template-columns: 1fr 170px;
+    // grid-template-rows: 1fr min-content;
+
+    .task-header {
+        grid-area: header;
+        display: flex;
+        justify-content: space-between;
+        padding: 12px 16px 8px 0px;
+    }
+
+    .task-details-aside {
+        grid-area: aside;
+        display: flex;
+        flex-direction: column;
+        padding-inline-start: 8px;
+        padding-inline-end: 16px;
+        justify-self: end;
+    }
+
+    .task-details-main {
+        grid-area: main;
+        display: flex;
+        flex-direction: column;
+    }
+
+
+    textarea {
+        min-height: 110px;
+    }
+}
