@@ -25,6 +25,7 @@
 </template>
 
 <script>
+
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
 import { boardService } from '../services/board.service.local'
 

@@ -15,6 +15,7 @@ import boardNav from '../cmps/board-nav.vue'
 const fac = new FastAverageColor();
 
 export default {
+
     data() {
         return {
             board: null,
