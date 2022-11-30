@@ -1,12 +1,16 @@
 <template>
-    <section class="board-details" v-if="board">
-        <h1>{{board.title}}</h1>
+    <section class="board" v-if="board">
+        <board-header :board-header="board.title" />
+        <group-list @addGroup="addNewGroup" :groups="board.groups" />
     </section>
 </template>
 
 <script>
 import { boardService } from '../services/board.service.local'
+import boardHeader from '.././cmps/board-header.vue'
+import groupList from '../cmps/group-list.vue'
 export default {
+
     data() {
         return {
             board: null
@@ -16,5 +20,15 @@ export default {
         const { id } = this.$route.params
         this.board = await boardService.getById(id)
     },
+    methods: {
+        addNewGroup(group) {
+            console.log(group);
+            this.$store.dispatch({type:'', })
+        }
+    },
+    components: {
+        boardHeader,
+        groupList
+    }
 }
 </script>

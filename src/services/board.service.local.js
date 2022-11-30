@@ -36,6 +36,17 @@ async function remove(boardId) {
     await storageService.remove(STORAGE_KEY, boardId)
 }
 
+function saveTask(boardId, groupId, task, activity) {
+    const board = getById(boardId)
+    // PUT /api/board/b123/task/t678
+
+    // TODO: find the task, and update
+    board.activities.unshift(activity)
+    saveBoard(board)
+    // return board
+    // return task
+}
+
 async function save(board) {
     var savedBoard
     if (board._id) {
@@ -72,10 +83,11 @@ function getEmptyBoard(
     createdBy = {},
     style = {},
     labels = [],
-    groups=[],
+    groups = [],
     members = [],
     activities = []) {
     return {
+        _id: utilService.makeId(),
         title,
         isStarred,
         createdBy,
@@ -88,21 +100,21 @@ function getEmptyBoard(
 }
 
 
-// ; (async () => {
-//     await storageService.post(STORAGE_KEY, getEmptyBoard(
-//         'Amir and Gal',
-//         true,
-//         {},
-//         { backgroundColor: "red" },
-//         ['important', 'urgent'],
-//         [],
-//         []))
-//     await storageService.post(STORAGE_KEY, getEmptyBoard(
-//         'Yadid',
-//         false,
-//         {},
-//         { backgroundColor: "red" },
-//         ['important', 'urgent', 'best'],
-//         [],
-//         []))
-// })()
+; (async () => {
+    await storageService.post(STORAGE_KEY, getEmptyBoard(
+        'Amir and Gal',
+        true,
+        {},
+        { backgroundColor: "red" },
+        ['important', 'urgent'],
+        [],
+        []))
+    await storageService.post(STORAGE_KEY, getEmptyBoard(
+        'Yadid',
+        false,
+        {},
+        { backgroundColor: "red" },
+        ['important', 'urgent', 'best'],
+        [],
+        []))
+})()
