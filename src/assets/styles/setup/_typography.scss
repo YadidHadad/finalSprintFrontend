@@ -152,6 +152,9 @@
     &.boards-icon::before {
         content: '\f017';
     }
+    &.pen-icon::before{
+        content: '\f044';  
+    }
 }
 
 .fa-brands {

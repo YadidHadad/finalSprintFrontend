@@ -1,7 +1,7 @@
 <template>
     <section class="group-list">
         <ul>
-            <group v-for="group in groups" :group="group" :key="group.id" />
+            <group v-for="group in groups" :group="group" :boardId="boardId" :key="group.id" />
         </ul>
         <button v-if="!isFormOpen" @click="toggleForm"><span class="fa-regular plus-icon"></span> Add a list</button>
         <form v-if="isFormOpen" @submit.prevent="$emit('addGroup', { ...this.group })">
@@ -21,6 +21,9 @@ export default {
         groups: {
             type: Array,
             required: true
+        },
+        boardId: {
+            type: String
         }
     },
 

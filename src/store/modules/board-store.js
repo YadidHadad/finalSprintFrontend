@@ -22,6 +22,9 @@ export const boardStore = {
         removeBoard(state, { boardId }) {
             state.boards = state.boards.filter(board => board._id !== boardId)
         },
+        getTaskById(state, {taskId}) {
+            console.log(taskId);
+        }
         // addBoardMsg(state, { boardId, msg }) {
         //     const board = state.boards.find(board => board._id === boardId)
         //     if (!board.msgs) board.msgs = []

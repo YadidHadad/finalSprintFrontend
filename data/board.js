@@ -23,8 +23,6 @@
 // (later on we can place it in a modal and nested route)
 
 
-
-
 const activity = {
     "id": makeId(),
     "txt": "Changed Color",
@@ -185,6 +183,7 @@ const user = {
         "taskId": "t101"
     }]
 }
+
 
 // <LabelPicker info={} onUpdate={} />
 // <MemberPicker info={} onUpdate={} />

@@ -8,10 +8,10 @@
             <input type="text" placeholder="Search labels...">
             <h5>Labels</h5>
             <ul class="label-color-list">
-                <li v-for="c in baseColors">
-                    <input type="checkbox">
+                <li v-for="(c,index) in baseColors" :key="index">
+                    <input type="checkbox" @change="updateLabels(index , $event)">
                     <div class="label-color" :style="{ backgroundColor: c }"></div>
-                    <span>I</span>
+                    <span class="fa-regular pen-icon"></span>
                 </li>
             </ul>
             <button>Create a new label</button>
@@ -23,12 +23,15 @@
 export default {
     data() {
         return {
-            baseColors: ['#4bbf6b', '#faf3c0', '#fce6c6', '#f5d3ce', '#eddbf4', '#bcd9ea']
+            baseColors: ['#d6ecd2', '#faf3c0', '#fce6c6', '#f5d3ce', '#eddbf4', '#bcd9ea'],
         }
     },
     methods: {
         closeDetails() {
             this.$emit('closeDetails')
+        },
+        updateLabels(idx) {
+            this.$emit('updateLabels' , this.baseColors[idx])
         }
     },
 }

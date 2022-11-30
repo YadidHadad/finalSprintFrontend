@@ -25,7 +25,7 @@
 
 
         <component v-if=detailsPicked.isPicked :is="detailsPicked.type" 
-        @closeDetails="closeDetails" v-click-outside="closeDetails">
+        @closeDetails="closeDetails" v-click-outside="closeDetails" @updateLabels="updateLabels">
             <h2>HI</h2>
         </component>
     </section>
@@ -54,7 +54,6 @@ export default {
         updateTitle(ev) {
             if (typeof ev.data !== 'string') return
             this.task.title += ev.data
-            // console.log(typeof ev.data );
         },
         pickDetails(type) {
             this.detailsPicked.type = type
@@ -65,6 +64,9 @@ export default {
                 isPicked: false,
                 type: ''
             }
+        },
+        updateLabels(color) {
+            console.log(color);
         }
     },
     components: { labelsEdit }
