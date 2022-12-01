@@ -2,19 +2,19 @@
     display: grid;
     grid-template-rows: 44px 1fr;
     grid-template-areas:
-    "appHeader"
-    "appMain" ;
+        "appHeader"
+        "appMain";
     height: 100vh;
     margin: 0;
-
+    width: 100%;
 }
 
-.app-header{
+.app-header {
     grid-area: appHeader;
     // background-color: blue;
 }
 
-.app-main{
+.app-main {
     grid-area: appMain;
 }
 

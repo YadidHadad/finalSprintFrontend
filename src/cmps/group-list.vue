@@ -41,7 +41,7 @@ export default {
 
         }
     },
-    
+
     methods: {
         toggleForm() {
             this.isFormOpen = !this.isFormOpen

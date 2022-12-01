@@ -1,13 +1,22 @@
 .group-list {
-    margin-top: rem(10px);
     gap: 10px;
+    height: 100%;
+    padding: 0.5rem;
+    overflow-x: scroll;
+    width: 100%;
+    margin: 0rem 0 0.5rem 0.5rem;
+
+    & * {
+        font-family: "opensans";
+        font-size: 1rem;
+    }
 
     .add-new-list {
         width: 272px;
 
         .open-add-list {
             background-color: $clr14;
-            width: 100%;
+            min-width: 272px;
             padding: rem(6px) rem(8px);
             color: $clr12;
         }
@@ -41,7 +50,6 @@
                 background-color: $clr3;
                 padding: rem(4px) rem(12px);
             }
-
         }
 
         transition: all 1s;

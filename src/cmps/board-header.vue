@@ -1,12 +1,25 @@
 <template>
-    <section class="board-header flex row align-center">
+    <section class="board-header flex row align-center justify-between wrap">
+        <div class="flex align-center justify-start wrap ">
+            <input type="text" v-model="title" :style="titleLength" />
 
-        <input type="text" v-model="title" :style="titleLength" />
-
-        <button v-for="btn in btns" class="btn" :class="{ isDark: !isDark }" :style="buttonBackground">
-            <span :class="btn.icon"></span>
-            <span v-if="btn.txt" class="txt">{{ btn.txt }}</span>
-        </button>
+            <button v-for="btn in btns" class="btn" :class="{ isDark: !isDark }" :style="buttonBackground">
+                <span :class="btn.icon"></span>
+                <span v-if="btn.txt" class="txt">{{ btn.txt }}</span>
+            </button>
+        </div>
+        <div class="flex align-center justify-end wrap self-end">
+            <button class="btn" :class="{ isDark: !isDark }" :style="buttonBackground">
+                <span class="fa-solid filter-icon"></span>
+                <span class="txt">Filter</span>
+            </button>
+            <button v-for="member in this.members" class="btn-initials">
+                <span>{{ this.getInitials(member.fullName) }}</span>
+            </button>
+            <button class="btn" :class="{ isDark: !isDark }" :style="buttonBackground" @click="toggleBoardMenu">
+                <span class="fa-solid elipsis-icon"></span>
+            </button>
+        </div>
     </section>
 </template>
 
@@ -23,6 +36,14 @@ export default {
             type: String,
             required: true,
         },
+        isStarred: {
+            type: Boolean,
+            required: true,
+        },
+        members: {
+            type: Array,
+            required: true,
+        },
         rgb: {
             type: Object,
             required: true,
@@ -33,10 +54,11 @@ export default {
     data() {
         return {
 
+
             btns: [
                 {
                     txt: null,
-                    icon: 'fa-regular star-icon'
+                    icon: this.isStarred ? 'fa-solid star-icon' : 'fa-regular star-icon'
                 },
                 {
                     txt: 'Board',
@@ -66,6 +88,17 @@ export default {
         }
     },
 
+    methods: {
+        getInitials(fullName) {
+            return `${fullName.split(' ')[0].charAt(0)}${fullName.split(' ')[1].charAt(0)}`
+        },
+        toggleBoardMenu() {
+            console.log('app header')
+            this.$emit('toggleBoardMenu')
+        }
+
+    },
+
     computed: {
         isDark() {
             if (!this.rgb) return false
@@ -73,13 +106,13 @@ export default {
         },
         buttonBackground() {
             if (!this.rgb) return
-            return this.rgb.isDark ? utilService.getBCG(this.rgb.value, 30, 1) : utilService.getBCG(this.rgb.value, -30, 1)
+            return this.rgb.isDark ? utilService.getBCG(this.rgb.value, 30, 0.5) : utilService.getBCG(this.rgb.value, 60, 0.5)
         },
         titleLength() {
 
             if (!this.title) return
             console.log(this.title.length)
-            return { width: `${(this.title.length + 3) * 10}` + 'px' }
+            return { width: `${(this.title.length + 3) * 12}` + 'px' }
         }
     },
 

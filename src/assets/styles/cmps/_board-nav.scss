@@ -1,10 +1,11 @@
 .board-nav {
-    width: 260px;
+    min-width: 260px;
     height: 100%;
     backdrop-filter: blur(2px);
     box-shadow: inset -1px 0px 0px rgba(0, 0, 0, 0.33);
     margin-left: 0px;
     opacity: 1;
+    transition: all 0.3s ease-out;
 
     &.navIsHidden {
         margin-left: -235px;

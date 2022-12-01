@@ -1,17 +1,17 @@
 .group {
     background-color: $clr12;
-    overflow-y:auto;
+    overflow-y: auto;
     border-radius: 5px;
-    width: 272px;
+    min-width: 272px;
     height: fit-content;
     color: $clr13;
     font-size: rem(14px);
     // padding: rem(10px);
     h1 {
-     padding-left: rem(17px); 
-     padding-top: rem(15px);  
+        padding-left: rem(17px);
+        padding-top: rem(15px);
     }
-    button{
+    button {
         padding-left: rem(18px);
     }
 }
