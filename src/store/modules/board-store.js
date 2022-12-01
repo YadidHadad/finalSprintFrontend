@@ -187,6 +187,7 @@ export const boardStore = {
                 }
             }
         },
+
         async updateLabels(context, { payload }) {
             const prevLabels = context.state.board.labels
             const group = context.state.board.groups.find(g => g.id === payload.groupId)

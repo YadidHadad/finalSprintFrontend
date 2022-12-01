@@ -47,7 +47,7 @@ export default {
             activity: {
                 id: utilService.makeId(),
                 txt: "Add new task",
-                createdAt: Date.now(),
+                createdAt: Date.now() , //change this in the service
                 byMember: 'Moshe',
                 task: this.task
             }
