@@ -52,23 +52,13 @@ export const boardStore = {
             group.tasks.splice(taskIdx, 1, payload.task)
         },
 
-        setEditedTask(state, { taskId }) {
-            state.boards.forEach(board => {
-                if (board.groups) {
-                    board.groups.forEach(group => {
-                        if (group.tasks) {
-                            group.tasks.forEach(task => {
-                                if (task.id === taskId)
-                                    state.editedTask = task
-                            })
-                        }
-                    })
-                }
-            })
-        },
-        updateEditedTask(state, { task }) {
+        setEditedTask(state, { taskId, groupId, boardId }) {
+            const board = state.boards.find((board) => board._id === boardId)
+            const group = board.groups.find((group) => group.id === groupId)
+            const task = group.tasks.find((task) => task.id === taskId)
             state.editedTask = task
         },
+
         updateLabels(state, { payload }) {
             // console.log(payload.task.labelIds);
             const labelIdx = state.board.labels.findIndex(l => l.color === payload.label.color)
@@ -173,6 +163,7 @@ export const boardStore = {
         async updateTask(context, { payload }) {
             //update the task add new activity
             //and send socket to server task-updated.
+            console.log('hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii');
             const groupId = payload.groupId
             const taskId = payload.task.id
             const prevGroup = context.state.board.groups.find(g => g.id === groupId)

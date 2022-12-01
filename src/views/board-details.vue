@@ -10,6 +10,7 @@
         <!-- <router-view class="task-details-view"></router-view> -->
     </section>
 
+    <task-details v-if="this.$route.params.taskId"></task-details>
 </template>
 
 
@@ -22,12 +23,13 @@ import boardHeader from '.././cmps/board-header.vue'
 import groupList from '../cmps/group-list.vue'
 import boardNav from '../cmps/board-nav.vue'
 import boardMenu from '../cmps/board-menu.vue'
-import { toHandlers } from 'vue'
-
+import taskDetails from '../views/task-details.vue'
 
 const fac = new FastAverageColor();
 
 export default {
+
+    emits: ['setRGB'],
 
     data() {
         return {
@@ -37,7 +39,6 @@ export default {
                 value: [],
                 isDark: false,
             },
-
         }
     },
 
@@ -46,6 +47,7 @@ export default {
         boardHeader,
         groupList,
         boardMenu,
+        taskDetails
     },
 
     async created() {

@@ -48,7 +48,7 @@ export default {
             this.$emit('closeEdit')
         },
         updateLabels() {
-            this.$emit('updateLabels', { labelIds: this.labelIds })
+            this.$emit('updateTask', { labelIds: this.labelIds })
         },
         editTitle(idx) {
             this.isEditTitle = true
