@@ -65,10 +65,12 @@ async function save(board) {
 }
 
 async function saveTask(boardId, groupId, task, activity) {
-    const board = getById(boardId)
+    console.log(boardId, 'boardId');
+    const board = await getById(boardId)
     // PUT /api/board/b123/task/t678
 
     // TODO: find the task, and update
+    if (!board.activities) board.activities = []
     board.activities.unshift(activity)
     const group = board.groups.find(g => g.id === groupId)
     const taskIdx = group.tasks.find(t => t.id === task.id)
@@ -101,7 +103,6 @@ function getEmptyBoard(
     isStarred = false,
     createdBy = {},
     style = {},
-    labels = [],
     groups = [],
     members = [],
     activities = []) {
@@ -111,13 +112,17 @@ function getEmptyBoard(
         isStarred,
         createdBy,
         style,
-        labels,
+        labels :[{ id: utilService.makeId(), title: '', color: '#d6ecd2' },
+    { id: utilService.makeId(), title: '', color: '#faf3c0' },
+    { id: utilService.makeId(), title: '', color: '#fce6c6' },
+    { id: utilService.makeId(), title: '', color: '#f5d3ce' },
+    { id: utilService.makeId(), title: '', color: '#eddbf4' },
+    { id: utilService.makeId(), title: '', color: '#bcd9ea' }],
         groups,
         members,
         activities,
     }
 }
-
 
 // ; (async () => {
 //     await storageService.post(STORAGE_KEY, getEmptyBoard(
@@ -178,8 +183,8 @@ function getEmptyBoard(
 //         false, //isStarred
 //         {}, //createdBy
 //         {}, //style
-//         [ //labels
-//         ],
+        
+        
 //         [ //groups
 //             {
 //                 "id": "g101",

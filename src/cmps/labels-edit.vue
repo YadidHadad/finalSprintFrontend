@@ -8,10 +8,10 @@
             <input type="text" placeholder="Search labels...">
             <p>Labels</p>
             <ul class="label-color-list">
-                <li v-for="(c, index) in baseColors" :key="index">
+                <li v-for="(label, index) in labels" :key="label.id">
                     <input class="check-box" type="checkbox" @change="updateLabels(index, $event)"
-                        v-model="colorsSelected" :value="c">
-                    <div class="label-color" :style="{ backgroundColor: c }">{{ labelTitle(c) }}</div>
+                        v-model="colorsSelected" :value="label.id">
+                    <div class="label-color" :style="{ backgroundColor: label.color }">{{ labelTitle(label.title) }}</div>
                     <span class="fa-regular pen-icon" @click="editTitle(index)"></span>
                 </li>
                 <div class="edit-title-container">
