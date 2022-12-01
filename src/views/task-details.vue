@@ -76,7 +76,7 @@ export default {
         const { id, taskId, groupId } = this.$route.params;
         this.groupId = groupId
         try {
-            await this.$store.dispatch({ type: 'loadBoards' })
+            // await this.$store.dispatch({ type: 'loadBoards' })
             this.$store.commit({ type: "setBoard", boardId: id });
             this.$store.commit({ type: "setEditedTask", taskId, groupId, boardId: id });
 
@@ -185,7 +185,6 @@ export default {
         },
         task() {
             const task = JSON.parse(JSON.stringify(this.$store.getters.getEditedTask))
-            console.log(task)
             return task
         },
     },

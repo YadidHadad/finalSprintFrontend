@@ -2,7 +2,7 @@
   <section class="main-layout">
     <user-msg />
     <app-header :rgb="getRGB" />
-    <main class="app-main">
+    <main v-if="boards" class="app-main">
       <router-view @setRGB="setRGB" />
     </main>
   </section>
@@ -20,15 +20,19 @@ import { userService } from './services/user.service'
 
 
 export default {
-  created() {
+  async created() {
     console.log('Vue App created')
     const user = userService.getLoggedinUser()
     console.log(`user:`, user)
     if (user) store.commit({ type: 'setLoggedinUser', user })
 
 
-
-
+    try {
+      await this.$store.dispatch({ type: 'loadBoards' })
+      console.log(this.boards)
+    } catch (err) {
+      console.log(err)
+    }
 
   },
   data() {
@@ -51,6 +55,9 @@ export default {
     getRGB() {
       return this.rgb
     },
+    boards() {
+      return this.$store.getters.boards
+    }
 
   },
 }
