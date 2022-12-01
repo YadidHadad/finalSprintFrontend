@@ -1,11 +1,12 @@
 <template>
     <div class="screen"></div>
     <section v-if="task" class="task-details" v-click-outside="closeDetails">
+        <div class="task-cover">
+            <button @click="closeDetails"><span class="fa-solid x-icon"></span></button>
+
+        </div>
         <div class="task-header">
-            <p contenteditable @input="updateTitle">
-                {{ task.title }}
-            </p>
-            <button @click="closeDetails">X</button>
+            <input v-model="task.title" @input="updateTitle" />
         </div>
         <div class="task-details-aside">
             <button>Members</button>
@@ -96,6 +97,7 @@ export default {
     },
     methods: {
         updateTitle(ev) {
+            console.log(ev.data)
             if (typeof ev.data !== "string") return;
             this.task.title += ev.data;
         },

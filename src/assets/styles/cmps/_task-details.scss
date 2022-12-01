@@ -34,6 +34,10 @@
 
     .task-cover {
         grid-area: cover;
+        .btn {
+            @include btn();
+            position: absolute;
+        }
     }
     .task-header {
         grid-area: header;
@@ -84,7 +88,6 @@
         .cancel-btn {
             padding: 6px 12px;
             margin-top: 20px;
-
 
             &:hover {
                 background: rgb(237, 237, 237);
