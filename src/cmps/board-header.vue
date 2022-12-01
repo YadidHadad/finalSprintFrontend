@@ -80,10 +80,7 @@ export default {
                     txt: 'Map',
                     icon: 'fa-solid location-icon'
                 },
-                {
-                    txt: 'Filter',
-                    icon: 'fa-solid filter-icon'
-                },
+
             ]
         }
     },
