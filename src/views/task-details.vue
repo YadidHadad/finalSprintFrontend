@@ -15,7 +15,7 @@
             <button>Cover</button>
         </div>
         <div class="task-details-main">
-            <labels-preview :labels="getLabels" />
+            <labels-preview :labels="getTaskLabels" />
 
             <div class="desc-container">
                 <h3>Description</h3>
@@ -88,7 +88,7 @@ export default {
         }
     },
     unmounted() {
-        
+
     },
     methods: {
         updateTitle(ev) {
@@ -106,13 +106,14 @@ export default {
                 type: ''
             }
         },
-        async updateTask(type, { labelIds }) {
+        async updateTask(type, data) {
+            // console.log(data.labelIds);
             let taskToUpdate = JSON.parse(JSON.stringify(this.task))
             let txt
             switch (type) {
                 case 'labels-edit':
-                    if (!taskToUpdate?.labelIds) taskToUpdate.labelIds = []
-                    taskToUpdate.labelIds = labelIds
+                    // if (!taskToUpdate?.labelIds) taskToUpdate.labelIds = []
+                    taskToUpdate.labelIds = data.labelIds
                     txt = 'Updated label'
                     // if (!this.task?.labelIds) this.task.labelIds = []
                     // this.task.labelIds = data.labelIds
@@ -143,13 +144,13 @@ export default {
 
         },
         closeDetails() {
-            this.$store.dispatch({
-                type: 'updateTask', payload:
-                {
-                    task: this.task, boardId: this.$route.params.id,
-                    groupId: this.groupId,
-                },
-            })
+            // this.$store.dispatch({
+            //     type: 'updateTask', payload:
+            //     {
+            //         task: this.task, boardId: this.$route.params.id,
+            //         groupId: this.groupId,
+            //     },
+            // })
             this.$router.push(`/board/${this.$route.params.id}`)
         },
         async addChecklist(checklist) {
@@ -184,6 +185,13 @@ export default {
         user() {
             return this.$store.getters.loggedinUser
 
+        },
+        getTaskLabels() {
+            if(!this.task?.labelIds) return []
+            return this.$store.getters.labels.map(label => {
+                if (this.task.labelIds.includes(label.id))
+                    return label
+            })
         }
     },
     components: { labelsEdit, labelsPreview, checklistEdit, checklistsPreview }

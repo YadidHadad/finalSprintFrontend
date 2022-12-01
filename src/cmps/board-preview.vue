@@ -12,7 +12,10 @@ export default {
     props: {
         board: Object,
     },
-    components: {boardList}
+    components: {boardList},
+    // created() {
+    //     console.log(this.board)
+    // },
 
 }
 </script>

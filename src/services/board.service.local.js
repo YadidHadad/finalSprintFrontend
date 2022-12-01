@@ -5,6 +5,7 @@ import { userService } from './user.service.js'
 
 import boardsDB from '../../data/boards.json' assert {type: 'json'};
 const gBoards = JSON.parse(JSON.stringify(boardsDB));
+console.log(gBoards);
 
 const STORAGE_KEY = 'board'
 
