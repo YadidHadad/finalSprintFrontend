@@ -41,9 +41,31 @@
     &.justify-between {
         justify-content: space-between;
     }
+    &.justify-start {
+        justify-content: flex-start;
+    }
+    &.justify-end {
+        justify-content: flex-end;
+    }
     &.align-center {
         align-items: center;
     }
+    &.wrap {
+        flex-wrap: wrap;
+    }
+    &.jusitfy-start {
+        flex-wrap: wrap;
+    }
+}
+
+.self-end {
+    .flex-item {
+        align-self: flex-end;
+    }
+}
+
+.w-100 {
+    width: 100%;
 }
 
 .grow {

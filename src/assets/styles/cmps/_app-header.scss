@@ -5,6 +5,7 @@ header {
     justify-content: space-between;
     font-size: 0.8rem;
     box-shadow: inset 0px -1px 0px rgb(0 0 0 / 33%);
+    transition: all 0.5s ease-out;
 
     .header-btn {
         height: 32px;

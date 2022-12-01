@@ -147,6 +147,7 @@ function getEmptyBoard(
 //             }],
 //         [],
 //         []))
+
 //     await storageService.post(STORAGE_KEY, getEmptyBoard(
 //         'Yadid',
 //         false,
@@ -202,6 +203,4 @@ function getEmptyBoard(
 //         [], //members
 //         [], //activities
 //     ))
-
-
 // })()

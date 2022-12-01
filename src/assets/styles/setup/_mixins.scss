@@ -69,6 +69,7 @@
 @mixin btn($type: regular, $bg: $clr1, $clr: $clr3, $padding: em(8px) em(8px), $hover: darken($bg, 50%)) {
   display: inline-flex;
   align-items: center;
+  // justify-content: center;
   text-decoration: none;
   // text-transform: uppercase;
   border-radius: 3px;
@@ -98,6 +99,11 @@
     &:hover {
       background-color: rgba(255, 255, 255, 0.2);
     }
+  } @else if $type == "initials" {
+    font-size: 0.8rem;
+    color: white !important;
+    border-radius: 50%;
+    background-color: $userBgc1;
   }
   // } @else if $type == dark {
   //   // background-color: $clr2;

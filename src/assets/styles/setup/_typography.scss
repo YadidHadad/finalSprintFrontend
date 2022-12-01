@@ -184,6 +184,25 @@
     &.arrow-icon::before {
         content: "\f053";
     }
+    &.elipsis-icon::before {
+        content: "\f141";
+    }
+    &.x-icon::before {
+        content: "\58";
+    }
+    &.star-icon::before {
+        content: "\f005";
+        color: #f2d600;
+    }
+    &.dots-icon::before {
+        color: $clr9;
+        content: "\f141";
+    }
+    &.X-icon::before {
+        color: $clr9;
+        font-size: rem(20px);
+        content: "\f00d";
+    }
 
     & {
         // transform: rotate(180deg);

@@ -1,10 +1,12 @@
 <template>
     <section v-if="board" class="board-details flex row" :style="boardBGC">
         <board-nav :rgb="rgb"></board-nav>
-        <section class="flex column grow">
-            <board-header :title="board.title" :class="{ isDark: rgb.isDark }" :rgb="rgb" />
+        <section class="main flex column grow">
+            <board-header :title="board.title" :class="{ isDark: rgb.isDark, menuIsShown: !menuIsHidden }" :rgb="rgb"
+                :members="board.members" :isStarred="board.isStarred" @toggleBoardMenu="toggleBoardMenu" />
             <group-list @addTask="addNewTask" @addGroup="addNewGroup" :groups="board.groups" :boardId="board._id" />
         </section>
+        <board-menu :menuIsHidden="menuIsHidden" @toggleBoardMenu="toggleBoardMenu" />
         <!-- <router-view class="task-details-view"></router-view> -->
     </section>
 
@@ -13,12 +15,15 @@
 
 <script>
 import { boardService } from '../services/board.service.local'
-import boardHeader from '.././cmps/board-header.vue'
-import groupList from '../cmps/group-list.vue'
+import { boardStore } from '../store/modules/board-store'
 import { FastAverageColor } from 'fast-average-color'
 
+import boardHeader from '.././cmps/board-header.vue'
+import groupList from '../cmps/group-list.vue'
 import boardNav from '../cmps/board-nav.vue'
-import { boardStore } from '../store/modules/board-store'
+import boardMenu from '../cmps/board-menu.vue'
+import { toHandlers } from 'vue'
+
 
 const fac = new FastAverageColor();
 
@@ -26,8 +31,9 @@ export default {
 
     data() {
         return {
+            menuIsHidden: true,
             board: null,
-            style: 'src/assets/img/bgc-img-3.jpg',
+            style: 'src/assets/img/bgc-img-1.jpg',
             rgb: {
                 value: [],
                 isDark: false,
@@ -38,7 +44,8 @@ export default {
     components: {
         boardNav,
         boardHeader,
-        groupList
+        groupList,
+        boardMenu,
     },
     async created() {
         const { id } = this.$route.params
@@ -79,8 +86,14 @@ export default {
 
         async addNewTask(groupId, task, activity) {
             const groupIdx = this.board.groups.findIndex((group) => group.id === groupId)
-            this.board.groups[groupIdx].tasks.push(task)
-            this.board.activities.push(activity)
+
+            if (this.board.groups[groupIdx].tasks && this.board.activities) {
+                this.board.groups[groupIdx].tasks.push(task)
+                this.board.activities.push(activity)
+            } else {
+                this.board.groups[groupIdx].tasks = [task]
+                this.board.activities = [activity]
+            }
             try {
                 this.$store.dispatch({ type: 'addBoard', board: { ...this.board } })
             } catch (err) {
@@ -99,6 +112,10 @@ export default {
             // } catch (err) {
 
             // }
+        },
+        toggleBoardMenu() {
+            console.log('toggleBoardMenu')
+            this.menuIsHidden = !this.menuIsHidden
         }
     },
 

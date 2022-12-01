@@ -1,7 +1,8 @@
 .board-header {
-    padding: 1rem;
+    padding: 0.5rem;
     width: 100%;
     color: $textDark;
+    transition: all 0.3s ease-out;
 
     & * {
         color: $textDark;
@@ -17,11 +18,12 @@
         border: none;
         font-size: 20px;
         font-family: "kanit-regular";
+        text-align: center;
         font-weight: bold;
-        margin-inline-end: 1rem;
+        margin-inline-start: 0.5rem;
         background-color: transparent;
         width: fit-content;
-        padding-inline: 1rem;
+        // padding-inline: 1rem;
 
         &:focus {
             background-color: white;
@@ -34,6 +36,22 @@
 
         .txt {
             margin-inline-start: 0.5rem;
+        }
+    }
+    .btn-initials {
+        @include btn($type: initials);
+    }
+    div {
+        margin-top: 0.5rem;
+    }
+    div:last-of-type {
+        transition: all 0.3s ease-out;
+    }
+
+    &.menuIsShown {
+        // width: calc(100% - 340px);
+        div:last-of-type {
+            margin-right: 340px;
         }
     }
 }

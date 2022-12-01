@@ -12,14 +12,8 @@
                 Create
             </button>
         </section>
-
         <section class="user-buttons">
-
-
         </section>
-
-
-
     </header>
 </template>
 <script>
@@ -53,7 +47,7 @@ export default {
         },
         buttonBackground() {
             if (!this.rgb) return
-            return this.rgb.isDark ? utilService.getBCG(this.rgb.value, 30, 1) : utilService.getBCG(this.rgb.value, -30, 1)
+            return this.rgb.isDark ? utilService.getBCG(this.rgb.value, 30, 0.5) : utilService.getBCG(this.rgb.value, 60, 0.5)
         },
 
     },
