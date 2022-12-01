@@ -6,12 +6,38 @@
     height: fit-content;
     color: $clr13;
     font-size: rem(14px);
-    // padding: rem(10px);
-    h1 {
-        padding-left: rem(17px);
-        padding-top: rem(15px);
+    padding: rem(18px);
+    gap: rem(8px);
+
+    h3 {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
+            "Open Sans", "Helvetica Neue", sans-serif !important;
     }
+
     button {
         padding-left: rem(18px);
     }
+
+    ul {
+        gap: rem(8px);
+    }
+
+    li {
+        h3 {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
+                "Open Sans", "Helvetica Neue", sans-serif !important;
+            font-weight: 400;
+            font-size: rem(14px);
+        }
+
+        background-color: #ffffff;
+        padding: rem(12px) rem(10px);
+        border-radius: 5px;
+    }
+}
+
+button.add-card-btn {
+    text-align: left;
+    padding-left: rem(20px);
+    color: $clr9;
 }

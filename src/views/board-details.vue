@@ -86,8 +86,14 @@ export default {
 
         async addNewTask(groupId, task, activity) {
             const groupIdx = this.board.groups.findIndex((group) => group.id === groupId)
-            this.board.groups[groupIdx].tasks.push(task)
-            this.board.activities.push(activity)
+
+            if (this.board.groups[groupIdx].tasks && this.board.activities) {
+                this.board.groups[groupIdx].tasks.push(task)
+                this.board.activities.push(activity)
+            } else {
+                this.board.groups[groupIdx].tasks = [task]
+                this.board.activities = [activity]
+            }
             try {
                 this.$store.dispatch({ type: 'addBoard', board: { ...this.board } })
             } catch (err) {

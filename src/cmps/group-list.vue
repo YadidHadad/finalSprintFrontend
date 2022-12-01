@@ -1,17 +1,22 @@
 <template>
     <section class="group-list flex">
         <group @addTask="addTask" v-for="group in groups" :group="group" :boardId="boardId" :key="group.id" />
+
         <section class="add-new-list">
-            <button class="open-add-list" v-if="!isFormOpen" @click="toggleForm"><span
+            <transition name="slide-in">
+                <button class="open-add-list" v-if="!isFormOpen" @click="toggleForm"><span
                     class="fa-regular plus-icon"></span> Add a
-                list</button>
-            <form v-if="isFormOpen" @submit.prevent="$emit('addGroup', { ...this.group })" class="flex ">
-                <input v-model="group.title" type="text" name="add-list" placeholder="Enter list title...">
-                <div class="add-list-btns">
-                    <button class="add-list-btn">Add list</button>
-                    <button type="button" @click="toggleForm">X</button>
-                </div>
-            </form>
+                    list</button>
+                </transition>
+                <transition name="slide-out">
+                <form  v-if="isFormOpen" @submit.prevent="$emit('addGroup', { ...this.group })" class="flex group-list-form">
+                    <input v-model="group.title" type="text" name="add-list" placeholder="Enter list title...">
+                    <div class="add-list-btns flex">
+                        <button class="add-list-btn">Add list</button>
+                        <button type="button" @click="toggleForm"><span class="fa-solid X-icon"></span></button>
+                    </div>
+                </form>
+            </transition>
         </section>
     </section>
 </template>
