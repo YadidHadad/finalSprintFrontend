@@ -20,12 +20,13 @@ import { userService } from './services/user.service'
 
 
 export default {
-
   created() {
     console.log('Vue App created')
     const user = userService.getLoggedinUser()
     console.log(`user:`, user)
     if (user) store.commit({ type: 'setLoggedinUser', user })
+
+
 
 
 

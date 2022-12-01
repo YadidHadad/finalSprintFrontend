@@ -44,24 +44,19 @@ const routes = [
     path: '/board/:id',
     name: 'board-details',
     component: boardDetails,
-    children: [
-      // {
-      //   path: '/board/:id/task/:taskId',
-      //   name: 'task-details',
-      //   component: taskDetails
-      // },
-    ]
+    // children: [
+    //   {
+    //     path: '/board/:id/task/:taskId',
+    //     name: 'task-details',
+    //     component: taskDetails
+    //   },
+    // ]
   },
   {
-    path: '/board/:id/task/:taskId',
-    name: 'task-details-test',
-    component: taskDetails
+    path: '/board/:id/:groupId/:taskId',
+    name: 'task-details',
+    component: boardDetails
   },
-  // {
-  //   path: '/task/:id',
-  //   name: 'task-details',
-  //   component: taskDetails
-  // },
 ]
 
 

@@ -43,6 +43,7 @@ export const boardStore = {
         removeBoard(state, { boardId }) {
             state.boards = state.boards.filter(board => board._id !== boardId)
         },
+
         updateTask(state, { payload }) {
             // console.log(state.board);
             this.editedTask = payload.task
@@ -50,23 +51,14 @@ export const boardStore = {
             const taskIdx = group.tasks.findIndex(task => task.id === payload.task.id)
             group.tasks.splice(taskIdx, 1, payload.task)
         },
-        setEditedTask(state, { taskId }) {
-            state.boards.forEach(board => {
-                if (board.groups) {
-                    board.groups.forEach(group => {
-                        if (group.tasks) {
-                            group.tasks.forEach(task => {
-                                if (task.id === taskId)
-                                    state.editedTask = task
-                            })
-                        }
-                    })
-                }
-            })
-        },
-        updateEditedTask(state, { task }) {
+
+        setEditedTask(state, { taskId, groupId, boardId }) {
+            const board = state.boards.find((board) => board._id === boardId)
+            const group = board.groups.find((group) => group.id === groupId)
+            const task = group.tasks.find((task) => task.id === taskId)
             state.editedTask = task
         },
+
         updateLabels(state, { payload }) {
             // console.log(payload.task.labelIds);
             const labelIdx = state.board.labels.findIndex(l => l.color === payload.label.color)

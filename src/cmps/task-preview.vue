@@ -13,8 +13,13 @@ export default {
             type: Object,
             required: true
         },
+        groupId: {
+            type: String,
+            required: true
+        },
         boardId: {
-            type: String
+            type: String,
+            required: true
         }
     },
     data() {
@@ -24,7 +29,7 @@ export default {
     },
     methods: {
         goTo() {
-            this.$router.push(`/board/${this.boardId}/task/${this.task.id}`)
+            this.$router.push(`/board/${this.boardId}/${this.groupId}/${this.task.id}`)
         }
     },
 }
