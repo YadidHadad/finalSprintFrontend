@@ -150,6 +150,7 @@ export const boardStore = {
                 throw err
             }
         },
+        
         updateTask(context, { payload }) {
             //update the task add new activity
             //and send socket to server task-updated
@@ -158,6 +159,7 @@ export const boardStore = {
             // console.log(board);
             boardService.save(board)
         },
+
         async updateLabels(context, { payload }) {
             const prevLabels = context.state.board.labels
             const group = context.state.board.groups.find(g => g.id === payload.groupId)

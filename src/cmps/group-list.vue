@@ -13,7 +13,7 @@
                     <input v-model="group.title" type="text" name="add-list" placeholder="Enter list title...">
                     <div class="add-list-btns flex">
                         <button class="add-list-btn">Add list</button>
-                        <button type="button" @click="toggleForm"><span class="fa-solid X-icon"></span></button>
+                        <button type="button" @click="toggleForm"><span class="fa-solid x-icon"></span></button>
                     </div>
                 </form>
             </transition>
