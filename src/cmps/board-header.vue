@@ -14,7 +14,7 @@
                 <span class="txt">Filter</span>
             </button>
             <button v-for="member in this.members" class="btn-initials">
-                <span>{{ this.getInitials(member.fullName) }}</span>
+                <span>{{ this.getInitials(member.fullname) }}</span>
             </button>
             <button class="btn" :class="{ isDark: !isDark }" :style="buttonBackground" @click="toggleBoardMenu">
                 <span class="fa-solid elipsis-icon"></span>
@@ -86,8 +86,8 @@ export default {
     },
 
     methods: {
-        getInitials(fullName) {
-            return `${fullName.split(' ')[0].charAt(0)}${fullName.split(' ')[1].charAt(0)}`
+        getInitials(fullname) {
+            return `${fullname.split(' ')[0].charAt(0)}${fullname.split(' ')[1].charAt(0)}`
         },
         toggleBoardMenu() {
             console.log('app header')

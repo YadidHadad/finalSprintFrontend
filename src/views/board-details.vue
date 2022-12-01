@@ -33,7 +33,7 @@ export default {
         return {
             menuIsHidden: true,
             board: null,
-            style: 'src/assets/img/bgc-img-1.jpg',
+            style: 'src/assets/img/bgc-img-8.jpg',
             rgb: {
                 value: [],
                 isDark: false,
