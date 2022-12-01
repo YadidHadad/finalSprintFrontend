@@ -47,12 +47,10 @@ export default {
         boardMenu,
     },
     async created() {
-
         try {
             await this.$store.dispatch({ type: 'loadBoards' })
             const { id } = this.$route.params
             this.$store.commit({ type: 'setBoard', boardId: id })
-
             await this.$store.dispatch({ type: 'loadBoards' })
         } catch (err) {
             console.log(err)
@@ -75,32 +73,34 @@ export default {
         },
 
         async addNewGroup(group) {
-            this.board.groups.push(group)
+            var board = JSON.parse(JSON.stringify(this.board))
+            board.groups.push(group)
             try {
-                this.$store.dispatch({ type: 'addBoard', board: { ...this.board } })
-
+                this.$store.dispatch({ type: 'updateBoard', board: board })
             }
             catch (err) {
-                this.board.groups.pop()
+                console.log(err);
                 showErrorMsg("Cannot add list");
             }
         },
 
         async addNewTask(groupId, task, activity) {
-            const groupIdx = this.board.groups.findIndex((group) => group.id === groupId)
+            var board = JSON.parse(JSON.stringify(this.board))
+            const groupIdx = board.groups.findIndex((group) => group.id === groupId)
 
-            if (this.board.groups[groupIdx].tasks && this.board.activities) {
-                this.board.groups[groupIdx].tasks.push(task)
-                this.board.activities.push(activity)
+            if (board.groups[groupIdx].tasks && board.activities) {
+                board.groups[groupIdx].tasks.push(task)
+                board.activities.push(activity)
             } else {
-                this.board.groups[groupIdx].tasks = [task]
-                this.board.activities = [activity]
+                board.groups[groupIdx].tasks = [task]
+                board.activities = [activity]
             }
             try {
-                this.$store.dispatch({ type: 'addBoard', board: { ...this.board } })
+                this.$store.dispatch({ type: 'updateBoard', board: board })
             } catch (err) {
-                this.board.groups[groupIdx].tasks.pop()
-                this.board.activities.push(activity.txt = "Cannot add task")
+                board.groups[groupIdx].tasks.pop()
+                board.activities.push(activity.txt = "Cannot add task")
+                console.log(err);
                 showErrorMsg("Cannot add task");
             }
             // pacimict
