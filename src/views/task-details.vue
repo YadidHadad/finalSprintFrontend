@@ -21,8 +21,8 @@
             <div class="desc-container">
                 <div class="desc-header">Description</div>
                 {{ isDescOpen }}
-                <textarea placeholder="Add a more detailed description..." v-model="task.desc" @focus="isDescOpen = true"
-                    :class="{'desc-open': isDescOpen }">
+                <textarea placeholder="Add a more detailed description..." v-model="task.desc"
+                    @focus="isDescOpen = true" :class="{ 'desc-open': isDescOpen }">
                         {{ task.desc }}
                     </textarea>
                 <div class="desc-btns" v-if="isDescOpen">
@@ -43,13 +43,8 @@
             </div>
         </div>
 
-<<<<<<< HEAD
         <component v-if=detailsPicked.isPicked :is="detailsPicked.type" @closeEdit="closeEdit"
             v-click-outside="closeEdit" @updateTask="updateTask(detailsPicked.type, $event)"
-=======
-        <component v-if="detailsPicked.isPicked" :is="detailsPicked.type" @closeEdit="closeEdit"
-            v-click-outside="closeEdit" @updateLabels="updateTask(detailsPicked.type, $event)"
->>>>>>> 90e12ae5784c4679ed5bba63036c622155c60ab3
             @addChecklist="addChecklist">
             <h2>HI</h2>
         </component>
@@ -118,7 +113,6 @@ export default {
         async updateTask(type, { labelIds }) {
             let taskToUpdate = this.task;
             switch (type) {
-<<<<<<< HEAD
                 case 'labels-edit':
                     if (!taskToUpdate?.labelIds) taskToUpdate.labelIds = []
                     taskToUpdate.labelIds = data.labelIds
@@ -126,14 +120,6 @@ export default {
                     // if (!this.task?.labelIds) this.task.labelIds = []
                     // this.task.labelIds = data.labelIds
                     break
-=======
-                case "labels-edit":
-                    if (!taskToUpdate?.labelIds) taskToUpdate.labelIds = [];
-                    taskToUpdate.labelIds = labelIds;
-                    // if (!this.task?.labelIds) this.task.labelIds = []
-                    // this.task.labelIds = data.labelIds
-                    break;
->>>>>>> 90e12ae5784c4679ed5bba63036c622155c60ab3
             }
             try {
                 let updatedTask = await this.$store.dispatch({
@@ -210,7 +196,6 @@ export default {
             console.log(task)
             return task
         },
-<<<<<<< HEAD
         getTaskLabels() {
             if (!this.task?.labelIds) return []
             return this.$store.getters.labels.map(label => {
@@ -218,8 +203,6 @@ export default {
                     return label
             })
         }
-=======
->>>>>>> 90e12ae5784c4679ed5bba63036c622155c60ab3
     },
     components: { labelsEdit, labelsPreview, checklistEdit, checklistsPreview },
 };
