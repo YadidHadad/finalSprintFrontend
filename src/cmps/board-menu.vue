@@ -1,10 +1,10 @@
 <template>
     <section class="board-menu flex column" :class="{ menuIsHidden: menuIsHidden }">
-        <div class="flex justify-between">
+        <div class="title flex justify-between row">
             <button class="btn" @click="toggleBoardMenu">
-                <span class="fa-solid x-icon"></span>
+                <span class="fa-solid arrow-icon"></span>
             </button>
-            <span class="title">Menu</span>
+            <span>Menu</span>
             <button class="btn" @click="toggleBoardMenu">
                 <span class="fa-solid x-icon"></span>
             </button>
