@@ -185,23 +185,16 @@
         content: "\f053";
     }
     &.elipsis-icon::before {
+        color: $clr9;
         content: "\f141";
     }
     &.x-icon::before {
+        color: $clr9;
         content: "\58";
     }
     &.star-icon::before {
         content: "\f005";
         color: #f2d600;
-    }
-    &.dots-icon::before {
-        color: $clr9;
-        content: "\f141";
-    }
-    &.X-icon::before {
-        color: $clr9;
-        font-size: rem(20px);
-        content: "\f00d";
     }
 
     & {
