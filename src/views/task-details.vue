@@ -9,13 +9,13 @@
         <div class="task-details-aside">
             <button>Members</button>
             <button @click="pickDetails('labels-edit')">Labels</button>
-            <button>Checklist</button>
+            <button @click="pickDetails('checklist-edit')">Checklist</button>
             <button>Dates</button>
             <button>Attachment</button>
             <button>Cover</button>
         </div>
         <div class="task-details-main">
-            <labels-preview :labels="labels" />
+            <labels-preview :labels="getLabels" />
 
             <div class="desc-container">
                 <h3>Description</h3>
@@ -23,15 +23,21 @@
                     {{ task.desc }}
                 </textarea>
             </div>
+            <checklists-preview v-if="task" :checklists="getChecklists" />
 
             <div class="task-activities">
                 <h1>activities</h1>
-                <button>Show details</button>
+                <button @click="showActivities = !showActivities">Show details</button>
+                <ul v-if="showActivities && getActivities.length">
+                    <li v-for="act in getActivities" :key="act.taskId">
+                        <span>{{ act.txt }}</span>
+                    </li>
+                </ul>
             </div>
         </div>
 
         <component v-if=detailsPicked.isPicked :is="detailsPicked.type" @closeEdit="closeEdit"
-            v-click-outside="closeEdit" @updateLabels="updateLabels">
+            v-click-outside="closeEdit" @updateLabels="updateLabels" @addChecklist="addChecklist">
             <h2>HI</h2>
         </component>
     </section>
@@ -40,7 +46,15 @@
 <script>
 import labelsPreview from '../cmps/labels-preview.vue'
 import labelsEdit from '../cmps/labels-edit.vue'
+import checklistEdit from '../cmps/checklist-edit.vue'
+import checklistsPreview from '../cmps/checklists-preview.vue'
 export default {
+    props: {
+        groupId: {
+            type: String,
+            required: true
+        }
+    },
     data() {
         return {
             show: false,
@@ -49,13 +63,13 @@ export default {
                 type: ''
             },
             task: null,
-            labels: null
+            labels: null,
+            showActivities: false
             // testT: this.$store.getters.getEditedTask
         }
     },
     created() {
         this.task = JSON.parse(JSON.stringify(this.$store.getters.getEditedTask))
-        this.labels = JSON.parse(JSON.stringify(this.$store.getters.board.labels))
     },
     methods: {
         updateTitle(ev) {
@@ -72,15 +86,71 @@ export default {
                 type: ''
             }
         },
-        updateLabels(color) {
-            console.log(color);
+        updateLabels(label) {
+            this.$store.dispatch({
+                type: 'updateLabels', payload: {
+                    task: this.task, label,
+                    groupId: this.groupId,
+                    activity: {
+                        txt: 'Updated label', boardId: this.$route.params.id,
+                        groupId: this.groupId, taskId: this.task.id
+                    }
+                }
+            })
         },
+        // updateLabelText(label) {
+        //     this.$store.dispatch({
+        //         type: 'updateLabelText', payload: {
+        //             task: this.task, label,
+        //             groupId: this.groupId
+        //         }
+        //     })
+        // },
         closeDetails() {
-            this.$store.dispatch({ type: 'updateTask', payload: { task: this.task, boardId: this.$route.params.id } })
+            this.$store.dispatch({
+                type: 'updateTask', payload:
+                {
+                    task: this.task, boardId: this.$route.params.id,
+                    groupId: this.groupId
+                },
+            })
             this.$router.push(`/board/${this.$route.params.id}`)
+        },
+        async addChecklist(checklist) {
+            await this.$store.dispatch({
+                type: 'addChecklist', payload: {
+                    task: this.task, checklist,
+                    groupId: this.groupId,
+                    activity: {
+                        txt: 'Added checklist', boardId: this.$route.params.id,
+                        groupId: this.groupId, taskId: this.task.id
+                    }
+                }
+            })
+            this.closeEdit()
         }
     },
-    components: { labelsEdit, labelsPreview }
+    computed: {
+        getLabels() {
+            return this.$store.getters.labels
+        },
+        getChecklists() {
+            return this.$store.getters.checklists
+        },
+        getActivities() {
+            const acts = []
+            this.$store.getters.activities.forEach(act => {
+                if(act.taskId === this.task.id)
+                    acts.push(act)
+            })
+            return acts
+            // return this.$store.getters.activities.map(act => {
+            //     if(act.taskId === this.task.id)
+            //         return act
+            // })
+        }
+    },
+    components: { labelsEdit, labelsPreview, checklistEdit, checklistsPreview }
 
 }
 </script>

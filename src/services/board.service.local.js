@@ -11,7 +11,7 @@ export const boardService = {
     save,
     remove,
     getEmptyBoard,
-    // addBoardActivity
+    addBoardActivity
 }
 window.cs = boardService
 
@@ -78,23 +78,23 @@ async function save(board) {
     return savedBoard
 }
 
-// async function addBoardActivity(boardId, txt) {
-//     // Later, this is all done by the backend
-//     const board = await getById(boardId)
-//     if (!board.activities) board.activities = []
+async function addBoardActivity(boardId, txt) {
+    // Later, this is all done by the backend
+    const board = await getById(boardId)
+    if (!board.activities) board.activities = []
 
-//     const msg = {
-//         id: utilService.makeId(),
-//         createdAt: Date.now(),
-//         byMember: userService.getLoggedinUser(),
-//         txt
-//     }
+    const act = {
+        id: utilService.makeId(),
+        createdAt: Date.now(),
+        // byMember: userService.getLoggedinUser(),
+        txt
+    }
 
-//     board.activities.push(msg)
-//     await storageService.put(STORAGE_KEY, board)
+    board.activities.push(act)
+    await storageService.put(STORAGE_KEY, board)
 
-//     return activity
-// }
+    return act
+}
 
 function getEmptyBoard(
     title = '',
@@ -134,11 +134,13 @@ function getEmptyBoard(
 //                 "tasks": [
 //                     {
 //                         "id": "c101",
-//                         "title": "Replace logo"
+//                         "title": "Replace logo",
+//                         "checklists": []
 //                     },
 //                     {
 //                         "id": "c102",
-//                         "title": "Add Samples"
+//                         "title": "Add Samples",
+//                         "checklists": []
 //                     }
 //                 ],
 //                 "style": {}
@@ -177,16 +179,6 @@ function getEmptyBoard(
 //         {}, //createdBy
 //         {}, //style
 //         [ //labels
-//             {
-//                 "id": "l101",
-//                 "title": "Done",
-//                 "color": "#61bd4f"
-//             },
-//             {
-//                 "id": "l102",
-//                 "title": "Progress",
-//                 "color": "#61bd33"
-//             }
 //         ],
 //         [ //groups
 //             {
@@ -196,11 +188,13 @@ function getEmptyBoard(
 //                 "tasks": [
 //                     {
 //                         "id": "c101",
-//                         "title": "Replace logo"
+//                         "title": "Replace logo",
+//                         "checklists": []
 //                     },
 //                     {
 //                         "id": "c102",
-//                         "title": "Add Samples"
+//                         "title": "Add Samples",
+//                         "checklists": []
 //                     }
 //                 ],
 //                 "style": {}

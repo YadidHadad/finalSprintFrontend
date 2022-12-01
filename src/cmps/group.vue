@@ -18,7 +18,7 @@
                 <button type="button" @click.stop="toggleCard"><span class="fa-solid X-icon"></span></button>
             </div>
         </form>
-        <router-view></router-view>
+        <router-view :groupId="group.id"></router-view>
     </div>
 </template>
 

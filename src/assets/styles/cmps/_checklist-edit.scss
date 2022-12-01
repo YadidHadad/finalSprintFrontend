@@ -1,0 +1,45 @@
+.checklist-edit {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    right: -90px;
+    top: 100px;
+    background-color: $clr1;
+    width: 300px;
+    box-shadow: 0px 0px 1px;
+    gap: 10px;
+
+    .checklist-edit-header {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        // align-items: center;
+        padding: 10px 12px;
+        box-shadow: 0px 0px 1px;
+        justify-content: space-between;
+
+        div {
+            justify-self: center;
+        }
+        button {
+            padding: 0;
+            // margin-top: 20px;
+        }
+    }
+
+    .checklist-edit-main {
+        padding: 0 12px 12px 12px;
+        display: flex;
+        flex-direction: column;
+
+        button {
+            align-self: flex-start;
+            padding: 0;
+            margin-top: 20px;
+            font-size: 1rem;
+            background-color: #0079bf;
+            color: $clr1;
+            padding: 6px 24px;
+            border-radius: 3px;
+        }
+    }
+}
