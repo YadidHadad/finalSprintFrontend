@@ -4,16 +4,16 @@
 
     <ul v-if="boards" class="board-list">
       <li v-for="board in boards" :key="board._id">
-        <pre>{{ board }}</pre>
+        <!-- <pre>{{ board }}</pre> -->
         <board-preview :board="board" @click="goToBoard(board._id)" />
         <button @click="removeBoard(board._id)">x</button>
         <button @click="updateBoard(board)">Update</button>
-        <hr/>
+        <hr />
         <button @click="addBoardMsg(board._id)">Add board msg</button>
         <button @click="printBoardToConsole(board)">Print msgs to console</button>
       </li>
     </ul>
-    <hr/>
+    <hr />
     <form @submit.prevent="addBoard()">
       <h2>Add board</h2>
       <input type="text" v-model="boardToAdd.title" />
@@ -45,8 +45,14 @@ export default {
       return this.$store.getters.boards
     }
   },
-  created() {
-    this.$store.dispatch({ type: 'loadBoards' })
+  async created() {
+    try {
+      await this.$store.dispatch({ type: 'loadBoards' })
+      console.log(this.boards)
+    } catch (err) {
+      console.log(err)
+
+    }
   },
   methods: {
     async addBoard() {
@@ -97,7 +103,6 @@ export default {
     },
     goToBoard(id) {
       this.$router.push(`/board/${id}`)
-      this.$store.commit({ type: 'setBoard', boardId: id })
     }
   },
   components: {

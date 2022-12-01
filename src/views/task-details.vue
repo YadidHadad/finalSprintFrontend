@@ -69,8 +69,23 @@ export default {
             // testT: this.$store.getters.getEditedTask
         }
     },
-    created() {
-        this.task = JSON.parse(JSON.stringify(this.$store.getters.getEditedTask))
+    async created() {
+        console.log('task details')
+        try {
+
+
+            const { id, taskId } = this.$route.params
+            this.$store.commit({ type: 'setBoard', boardId: id })
+
+            console.log(this.$route.params)
+            console.log(`taskId:`, taskId)
+            this.$store.commit({ type: 'setEditedTask', taskId })
+
+            this.task = JSON.parse(JSON.stringify(this.$store.getters.getEditedTask))
+        } catch (err) {
+            console.log(err)
+
+        }
     },
     methods: {
         updateTitle(ev) {
@@ -102,7 +117,12 @@ export default {
                         groupId: this.groupId,
                         activity: {
                             txt: 'Updated label', boardId: this.$route.params.id,
-                            groupId: this.groupId, taskId: this.task.id
+                            groupId: this.groupId, taskId: this.task.id,
+                            byMember: {
+                                _id: this.user._id,
+                                fullname: this.user.fullname,
+                                imgUrl: this.user.imgUrl || '',
+                            }
                         }
                     }
                 })
@@ -121,6 +141,8 @@ export default {
                         txt: 'Updated label', boardId: this.$route.params.id,
                         groupId: this.groupId, taskId: this.task.id
                     }
+
+
                 }
             })
         },
@@ -162,6 +184,10 @@ export default {
                     acts.push(act)
             })
             return acts
+        },
+        user() {
+            return this.$store.getters.loggedinUser
+
         }
     },
     components: { labelsEdit, labelsPreview, checklistEdit, checklistsPreview }

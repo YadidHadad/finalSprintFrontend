@@ -65,7 +65,7 @@ async function login(userCred) {
     }
 }
 async function signup(userCred) {
-    userCred.score = 10000
+    // userCred.score = 10000
     if (!userCred.imgUrl) userCred.imgUrl = 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png'
     const user = await storageService.post('user', userCred)
     // const user = await httpService.post('auth/signup', userCred)
@@ -94,7 +94,8 @@ function saveLocalUser(user) {
 }
 
 function getLoggedinUser() {
-    return JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER))
+    // return JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER))
+    return { _id: 'fsdfds', fullname: 'Puki Norma', username: 'puki', password: '123', isAdmin: false }
 }
 
 

@@ -24,7 +24,6 @@ export default {
     },
     methods: {
         goTo() {
-            this.$store.commit({ type: 'setEditedTask', taskId: this.task.id })
             this.$router.push(`/board/${this.boardId}/task/${this.task.id}`)
         }
     },

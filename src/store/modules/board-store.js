@@ -106,8 +106,11 @@ export const boardStore = {
             // console.log(group.tasks[taskIdx].checklists)
         },
         addActivity(state, { activity }) {
+            console.log('*************************', activity)
+            if (!activity) return
             if (!state.board?.activities) state.board.activities = []
             state.board.activities.unshift(activity)
+            console.log(`activity:`, activity)
         },
         removeLastActivity(state) {
             state.board.activities.splice(0, 1)
@@ -140,6 +143,7 @@ export const boardStore = {
             try {
                 //SEND FILTER
                 const boards = await boardService.query()
+                console.log('***************************', boards)
                 context.commit({ type: 'setBoards', boards })
             } catch (err) {
                 console.log('boardStore: Error in loadBoards', err)
@@ -166,8 +170,8 @@ export const boardStore = {
             const board = context.state.board
             try {
                 await boardService.save(board)
-                await boardService.saveTask(payload.activity.boardId, payload.activity.groupId,
-                    payload.task, payload.activity)
+                // await boardService.saveTask(payload.activity.boardId, payload.activity.groupId,
+                //     payload.task, payload.activity)
             }
             catch (err) {
                 {

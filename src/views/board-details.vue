@@ -32,7 +32,6 @@ export default {
     data() {
         return {
             menuIsHidden: true,
-            board: null,
             style: 'src/assets/img/bgc-img-8.jpg',
             rgb: {
                 value: [],
@@ -48,16 +47,26 @@ export default {
         boardMenu,
     },
     async created() {
-        const { id } = this.$route.params
-        this.board = await boardService.getById(id)
+        console.log('board details')
+
+        try {
+            await this.$store.dispatch({ type: 'loadBoards' })
+            console.log(this.boards)
+            const { id } = this.$route.params
+            this.$store.commit({ type: 'setBoard', boardId: id })
+
+            await this.$store.dispatch({ type: 'loadBoards' })
+            console.log(this.boards)
+        } catch (err) {
+            console.log(err)
+
+        }
         const avgColor = await this.avgColor()
         console.log(avgColor)
         this.rgb.value = avgColor.value
         this.rgb.isDark = avgColor.isDark
         console.log(this.rgb)
         this.$emit('setRGB', this.rgb)
-
-
     },
     methods: {
         async avgColor() {
@@ -125,6 +134,10 @@ export default {
         },
         color() {
             return this.rgb
+        },
+        board() {
+            console.log(`board:`, this.board)
+            return this.$store.getters.board
         }
     },
 }

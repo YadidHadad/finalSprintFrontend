@@ -57,7 +57,10 @@ export default {
     name: 'board-menu',
     props: ['menuIsHidden', 'activities'],
     components: {},
-    created() { },
+    created() {
+
+        console.log(`activities:`, this.activities)
+    },
     data() {
         return {
 
@@ -65,6 +68,7 @@ export default {
     },
     methods: {
         getInitials(fullname) {
+
             return utilService.getInitials(fullname)
         },
         toggleBoardMenu() {

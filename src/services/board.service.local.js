@@ -3,6 +3,9 @@ import { storageService } from './async.storage.service.js'
 import { utilService } from './util.service.js'
 import { userService } from './user.service.js'
 
+import boardsDB from '../../data/boards.json' assert {type: 'json'};
+const gBoards = JSON.parse(JSON.stringify(boardsDB));
+
 const STORAGE_KEY = 'board'
 
 export const boardService = {
@@ -19,6 +22,10 @@ window.cs = boardService
 
 async function query(filterBy = { title: '' }) {
     var boards = await storageService.query(STORAGE_KEY)
+    if(!boards) {
+        boards = gBoards
+        storageService.save(STORAGE_KEY, boards)}
+
     // if (filterBy.title) {
     //     const regex = new RegExp(filterBy.title, 'i')
     //     boards = boards.filter(board => regex.test(board.title))

@@ -1,5 +1,5 @@
-import boardsDB from '../../data/boards.json' assert {type: 'json'};
-const gBoards = JSON.parse(JSON.stringify(boardsDB));
+
+
 
 export const storageService = {
     query,
@@ -7,10 +7,11 @@ export const storageService = {
     post,
     put,
     remove,
+    save
 }
 
 function query(entityType, delay = 500) {
-    var entities = JSON.parse(localStorage.getItem(entityType)) || gBoards
+    var entities = JSON.parse(localStorage.getItem(entityType))
     console.log(entities)
     return new Promise(resolve => setTimeout(() => resolve(entities), delay))
 }
@@ -26,11 +27,12 @@ function get(entityType, entityId) {
 function post(entityType, newEntity) {
     newEntity = JSON.parse(JSON.stringify(newEntity))
     newEntity._id = _makeId()
-    return query(entityType).then(entities => {
-        entities.push(newEntity)
-        _save(entityType, entities)
-        return newEntity
-    })
+    return query(entityType)
+        .then(entities => {
+            entities.push(newEntity)
+            _save(entityType, entities)
+            return newEntity
+        })
 }
 
 function put(entityType, updatedEntity) {
@@ -53,10 +55,15 @@ function remove(entityType, entityId) {
     })
 }
 
+function save(entityType, entities) {
+    localStorage.setItem(entityType, JSON.stringify(entities))
+    return entities
+}
 // Private functions
 
 function _save(entityType, entities) {
     localStorage.setItem(entityType, JSON.stringify(entities))
+    return entities
 }
 
 function _makeId(length = 5) {
