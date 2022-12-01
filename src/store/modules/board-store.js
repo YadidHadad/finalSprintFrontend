@@ -1,15 +1,20 @@
 import { boardService } from '../../services/board.service.local'
+import { utilService } from '../../services/util.service'
+import { store } from '../store'
 
 export const boardStore = {
     state: {
         boards: [],
         editedTask: null,
-        board: null
+        board: null,
     },
     getters: {
         boards({ boards }) { return boards },
         getEditedTask({ editedTask }) { return editedTask },
         board({ board }) { return board },
+        labels({ board }) { return board.labels },
+        checklists({ editedTask }) { return editedTask.checklists },
+        activities({ board }) { return board.activities },
     },
     mutations: {
         setBoards(state, { boards }) {
@@ -32,28 +37,11 @@ export const boardStore = {
             state.boards = state.boards.filter(board => board._id !== boardId)
         },
         updateTask(state, { payload }) {
-            const idx = state.boards.findIndex(b => b._id === payload.boardId)
-            console.log(idx);
-            state.boards[idx].groups.forEach(g => {
-                if (g.tasks) {
-                    const taskIdx = g.tasks.findIndex(t => t.id === payload.task.id)
-                    if (taskIdx !== -1) {
-                        g.tasks.splice(taskIdx, 1, payload.task)
-                    }
-                    console.log(state.boards);
-                }
-            })
+            const group = state.board.groups.find(g => g.id === payload.groupId)
+            const taskIdx = group.tasks.findIndex(task => task.id === payload.task.id)
+            group.tasks.splice(taskIdx, 1, payload.task)
         },
         setEditedTask(state, { taskId }) {
-            // state.boards.some(board => {
-            //     board.tasks.find(task => {
-            //         if(task.id === taskId) {
-            //             state.editedTask = task
-            //             return true
-            //         }
-            //         return false
-            //     })
-            // })
             state.boards.forEach(board => {
                 if (board.groups) {
                     board.groups.forEach(group => {
@@ -66,15 +54,57 @@ export const boardStore = {
                     })
                 }
             })
-
             console.log(state.editedTask);
-
             // addBoardMsg(state, { boardId, msg }) {
             //     const board = state.boards.find(board => board._id === boardId)
             //     if (!board.msgs) board.msgs = []
             //     board.msgs.push(msg)
             // },
         },
+        updateLabels(state, { payload }) {
+            console.log(payload.task.labelIds);
+            const labelIdx = state.board.labels.findIndex(l => l.color === payload.label.color)
+
+            const group = state.board.groups.find(g => g.id === payload.groupId)
+            const taskIdx = group.tasks.findIndex(task => task.id === payload.task.id)
+
+            if (labelIdx !== -1) {
+                // console.log(payload.task.labelIds);
+                const taskLabelIdx = payload.task.labelIds.findIndex(labelId => {
+                    let found = false
+                    state.board.labels.forEach(label => {
+                        if (label.id === labelId)
+                            found = true
+                    })
+                    return found
+                })
+                state.board.labels.splice(labelIdx, 1)
+                if (taskLabelIdx !== -1) {
+                    payload.task.labelIds.splice(taskLabelIdx, 1)
+                    // console.log(payload.task.labelIds);
+                }
+            }
+            else {
+                if (!payload.task?.labelIds) payload.task.labelIds = []
+                if (!state.board?.labels) state.board.labels = []
+                payload.label.id = utilService.makeId()
+                payload.task.labelIds.push(payload.label.id)
+                state.board.labels.push(payload.label)
+            }
+            group.tasks.splice(taskIdx, 1, payload.task)
+            //find(task => task.id === payload.task.id)
+        },
+        addChecklist(state, { payload }) {
+            const group = state.board.groups.find(g => g.id === payload.groupId)
+            const taskIdx = group.tasks.findIndex(task => task.id === payload.task.id)
+            if (!group.tasks[taskIdx]?.checklists) group.tasks[taskIdx].checklists = []
+            payload.checklist.id = utilService.makeId()
+            group.tasks[taskIdx].checklists.push(payload.checklist)
+            // console.log(group.tasks[taskIdx].checklists)
+        },
+        addActivity(state, { activity }) {
+            state.board.activities.push(activity)
+        }
     },
     actions: {
         async addBoard(context, { board }) {
@@ -123,6 +153,46 @@ export const boardStore = {
             const board = context.state.boards.find(b => b._id === payload.boardId)
             // console.log(board);
             boardService.save(board)
+        },
+        async updateLabels(context, { payload }) {
+            const prevLabels = context.state.board.labels
+            const group = context.state.board.groups.find(g => g.id === payload.groupId)
+            const prevTask = group.tasks.find(task => task.id === payload.task.id)
+
+            context.commit({ type: 'updateLabels', payload })
+            try {
+                await boardService.save(context.state.board)
+                // context.commit({ type: 'addActivity', activity: payload.activity })
+            } catch (err) {
+                console.log('boardStore: Error in updateLabels', err)
+                context.commit({
+                    type: 'updateTask', payload: {
+                        task: prevTask, boardId: payload.boardId,
+                        groupId: payload.groupId
+                    }
+                })
+                context.state.board.labels = prevLabels
+                throw err
+            }
+        },
+        async addChecklist(context, { payload }) {
+            const group = context.state.board.groups.find(g => g.id === payload.groupId)
+            const prevTask = group.tasks.find(task => task.id === payload.task.id)
+
+            context.commit({ type: 'addChecklist', payload })
+            try {
+                context.commit({ type: 'addActivity', activity: payload.activity })
+                await boardService.save(context.state.board)
+            } catch (err) {
+                console.log('boardStore: Error in updateLabels', err)
+                context.commit({
+                    type: 'updateTask', payload: {
+                        task: prevTask, boardId: payload.boardId,
+                        groupId: payload.groupId
+                    }
+                })
+                throw err
+            }
         }
         // async addBoardMsg(context, { boardId, txt }) {
         //     try {
@@ -136,3 +206,42 @@ export const boardStore = {
 
     }
 }
+
+
+
+ // async updateLabelText(context, { payload }) {
+        //     const prevLabels = context.state.board.labels
+        //     const group = context.state.board.groups.find(g => g.id === payload.groupId)
+        //     const prevTask = group.tasks.find(task => task.id === payload.task.id)
+
+        //     context.commit({ type: 'updateLabelText', payload })
+        //     try {
+        //         await boardService.save(context.state.board)
+        //     } catch (err) {
+        //         console.log('boardStore: Error in updateLabelText', err)
+        //         context.commit({
+        //             type: 'updateLabelText', payload: {
+        //                 task: prevTask, boardId: payload.boardId,
+        //                 groupId: payload.groupId
+        //             }
+        //         })
+        //         context.state.board.labels = prevLabels
+        //         throw err
+        //     }
+        // },
+
+
+
+                // updateLabelText(state, { payload }) {
+        //     if (!payload.task?.labelIds) payload.task.labelIds = []
+        //     if (!state.board?.labels) state.board.labels = []
+
+        //     const labelIdx = state.board.labels.findIndex(l => l.color === payload.label.color)
+
+        //     if (labelIdx !== -1) {
+        //         state.board.labels[labelIdx].title = payload.label.title
+        //     }
+        //     else {
+        //         state.board.labels.push(payload.label)
+        //     }
+        // },

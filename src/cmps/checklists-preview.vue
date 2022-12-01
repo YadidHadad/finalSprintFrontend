@@ -1,6 +1,7 @@
 <template>
-    <section class="labels-preview">
-        <div v-for="label in labels" :style="{ backgroundColor: label.color }">
+    <section class="checklist-preview">
+        <div v-for="checklist in checklists">
+            {{checklist.title}}
         </div>
         <span>+</span>
     </section>
@@ -9,13 +10,13 @@
 <script>
 export default {
     props: {
-        labels: {
+        checklists: {
             type: Array,
             required: true,
         }
     },
     created() {
-        // console.log(this.labels)
+        
     },
 }
 </script>
