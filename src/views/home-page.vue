@@ -8,12 +8,12 @@
         <board-preview :board="board" @click="goToBoard(board._id)" />
         <button @click="removeBoard(board._id)">x</button>
         <button @click="updateBoard(board)">Update</button>
-        <hr />
+        <hr/>
         <button @click="addBoardMsg(board._id)">Add board msg</button>
         <button @click="printBoardToConsole(board)">Print msgs to console</button>
       </li>
     </ul>
-    <hr />
+    <hr/>
     <form @submit.prevent="addBoard()">
       <h2>Add board</h2>
       <input type="text" v-model="boardToAdd.title" />

@@ -6,11 +6,13 @@ export const boardStore = {
         editedTask: null,
         board: null
     },
+
     getters: {
         boards({ boards }) { return boards },
         getEditedTask({ editedTask }) { return editedTask },
         board({ board }) { return board },
     },
+
     mutations: {
         setBoards(state, { boards }) {
             state.boards = boards
@@ -76,6 +78,7 @@ export const boardStore = {
             // },
         },
     },
+
     actions: {
         async addBoard(context, { board }) {
             try {
@@ -87,6 +90,7 @@ export const boardStore = {
                 throw err
             }
         },
+        
         async updateBoard(context, { board }) {
             try {
                 board = await boardService.save(board)
