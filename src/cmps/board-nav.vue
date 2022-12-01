@@ -41,11 +41,11 @@ export default {
                 },
                 {
                     txt: 'Members',
-                    icon: 'fa-regular user-icon'
+                    icon: 'trellicons members-icon'
                 },
                 {
                     txt: 'Settings',
-                    icon: 'fa-solid settings-icon'
+                    icon: 'trellicons settings-icon'
                 },
             ]
         }

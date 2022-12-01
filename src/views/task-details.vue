@@ -23,7 +23,7 @@
                     {{ task.desc }}
                 </textarea>
             </div>
-            <checklists-preview v-if="task" :checklists="getChecklists" />
+            <!-- <checklists-preview v-if="task" :checklists="getChecklists" /> -->
 
             <div class="task-activities">
                 <h1>activities</h1>
@@ -73,17 +73,22 @@ export default {
         try {
             const { id, taskId } = this.$route.params
             this.$store.commit({ type: 'setBoard', boardId: id })
-
             // console.log(this.$route.params)
             // console.log(`taskId:`, taskId)
             // console.log(this.$store.getters.getEditedTask?.labelIds, ',,,,,,,');
             this.$store.commit({ type: 'setEditedTask', taskId })
 
             this.task = JSON.parse(JSON.stringify(this.$store.getters.getEditedTask))
+
+            console.log('hiiiiiiiiiiiii');
+            console.log(this.task);
         } catch (err) {
             console.log(err)
 
         }
+    },
+    unmounted() {
+        
     },
     methods: {
         updateTitle(ev) {
@@ -103,10 +108,12 @@ export default {
         },
         async updateTask(type, { labelIds }) {
             let taskToUpdate = JSON.parse(JSON.stringify(this.task))
+            let txt
             switch (type) {
                 case 'labels-edit':
                     if (!taskToUpdate?.labelIds) taskToUpdate.labelIds = []
                     taskToUpdate.labelIds = labelIds
+                    txt = 'Updated label'
                     // if (!this.task?.labelIds) this.task.labelIds = []
                     // this.task.labelIds = data.labelIds
                     break;
@@ -118,7 +125,7 @@ export default {
                         task: taskToUpdate,
                         groupId: this.groupId,
                         activity: {
-                            txt: 'Updated label', boardId: this.$route.params.id,
+                            txt, boardId: this.$route.params.id,
                             groupId: this.groupId, taskId: this.task.id,
                             byMember: {
                                 _id: this.user._id,
