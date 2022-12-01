@@ -2,7 +2,9 @@
     display: flex;
 
     div {
-        width: 50px;
+        min-width: 50px;
+        padding: 0 5px;
+        text-align: center;
     }
 
     >* {

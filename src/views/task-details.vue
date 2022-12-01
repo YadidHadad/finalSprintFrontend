@@ -16,7 +16,7 @@
             <button>Cover</button>
         </div>
         <div class="task-details-main">
-            <labels-preview :labels="getLabels" />
+            <labels-preview :labels="getTaskLabels" />
 
             <div class="desc-container">
                 <h3>Description</h3>
@@ -77,13 +77,30 @@ export default {
         const { id, taskId, groupId } = this.$route.params;
         this.groupId = groupId
         try {
+<<<<<<< HEAD
             await this.$store.dispatch({ type: 'loadBoards' })
             this.$store.commit({ type: "setBoard", boardId: id });
             this.$store.commit({ type: "setEditedTask", taskId, groupId, boardId: id });
 
+=======
+            const { id, taskId } = this.$route.params
+            this.$store.commit({ type: 'setBoard', boardId: id })
+            // console.log(this.$route.params)
+            // console.log(`taskId:`, taskId)
+            // console.log(this.$store.getters.getEditedTask?.labelIds, ',,,,,,,');
+            this.$store.commit({ type: 'setEditedTask', taskId })
+
+            this.task = JSON.parse(JSON.stringify(this.$store.getters.getEditedTask))
+
+            console.log('hiiiiiiiiiiiii');
+            console.log(this.task);
+>>>>>>> 4d90a16a23dd7ea478255d125ec16f19e81b0b67
         } catch (err) {
             console.log(err);
         }
+    },
+    unmounted() {
+
     },
     methods: {
         updateTitle(ev) {
@@ -101,12 +118,24 @@ export default {
                 type: "",
             };
         },
+<<<<<<< HEAD
         async updateTask(type, { labelIds }) {
             let taskToUpdate = this.task;
             switch (type) {
                 case "labels-edit":
                     if (!taskToUpdate?.labelIds) taskToUpdate.labelIds = [];
                     taskToUpdate.labelIds = labelIds;
+=======
+        async updateTask(type, data) {
+            // console.log(data.labelIds);
+            let taskToUpdate = JSON.parse(JSON.stringify(this.task))
+            let txt
+            switch (type) {
+                case 'labels-edit':
+                    // if (!taskToUpdate?.labelIds) taskToUpdate.labelIds = []
+                    taskToUpdate.labelIds = data.labelIds
+                    txt = 'Updated label'
+>>>>>>> 4d90a16a23dd7ea478255d125ec16f19e81b0b67
                     // if (!this.task?.labelIds) this.task.labelIds = []
                     // this.task.labelIds = data.labelIds
                     break;
@@ -118,10 +147,15 @@ export default {
                         task: taskToUpdate,
                         groupId: this.groupId,
                         activity: {
+<<<<<<< HEAD
                             txt: "Updated label",
                             boardId: this.$route.params.id,
                             groupId: this.groupId,
                             taskId: this.task.id,
+=======
+                            txt, boardId: this.$route.params.id,
+                            groupId: this.groupId, taskId: this.task.id,
+>>>>>>> 4d90a16a23dd7ea478255d125ec16f19e81b0b67
                             byMember: {
                                 _id: this.user._id,
                                 fullname: this.user.fullname,
@@ -136,6 +170,7 @@ export default {
             }
         },
         closeDetails() {
+<<<<<<< HEAD
             this.$store.dispatch({
                 type: "updateTask",
                 payload: {
@@ -145,6 +180,16 @@ export default {
                 },
             });
             this.$router.push(`/board/${this.$route.params.id}`);
+=======
+            // this.$store.dispatch({
+            //     type: 'updateTask', payload:
+            //     {
+            //         task: this.task, boardId: this.$route.params.id,
+            //         groupId: this.groupId,
+            //     },
+            // })
+            this.$router.push(`/board/${this.$route.params.id}`)
+>>>>>>> 4d90a16a23dd7ea478255d125ec16f19e81b0b67
         },
         async addChecklist(checklist) {
             await this.$store.dispatch({
@@ -179,6 +224,7 @@ export default {
             return acts;
         },
         user() {
+<<<<<<< HEAD
             return this.$store.getters.loggedinUser;
         },
         task() {
@@ -186,6 +232,18 @@ export default {
             console.log(task)
             return task
         },
+=======
+            return this.$store.getters.loggedinUser
+
+        },
+        getTaskLabels() {
+            if(!this.task?.labelIds) return []
+            return this.$store.getters.labels.map(label => {
+                if (this.task.labelIds.includes(label.id))
+                    return label
+            })
+        }
+>>>>>>> 4d90a16a23dd7ea478255d125ec16f19e81b0b67
     },
     components: { labelsEdit, labelsPreview, checklistEdit, checklistsPreview },
 };

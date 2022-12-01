@@ -46,15 +46,34 @@ export const boardStore = {
 
         updateTask(state, { payload }) {
             // console.log(state.board);
+            this.editedTask = payload.task
             const group = state.board.groups.find(g => g.id === payload.groupId)
             const taskIdx = group.tasks.findIndex(task => task.id === payload.task.id)
             group.tasks.splice(taskIdx, 1, payload.task)
         },
+<<<<<<< HEAD
 
         setEditedTask(state, { taskId, groupId, boardId }) {
             const board = state.boards.find((board) => board._id === boardId)
             const group = board.groups.find((group) => group.id === groupId)
             const task = group.tasks.find((task) => task.id === taskId)
+=======
+        setEditedTask(state, { taskId }) {
+            state.boards.forEach(board => {
+                if (board.groups) {
+                    board.groups.forEach(group => {
+                        if (group.tasks) {
+                            group.tasks.forEach(task => {
+                                if (task.id === taskId)
+                                    state.editedTask = task
+                            })
+                        }
+                    })
+                }
+            })
+        },
+        updateEditedTask(state, { task }) {
+>>>>>>> 4d90a16a23dd7ea478255d125ec16f19e81b0b67
             state.editedTask = task
         },
 
@@ -158,17 +177,26 @@ export const boardStore = {
         async updateTask(context, { payload }) {
             //update the task add new activity
             //and send socket to server task-updated.
+<<<<<<< HEAD
 
             //todo
             const prevTask = context.state.editedTask
             console.log(payload, '........')
+=======
+            const groupId = payload.groupId
+            const taskId = payload.task.id
+            const prevGroup = context.state.board.groups.find(g => g.id === groupId)
+            const prevTask = prevGroup.tasks.find(t => t.id === taskId)
+>>>>>>> 4d90a16a23dd7ea478255d125ec16f19e81b0b67
             // console.log(context.state.board.activities);
 
             context.commit({ type: 'updateTask', payload })
-            context.commit({ type: 'addActivity', activity: payload.activity })
+            if (payload.activity) context.commit({ type: 'addActivity', activity: payload.activity })
             const board = context.state.board
             try {
-                await boardService.save(board)
+                const newBoard = await boardService.save(board)
+                console.log(newBoard);
+                // context.commit({ type: 'updateEditedTask', taskId })
                 // await boardService.saveTask(payload.activity.boardId, payload.activity.groupId,
                 //     payload.task, payload.activity)
             }
