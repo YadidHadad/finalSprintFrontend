@@ -65,20 +65,18 @@ export default {
             },
             task: null,
             labels: null,
-            showActivities: false
-            // testT: this.$store.getters.getEditedTask
+            showActivities: false,
+            // labelIds: this.$store.getters.labelIds
         }
     },
     async created() {
-        console.log('task details')
         try {
-
-
             const { id, taskId } = this.$route.params
             this.$store.commit({ type: 'setBoard', boardId: id })
 
-            console.log(this.$route.params)
-            console.log(`taskId:`, taskId)
+            // console.log(this.$route.params)
+            // console.log(`taskId:`, taskId)
+            // console.log(this.$store.getters.getEditedTask?.labelIds, ',,,,,,,');
             this.$store.commit({ type: 'setEditedTask', taskId })
 
             this.task = JSON.parse(JSON.stringify(this.$store.getters.getEditedTask))
@@ -96,24 +94,28 @@ export default {
             this.detailsPicked.type = type
             this.detailsPicked.isPicked = true
         },
-        closeEdit() {
+        async closeEdit() {
+            // await this.updateTask()
             this.detailsPicked = {
                 isPicked: false,
                 type: ''
             }
         },
-        async updateTask(type, label) {
+        async updateTask(type, { labelIds }) {
+            let taskToUpdate = JSON.parse(JSON.stringify(this.task))
             switch (type) {
                 case 'labels-edit':
-                    if (!this.task?.labelIds) this.task.labelIds = []
-                    this.task.labelIds.push(label.id)
+                    if (!taskToUpdate?.labelIds) taskToUpdate.labelIds = []
+                    taskToUpdate.labelIds = labelIds
+                    // if (!this.task?.labelIds) this.task.labelIds = []
+                    // this.task.labelIds = data.labelIds
                     break;
-            }
 
+            }
             try {
-                await this.$store.dispatch({
+                let updatedTask = await this.$store.dispatch({
                     type: 'updateTask', payload: {
-                        task: JSON.parse(JSON.stringify(this.task)),
+                        task: taskToUpdate,
                         groupId: this.groupId,
                         activity: {
                             txt: 'Updated label', boardId: this.$route.params.id,
@@ -126,25 +128,12 @@ export default {
                         }
                     }
                 })
+                this.task = taskToUpdate
             }
             catch (err) {
                 console.log('Failed in task update', err)
             }
 
-        },
-        updateLabels(label) {
-            this.$store.dispatch({
-                type: 'updateLabels', payload: {
-                    task: this.task, label,
-                    groupId: this.groupId,
-                    activity: {
-                        txt: 'Updated label', boardId: this.$route.params.id,
-                        groupId: this.groupId, taskId: this.task.id
-                    }
-
-
-                }
-            })
         },
         closeDetails() {
             this.$store.dispatch({

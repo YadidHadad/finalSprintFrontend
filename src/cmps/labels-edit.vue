@@ -9,13 +9,14 @@
             <p>Labels</p>
             <ul class="label-color-list">
                 <li v-for="(label, index) in labels" :key="label.id">
-                    <input class="check-box" type="checkbox" @change="updateLabels(index, $event)"
-                        v-model="colorsSelected" :value="label.id">
-                    <div class="label-color" :style="{ backgroundColor: label.color }">{{ labelTitle(label.title) }}</div>
+                    <input class="check-box" type="checkbox" @change="updateLabels()" v-model="labelIds"
+                        :value="label.id">
+                    <div class="label-color" :style="{ backgroundColor: label.color }">{{ labelTitle(label.title) }}
+                    </div>
                     <span class="fa-regular pen-icon" @click="editTitle(index)"></span>
                 </li>
-                <div class="edit-title-container">
-                    <input v-if="isEditTitle" type="text" placeholder="Enter title..." v-model="title">
+                <div v-if="isEditTitle" class="edit-title-container">
+                    <input type="text" placeholder="Enter title..." v-model="title">
                     <button @click="save">Save</button>
                 </div>
             </ul>
@@ -25,13 +26,12 @@
 </template>
 
 <script>
-import { utilService } from '../services/util.service'
 export default {
     data() {
         return {
-            baseColors: ['#d6ecd2', '#faf3c0', '#fce6c6', '#f5d3ce', '#eddbf4', '#bcd9ea'],
+            // baseColors: ['#d6ecd2', '#faf3c0', '#fce6c6', '#f5d3ce', '#eddbf4', '#bcd9ea'],
             labels: this.$store.getters.labels,
-            colorsSelected: [],
+            labelIds: [],
             isEditTitle: false,
             title: '',
             colorEdited: ''
@@ -39,13 +39,16 @@ export default {
     },
     created() {
         this.colorsSelected = this.labels.map(label => label.color)
+        // console.log(this.$store.getters.getEditedTask , '*********');
+        if (this.$store.getEditedTask?.labelIds)
+            this.labelIds = this.$store.getEditedTask.labelIds.map(l => l.id)
     },
     methods: {
         closeEdit() {
             this.$emit('closeEdit')
         },
-        updateLabels(idx) {
-            this.$emit('updateLabels', { color: this.baseColors[idx], title: ''})
+        updateLabels() {
+            this.$emit('updateLabels', { labelIds: this.labelIds })
         },
         editTitle(idx) {
             this.isEditTitle = true
@@ -53,7 +56,7 @@ export default {
             // this.$emit('updateLabels' , {color: this.baseColors[idx] , title:})
         },
         save() {
-            this.$emit('updateLabelText', { title: this.title, color: this.colorEdited})
+            this.$emit('updateLabelText', { title: this.title, color: this.colorEdited })
             this.isEditTitle = false
             this.colorEdited = ''
             this.title = ''
