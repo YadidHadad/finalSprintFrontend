@@ -6,19 +6,33 @@
     padding: 0 0.8rem;
     background-color: #f4f5f7;
     color: $textDark;
-    font-weight: bold;
     font-size: 1rem;
     box-shadow: inset 1px 0px 0px 0px rgb(0 0 0 / 10%);
     box-shadow: -10px 1px 20px 10px rgb(0 0 0 / 10%);
     transition: all 0.3s ease-out;
 
+    section {
+        box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.1);
+        padding: 1rem 0.5rem;
+
+        &.activities {
+            overflow-y: scroll;
+        }
+    }
     span:first-of-type {
         margin-inline-end: 1rem;
     }
+    .btn {
+        @include btn("board-nav");
+
+        &:hover {
+            background-color: rgba($textDark, 0.1);
+            border-radius: 0;
+        }
+    }
     .title {
+        font-weight: bold;
         text-align: center;
-        padding: 1rem 0.5rem;
-        box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.1);
 
         .btn {
             padding: 0;
@@ -30,8 +44,11 @@
         }
     }
 
-    .btn {
-        @include btn("board-nav");
+    .activity {
+        padding-block: 0.3rem;
+        .btn:first-of-type {
+            @include btn($type: "initials");
+        }
     }
 
     &.menuIsHidden {

@@ -6,7 +6,7 @@
                 :members="board.members" :isStarred="board.isStarred" @toggleBoardMenu="toggleBoardMenu" />
             <group-list @addTask="addNewTask" @addGroup="addNewGroup" :groups="board.groups" :boardId="board._id" />
         </section>
-        <board-menu :menuIsHidden="menuIsHidden" @toggleBoardMenu="toggleBoardMenu" />
+        <board-menu :menuIsHidden="menuIsHidden" :activities="board.activities" @toggleBoardMenu="toggleBoardMenu" />
         <!-- <router-view class="task-details-view"></router-view> -->
     </section>
 

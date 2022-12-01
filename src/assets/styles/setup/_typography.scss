@@ -146,7 +146,9 @@
     }
     &.star-icon::before {
         content: "\f005";
-        text-align: center;
+    }
+    &.img-icon::before {
+        content: "\f302";
     }
 }
 
@@ -193,6 +195,10 @@
     &.star-icon::before {
         content: "\f005";
         color: #f2d600;
+    }
+
+    &.act-icon::before {
+        content: "\f550";
     }
 
     & {
