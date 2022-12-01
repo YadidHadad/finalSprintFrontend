@@ -199,18 +199,10 @@ export const boardStore = {
         },
 
         async addTask(context, { board, groupId, task, activity }) {
-            console.log(board);
             const groupIdx = board.groups.findIndex((group) => group.id === groupId)
-            if (board.groups[groupIdx].tasks) {
-                board.groups[groupIdx].tasks.push(task)
-            } else {
-                board.groups[groupIdx].tasks = [task]
-            }
+            if (!board.groups[groupIdx].tasks) board.groups[groupIdx].tasks = []
+            board.groups[groupIdx].tasks.push(task)
             context.commit({ type: 'addActivity', activity })
-
-            // if(!.groups[groupIdx].tasks) board.activities = []
-            // board.activities.push(activity)
-
             try {
                 const updatedBoard = await context.dispatch({ type: 'updateBoard', board })
                 return updatedBoard

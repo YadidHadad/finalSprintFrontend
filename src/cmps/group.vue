@@ -47,16 +47,6 @@ export default {
                 title: "",
             },
 
-            activity: {
-                id: '',
-                txt: "Add new task",
-                byMember: {
-                    _id: this.user._id,
-                    fullname: this.user.fullname,
-                    imgUrl: this.user.imgUrl || '',
-                },
-                task: this.task
-            }
         }
     },
 
@@ -70,18 +60,28 @@ export default {
             this.isCardOpen = !this.isCardOpen;
         },
         addTask() {
-            this.$emit('addTask', this.group.id, { ...this.task }, { ...this.activity }) // fix
+            const activity = {
+                id: '',
+                txt: "Add new task",
+                byMember: {
+                    _id: this.user._id,
+                    fullname: this.user.fullname,
+                    imgUrl: this.user.imgUrl || '',
+                },
+                task: this.task
+            }
+            this.$emit('addTask', this.group.id, JSON.parse(JSON.stringify(this.task)), activity)
         }
 
     },
 
     computed: {
         user() {
+            console.log(this.$store.getters.loggedinUser);
             return this.$store.getters.loggedinUser
 
         }
     },
-    computed: {},
     components: { taskPreview },
 };
 </script>
