@@ -104,6 +104,9 @@
     color: white !important;
     border-radius: 50%;
     background-color: $userBgc1;
+    &:hover {
+      background-color: rgba($userBgc1, 0.8);
+    }
   }
   // } @else if $type == dark {
   //   // background-color: $clr2;

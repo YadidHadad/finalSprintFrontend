@@ -39,6 +39,7 @@ export const boardStore = {
             state.boards = state.boards.filter(board => board._id !== boardId)
         },
         updateTask(state, { payload }) {
+            console.log(payload);
             const group = state.board.groups.find(g => g.id === payload.groupId)
             const taskIdx = group.tasks.findIndex(task => task.id === payload.task.id)
             group.tasks.splice(taskIdx, 1, payload.task)
@@ -56,7 +57,7 @@ export const boardStore = {
                     })
                 }
             })
-            console.log(state.editedTask);
+            // console.log(state.editedTask);
             // addBoardMsg(state, { boardId, msg }) {
             //     const board = state.boards.find(board => board._id === boardId)
             //     if (!board.msgs) board.msgs = []
@@ -105,7 +106,11 @@ export const boardStore = {
             // console.log(group.tasks[taskIdx].checklists)
         },
         addActivity(state, { activity }) {
-            state.board.activities.push(activity)
+            if (!state.board?.activities) state.board.activities = []
+            state.board.activities.unshift(activity)
+        },
+        removeLastActivity(state) {
+            state.board.activities.splice(0, 1)
         }
     },
 
@@ -120,7 +125,7 @@ export const boardStore = {
                 throw err
             }
         },
-        
+
         async updateBoard(context, { board }) {
             try {
                 board = await boardService.save(board)
@@ -150,14 +155,33 @@ export const boardStore = {
                 throw err
             }
         },
-        
-        updateTask(context, { payload }) {
+        async updateTask(context, { payload }) {
             //update the task add new activity
             //and send socket to server task-updated
+            const prevTask = context.state.editedTask
+            // console.log(context.state.board.activities);
+
             context.commit({ type: 'updateTask', payload })
-            const board = context.state.boards.find(b => b._id === payload.boardId)
-            // console.log(board);
-            boardService.save(board)
+            context.commit({ type: 'addActivity', activity: payload.activity })
+            const board = context.state.board
+            try {
+                await boardService.save(board)
+                await boardService.saveTask(payload.activity.boardId, payload.activity.groupId,
+                    payload.task, payload.activity)
+            }
+            catch (err) {
+                {
+                    console.log('boardStore: Error in updateLabels', err)
+                    context.commit({
+                        type: 'updateTask', payload: {
+                            task: prevTask,
+                            groupId: payload.groupId
+                        }
+                    })
+                    context.commit(({ type: 'removeLastActivity' }))
+                    throw err
+                }
+            }
         },
 
         async updateLabels(context, { payload }) {

@@ -5,11 +5,12 @@
         <section class="add-new-list">
             <transition name="slide-in">
                 <button class="open-add-list" v-if="!isFormOpen" @click="toggleForm"><span
-                    class="fa-regular plus-icon"></span> Add a
+                        class="fa-regular plus-icon"></span> Add a
                     list</button>
-                </transition>
-                <transition name="slide-out">
-                <form  v-if="isFormOpen" @submit.prevent="$emit('addGroup', { ...this.group })" class="flex group-list-form">
+            </transition>
+            <transition name="slide-out">
+                <form v-if="isFormOpen" @submit.prevent="$emit('addGroup', { ...this.group })"
+                    class="flex group-list-form">
                     <input v-model="group.title" type="text" name="add-list" placeholder="Enter list title...">
                     <div class="add-list-btns flex">
                         <button class="add-list-btn">Add list</button>

@@ -11,6 +11,7 @@ export const boardService = {
     save,
     remove,
     getEmptyBoard,
+    saveTask,
     addBoardActivity
 }
 window.cs = boardService
@@ -35,30 +36,15 @@ function getById(boardId) {
 async function remove(boardId) {
     await storageService.remove(STORAGE_KEY, boardId)
 }
-
-function saveTask(boardId, groupId, task, activity) {
-    const board = getById(boardId)
-    // PUT /api/board/b123/task/t678
-
-    // TODO: find the task, and update
-    board.activities.unshift(activity)
-    save(board)
-    // return board
-    // return task
-}
 async function saveGroup(boardId, group, activity) {
     try {
         const board = await getById(boardId)
         board.groups.push(group)
         const newBoard = await save(board)
-
-
     }
     catch {
 
     }
-
-
     // TODO: find the task, and update
     board.activities.unshift(activity)
     save(board)
@@ -76,6 +62,22 @@ async function save(board) {
         savedBoard = await storageService.post(STORAGE_KEY, board)
     }
     return savedBoard
+}
+
+async function saveTask(boardId, groupId, task, activity) {
+    console.log(boardId, 'boardId');
+    const board = await getById(boardId)
+    // PUT /api/board/b123/task/t678
+
+    // TODO: find the task, and update
+    if (!board.activities) board.activities = []
+    board.activities.unshift(activity)
+    const group = board.groups.find(g => g.id === groupId)
+    const taskIdx = group.tasks.find(t => t.id === task.id)
+    group.tasks.splice(taskIdx, 1, task)
+    save(board)
+
+    return { board, task }
 }
 
 async function addBoardActivity(boardId, txt) {
@@ -101,7 +103,6 @@ function getEmptyBoard(
     isStarred = false,
     createdBy = {},
     style = {},
-    labels = [],
     groups = [],
     members = [],
     activities = []) {
@@ -111,13 +112,17 @@ function getEmptyBoard(
         isStarred,
         createdBy,
         style,
-        labels,
+        labels :[{ id: utilService.makeId(), title: '', color: '#d6ecd2' },
+    { id: utilService.makeId(), title: '', color: '#faf3c0' },
+    { id: utilService.makeId(), title: '', color: '#fce6c6' },
+    { id: utilService.makeId(), title: '', color: '#f5d3ce' },
+    { id: utilService.makeId(), title: '', color: '#eddbf4' },
+    { id: utilService.makeId(), title: '', color: '#bcd9ea' }],
         groups,
         members,
         activities,
     }
 }
-
 
 // ; (async () => {
 //     await storageService.post(STORAGE_KEY, getEmptyBoard(
@@ -178,8 +183,8 @@ function getEmptyBoard(
 //         false, //isStarred
 //         {}, //createdBy
 //         {}, //style
-//         [ //labels
-//         ],
+        
+        
 //         [ //groups
 //             {
 //                 "id": "g101",

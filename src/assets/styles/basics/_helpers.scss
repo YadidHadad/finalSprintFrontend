@@ -50,6 +50,9 @@
     &.align-center {
         align-items: center;
     }
+    &.align-baseline {
+        align-items: baseline;
+    }
     &.wrap {
         flex-wrap: wrap;
     }

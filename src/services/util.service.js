@@ -6,7 +6,8 @@ export const utilService = {
     randomPastTime,
     saveToStorage,
     loadFromStorage,
-    getBCG
+    getBCG,
+    getInitials
 }
 
 function makeId(length = 6) {
@@ -65,4 +66,8 @@ function loadFromStorage(key) {
 
 function getBCG(colors, gap, opacity) {
     return { backgroundColor: `rgba(${+colors[0] + gap},${+colors[1] + gap},${+colors[2] + gap}, ${opacity})` }
+}
+
+function getInitials(fullname) {
+    return `${fullname.split(' ')[0].charAt(0)}${fullname.split(' ')[1].charAt(0)}`
 }
