@@ -77,19 +77,22 @@ export default {
 
         async addNewGroup(group) {
             var board = JSON.parse(JSON.stringify(this.board))
-            board.groups.push(group)
             try {
-                this.$store.dispatch({ type: 'updateBoard', board: board })
+               await this.$store.dispatch({ type: 'addGroup', board: board, group })
             }
             catch (err) {
                 console.log(err);
-                showErrorMsg("Cannot add list");
             }
         },
 
         async addNewTask(groupId, task, activity) {
             var board = JSON.parse(JSON.stringify(this.board))
-            this.$store.dispatch({ type: 'addTask', board , groupId, task, activity })
+            try {
+                await this.$store.dispatch({ type: 'addTask', board, groupId, task, activity })
+            }
+            catch (err) {
+                console.log(err);
+            }
         },
 
         // async addNewTask(groupId, task, activity) {
@@ -122,22 +125,22 @@ export default {
 
         // }
 
-    toggleBoardMenu() {
-        console.log('toggleBoardMenu')
-        this.menuIsHidden = !this.menuIsHidden
-    }
-},
+        toggleBoardMenu() {
+            console.log('toggleBoardMenu')
+            this.menuIsHidden = !this.menuIsHidden
+        }
+    },
 
-computed: {
-    boardBGC() {
-        return { backgroundImage: `url(${this.style})` }
+    computed: {
+        boardBGC() {
+            return { backgroundImage: `url(${this.style})` }
+        },
+        color() {
+            return this.rgb
+        },
+        board() {
+            return this.$store.getters.board
+        }
     },
-    color() {
-        return this.rgb
-    },
-    board() {
-        return this.$store.getters.board
-    }
-},
 }
 </script>

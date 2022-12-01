@@ -59,7 +59,6 @@ export default {
         },
 
         addTask(groupId, task, activity) {
-            task.id = utilService.makeId()
             this.$emit('addTask', groupId, task, activity)
         }
     },

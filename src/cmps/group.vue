@@ -44,10 +44,15 @@ export default {
                 id: '',
                 title: '',
             },
+
             activity: {
-                id: utilService.makeId(),
+                id: '',
                 txt: "Add new task",
-                byMember: 'Moshe', // getLoggedinUser
+                byMember: {
+                    _id: this.user._id,
+                    fullname: this.user.fullname,
+                    imgUrl: this.user.imgUrl || '',
+                },
                 task: this.task
             }
         }
@@ -56,14 +61,14 @@ export default {
     created() {
 
     },
-    
+
     methods: {
         toggleCard() {
             console.log(this.isCardOpen);
             this.isCardOpen = !this.isCardOpen
         },
         addTask() {
-            this.$emit('addTask', this.group.id, { ...this.task }, { ...this.activity })
+            this.$emit('addTask', this.group.id, { ...this.task }, { ...this.activity }) // fix
         }
 
     },

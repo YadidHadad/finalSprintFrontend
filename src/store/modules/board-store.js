@@ -3,6 +3,7 @@ import { utilService } from '../../services/util.service'
 import { store } from '../store'
 
 export const boardStore = {
+
     state: {
         boards: [],
         editedTask: null,
@@ -43,13 +44,14 @@ export const boardStore = {
         removeBoard(state, { boardId }) {
             state.boards = state.boards.filter(board => board._id !== boardId)
         },
+
         updateTask(state, { payload }) {
-            // console.log(state.board);
             this.editedTask = payload.task
             const group = state.board.groups.find(g => g.id === payload.groupId)
             const taskIdx = group.tasks.findIndex(task => task.id === payload.task.id)
             group.tasks.splice(taskIdx, 1, payload.task)
         },
+
         setEditedTask(state, { taskId }) {
             state.boards.forEach(board => {
                 if (board.groups) {
@@ -100,6 +102,7 @@ export const boardStore = {
             group.tasks.splice(taskIdx, 1, payload.task)
             //find(task => task.id === payload.task.id)
         },
+
         addChecklist(state, { payload }) {
             const group = state.board.groups.find(g => g.id === payload.groupId)
             const taskIdx = group.tasks.findIndex(task => task.id === payload.task.id)
@@ -108,10 +111,13 @@ export const boardStore = {
             group.tasks[taskIdx].checklists.push(payload.checklist)
             // console.log(group.tasks[taskIdx].checklists)
         },
+
         addActivity(state, { activity }) {
             // console.log('*************************', activity)
             if (!activity) return
             if (!state.board?.activities) state.board.activities = []
+            activity.id = utilService.makeId()
+            activity.createdAt = Date.now()
             state.board.activities.unshift(activity)
             // console.log(`activity:`, activity)
         },
@@ -198,28 +204,39 @@ export const boardStore = {
             }
         },
 
-        async addNewTask(context, { board, groupId, task, activity }) {
+        async addTask(context, { board, groupId, task, activity }) {
+            console.log(board);
             const groupIdx = board.groups.findIndex((group) => group.id === groupId)
             if (board.groups[groupIdx].tasks) {
                 board.groups[groupIdx].tasks.push(task)
             } else {
                 board.groups[groupIdx].tasks = [task]
             }
-            if (board.board.activities) {
-                board.activities.push(activity)
-            } else {
-                board.activities = [activity]
-            }
+            context.commit({ type: 'addActivity', activity })
+
+            // if(!.groups[groupIdx].tasks) board.activities = []
+            // board.activities.push(activity)
 
             try {
-                this.$store.dispatch({ type: 'updateBoard', board: board })
-
+                const updatedBoard = await context.dispatch({ type: 'updateBoard', board })
+                return updatedBoard
             } catch (err) {
                 board.groups[groupIdx].tasks.pop()
                 context.commit({ type: 'updateBoard', board })
                 context.commit({ type: 'setBoard', boardId: board._id })
+                throw err
+            }
+        },
+
+        async addGroup(context, { board, group }) {
+            board.groups.push(group)
+            try {
+                const updatedBoard = await context.dispatch({ type: 'updateBoard', board: board })
+                return updatedBoard
+            }
+            catch (err) {
                 console.log(err);
-                showErrorMsg("Cannot add task");
+                throw err
             }
         },
 

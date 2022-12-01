@@ -26,10 +26,8 @@ export default {
     const user = userService.getLoggedinUser()
     console.log(`user:`, user)
     if (user) store.commit({ type: 'setLoggedinUser', user })
-
-
-
   },
+  
   data() {
     return {
       rgb: null,
