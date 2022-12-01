@@ -19,22 +19,26 @@ export const boardStore = {
     },
 
     mutations: {
+
         setBoards(state, { boards }) {
             state.boards = boards
         },
+
         setBoard(state, { boardId }) {
             const currBoard = state.boards.find(b => b._id === boardId)
             state.board = currBoard
             console.log(currBoard);
         },
+
         addBoard(state, { board }) {
             state.boards.push(board)
         },
+
         updateBoard(state, { board }) {
             const idx = state.boards.findIndex(b => b._id === board._id)
-            console.log(idx);
             state.boards.splice(idx, 1, board)
         },
+
         removeBoard(state, { boardId }) {
             state.boards = state.boards.filter(board => board._id !== boardId)
         },
@@ -133,6 +137,7 @@ export const boardStore = {
             try {
                 board = await boardService.save(board)
                 context.commit({ type: 'updateBoard', board })
+                context.commit({ type: 'setBoard', boardId: board._id })
                 return board
             } catch (err) {
                 console.log('boardStore: Error in updateBoard', err)
@@ -159,6 +164,7 @@ export const boardStore = {
                 throw err
             }
         },
+
         async updateTask(context, { payload }) {
             //update the task add new activity
             //and send socket to server task-updated
