@@ -11,6 +11,7 @@ export const boardService = {
     save,
     remove,
     getEmptyBoard,
+    saveTask,
     addBoardActivity
 }
 window.cs = boardService
@@ -35,30 +36,15 @@ function getById(boardId) {
 async function remove(boardId) {
     await storageService.remove(STORAGE_KEY, boardId)
 }
-
-function saveTask(boardId, groupId, task, activity) {
-    const board = getById(boardId)
-    // PUT /api/board/b123/task/t678
-
-    // TODO: find the task, and update
-    board.activities.unshift(activity)
-    save(board)
-    // return board
-    // return task
-}
 async function saveGroup(boardId, group, activity) {
     try {
         const board = await getById(boardId)
         board.groups.push(group)
         const newBoard = await save(board)
-
-
     }
     catch {
 
     }
-
-
     // TODO: find the task, and update
     board.activities.unshift(activity)
     save(board)
@@ -76,6 +62,20 @@ async function save(board) {
         savedBoard = await storageService.post(STORAGE_KEY, board)
     }
     return savedBoard
+}
+
+async function saveTask(boardId, groupId, task, activity) {
+    const board = getById(boardId)
+    // PUT /api/board/b123/task/t678
+
+    // TODO: find the task, and update
+    board.activities.unshift(activity)
+    const group = board.groups.find(g => g.id === groupId)
+    const taskIdx = group.tasks.find(t => t.id === task.id)
+    group.tasks.splice(taskIdx, 1, task)
+    save(board)
+
+    return { board, task }
 }
 
 async function addBoardActivity(boardId, txt) {
