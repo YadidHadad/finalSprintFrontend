@@ -135,10 +135,10 @@ export const boardStore = {
         },
 
         async updateBoard(context, { board }) {
+            context.commit({ type: 'updateBoard', board })
+            context.commit({ type: 'setBoard', boardId: board._id })
             try {
                 board = await boardService.save(board)
-                context.commit({ type: 'updateBoard', board })
-                context.commit({ type: 'setBoard', boardId: board._id })
                 return board
             } catch (err) {
                 console.log('boardStore: Error in updateBoard', err)
@@ -172,7 +172,7 @@ export const boardStore = {
 
             //todo
             const prevTask = context.state.editedTask
-            console.log(payload , '........')
+            console.log(payload, '........')
             // console.log(context.state.board.activities);
 
             context.commit({ type: 'updateTask', payload })
@@ -195,6 +195,31 @@ export const boardStore = {
                     context.commit(({ type: 'removeLastActivity' }))
                     throw err
                 }
+            }
+        },
+
+        async addNewTask(context, { board, groupId, task, activity }) {
+            const groupIdx = board.groups.findIndex((group) => group.id === groupId)
+            if (board.groups[groupIdx].tasks) {
+                board.groups[groupIdx].tasks.push(task)
+            } else {
+                board.groups[groupIdx].tasks = [task]
+            }
+            if (board.board.activities) {
+                board.activities.push(activity)
+            } else {
+                board.activities = [activity]
+            }
+
+            try {
+                this.$store.dispatch({ type: 'updateBoard', board: board })
+
+            } catch (err) {
+                board.groups[groupIdx].tasks.pop()
+                context.commit({ type: 'updateBoard', board })
+                context.commit({ type: 'setBoard', boardId: board._id })
+                console.log(err);
+                showErrorMsg("Cannot add task");
             }
         },
 

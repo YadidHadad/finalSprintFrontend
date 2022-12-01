@@ -47,14 +47,16 @@ export default {
             activity: {
                 id: utilService.makeId(),
                 txt: "Add new task",
-                createdAt: Date.now(), //change this in the service
-                byMember: 'Moshe',
+                byMember: 'Moshe', // getLoggedinUser
                 task: this.task
             }
         }
     },
+
     created() {
+
     },
+    
     methods: {
         toggleCard() {
             console.log(this.isCardOpen);
@@ -65,8 +67,12 @@ export default {
         }
 
     },
-    computed: {
 
+    computed: {
+        user() {
+            return this.$store.getters.loggedinUser
+
+        }
     },
     components: { taskPreview },
 }
