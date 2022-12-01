@@ -19,27 +19,32 @@ export const boardStore = {
     },
 
     mutations: {
+
         setBoards(state, { boards }) {
             state.boards = boards
         },
+
         setBoard(state, { boardId }) {
             const currBoard = state.boards.find(b => b._id === boardId)
             state.board = currBoard
-            console.log(currBoard);
+            // console.log(currBoard);
         },
+
         addBoard(state, { board }) {
             state.boards.push(board)
         },
+
         updateBoard(state, { board }) {
             const idx = state.boards.findIndex(b => b._id === board._id)
-            console.log(idx);
+            // console.log(idx);
             state.boards.splice(idx, 1, board)
         },
+
         removeBoard(state, { boardId }) {
             state.boards = state.boards.filter(board => board._id !== boardId)
         },
         updateTask(state, { payload }) {
-            console.log(payload);
+            // console.log(state.board);
             const group = state.board.groups.find(g => g.id === payload.groupId)
             const taskIdx = group.tasks.findIndex(task => task.id === payload.task.id)
             group.tasks.splice(taskIdx, 1, payload.task)
@@ -65,7 +70,7 @@ export const boardStore = {
             // },
         },
         updateLabels(state, { payload }) {
-            console.log(payload.task.labelIds);
+            // console.log(payload.task.labelIds);
             const labelIdx = state.board.labels.findIndex(l => l.color === payload.label.color)
 
             const group = state.board.groups.find(g => g.id === payload.groupId)
@@ -106,11 +111,11 @@ export const boardStore = {
             // console.log(group.tasks[taskIdx].checklists)
         },
         addActivity(state, { activity }) {
-            console.log('*************************', activity)
+            // console.log('*************************', activity)
             if (!activity) return
             if (!state.board?.activities) state.board.activities = []
             state.board.activities.unshift(activity)
-            console.log(`activity:`, activity)
+            // console.log(`activity:`, activity)
         },
         removeLastActivity(state) {
             state.board.activities.splice(0, 1)
@@ -133,6 +138,7 @@ export const boardStore = {
             try {
                 board = await boardService.save(board)
                 context.commit({ type: 'updateBoard', board })
+                context.commit({ type: 'setBoard', boardId: board._id })
                 return board
             } catch (err) {
                 console.log('boardStore: Error in updateBoard', err)
@@ -143,7 +149,7 @@ export const boardStore = {
             try {
                 //SEND FILTER
                 const boards = await boardService.query()
-                console.log('***************************', boards)
+                // console.log('***************************', boards)
                 context.commit({ type: 'setBoards', boards })
             } catch (err) {
                 console.log('boardStore: Error in loadBoards', err)
@@ -159,10 +165,14 @@ export const boardStore = {
                 throw err
             }
         },
+
         async updateTask(context, { payload }) {
             //update the task add new activity
-            //and send socket to server task-updated
+            //and send socket to server task-updated.
+
+            //todo
             const prevTask = context.state.editedTask
+            console.log(payload , '........')
             // console.log(context.state.board.activities);
 
             context.commit({ type: 'updateTask', payload })
