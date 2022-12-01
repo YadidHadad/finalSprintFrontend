@@ -32,6 +32,7 @@ async function query(filterBy = { txt: '', price: 0 }) {
     // return boards
 
 }
+
 function getById(boardId) {
     // return storageService.get(STORAGE_KEY, boardId)
     return httpService.get(`board/${boardId}`)
@@ -41,6 +42,7 @@ async function remove(boardId) {
     // await storageService.remove(STORAGE_KEY, boardId)
     return httpService.delete(`board/${boardId}`)
 }
+
 async function save(board) {
     var savedBoard
     if (board._id) {
