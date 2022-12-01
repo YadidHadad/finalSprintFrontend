@@ -16,7 +16,7 @@
             <button>Cover</button>
         </div>
         <div class="task-details-main">
-            <labels-preview :labels="getTaskLabels" />
+            <labels-preview v-if="task.labels" :labels="task.labels" />
 
             <div class="desc-container">
                 <h3>Description</h3>
@@ -68,7 +68,6 @@ export default {
             },
             // task: null,
             groupId: '',
-            labels: null,
             showActivities: false,
             // labelIds: this.$store.getters.labelIds
         };
