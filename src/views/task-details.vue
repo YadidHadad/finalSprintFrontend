@@ -19,10 +19,16 @@
             <labels-preview v-if="task.labels" :labels="task.labels" />
 
             <div class="desc-container">
-                <h3>Description</h3>
-                <textarea placeholder="Add a more detailed description..." v-model="task.desc">
-                    {{ task.desc }}
-                </textarea>
+                <div class="desc-header">Description</div>
+                {{ isDescOpen }}
+                <textarea placeholder="Add a more detailed description..." v-model="task.desc"
+                    @focus="isDescOpen = true" :class="{ 'desc-open': isDescOpen }">
+                        {{ task.desc }}
+                    </textarea>
+                <div class="desc-btns" v-if="isDescOpen">
+                    <button class="save-btn">Save</button>
+                    <button class="cancel-btn" @click="isDescOpen = false">Cancel</button>
+                </div>
             </div>
             <!-- <checklists-preview v-if="task" :checklists="getChecklists" /> -->
 
@@ -37,8 +43,8 @@
             </div>
         </div>
 
-        <component v-if="detailsPicked.isPicked" :is="detailsPicked.type" @closeEdit="closeEdit"
-            v-click-outside="closeEdit" @updateLabels="updateTask(detailsPicked.type, $event)"
+        <component v-if=detailsPicked.isPicked :is="detailsPicked.type" @closeEdit="closeEdit"
+            v-click-outside="closeEdit" @updateTask="updateTask(detailsPicked.type, $event)"
             @addChecklist="addChecklist">
             <h2>HI</h2>
         </component>
@@ -69,6 +75,7 @@ export default {
             // task: null,
             groupId: '',
             showActivities: false,
+            isDescOpen: false
             // labelIds: this.$store.getters.labelIds
         };
     },
@@ -85,7 +92,7 @@ export default {
         }
     },
     unmounted() {
-
+        console.log('byeeeeeee');
     },
     methods: {
         updateTitle(ev) {
@@ -106,12 +113,13 @@ export default {
         async updateTask(type, { labelIds }) {
             let taskToUpdate = this.task;
             switch (type) {
-                case "labels-edit":
-                    if (!taskToUpdate?.labelIds) taskToUpdate.labelIds = [];
-                    taskToUpdate.labelIds = labelIds;
+                case 'labels-edit':
+                    if (!taskToUpdate?.labelIds) taskToUpdate.labelIds = []
+                    taskToUpdate.labelIds = data.labelIds
+                    txt = 'Updated label'
                     // if (!this.task?.labelIds) this.task.labelIds = []
                     // this.task.labelIds = data.labelIds
-                    break;
+                    break
             }
             try {
                 let updatedTask = await this.$store.dispatch({
@@ -187,6 +195,13 @@ export default {
             const task = JSON.parse(JSON.stringify(this.$store.getters.getEditedTask))
             return task
         },
+        getTaskLabels() {
+            if (!this.task?.labelIds) return []
+            return this.$store.getters.labels.map(label => {
+                if (this.task.labelIds.includes(label.id))
+                    return label
+            })
+        }
     },
     components: { labelsEdit, labelsPreview, checklistEdit, checklistsPreview },
 };
