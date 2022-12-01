@@ -108,7 +108,6 @@ export default {
         titleLength() {
 
             if (!this.title) return
-            console.log(this.title.length)
             return { width: `${(this.title.length + 3) * 12}` + 'px' }
         }
     },

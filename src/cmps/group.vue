@@ -47,14 +47,13 @@ export default {
             activity: {
                 id: utilService.makeId(),
                 txt: "Add new task",
-                createdAt: Date.now() , //change this in the service
+                createdAt: Date.now(), //change this in the service
                 byMember: 'Moshe',
                 task: this.task
             }
         }
     },
     created() {
-        // console.log(this.boardId)
     },
     methods: {
         toggleCard() {

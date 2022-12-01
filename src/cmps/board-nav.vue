@@ -58,8 +58,6 @@ export default {
     computed: {
         style() {
             if (!this.rgb) return false
-            console.log(this.rgb.value)
-            console.log(`rgba(${+this.rgb.value[0] + 20},${+this.rgb.value[1] + 20},${+this.rgb.value[2] + 20}, 0.5)`)
             return this.rgb.isDark ? utilService.getBCG(this.rgb.value, 0, 0.8) : utilService.getBCG(this.rgb.value, -0, 0.8)
         },
         isDark() {

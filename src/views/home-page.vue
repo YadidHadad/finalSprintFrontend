@@ -48,7 +48,6 @@ export default {
   async created() {
     try {
       await this.$store.dispatch({ type: 'loadBoards' })
-      console.log(this.boards)
     } catch (err) {
       console.log(err)
 
@@ -78,9 +77,7 @@ export default {
     async updateBoard(board) {
       try {
         board = { ...board }
-        console.log(board.title);
         board.title = prompt('Board title?', board.title)
-        console.log(board.title);
         await this.$store.dispatch({ type: 'updateBoard', board })
         showSuccessMsg('Board updated')
 
