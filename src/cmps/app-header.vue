@@ -26,7 +26,6 @@ export default {
     props: ['rgb'],
     components: {},
     created() {
-        console.log(`rgb:`, this.rgb)
     },
     data() {
         return {

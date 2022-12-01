@@ -47,23 +47,18 @@ export default {
         boardMenu,
     },
     async created() {
-        console.log('board details')
         try {
             await this.$store.dispatch({ type: 'loadBoards' })
-            console.log(this.boards)
             const { id } = this.$route.params
             this.$store.commit({ type: 'setBoard', boardId: id })
             await this.$store.dispatch({ type: 'loadBoards' })
-            console.log(this.boards)
         } catch (err) {
             console.log(err)
 
         }
         const avgColor = await this.avgColor()
-        console.log(avgColor)
         this.rgb.value = avgColor.value
         this.rgb.isDark = avgColor.isDark
-        console.log(this.rgb)
         this.$emit('setRGB', this.rgb)
     },
     methods: {
@@ -71,7 +66,6 @@ export default {
             const url = this.style
             try {
                 const color = await fac.getColorAsync(url)
-                console.log(`avg color:`, color)
                 return color
             } catch (err) {
                 console.log(`err:`, err)
@@ -134,7 +128,6 @@ export default {
             return this.rgb
         },
         board() {
-            console.log(`board:`, this.board)
             return this.$store.getters.board
         }
     },

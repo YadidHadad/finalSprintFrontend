@@ -9,44 +9,77 @@
                 <span class="fa-solid x-icon"></span>
             </button>
         </section>
+        <section class="menu-container actions">
+            <section class="nav-btns flex column">
+                <button class="btn">
+                    <span class="fa-brands trello-icon"></span>
+                    <span>About this board</span>
+                </button>
+                <button class="btn" @click="this.showBGCMenu = !this.showBGCMenu">
+                    <span class="fa-regular img-icon"></span>
+                    <span>Change background</span>
+                </button>
+            </section>
 
-        <section class="nav-btns flex column">
-            <button class="btn">
-                <span class="fa-brands trello-icon"></span>
-                <span>About this board</span>
+            <section class="activities">
+                <button class="btn ">
+                    <span class="fa-solid act-icon"></span>
+                    <span>Activity</span>
+                </button>
+                <div class="activities-container">
+                    <div v-for="activity in activities" class="activity flex row align-start">
+                        <div class="activity">
+                            <span class="btn flex row align-baseline align-center justify-center">{{
+                                    getInitials(activity.byMember.fullname)
+                            }}</span>
+                        </div>
+                        <div class=" flex column justify-start">
+                            <div>
+                                <span class="fullname">{{ activity.byMember.fullname + ' ' }}</span>
+                                <span>{{ activity.txt }}</span>
+                            </div>
+                            <span>{{ getTimeAgo(activity.createdAt) }}</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </section>
+    </section>
+
+    <section v-if="showBGCMenu" class="board-menu flex column">
+        <section class="title flex justify-between row">
+            <button class="btn" @click="this.showBGCMenu = !this.showBGCMenu">
+                <span class="fa-solid arrow-icon"></span>
             </button>
-            <button class="btn">
-                <span class="fa-regular img-icon"></span>
-                <span>Change background</span>
+            <span>Change background</span>
+            <button class="btn" @click="toggleBoardMenu">
+                <span class="fa-solid x-icon"></span>
             </button>
         </section>
-
-        <section class="activities">
-            <button class="btn">
-                <span class="fa-solid act-icon"></span>
-                <span>Activity</span>
-            </button>
-            <div>
-                <div v-for="activity in activities" class="activity flex row align-baseline">
-                    <span class="btn">{{ getInitials(activity.byMember.fullname) }}</span>
-                    <div>
-                        <span>{{ activity.byMember.fullname }}</span>
-                        <span>{{ activity.txt }}</span>
+        <section>
+            <div class="  flex row align-center justify-between">
+                <div class=" photos flex column align-center">
+                    <div class="btn">
                     </div>
+                    <span>Photos</span>
+                </div>
+                <div class="colors flex column  align-center">
+                    <div class="btn">
+                    </div>
+                    <span>Colors</span>
                 </div>
             </div>
         </section>
+        <section>
+            <span>Costume</span>
 
-        <!-- <div class="nav-btns flex column">
-            <button v-for="btn in btns" class="btn">
-                <span :class="btn.icon"></span>
-                <span>{{ btn.txt }}</span>
-            </button>
-        </div> -->
-
-
-
-
+            <div class="costume flex column ">
+                <div class="btn flex align-center justify-center">
+                    <span class="fa-regular plus-icon"></span>
+                </div>
+            </div>
+        </section>
     </section>
 </template>
 <script>
@@ -55,14 +88,15 @@ import { utilService } from '../services/util.service';
 
 export default {
     name: 'board-menu',
+    emit: ['toggleBoardMenu'],
     props: ['menuIsHidden', 'activities'],
     components: {},
     created() {
-
-        console.log(`activities:`, this.activities)
     },
     data() {
         return {
+
+            showBGCMenu: false,
 
         };
     },
@@ -70,6 +104,10 @@ export default {
         getInitials(fullname) {
 
             return utilService.getInitials(fullname)
+        },
+        getTimeAgo(timestamp) {
+
+            return utilService.timeAgo(timestamp)
         },
         toggleBoardMenu() {
             console.log("A");

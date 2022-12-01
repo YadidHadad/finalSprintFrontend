@@ -11,15 +11,17 @@
     box-shadow: -10px 1px 20px 10px rgb(0 0 0 / 10%);
     transition: all 0.3s ease-out;
 
-    section {
+    section:not(.menu-container) {
         box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.1);
         padding: 1rem 0.5rem;
-
+    }
+    section {
         &.activities {
+            font-size: 0.8rem;
             overflow-y: scroll;
         }
     }
-    span:first-of-type {
+    span:first-of-type:not(.fullname) {
         margin-inline-end: 1rem;
     }
     .btn {
@@ -48,6 +50,45 @@
         padding-block: 0.3rem;
         .btn:first-of-type {
             @include btn($type: "initials");
+        }
+    }
+
+    .fullname {
+        font-weight: bold;
+    }
+
+    .colors,
+    .photos,
+    .costume {
+        .btn {
+            border-radius: 0.5rem;
+            height: 90px;
+            width: 140px;
+            background-size: cover;
+
+            &:hover {
+                opacity: 0.5;
+            }
+        }
+    }
+
+    .colors {
+        .btn {
+            background-image: url(https://a.trellocdn.com/prgb/dist/images/colors@2x.ec32a2ed8dd8198b8ef0.jpg);
+        }
+    }
+    .photos {
+        .btn {
+            background-image: url(https://a.trellocdn.com/prgb/dist/images/photos-thumbnail@3x.8f9c1323c9c16601a9a4.jpg);
+        }
+    }
+    .costume {
+        .btn {
+            background-color: #eaecf0;
+            span {
+                font-size: 1.5rem;
+                margin: 0;
+            }
         }
     }
 
