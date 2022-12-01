@@ -50,11 +50,55 @@
     .desc-container {
         display: flex;
         flex-direction: column;
+
+        .desc-header {
+            font-weight: 600;
+        }
+
+        .save-btn {
+            align-self: flex-start;
+            padding: 0;
+            margin-top: 20px;
+            font-size: 1rem;
+            background-color: #0079bf;
+            color: $clr1;
+            padding: 6px 12px;
+            border-radius: 3px;
+            margin-inline-end: 10px;
+        }
+
+        .cancel-btn {
+            padding: 6px 12px;
+            margin-top: 20px;
+
+
+            &:hover {
+                background: rgb(237, 237, 237);
+                // filter: brightness(55%);
+            }
+        }
     }
 
     textarea {
-        min-height: 110px;
+        min-height: 60px;
         padding: 8px 12px;
+        background-color: #eaecf0;
+        resize: none;
+
+        &:hover {
+            cursor: pointer;
+            // filter: brightness(95%);
+        }
+
+        &.desc-open {
+            background-color: white;
+            height: 110px;
+            box-shadow: inset 0 0 0 1px var(--ds-border-focused, #0079bf);
+        }
+
+        &::after {
+            background-color: black;
+        }
     }
 
     .task-activities {

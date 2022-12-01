@@ -1,6 +1,6 @@
 <template>
     <section class="labels-preview">
-        <div v-if="labels.length" v-for="label in labels" :style="{ backgroundColor: label.color }">
+        <div v-for="label in labels" :style="{ backgroundColor: label.color }">
             <span>{{label.title}}</span>
         </div>
         <span>+</span>

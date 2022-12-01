@@ -20,11 +20,14 @@
                 <button type="button" @click.stop="toggleCard"><span class="fa-solid x-icon"></span></button>
             </div>
         </form>
-        <router-view :groupId="group.id"></router-view>
+        <!-- <<router-view :groupId="group.id"></router-view>> -->
+        <!-- <task-details :groupId="group.id"/> -->
+
     </div>
 </template>
 
 <script>
+import taskDetails from '../views/task-details.vue';
 import taskPreview from '../cmps/task-preview.vue'
 import { utilService } from '../services/util.service.js';
 export default {
@@ -68,7 +71,7 @@ export default {
     computed: {
 
     },
-    components: { taskPreview },
+    components: { taskPreview, taskDetails },
 }
 </script>
 

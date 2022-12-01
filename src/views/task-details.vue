@@ -18,10 +18,16 @@
             <labels-preview :labels="getTaskLabels" />
 
             <div class="desc-container">
-                <h3>Description</h3>
-                <textarea placeholder="Add a more detailed description..." v-model="task.desc">
-                    {{ task.desc }}
-                </textarea>
+                <div class="desc-header">Description</div>
+                {{ isDescOpen }}
+                <textarea placeholder="Add a more detailed description..." v-model="task.desc" @focus="isDescOpen = true"
+                    :class="{'desc-open': isDescOpen }">
+                        {{ task.desc }}
+                    </textarea>
+                <div class="desc-btns" v-if="isDescOpen">
+                    <button class="save-btn">Save</button>
+                    <button class="cancel-btn" @click="isDescOpen = false">Cancel</button>
+                </div>
             </div>
             <!-- <checklists-preview v-if="task" :checklists="getChecklists" /> -->
 
@@ -37,7 +43,7 @@
         </div>
 
         <component v-if=detailsPicked.isPicked :is="detailsPicked.type" @closeEdit="closeEdit"
-            v-click-outside="closeEdit" @updateLabels="updateTask(detailsPicked.type, $event)"
+            v-click-outside="closeEdit" @updateTask="updateTask(detailsPicked.type, $event)"
             @addChecklist="addChecklist">
             <h2>HI</h2>
         </component>
@@ -66,6 +72,7 @@ export default {
             task: null,
             labels: null,
             showActivities: false,
+            isDescOpen: false
             // labelIds: this.$store.getters.labelIds
         }
     },
@@ -88,7 +95,7 @@ export default {
         }
     },
     unmounted() {
-
+        console.log('byeeeeeee');
     },
     methods: {
         updateTitle(ev) {
@@ -112,13 +119,12 @@ export default {
             let txt
             switch (type) {
                 case 'labels-edit':
-                    // if (!taskToUpdate?.labelIds) taskToUpdate.labelIds = []
+                    if (!taskToUpdate?.labelIds) taskToUpdate.labelIds = []
                     taskToUpdate.labelIds = data.labelIds
                     txt = 'Updated label'
                     // if (!this.task?.labelIds) this.task.labelIds = []
                     // this.task.labelIds = data.labelIds
-                    break;
-
+                    break
             }
             try {
                 let updatedTask = await this.$store.dispatch({
@@ -187,7 +193,7 @@ export default {
 
         },
         getTaskLabels() {
-            if(!this.task?.labelIds) return []
+            if (!this.task?.labelIds) return []
             return this.$store.getters.labels.map(label => {
                 if (this.task.labelIds.includes(label.id))
                     return label
