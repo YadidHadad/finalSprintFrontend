@@ -37,7 +37,8 @@
         </div>
 
         <component v-if=detailsPicked.isPicked :is="detailsPicked.type" @closeEdit="closeEdit"
-            v-click-outside="closeEdit" @updateLabels="updateLabels" @addChecklist="addChecklist">
+            v-click-outside="closeEdit" @updateLabels="updateTask(detailsPicked.type, $event)"
+            @addChecklist="addChecklist">
             <h2>HI</h2>
         </component>
     </section>
@@ -86,6 +87,31 @@ export default {
                 type: ''
             }
         },
+        async updateTask(type, label) {
+            switch (type) {
+                case 'labels-edit':
+                    if (!this.task?.labelIds) this.task.labelIds = []
+                    this.task.labelIds.push(label.id)
+                    break;
+            }
+
+            try {
+                await this.$store.dispatch({
+                    type: 'updateTask', payload: {
+                        task: JSON.parse(JSON.stringify(this.task)),
+                        groupId: this.groupId,
+                        activity: {
+                            txt: 'Updated label', boardId: this.$route.params.id,
+                            groupId: this.groupId, taskId: this.task.id
+                        }
+                    }
+                })
+            }
+            catch (err) {
+                console.log('Failed in task update', err)
+            }
+
+        },
         updateLabels(label) {
             this.$store.dispatch({
                 type: 'updateLabels', payload: {
@@ -98,20 +124,12 @@ export default {
                 }
             })
         },
-        // updateLabelText(label) {
-        //     this.$store.dispatch({
-        //         type: 'updateLabelText', payload: {
-        //             task: this.task, label,
-        //             groupId: this.groupId
-        //         }
-        //     })
-        // },
         closeDetails() {
             this.$store.dispatch({
                 type: 'updateTask', payload:
                 {
                     task: this.task, boardId: this.$route.params.id,
-                    groupId: this.groupId
+                    groupId: this.groupId,
                 },
             })
             this.$router.push(`/board/${this.$route.params.id}`)
@@ -140,14 +158,10 @@ export default {
         getActivities() {
             const acts = []
             this.$store.getters.activities.forEach(act => {
-                if(act.taskId === this.task.id)
+                if (act.taskId === this.task.id)
                     acts.push(act)
             })
             return acts
-            // return this.$store.getters.activities.map(act => {
-            //     if(act.taskId === this.task.id)
-            //         return act
-            // })
         }
     },
     components: { labelsEdit, labelsPreview, checklistEdit, checklistsPreview }
