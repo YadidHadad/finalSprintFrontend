@@ -43,32 +43,21 @@ export const boardStore = {
         removeBoard(state, { boardId }) {
             state.boards = state.boards.filter(board => board._id !== boardId)
         },
+
         updateTask(state, { payload }) {
             // console.log(state.board);
             const group = state.board.groups.find(g => g.id === payload.groupId)
             const taskIdx = group.tasks.findIndex(task => task.id === payload.task.id)
             group.tasks.splice(taskIdx, 1, payload.task)
         },
-        setEditedTask(state, { taskId }) {
-            state.boards.forEach(board => {
-                if (board.groups) {
-                    board.groups.forEach(group => {
-                        if (group.tasks) {
-                            group.tasks.forEach(task => {
-                                if (task.id === taskId)
-                                    state.editedTask = task
-                            })
-                        }
-                    })
-                }
-            })
-            // console.log(state.editedTask);
-            // addBoardMsg(state, { boardId, msg }) {
-            //     const board = state.boards.find(board => board._id === boardId)
-            //     if (!board.msgs) board.msgs = []
-            //     board.msgs.push(msg)
-            // },
+
+        setEditedTask(state, { taskId, groupId, boardId }) {
+            const board = state.boards.find((board) => board._id === boardId)
+            const group = board.groups.find((group) => group.id === groupId)
+            const task = group.tasks.find((task) => task.id === taskId)
+            state.editedTask = task
         },
+
         updateLabels(state, { payload }) {
             // console.log(payload.task.labelIds);
             const labelIdx = state.board.labels.findIndex(l => l.color === payload.label.color)
@@ -172,7 +161,7 @@ export const boardStore = {
 
             //todo
             const prevTask = context.state.editedTask
-            console.log(payload , '........')
+            console.log(payload, '........')
             // console.log(context.state.board.activities);
 
             context.commit({ type: 'updateTask', payload })

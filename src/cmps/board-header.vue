@@ -10,7 +10,7 @@
         </div>
         <div class="flex align-center justify-end wrap self-end">
             <button class="btn" :class="{ isDark: !isDark }" :style="buttonBackground">
-                <span class="fa-solid filter-icon"></span>
+                <span class="location filter-icon"></span>
                 <span class="txt">Filter</span>
             </button>
             <button v-for="member in this.members" class="btn-initials">
@@ -78,7 +78,7 @@ export default {
                 },
                 {
                     txt: 'Map',
-                    icon: 'fa-solid location-icon'
+                    icon: 'trellicons location-icon'
                 },
 
             ]
