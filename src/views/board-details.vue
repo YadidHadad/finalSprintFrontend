@@ -10,7 +10,7 @@
         <!-- <router-view class="task-details-view"></router-view> -->
     </section>
 
-    <task-details v-if="this.$route.params.taskId"></task-details>
+    <task-details v-if="this.$route.params.taskId" />
 </template>
 
 
@@ -51,19 +51,19 @@ export default {
     },
 
     async created() {
+        const { id } = this.$route.params
+        this.$store.commit({ type: 'setBoard', boardId: id })
+        console.log(this.boards)
         try {
-            await this.$store.dispatch({ type: 'loadBoards' })
-            const { id } = this.$route.params
-            this.$store.commit({ type: 'setBoard', boardId: id })
-            await this.$store.dispatch({ type: 'loadBoards' })
+            // await this.$store.dispatch({ type: 'loadBoards' })
+            // await this.$store.dispatch({ type: 'loadBoards' })
+            const avgColor = await this.avgColor()
+            this.rgb.value = avgColor.value
+            this.rgb.isDark = avgColor.isDark
+            this.$emit('setRGB', this.rgb)
         } catch (err) {
             console.log(err)
-
         }
-        const avgColor = await this.avgColor()
-        this.rgb.value = avgColor.value
-        this.rgb.isDark = avgColor.isDark
-        this.$emit('setRGB', this.rgb)
     },
 
     methods: {
@@ -141,7 +141,12 @@ export default {
             return this.rgb
         },
         board() {
+            console.log(this.$store.getters.board)
             return this.$store.getters.board
+        },
+        boards() {
+            console.log(this.$store.getters.board)
+            return this.$store.getters.boards
         }
     },
 }

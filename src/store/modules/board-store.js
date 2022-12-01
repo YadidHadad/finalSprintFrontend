@@ -5,22 +5,21 @@ import { store } from '../store'
 export const boardStore = {
 
     state: {
-        boards: [],
-        editedTask: null,
+        boards: null,
         board: null,
+        editedTask: null,
     },
 
     getters: {
         boards({ boards }) { return boards },
-        getEditedTask({ editedTask }) { return editedTask },
         board({ board }) { return board },
+        getEditedTask({ editedTask }) { return editedTask },
         labels({ board }) { return board.labels },
         checklists({ editedTask }) { return editedTask.checklists },
         activities({ board }) { return board.activities },
     },
 
     mutations: {
-
         setBoards(state, { boards }) {
             state.boards = boards
         },
@@ -53,6 +52,9 @@ export const boardStore = {
         },
 
         setEditedTask(state, { taskId, groupId, boardId }) {
+
+            console.log(state.boards)
+            if (!state.boards) return
             const board = state.boards.find((board) => board._id === boardId)
             const group = board.groups.find((group) => group.id === groupId)
             const task = group.tasks.find((task) => task.id === taskId)
@@ -117,6 +119,17 @@ export const boardStore = {
     },
 
     actions: {
+        async loadBoards(context) {
+            try {
+                //SEND FILTER
+                const boards = await boardService.query()
+                context.commit({ type: 'setBoards', boards })
+                return boards
+            } catch (err) {
+                console.log('boardStore: Error in loadBoards', err)
+                throw err
+            }
+        },
         async addBoard(context, { board }) {
             try {
                 board = await boardService.save(board)
@@ -139,17 +152,7 @@ export const boardStore = {
                 throw err
             }
         },
-        async loadBoards(context) {
-            try {
-                //SEND FILTER
-                const boards = await boardService.query()
-                // console.log('***************************', boards)
-                context.commit({ type: 'setBoards', boards })
-            } catch (err) {
-                console.log('boardStore: Error in loadBoards', err)
-                throw err
-            }
-        },
+
         async removeBoard(context, { boardId }) {
             try {
                 await boardService.remove(boardId)
