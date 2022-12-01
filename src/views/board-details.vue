@@ -41,6 +41,7 @@ export default {
             },
         }
     },
+
     components: {
         boardNav,
         boardHeader,
@@ -48,6 +49,7 @@ export default {
         boardMenu,
         taskDetails
     },
+
     async created() {
         const { id } = this.$route.params
         this.$store.commit({ type: 'setBoard', boardId: id })
@@ -63,6 +65,7 @@ export default {
             console.log(err)
         }
     },
+
     methods: {
         async avgColor() {
             const url = this.style
@@ -76,49 +79,54 @@ export default {
 
         async addNewGroup(group) {
             var board = JSON.parse(JSON.stringify(this.board))
-            board.groups.push(group)
             try {
-                this.$store.dispatch({ type: 'updateBoard', board: board })
+               await this.$store.dispatch({ type: 'addGroup', board: board, group })
             }
             catch (err) {
                 console.log(err);
-                showErrorMsg("Cannot add list");
             }
         },
 
         async addNewTask(groupId, task, activity) {
             var board = JSON.parse(JSON.stringify(this.board))
-            const groupIdx = board.groups.findIndex((group) => group.id === groupId)
-
-            if (board.groups[groupIdx].tasks && board.activities) {
-                board.groups[groupIdx].tasks.push(task)
-                board.activities.push(activity)
-            } else {
-                board.groups[groupIdx].tasks = [task]
-                board.activities = [activity]
-            }
-
-
-
             try {
-                this.$store.dispatch({ type: 'updateBoard', board: board })
-            } catch (err) {
-                board.groups[groupIdx].tasks.pop()
-                board.activities.push(activity.txt = "Cannot add task")
-                console.log(err);
-                showErrorMsg("Cannot add task");
+                await this.$store.dispatch({ type: 'addTask', board, groupId, task, activity })
             }
-            // pacimict
-            // let boardToSave = structuredClone(this.board)
-            // boardToSave.groups.push(group)
-            // try {
-
-            //     var board = this.$store.dispatch({ type: 'addBoard', board: boardToSave })
-            //     this.board = board
-            // } catch (err) {
-
-            // }
+            catch (err) {
+                console.log(err);
+            }
         },
+
+        // async addNewTask(groupId, task, activity) {
+        //     var board = JSON.parse(JSON.stringify(this.board))
+        //     const groupIdx = board.groups.findIndex((group) => group.id === groupId)
+
+        //     if (board.groups[groupIdx].tasks && board.activities) {
+        //         board.groups[groupIdx].tasks.push(task)
+        //         board.activities.push(activity)
+        //     } else {
+        //         board.groups[groupIdx].tasks = [task]
+        //         board.activities = [activity]
+        //     }
+        //     try {
+        //         this.$store.dispatch({ type: 'updateBoard', board: board })
+        //     } catch (err) {
+        //         board.groups[groupIdx].tasks.pop()
+        //         board.activities.push(activity.txt = "Cannot add task")
+        //         console.log(err);
+        //         showErrorMsg("Cannot add task");
+        //     }
+        // pacimict
+        // let boardToSave = structuredClone(this.board)
+        // boardToSave.groups.push(group)
+        // try {
+
+        //     var board = this.$store.dispatch({ type: 'addBoard', board: boardToSave })
+        //     this.board = board
+        // } catch (err) {
+
+        // }
+
         toggleBoardMenu() {
             console.log('toggleBoardMenu')
             this.menuIsHidden = !this.menuIsHidden
