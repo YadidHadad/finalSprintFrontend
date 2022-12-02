@@ -20,10 +20,10 @@
             color: $clr12;
             text-align: left;
             border-radius: 3px;
-            
-    &:hover {
-        background-color: rgba(78, 78, 78, 0.856);
-    }
+
+            &:hover {
+                background-color: rgba(78, 78, 78, 0.856);
+            }
         }
     }
 
@@ -61,7 +61,7 @@
                 color: $clr12;
                 background-color: $clr3;
                 padding: rem(6px) rem(12px);
-                
+
             }
         }
     }
@@ -79,17 +79,38 @@
         border: none;
         border-radius: 3px;
     }
+
     button {
         margin-right: rem(15px) !important;
     }
 }
 
-.slid-in-enter-active,
-.slid-in-leave-active {
-    transition: opacity 0.8s ease;
-}
-
-.slid-in-enter-from,
-.slid-in-leave-to {
+.slide-in-enter-active {
+    transition: all 0.2s ease-out;
+  }
+  
+  .slide-in-leave-active {
+    transition: all 0.8s cubic-bezier(20, 4, 5, 10);
+  }
+  
+  .slide-in-enter-from
+  .slide-in-leave-to {
+    transform: translateY(-20px);
     opacity: 0;
-}
+  }
+
+.slide-out-enter-active {
+    transition: all 0.3s ease-out;
+  }
+  
+  .slide-out-leave-active {
+    transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+  }
+  
+  .slide-out-enter-from{
+    opacity: 0;
+  }
+  .slide-out-leave-to {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
