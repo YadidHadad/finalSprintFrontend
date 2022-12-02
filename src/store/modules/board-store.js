@@ -15,9 +15,11 @@ export const boardStore = {
         getEditedTask({ editedTask }) { return editedTask },
         labels({ board }) { return board.labels },
         checklists({ editedTask }) { return editedTask.checklists },
-        activities({ board }) { return board.activities },
+        activities({ board }) {
+            return board.activities
+        },
         taskLabels({ editedTask, board }) {
-            if(!editedTask.labelIds) return []
+            if (!editedTask.labelIds) return []
             return board.labels.filter(bl => {
                 if (editedTask.labelIds.includes(bl.id))
                     return bl
@@ -83,6 +85,10 @@ export const boardStore = {
 
         addActivity(state, { activity }) {
             // console.log('*************************', activity)
+
+            activity.createdAt = Date.now()
+            activity.id = utilService.makeId()
+
             if (!activity) return
             if (!state.board?.activities) state.board.activities = []
             state.board.activities.unshift(activity)
@@ -143,6 +149,10 @@ export const boardStore = {
         async updateTask(context, { payload }) {
             //update the task add new activity
             //and send socket to server task-updated.
+
+
+
+            console.log(payload.activity)
             console.log('PAYLOAD!!!!!!!!');
             console.log(payload);
             const groupId = payload.groupId

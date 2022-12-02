@@ -65,7 +65,7 @@ export default {
 
     methods: {
         toggleCard() {
-            console.log(this.isCardOpen);
+            // console.log(this.isCardOpen);
             this.isCardOpen = !this.isCardOpen;
         },
         toggleMenu() {

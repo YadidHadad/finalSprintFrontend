@@ -46,7 +46,7 @@ export default {
     },
     computed: {
         getChecklists() {
-            console.log(this.$store.getters.checklists, 'hiiiiiiiiiiiiiiiiiiiii');
+            // console.log(this.$store.getters.checklists, 'hiiiiiiiiiiiiiiiiiiiii');
             return this.$store.getters.checklists || []
         }
     }

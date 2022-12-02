@@ -5,13 +5,13 @@
             <div class="task-cmp-title grow">Activities</div>
             <button class="btn" @click="isActShown = !isActShown">Show details</button>
         </div>
-
-
         <div v-if="isActShown" v-for="activity in activities" class="activity flex row align-start grow">
             <div class="activity-user flex row align-center">
-                <span class="btn flex row align-baseline align-center justify-center">{{
-                        getInitials(activity.byMember.fullname)
-                }}</span>
+                <span class="btn flex row align-baseline align-center justify-center">
+                    {{
+                            getInitials(activity.byMember.fullname)
+                    }}
+                </span>
             </div>
             <div class=" flex column justify-start grow">
                 <div>
@@ -38,7 +38,6 @@ export default {
     },
     methods: {
         getInitials(fullname) {
-
             return utilService.getInitials(fullname)
         },
         getTimeAgo(timestamp) {
@@ -49,10 +48,12 @@ export default {
     },
     computed: {
         activities() {
-            return this.$store.getters.activities.filter((act) => {
-                return act.task.id === this.taskId
-            }).splice(0, 5)
+            const activities = this.$store.getters.activities
+            return activities.filter(activity => {
+                // console.log('****************', activity)
 
+                return activity.task.id === this.taskId
+            }).splice(0, 5)
         },
 
     },
