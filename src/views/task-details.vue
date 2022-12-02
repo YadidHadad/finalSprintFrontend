@@ -41,6 +41,11 @@
                 <span class="trellicons cover-icon"></span>
                 <span>Cover</span>
             </button>
+
+            <button class="btn">
+                <span class="trellicons copy"></span>
+                <span>Copy</span>
+            </button>
         </section>
         <!-- @updateChecklists="updateTask('checklist-preview', $event)" /> -->
         <section class="task-main">
@@ -69,6 +74,7 @@ import membersEdit from "../cmps/members-edit.vue";
 import checklistsPreview from "../cmps/checklists-preview.vue";
 import activitiesPreview from "../cmps/activities-preview.vue";
 import descriptionPreview from "../cmps/description-preview.vue";
+import copyTaskEdit from "../cmps/copy-task-edit.vue";
 
 import { utilService } from "../services/util.service";
 
@@ -83,6 +89,7 @@ export default {
         checklistsPreview,
         activitiesPreview,
         descriptionPreview,
+        copyTaskEdit
     },
 
     data() {
