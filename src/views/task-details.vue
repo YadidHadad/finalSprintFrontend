@@ -188,13 +188,25 @@ export default {
                 console.log('remove!');
                 this.closeDetails()
             }
-            catch(err) {
+            catch (err) {
                 console.log("Failed in task remove", err)
             }
         },
         async copyTask(data) {
             const { task, toGroupId, toBoardId } = data
-            // this.$store.dispatch({ type: 'addTask', board, groupId, task, activity })
+            console.log(toBoardId, 'BOADDDDDDDDDDDDDDDDDDD');
+            task.id = utilService.makeId()
+            this.$store.dispatch({
+                type: 'addTask', boardId: toBoardId, groupId: toGroupId, task,
+                activity: {
+                    txt: `Made copy for ${task.title}`,
+                    byMember: {
+                        _id: this.user._id,
+                        fullname: this.user.fullname,
+                        imgUrl: this.user.imgUrl || "",
+                    },
+                }
+            })
         },
         updateDescription(payload) {
             console.log(payload);

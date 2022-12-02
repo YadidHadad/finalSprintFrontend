@@ -199,8 +199,10 @@ export const boardStore = {
             }
         },
 
-        async addTask(context, { board, groupId, task, activity }) {
-            // task.id = utilService.makeId()
+        async addTask(context, { boardId, groupId, task, activity }) {
+            console.log(boardId, groupId, task, activity);
+            const board = JSON.parse(JSON.stringify(context.state.boards.find(board => board._id === boardId)))
+            
             const groupIdx = board.groups.findIndex((group) => group.id === groupId)
             if (!board.groups[groupIdx].tasks) board.groups[groupIdx].tasks = []
             board.groups[groupIdx].tasks.push(task)

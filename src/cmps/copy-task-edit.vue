@@ -10,7 +10,7 @@
             <textarea type="text" v-model="task.title" id="copy-input"></textarea>
 
             <select class="board-select" v-model="toBoardId">
-                <option v-for="board in boards" :value="board.id">{{ board.title }}</option>
+                <option v-for="board in boards" :value="board._id">{{ board.title }}</option>
             </select>
 
             <select class="group-select" v-model="toGroupId">
@@ -38,7 +38,7 @@ export default {
         createCard() {
             delete this.task.id
             //TODOOOOOOO
-            // this.#emit('copyTask', { task: this.task, toGroupId: this.toGroupId, toBoardId: this.toBoardId })
+            this.$emit('copyTask', { task: this.task, toGroupId: this.toGroupId, toBoardId: this.toBoardId })
         }
     },
     computed: {
