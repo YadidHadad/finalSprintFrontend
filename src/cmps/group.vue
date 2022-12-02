@@ -1,8 +1,16 @@
 <template>
     <div class="group flex column">
-        <div class="flex justify-between">
+        <div class="main-title flex justify-between">
             <h3>{{ group.title }}</h3>
-            <span class="fa-solid elipsis-icon"></span>
+            <button @click="toggleMenu"><span class="fa-solid elipsis-icon"></span></button>
+            <div  v-if="isMenuOpen" class="group-menu">
+                <section class="title flex">
+                    <span class="main-title">List actions</span>
+                    <button @click="toggleMenu" class="btn"><span class="fa-solid x-icon"></span></button>
+                </section>
+                <div @click="removeGroup" class="remove btn"><span> Remove list</span></div>
+            </div>
+
         </div>
         <ul class="clean-list flex column">
             <li v-for="task in group.tasks" :key="task.id">
@@ -14,7 +22,7 @@
             <span class="fa-regular plus-icon"></span> Add a card
         </button>
         <form v-if="isCardOpen" @submit.prevent="addTask" class="flex">
-            <textarea v-model="task.title" type="textarea" name="add-task" rows="4"
+            <textarea v-model="currTask.title" type="textarea" name="add-task" rows="4"
                 placeholder="Enter a title for this card..."></textarea>
             <div class="add-list-btns flex">
                 <button class="add-list-btn">Add card</button>
@@ -42,10 +50,11 @@ export default {
     data() {
         return {
             isCardOpen: false,
-            task: {
+            currTask: {
                 id: "",
                 title: "",
             },
+           isMenuOpen: false
 
         }
     },
@@ -59,7 +68,11 @@ export default {
             console.log(this.isCardOpen);
             this.isCardOpen = !this.isCardOpen;
         },
+        toggleMenu() {
+            this.isMenuOpen = !this.isMenuOpen;
+        },
         addTask() {
+            if (!this.currTask.title) return
             const activity = {
                 id: '',
                 txt: "Add new task",
@@ -68,16 +81,30 @@ export default {
                     fullname: this.user.fullname,
                     imgUrl: this.user.imgUrl || '',
                 },
-                task: this.task
+                task: this.currTask
             }
-            this.$emit('addTask', this.group.id, JSON.parse(JSON.stringify(this.task)), activity)
+            this.$emit('addTask', this.group.id, { ...this.currTask }, JSON.parse(JSON.stringify(activity)))
+            this.currTask.title = ''
+        },
+        removeGroup() {
+            this.toggleMenu
+            const activity = {
+                id: '',
+                txt: ` Removed list ${this.group.title} `,
+                byMember: {
+                    _id: this.user._id,
+                    fullname: this.user.fullname,
+                    imgUrl: this.user.imgUrl || '',
+                },
+                task: this.currTask
+            }
+            this.$emit('removeGroup', this.group.id, JSON.parse(JSON.stringify(activity)))
         }
 
     },
 
     computed: {
         user() {
-            console.log(this.$store.getters.loggedinUser);
             return this.$store.getters.loggedinUser
 
         }

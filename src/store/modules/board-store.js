@@ -142,6 +142,7 @@ export const boardStore = {
         },
 
         async updateBoard(context, { board }) {
+            console.log(board);
             context.commit({ type: 'updateBoard', board })
             context.commit({ type: 'setBoard', boardId: board._id })
             try {
@@ -199,12 +200,13 @@ export const boardStore = {
         },
 
         async addTask(context, { board, groupId, task, activity }) {
+            task.id = utilService.makeId()
             const groupIdx = board.groups.findIndex((group) => group.id === groupId)
             if (!board.groups[groupIdx].tasks) board.groups[groupIdx].tasks = []
             board.groups[groupIdx].tasks.push(task)
-            context.commit({ type: 'addActivity', activity })
             try {
                 const updatedBoard = await context.dispatch({ type: 'updateBoard', board })
+                context.commit({ type: 'addActivity', activity })
                 return updatedBoard
             } catch (err) {
                 board.groups[groupIdx].tasks.pop()
@@ -214,14 +216,40 @@ export const boardStore = {
             }
         },
 
-        async addGroup(context, { board, group }) {
+        async addGroup(context, { board, group, activity }) {
+            group.id = utilService.makeId()
             board.groups.push(group)
             try {
                 const updatedBoard = await context.dispatch({ type: 'updateBoard', board: board })
+                context.commit({ type: 'addActivity', activity })
                 return updatedBoard
             }
             catch (err) {
                 console.log(err);
+                board.groups.pop(group)
+                context.commit({ type: 'updateBoard', board })
+                context.commit({ type: 'setBoard', boardId: board._id })
+                throw err
+            }
+        },
+
+        async removeGroup(context, { board, groupId, activity }) {
+            const prevBoard = board
+            const idx = board.groups.findIndex((currGroup) => currGroup.id === groupId)
+            board.groups.splice(idx, 1)
+            context.commit({ type: 'updateBoard', board })
+            context.commit({ type: 'setBoard', boardId: board._id })
+
+            try {
+                const updatedBoard = await context.dispatch({ type: 'updateBoard', board: board })
+                context.commit({ type: 'addActivity', activity })
+                return updatedBoard
+            }
+
+            catch (err) {
+                console.log(err);
+                context.commit({ type: 'updateBoard', board: prevBoard })
+                context.commit({ type: 'setBoard', boardId: prevBoard._id })
                 throw err
             }
         },
