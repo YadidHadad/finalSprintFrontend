@@ -2,11 +2,11 @@
     <section class="checklist-edit">
         <div class="checklist-edit-header">
             <div>Add checklist</div>
-            <button @click.stop="closeEdit">X</button>
+            <button @click.stop="closeEdit" class="trellicons x-icon"></button>
         </div>
         <div class="checklist-edit-main">
             <label for="checklist-input">Title</label>
-            <input type="text" v-model="checkList.title" id="checklist-input">
+            <input type="text" v-model="checklist.title" id="checklist-input">
             <button @click="addChecklist">Add</button>
         </div>
     </section>
@@ -16,7 +16,7 @@
 export default {
     data() {
         return {
-            checkList: {
+            checklist: {
                 id: '',
                 title: 'Checklist',
                 todos: [
@@ -34,7 +34,7 @@ export default {
             this.$emit('closeEdit')
         },
         addChecklist() {
-            this.$emit('addChecklist' , this.checkList)
+            this.$emit('updateTask', this.checklist)
         }
     },
 }

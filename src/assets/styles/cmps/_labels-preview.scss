@@ -1,10 +1,23 @@
 .labels-preview {
     display: flex;
 
-    div {
+    .label-preview {
         min-width: 50px;
-        padding: 0 5px;
         text-align: center;
+        padding: 2px 5px;
+        border-radius: 5px 5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .color-circle {
+        filter: brightness(90%);
+        border-radius: 50%;
+        height: 20px;
+        width: 20px;
+        margin-right: 5px;
+        margin-left: 3px;
     }
 
     >* {
