@@ -1,6 +1,6 @@
 .group-list {
     gap: 10px;
-    height: 100%;
+    height: calc(100% - 110px);
     padding: 0.5rem;
     overflow-x: scroll;
     width: 100%;
@@ -43,7 +43,6 @@
 
         .add-list-btns {
             margin: 0 !important;
-
         }
 
         height: fit-content;
@@ -61,7 +60,6 @@
                 color: $clr12;
                 background-color: $clr3;
                 padding: rem(6px) rem(12px);
-
             }
         }
     }

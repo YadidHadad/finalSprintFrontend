@@ -1,5 +1,6 @@
 <template>
     <div class="screen"></div>
+
     <section v-if="task" class="task-details" v-click-outside="closeDetails">
         <section class="task-cover">
             <button class="btn" @click="closeDetails">
@@ -41,6 +42,13 @@
                 <span class="trellicons cover-icon"></span>
                 <span>Cover</span>
             </button>
+            <button class="btn" @click="pickEditor('copy-task-edit')">
+                <span class="trellicons copy"></span>
+                <span>Copy</span>
+            </button>
+            <button class="btn" @click="removeTask">
+                <span>Delete</span>
+            </button>
         </section>
         <!-- @updateChecklists="updateTask('checklist-preview', $event)" /> -->
         <section class="task-main">
@@ -54,7 +62,7 @@
 
         <component :is="pickedEditor.editorType" @closeEdit="closeEditor" v-click-outside="closeEditor"
             @updateTask="updateTask(pickedEditor.editorType, $event)" @addChecklist="addChecklist"
-            @updateLabel="updateLabel" @updateMembers="updateTask">
+            @updateLabel="updateLabel" @updateMembers="updateMembers" @copyTask="copyTask">
             <h2>HI</h2>
         </component>
     </section>
@@ -68,6 +76,7 @@ import membersEdit from "../cmps/members-edit.vue";
 import checklistsPreview from "../cmps/checklists-preview.vue";
 import activitiesPreview from "../cmps/activities-preview.vue";
 import descriptionPreview from "../cmps/description-preview.vue";
+import copyTaskEdit from "../cmps/copy-task-edit.vue";
 
 import { utilService } from "../services/util.service";
 
@@ -82,6 +91,7 @@ export default {
         checklistsPreview,
         activitiesPreview,
         descriptionPreview,
+        copyTaskEdit
     },
 
     data() {
@@ -123,7 +133,6 @@ export default {
             this.task.title += ev.data;
         },
         pickEditor(type) {
-
             this.pickedEditor.editorType = type;
             this.pickedEditor.isOpen = true;
             console.log(this.pickedEditor);
@@ -157,6 +166,47 @@ export default {
                     },
                 },
             });
+        },
+        async removeTask() {
+            try {
+                await this.$store.dispatch({
+                    type: 'removeTask', payload: {
+                        taskId: this.task.id,
+                        activity: {
+                            txt: `Deleted ${this.task.title}`,
+                            boardId: this.$route.params.id,
+                            groupId: this.groupId,
+                            taskId: this.task.id,
+                            byMember: {
+                                _id: this.user._id,
+                                fullname: this.user.fullname,
+                                imgUrl: this.user.imgUrl || "",
+                            },
+                        },
+                    }
+                })
+                console.log('remove!');
+                this.closeDetails()
+            }
+            catch (err) {
+                console.log("Failed in task remove", err)
+            }
+        },
+        async copyTask(data) {
+            const { task, toGroupId, toBoardId } = data
+            console.log(toBoardId, 'BOADDDDDDDDDDDDDDDDDDD');
+            task.id = utilService.makeId()
+            this.$store.dispatch({
+                type: 'addTask', boardId: toBoardId, groupId: toGroupId, task,
+                activity: {
+                    txt: `Made copy for ${task.title}`,
+                    byMember: {
+                        _id: this.user._id,
+                        fullname: this.user.fullname,
+                        imgUrl: this.user.imgUrl || "",
+                    },
+                }
+            })
         },
         updateDescription(payload) {
             console.log(payload);
@@ -230,14 +280,14 @@ export default {
             }
         },
         closeDetails() {
-            this.$store.dispatch({
-                type: "updateTask",
-                payload: {
-                    task: this.task,
-                    boardId: this.$route.params.id,
-                    groupId: this.groupId,
-                },
-            })
+            // this.$store.dispatch({
+            //     type: "updateTask",
+            //     payload: {
+            //         task: this.task,
+            //         boardId: this.$route.params.id,
+            //         groupId: this.groupId,
+            //     },
+            // })
             this.$router.push(`/board/${this.$route.params.id}`)
         },
         async addChecklist(checklist) {
@@ -254,7 +304,7 @@ export default {
                         taskId: this.task.id,
                     },
                 },
-            });
+            })
             this.closeEditor();
         },
     },

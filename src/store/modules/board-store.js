@@ -43,6 +43,9 @@ export const boardStore = {
                 })
             })
             return boardDoneTodos
+        },
+        isPreviewLabelsOpen({ board }) {
+            return board.isPreviewLabelsOpen
         }
         // labelIds({ editedTask }) { return editedTask.labelIds }
     },
@@ -115,6 +118,9 @@ export const boardStore = {
         },
         removeLastActivity(state) {
             state.board.activities.splice(0, 1)
+        },
+        togglePreviewLabels(state, { isOpen }) {
+            state.board.isPreviewLabelsOpen = isOpen
         }
     },
 
@@ -199,8 +205,10 @@ export const boardStore = {
             }
         },
 
-        async addTask(context, { board, groupId, task, activity }) {
-            // task.id = utilService.makeId()
+        async addTask(context, { boardId, groupId, task, activity }) {
+            console.log(boardId, groupId, task, activity);
+            const board = JSON.parse(JSON.stringify(context.state.boards.find(board => board._id === boardId)))
+
             const groupIdx = board.groups.findIndex((group) => group.id === groupId)
             if (!board.groups[groupIdx].tasks) board.groups[groupIdx].tasks = []
             board.groups[groupIdx].tasks.push(task)
@@ -229,6 +237,30 @@ export const boardStore = {
                 board.groups.pop(group)
                 context.commit({ type: 'updateBoard', board })
                 context.commit({ type: 'setBoard', boardId: board._id })
+                throw err
+            }
+        },
+
+        async removeTask(context, { payload }) {
+            console.log(payload, 'REMOVEEEEEEEEEEEEEEEEE');
+            const prevBoard = context.state.boards.find(board => board._id === payload.activity.boardId)
+            const newBoard = JSON.parse(JSON.stringify(prevBoard))
+            const group = newBoard.groups.find(group => group.id === payload.activity.groupId)
+            const taskIdx = group.tasks.findIndex(task => task.id === payload.taskId)
+            console.log((taskIdx));
+            group.tasks.splice(taskIdx, 1)
+            context.commit({ type: 'updateBoard', board: newBoard })
+            context.commit({ type: 'setBoard', boardId: newBoard._id })
+
+            try {
+                await boardService.save(newBoard)
+                context.commit({ type: 'addActivity', activity: payload.activity })
+                console.log('DELETEEEEEEEEEEEEEEEEEEEEEEEEEED');
+            }
+            catch (err) {
+                console.log(err);
+                context.commit({ type: 'updateBoard', board: prevBoard })
+                context.commit({ type: 'setBoard', boardId: prevBoard._id })
                 throw err
             }
         },

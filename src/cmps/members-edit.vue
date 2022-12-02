@@ -29,8 +29,8 @@ export default {
     created() { },
     data() {
         return {
-            boardMembers: this.$store.getters.members.slice(),
-            taskMembersIds: this.$store.getters.getEditedTask.memberIds.slice(),
+            boardMembers: this.$store.getters.members.slice() || null,
+            taskMembersIds: this.$store.getters.getEditedTask.memberIds.slice() || null,
         };
     },
     methods: {

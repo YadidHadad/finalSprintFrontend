@@ -3,9 +3,9 @@
         <div class="task-preview">
             <section class="labels-preview">
                 <ul class="clean-list flex">
-                    <li @click.stop="toggleLabel" v-for="label in labels" :key="label.id"
+                    <li @click.stop="togglePreviewLabels" v-for="label in labels" :key="label.id"
                         :style="{ backgroundColor: label.color }">
-                        <span v-if="(label.title && isLabelsOpen)">{{ label.title }}</span>
+                        <span v-if="isPreviewLabelsOpen">{{ label.title }}</span>
                     </li>
                 </ul>
             </section>
@@ -48,8 +48,9 @@ export default {
         goTo() {
             this.$router.push(`/board/${this.boardId}/${this.groupId}/${this.task.id}`)
         },
-        toggleLabel() {
+        togglePreviewLabels() {
             this.isLabelsOpen = !this.isLabelsOpen
+            this.$store.commit({ type: 'togglePreviewLabels', isOpen: this.isLabelsOpen })
         }
     },
 
@@ -60,6 +61,9 @@ export default {
                 if (this.task.labelIds.includes(labels.id))
                     return labels
             })
+        },
+        isPreviewLabelsOpen() {
+            return this.$store.getters.isPreviewLabelsOpen
         }
 
     }
