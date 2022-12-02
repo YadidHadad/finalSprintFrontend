@@ -5,6 +5,7 @@
     position: fixed;
     top: 0;
     left: 0;
+    overflow-y: scroll;
 }
 
 .task-details {
@@ -28,8 +29,7 @@
     border-radius: 3px;
     width: 770px;
     min-height: 600px;
-
-    & * :not(.trellicons):not(.fa-regular) {
+    & * :not(.trellicons):not(.fa-regular):not(.fa-solid) {
         font-family: "opensans";
     }
 
@@ -124,11 +124,11 @@
         padding-inline-start: 1rem;
     }
 
-    .task-details-main {
+    .task-main {
         grid-area: main;
         display: flex;
         flex-direction: column;
-        gap: 10px;
+        gap: 30px;
     }
 
     .desc-container {
@@ -203,12 +203,3 @@
         }
     }
 }
-
-// textarea {
-//     border: none;
-//     resize: vertical;
-//     margin-block-start: 1rem;
-//     background-color: $taskDetailsBtn;
-//     border-radius: 3px;
-// }
-// }

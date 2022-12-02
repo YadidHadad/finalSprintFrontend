@@ -41,6 +41,7 @@ export default {
             return { backgroundImage: `url(${imgUrl})` };
         },
         toggleMember(clickedMember) {
+            this.getTaskMembersIds
             console.log('********************', clickedMember)
             var action
             const memberIdx = this.taskMembersIds.findIndex(id => {
@@ -63,6 +64,15 @@ export default {
 
     },
     computed: {
+        getBoardMembers() {
+            this.boardMembers = JSON.parse(JSON.stringify(this.$store.getters.members));
+
+        },
+        getTaskMembersIds() {
+            this.taskMembersIds = JSON.parse(JSON.stringify(this.$store.getters.getEditedTask.memberIds));
+
+        }
+
 
     },
 };

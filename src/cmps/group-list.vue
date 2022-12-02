@@ -10,7 +10,7 @@
                 <form v-if="isFormOpen" @submit.prevent="addGroup" class="flex group-list-form">
                     <input v-model="group.title" type="text" name="add-list" placeholder="Enter list title..." v-focus>
                     <div class="add-list-btns flex">
-                        <button class="add-list-btn" @click="toggleForm">Add list</button>
+                        <button class="add-list-btn">Add list</button>
                         <button type="button" @click="toggleForm"><span class="fa-solid x-icon"></span></button>
                     </div>
                 </form>
@@ -59,7 +59,7 @@ export default {
                     fullname: this.user.fullname,
                     imgUrl: this.user.imgUrl || '',
                 },
-                task: this.task
+                // task: this.task
             }
             if (!this.group.title) return
             this.$emit('addGroup', { ...this.group }, activity)

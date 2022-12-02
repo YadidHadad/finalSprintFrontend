@@ -9,7 +9,7 @@
         <section class="task-header task-cmp flex column align-start">
             <div class="flex row align-center">
                 <span class="trellicons card-icon large"></span>
-                <input v-model="title" @input="updateTitle" />
+                <input v-model="title" @input="debounceHandler('title', title)" />
             </div>
             <div class="flex column pad-40">
                 <span class="small">In list {{ getGroupName }}</span>
@@ -42,11 +42,13 @@
                 <span>Cover</span>
             </button>
         </section>
-
+        <!-- @updateChecklists="updateTask('checklist-preview', $event)" /> -->
         <section class="task-main">
             <labels-preview />
-            <description-preview :description="task.description" @updateDescription="updateTask" />
-            <checklists-preview :checklists="task.checklists" @updateTask="updateTask('checklist-edit', $event)" />
+            <description-preview :description="task.description"
+                @updateDescription="updateTask('description', $event)" />
+            <checklists-preview :checklists="task.checklists"
+                @updateChecklists="debounceHandler('checklist-preview', $event)" />
             <activities-preview :taskId="task.id" />
         </section>
 
@@ -99,15 +101,16 @@ export default {
         };
     },
     async created() {
+        this.debounceHandler = utilService.debounce(this.updateTask, 1000)
         const { id, taskId, groupId } = this.$route.params;
         console.log(taskId);
         try {
             // await this.$store.dispatch({ type: 'loadBoards' })
             this.$store.commit({ type: "setBoard", boardId: id });
             this.$store.commit({ type: "setEditedTask", taskId, groupId, boardId: id });
-            this.task = JSON.parse(JSON.stringify(this.getTask));
+            this.task = JSON.parse(JSON.stringify(this.getTask))
 
-            this.title = this.task.title;
+            this.title = this.getTask.title
             this.description = this.task.description;
         } catch (err) {
             console.log(err);
@@ -155,6 +158,9 @@ export default {
                 },
             });
         },
+        updateDescription(payload) {
+            console.log(payload);
+        },
 
         async updateTask(type, data) {
             console.log('UPDATE TASKKKKKKK')
@@ -166,8 +172,6 @@ export default {
                     if (!taskToUpdate?.labelIds) taskToUpdate.labelIds = [];
                     taskToUpdate.labelIds = data.labelIds;
                     txt = "Updated label";
-                    // if (!this.task?.labelIds) this.task.labelIds = []
-                    // this.task.labelIds = data.labelIds
                     break;
                 case "description":
                     txt = "Updated description";
@@ -191,6 +195,10 @@ export default {
                     console.log('*******************', txt)
                     console.log(this.task.memberIds)
                     break;
+                case "checklist-preview":
+                    txt = "Edited checklist";
+                    taskToUpdate.checklists = data
+                    break
             }
             try {
                 let updatedTask = await this.$store.dispatch({
@@ -218,7 +226,7 @@ export default {
                 });
                 this.task = updatedTask;
             } catch (err) {
-                console.log("Failed in task update", err);
+                console.log("Failed in task update", err)
             }
         },
         closeDetails() {
@@ -229,8 +237,8 @@ export default {
                     boardId: this.$route.params.id,
                     groupId: this.groupId,
                 },
-            });
-            this.$router.push(`/board/${this.$route.params.id}`);
+            })
+            this.$router.push(`/board/${this.$route.params.id}`)
         },
         async addChecklist(checklist) {
             await this.$store.dispatch({

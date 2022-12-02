@@ -20,7 +20,7 @@
         </ul>
 
         <button class="add-card-btn" v-if="!isCardOpen" @click="toggleCard">
-            <span class="fa-regular plus-icon"></span> Add a card
+            <span class="fa-regular plus-icon"> Add a card</span>
         </button>
         <form v-if="isCardOpen" @submit.prevent="addTask" class="flex">
             <textarea v-model="currTask.title" type="textarea" name="add-task" rows="4"
@@ -52,8 +52,8 @@ export default {
         return {
             isCardOpen: false,
             currTask: {
-                id: "",
-                title: "",
+                id: utilService.makeId(),
+                title: '',
             },
             isMenuOpen: false
 
