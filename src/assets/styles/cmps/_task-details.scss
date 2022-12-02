@@ -34,29 +34,35 @@
 
     .large {
         font-size: 1.5rem;
+
         &.trellicons {
             top: 0;
             margin-inline-end: 1rem;
         }
+
         &.fa-regular {
             top: 0;
             margin-inline-end: 1rem;
         }
     }
+
     .small {
         font-size: 0.8rem;
     }
 
     .btn {
         @include btn;
+
         .trellicons {
             top: 0;
             margin-inline-end: 1rem;
         }
+
         .fa-regular {
             top: 0;
             margin-inline-end: 1rem;
         }
+
         margin-block: 0.2rem;
 
         font-size: 0.9rem;
@@ -80,6 +86,7 @@
 
     .task-cover {
         grid-area: cover;
+
         .btn {
             @include btn();
             position: absolute;
@@ -90,11 +97,13 @@
             width: 40px;
             border-radius: 50%;
             background-color: transparent;
+
             &:hover {
                 background-color: rgba($textDark, 0.3);
             }
         }
     }
+
     .task-header {
         grid-area: header;
 
@@ -140,7 +149,7 @@
             border-radius: 3px;
             margin-inline-end: 10px;
             transition: .2s;
-            
+
             &:hover {
                 filter: brightness(95%);
             }
@@ -185,16 +194,18 @@
         &::after {
             background-color: black;
         }
-    .pad-40 {
-        margin-inline-start: 40px;
+
+        .pad-40 {
+            margin-inline-start: 40px;
+        }
     }
 }
 
-    // textarea {
-    //     border: none;
-    //     resize: vertical;
-    //     margin-block-start: 1rem;
-    //     background-color: $taskDetailsBtn;
-    //     border-radius: 3px;
-    // }
+// textarea {
+//     border: none;
+//     resize: vertical;
+//     margin-block-start: 1rem;
+//     background-color: $taskDetailsBtn;
+//     border-radius: 3px;
+// }
 // }
