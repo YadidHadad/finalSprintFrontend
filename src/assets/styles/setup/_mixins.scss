@@ -34,7 +34,7 @@
 /* Media  Mixins */
 @mixin aspect-ratio($width, $height) {
   position: relative;
-  overflow: hidden;
+  // overflow: hidden;
   &::before {
     display: block;
     content: "";
