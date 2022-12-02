@@ -7,6 +7,7 @@ export const boardStore = {
         boards: null,
         board: null,
         editedTask: null,
+        previewTask: null
     },
 
     getters: {
@@ -199,7 +200,7 @@ export const boardStore = {
         },
 
         async addTask(context, { board, groupId, task, activity }) {
-            task.id = utilService.makeId()
+            // task.id = utilService.makeId()
             const groupIdx = board.groups.findIndex((group) => group.id === groupId)
             if (!board.groups[groupIdx].tasks) board.groups[groupIdx].tasks = []
             board.groups[groupIdx].tasks.push(task)

@@ -52,8 +52,8 @@ export default {
         return {
             isCardOpen: false,
             currTask: {
-                id: "",
-                title: "",
+                id: utilService.makeId(),
+                title: '',
             },
             isMenuOpen: false
 

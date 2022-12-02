@@ -59,7 +59,7 @@ export default {
                     fullname: this.user.fullname,
                     imgUrl: this.user.imgUrl || '',
                 },
-                task: this.task
+                // task: this.task
             }
             if (!this.group.title) return
             this.$emit('addGroup', { ...this.group }, activity)
