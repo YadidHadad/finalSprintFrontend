@@ -4,7 +4,8 @@
         <section class="main flex column grow">
             <board-header :title="board.title" :class="{ isDark: rgb.isDark, menuIsShown: !menuIsHidden }" :rgb="rgb"
                 :members="board.members" :isStarred="board.isStarred" @toggleBoardMenu="toggleBoardMenu" />
-            <group-list @addTask="addNewTask" @addGroup="addNewGroup" @removeGroup="removeGroup" :groups="board.groups" :boardId="board._id" />
+            <group-list @addTask="addNewTask" @addGroup="addNewGroup" @removeGroup="removeGroup" :groups="board.groups"
+                :boardId="board._id" />
         </section>
         <board-menu :menuIsHidden="menuIsHidden" :activities="board.activities" @toggleBoardMenu="toggleBoardMenu" />
         <!-- <router-view class="task-details-view"></router-view> -->
@@ -34,7 +35,7 @@ export default {
     data() {
         return {
             menuIsHidden: true,
-            style: 'src/assets/img/bgc-img-8.jpg',
+            style: 'src/assets/img/bgc-img-5.jpg',
             rgb: {
                 value: [],
                 isDark: false,
@@ -80,17 +81,17 @@ export default {
         async addNewGroup(group, activity) {
             var board = JSON.parse(JSON.stringify(this.board))
             try {
-               await this.$store.dispatch({ type: 'addGroup', board: board, group, activity })
+                await this.$store.dispatch({ type: 'addGroup', board: board, group, activity })
             }
             catch (err) {
                 console.log(err)
             }
         },
 
-        async removeGroup(groupId, activity){
+        async removeGroup(groupId, activity) {
             var board = JSON.parse(JSON.stringify(this.board))
             try {
-               await this.$store.dispatch({ type: 'removeGroup', board: board, groupId, activity })
+                await this.$store.dispatch({ type: 'removeGroup', board: board, groupId, activity })
             }
             catch (err) {
                 console.log(err);
