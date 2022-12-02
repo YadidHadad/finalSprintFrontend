@@ -37,6 +37,7 @@ export default {
 
     created() {
         this.taskLabelsIds = this.task.labelIds
+
     },
 
     methods: {
@@ -47,17 +48,11 @@ export default {
 
     computed: {
         labels() {
-            const labels = this.$store.getters.labels
-            if (!labels) return
-            if (!this.taskLabelsIds) return
-            console.log(this.task);
-            console.log(this.taskLabelsIds);
-            const newLabels = labels.filter((label) => {
-                if (this.taskLabelsIds.includes(label.id)) return label
+            if (!this.task.labelIds) return
+            return this.$store.getters.board.labels.filter(labels => {
+                if (this.task.labelIds.includes(labels.id))
+                    return labels
             })
-            console.log('newLabels', newLabels)
-            if (!newLabels) return
-            return newLabels
         }
 
     }

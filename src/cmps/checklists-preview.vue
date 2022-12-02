@@ -59,13 +59,14 @@ export default {
     },
     created() {
         if (this.checklists) this.editedChecklists = JSON.parse(JSON.stringify(this.checklists))
-
-        this.checklists.forEach(checklist => {
-            checklist.todos.forEach(todo => {
-                if (todo.isDone) this.doneTodosIds.push(todo.id)
+        if (this.checklists) {
+            this.checklists.forEach(checklist => {
+                checklist.todos.forEach(todo => {
+                    if (todo.isDone) this.doneTodosIds.push(todo.id)
+                })
             })
-        })
-        console.log(this.doneTodosIds , 'DONE TODOSSSSSSSSSS');
+        }
+        console.log(this.doneTodosIds, 'DONE TODOSSSSSSSSSS');
     },
     methods: {
         pickChecklist(checklist) {
