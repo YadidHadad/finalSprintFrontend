@@ -71,6 +71,7 @@ export const boardStore = {
             const task = group.tasks.find((task) => task.id === taskId)
             state.editedTask = task
         },
+        
         addChecklist(state, { payload }) {
             const group = state.board.groups.find(g => g.id === payload.groupId)
             const taskIdx = group.tasks.findIndex(task => task.id === payload.task.id)
@@ -79,6 +80,7 @@ export const boardStore = {
             group.tasks[taskIdx].checklists.push(payload.checklist)
             // console.log(group.tasks[taskIdx].checklists)
         },
+
         addActivity(state, { activity }) {
             // console.log('*************************', activity)
             if (!activity) return

@@ -1,7 +1,7 @@
 <template>
     <section class="task-preview" @click="goTo">
         <div class="task-preview">
-            <h3>{{ task.title }}</h3>
+            <h3>{{ task.title }}</h3>           
         </div>
     </section>
 </template>
