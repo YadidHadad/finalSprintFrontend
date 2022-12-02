@@ -1,0 +1,32 @@
+.task-activities {
+    font-size: 0.8rem;
+    span:first-of-type:not(.fullname) {
+        margin-inline-end: 1rem;
+    }
+
+    .title {
+        font-weight: bold;
+        text-align: center;
+
+        .btn {
+            padding: 0;
+            color: $clr9;
+
+            span {
+                margin: 0;
+            }
+        }
+    }
+
+    .activity {
+        width: 100%;
+        padding-block: 0.3rem;
+        .btn:first-of-type {
+            @include btn($type: "initials");
+        }
+    }
+
+    .fullname {
+        font-weight: bold;
+    }
+}

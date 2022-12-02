@@ -1,0 +1,60 @@
+<template>
+    <section class="task-activities task-cmp flex column ">
+        <div class="flex row w-100 align-center ">
+            <span class="trellicons activity-icon large "></span>
+            <div class="task-cmp-title grow">Activities</div>
+            <button class="btn" @click="isActShown = !isActShown">Show details</button>
+        </div>
+
+
+        <div v-if="isActShown" v-for="activity in activities" class="activity flex row align-start grow">
+            <div class="activity-user flex row align-center">
+                <span class="btn flex row align-baseline align-center justify-center">{{
+                        getInitials(activity.byMember.fullname)
+                }}</span>
+            </div>
+            <div class=" flex column justify-start grow">
+                <div>
+                    <span class="fullname">{{ activity.byMember.fullname + ' ' }}</span>
+                    <span>{{ activity.txt }}</span>
+                </div>
+                <span>{{ getTimeAgo(activity.createdAt) }}</span>
+            </div>
+        </div>
+    </section>
+</template>
+<script>
+import { utilService } from '../services/util.service';
+
+export default {
+    name: '',
+    props: ['taskId'],
+    components: {},
+    created() { },
+    data() {
+        return {
+            isActShown: true
+        }
+    },
+    methods: {
+        getInitials(fullname) {
+
+            return utilService.getInitials(fullname)
+        },
+        getTimeAgo(timestamp) {
+
+            return utilService.timeAgo(timestamp)
+        },
+
+    },
+    computed: {
+        activities() {
+            return this.$store.getters.activities.filter((act) => {
+                return act.task.id === this.taskId
+            }).splice(0, 5)
+
+        },
+
+    },
+}
+</script>
