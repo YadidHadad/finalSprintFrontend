@@ -43,6 +43,9 @@ export const boardStore = {
                 })
             })
             return boardDoneTodos
+        },
+        isPreviewLabelsOpen({ board }) {
+            return board.isPreviewLabelsOpen
         }
         // labelIds({ editedTask }) { return editedTask.labelIds }
     },
@@ -115,6 +118,9 @@ export const boardStore = {
         },
         removeLastActivity(state) {
             state.board.activities.splice(0, 1)
+        },
+        togglePreviewLabels(state, { isOpen }) {
+            state.board.isPreviewLabelsOpen = isOpen
         }
     },
 
@@ -202,7 +208,7 @@ export const boardStore = {
         async addTask(context, { boardId, groupId, task, activity }) {
             console.log(boardId, groupId, task, activity);
             const board = JSON.parse(JSON.stringify(context.state.boards.find(board => board._id === boardId)))
-            
+
             const groupIdx = board.groups.findIndex((group) => group.id === groupId)
             if (!board.groups[groupIdx].tasks) board.groups[groupIdx].tasks = []
             board.groups[groupIdx].tasks.push(task)
