@@ -79,15 +79,23 @@
             padding: 6px 12px;
             border-radius: 3px;
             margin-inline-end: 10px;
+            transition: .2s;
+            
+            &:hover {
+                filter: brightness(95%);
+            }
         }
 
         .cancel-btn {
             padding: 6px 12px;
             margin-top: 20px;
+            font-size: 1rem;
+            transition: .2s;
 
 
             &:hover {
                 background: rgb(237, 237, 237);
+
                 // filter: brightness(55%);
             }
         }
@@ -108,6 +116,10 @@
             background-color: white;
             height: 110px;
             box-shadow: inset 0 0 0 1px var(--ds-border-focused, #0079bf);
+
+            &:hover {
+                cursor: auto;
+            }
         }
 
         &::after {

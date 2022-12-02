@@ -20,7 +20,6 @@
 
             <div class="desc-container">
                 <div class="desc-header">Description</div>
-                {{ isDescOpen }}
                 <textarea placeholder="Add a more detailed description..." v-model="task.desc"
                     @focus="isDescOpen = true" :class="{ 'desc-open': isDescOpen }">
                         {{ task.desc }}
@@ -82,6 +81,7 @@ export default {
     async created() {
         const { id, taskId, groupId } = this.$route.params;
         this.groupId = groupId
+        this.task = JSON.parse(JSON.stringify(this.getTask))
         try {
             await this.$store.dispatch({ type: 'loadBoards' })
             this.$store.commit({ type: "setBoard", boardId: id });
@@ -110,8 +110,9 @@ export default {
                 type: "",
             };
         },
-        async updateTask(type, { labelIds }) {
+        async updateTask(type, data) {
             let taskToUpdate = this.task;
+            let txt
             switch (type) {
                 case 'labels-edit':
                     if (!taskToUpdate?.labelIds) taskToUpdate.labelIds = []
@@ -139,8 +140,9 @@ export default {
                             },
                         },
                     },
-                });
+                })
                 this.task = taskToUpdate;
+                console.log(updatedTask);
             } catch (err) {
                 console.log("Failed in task update", err);
             }
@@ -191,8 +193,8 @@ export default {
         user() {
             return this.$store.getters.loggedinUser;
         },
-        task() {
-            const task = JSON.parse(JSON.stringify(this.$store.getters.getEditedTask))
+        getTask() {
+            const task = this.$store.getters.getEditedTask
             console.log(task)
             return task
         },

@@ -16,6 +16,7 @@ export const boardStore = {
         labels({ board }) { return board.labels },
         checklists({ editedTask }) { return editedTask.checklists },
         activities({ board }) { return board.activities },
+        labelIds({ editedTask }) { return editedTask.labelIds }
     },
 
     mutations: {
@@ -46,11 +47,15 @@ export const boardStore = {
 
         updateTask(state, { payload }) {
             // console.log(state.board);
-            this.editedTask = payload.task
+            state.editedTask = payload.task
             const group = state.board.groups.find(g => g.id === payload.groupId)
             const taskIdx = group.tasks.findIndex(task => task.id === payload.task.id)
             group.tasks.splice(taskIdx, 1, payload.task)
         },
+
+        // updateEditedTask(state, { task }) {
+        //     state.editedTask = task
+        // },
 
         setEditedTask(state, { taskId, groupId, boardId }) {
             const board = state.boards.find((board) => board._id === boardId)
@@ -159,7 +164,7 @@ export const boardStore = {
         async updateTask(context, { payload }) {
             //update the task add new activity
             //and send socket to server task-updated.
-            console.log('hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii');
+            // console.log('hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii');
             const groupId = payload.groupId
             const taskId = payload.task.id
             const prevGroup = context.state.board.groups.find(g => g.id === groupId)
@@ -171,10 +176,8 @@ export const boardStore = {
             const board = context.state.board
             try {
                 const newBoard = await boardService.save(board)
-                console.log(newBoard);
                 // context.commit({ type: 'updateEditedTask', taskId })
-                // await boardService.saveTask(payload.activity.boardId, payload.activity.groupId,
-                //     payload.task, payload.activity)
+                return payload.task
             }
             catch (err) {
                 {

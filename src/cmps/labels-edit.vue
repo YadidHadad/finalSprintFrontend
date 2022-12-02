@@ -31,7 +31,7 @@ export default {
         return {
             // baseColors: ['#d6ecd2', '#faf3c0', '#fce6c6', '#f5d3ce', '#eddbf4', '#bcd9ea'],
             labels: this.$store.getters.labels,
-            labelIds: [],
+            labelIds: this.$store.getters.labelIds,
             isEditTitle: false,
             title: '',
             colorEdited: ''
