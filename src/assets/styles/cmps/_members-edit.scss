@@ -1,0 +1,47 @@
+.task-editor {
+    position: absolute;
+    background-color: aquamarine;
+    top: 145px;
+    right: -135px;
+
+    width: 300px;
+    border-radius: 3px;
+    background-color: white;
+    padding-inline: 0.8rem;
+    box-shadow: 0px 0px 1px 1px rgb(0 0 0 / 10%);
+    color: $textDark;
+    font-size: 0.9rem;
+
+    .title {
+        text-align: center;
+        padding-block: 10px;
+        box-shadow: inset 0px -1px 0px rgb(0 0 0 / 10%);
+        margin-block-end: 10px;
+    }
+    .mini-title {
+        // text-align: center;
+        padding-block: 10px;
+        margin-block-end: 10px;
+        font-weight: bold;
+    }
+
+    input {
+        background-color: #fafbfc;
+        border: 1px solid #dfe1e6;
+        padding: 8px 12px;
+
+        &:focus {
+            // border: 1px solid blue;
+        }
+    }
+    .member {
+        margin-block-end: 1rem;
+    }
+
+    .member-image {
+        background-size: cover;
+        background-position: center;
+        border-radius: 50%;
+        margin-inline-end: 1rem;
+    }
+}

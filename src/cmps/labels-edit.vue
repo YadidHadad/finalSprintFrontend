@@ -13,11 +13,11 @@
                         :value="label.id">
                     <div class="label-color" :style="{ backgroundColor: label.color }">{{ label.title }}
                     </div>
-                    <span class="fa-regular pen-icon" @click="editTitle(label.color)"></span>
+                    <span class="fa-regular pen-icon" @click.stop="editTitle(label.color)"></span>
                 </li>
                 <div v-if="isEditTitle" class="edit-title-container">
                     <input type="text" placeholder="Enter title..." v-model="colorEdited.title">
-                    <button @click="save">Save</button>
+                    <button @click.stop="save">Save</button>
                 </div>
             </ul>
             <button class="create-label-btn">Create a new label</button>

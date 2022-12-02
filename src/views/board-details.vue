@@ -1,6 +1,6 @@
 <template>
     <section v-if="board" class="board-details flex row" :style="boardBGC">
-        <board-nav :rgb="rgb"></board-nav>
+        <board-nav :rgb="rgb" :boards="boards"></board-nav>
         <section class="main flex column grow">
             <board-header :title="board.title" :class="{ isDark: rgb.isDark, menuIsShown: !menuIsHidden }" :rgb="rgb"
                 :members="board.members" :isStarred="board.isStarred" @toggleBoardMenu="toggleBoardMenu" />
@@ -35,9 +35,9 @@ export default {
     data() {
         return {
             menuIsHidden: true,
-            style: 'src/assets/img/bgc-img-5.jpg',
+            // style: 'src/assets/img/bgc-img-5.jpg',
             rgb: {
-                value: [],
+                value: '',
                 isDark: false,
             },
         }
@@ -51,25 +51,29 @@ export default {
         taskDetails
     },
 
-    async created() {
-        const { id } = this.$route.params
-        this.$store.commit({ type: 'setBoard', boardId: id })
-        // console.log(this.boards)
-        try {
-            // await this.$store.dispatch({ type: 'loadBoards' })
-            // await this.$store.dispatch({ type: 'loadBoards' })
-            const avgColor = await this.avgColor()
-            this.rgb.value = avgColor.value
-            this.rgb.isDark = avgColor.isDark
-            this.$emit('setRGB', this.rgb)
-        } catch (err) {
-            console.log(err)
-        }
+    created() {
+        this.setBoardId()
+
     },
 
     methods: {
+        async setBoardId() {
+            const { id } = this.$route.params
+            this.$store.commit({ type: 'setBoard', boardId: id })
+            try {
+
+                const avgColor = await this.avgColor()
+                this.rgb.value = avgColor.value
+                this.rgb.isDark = avgColor.isDark
+                this.$emit('setRGB', this.rgb)
+            } catch (err) {
+                console.log(err)
+            }
+        },
         async avgColor() {
-            const url = this.style
+
+            console.log(this.board)
+            const url = this.board.style.backgroundImage
             try {
                 const color = await fac.getColorAsync(url)
                 return color
@@ -121,26 +125,33 @@ export default {
         // }
 
         toggleBoardMenu() {
-            // console.log('toggleBoardMenu')
             this.menuIsHidden = !this.menuIsHidden
-        }
+        },
+
     },
 
     computed: {
         boardBGC() {
-            return { backgroundImage: `url(${this.style})` }
+            console.log()
+            return { backgroundImage: `url(${this.board.style.backgroundImage})` }
         },
         color() {
             return this.rgb
         },
         board() {
-            // console.log(this.$store.getters.board)
             return this.$store.getters.board
         },
         boards() {
-            // console.log(this.$store.getters.board)
             return this.$store.getters.boards
-        }
+        },
     },
+
+    watch: {
+        $route(to, from) {
+            this.setBoardId()
+        }
+
+    }
+
 }
 </script>

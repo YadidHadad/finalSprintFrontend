@@ -17,7 +17,7 @@
         </section>
 
         <section class="task-details-aside flex column">
-            <button class="btn">
+            <button class="btn" @click="pickEditor('members-edit')">
                 <span class="trellicons members-icon"></span>
                 <span>Members</span>
             </button>
@@ -46,14 +46,15 @@
         <section class="task-main">
             <labels-preview />
             <description-preview :description="task.description" @updateDescription="updateTask" />
+            <checklists-preview :checklists="task.checklists"
+                @updateChecklists="updateTask('checklist-preview', $event)" />
             <activities-preview :taskId="task.id" />
-
-            <checklists-preview :checklists="task.checklist" />
         </section>
 
-        <component v-if="pickedEditor.isOpen" :is="pickedEditor.editorType" @closeEdit="closeEditor"
-            v-click-outside="closeEditor" @updateTask="updateTask(pickedEditor.editorType, $event)"
-            @addChecklist="addChecklist" @updateLabel="updateLabel">
+        <!-- <component v-if="pickedEditor.isOpen" :is="pickedEditor.editorType" @closeEdit="closeEditor" -->
+        <component :is="pickedEditor.editorType" @closeEdit="closeEditor" v-click-outside="closeEditor"
+            @updateTask="updateTask(pickedEditor.editorType, $event)" @addChecklist="addChecklist"
+            @updateLabel="updateLabel" @updateMembers="updateMembers">
             <h2>HI</h2>
         </component>
     </section>
@@ -63,6 +64,7 @@
 import labelsPreview from "../cmps/labels-preview.vue";
 import labelsEdit from "../cmps/labels-edit.vue";
 import checklistEdit from "../cmps/checklist-edit.vue";
+import membersEdit from "../cmps/members-edit.vue";
 import checklistsPreview from "../cmps/checklists-preview.vue";
 import activitiesPreview from "../cmps/activities-preview.vue";
 import descriptionPreview from "../cmps/description-preview.vue";
@@ -76,6 +78,7 @@ export default {
         labelsEdit,
         labelsPreview,
         checklistEdit,
+        membersEdit,
         checklistsPreview,
         activitiesPreview,
         descriptionPreview,
@@ -154,9 +157,33 @@ export default {
                 },
             });
         },
+        updateMembers(members) {
+            console.log('update task', members)
+            // this.$store.dispatch({
+            //     type: "updateMember",
+            //     payload: {
+            //         members,
+            //         activity: {
+            //             txt: "Updated task members",
+            //             boardId: this.$route.params.id,
+            //             groupId: this.groupId,
+            //             taskId: this.task.id,
+            //             task: {
+            //                 id: this.task.id,
+            //                 title: this.task.title
+            //             },
+            //             byMember: {
+            //                 _id: this.user._id,
+            //                 fullname: this.user.fullname,
+            //                 imgUrl: this.user.imgUrl || "",
+            //             },
+            //         },
+            //     },
+            // });
+        },
         async updateTask(type, data) {
+            console.log('UPDATE TASKKKKKKK')
             console.log(type, data);
-            console.log("update task");
             let taskToUpdate = JSON.parse(JSON.stringify(this.task));
             let txt;
             switch (type) {
@@ -164,8 +191,6 @@ export default {
                     if (!taskToUpdate?.labelIds) taskToUpdate.labelIds = [];
                     taskToUpdate.labelIds = data.labelIds;
                     txt = "Updated label";
-                    // if (!this.task?.labelIds) this.task.labelIds = []
-                    // this.task.labelIds = data.labelIds
                     break;
                 case "description":
                     txt = "Updated description";
@@ -182,6 +207,10 @@ export default {
                     taskToUpdate.checklists.push(data);
                     this.closeEditor();
                     break;
+                case "checklist-preview":
+                    txt = "Edited checklist";
+                    taskToUpdate.checklists = data
+                    break
             }
             try {
                 let updatedTask = await this.$store.dispatch({

@@ -28,7 +28,6 @@
     border-radius: 3px;
     width: 770px;
     min-height: 600px;
-
     & * :not(.trellicons):not(.fa-regular) {
         font-family: "opensans";
     }
@@ -124,11 +123,11 @@
         padding-inline-start: 1rem;
     }
 
-    .task-details-main {
+    .task-main {
         grid-area: main;
         display: flex;
         flex-direction: column;
-        gap: 10px;
+        gap: 30px;
     }
 
     .desc-container {
