@@ -55,10 +55,10 @@
     padding: 6px 24px;
     border-radius: 3px;
     color: grey;
-    background-color: white;
+    background-color: var(--ds-background-neutral, #091e420a);
 
     &:hover {
-        filter: brightness(95%);
+        filter: brightness(90%);
         cursor: pointer;
     }
 }
@@ -82,4 +82,21 @@
     display: flex;
     align-items: center;
     gap: 10px;
+}
+
+.elipsis-icon {
+    color: black;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+progress {
+    display: block;
+    width: 100%;
+}
+
+.line-through {
+    text-decoration: line-through;
 }

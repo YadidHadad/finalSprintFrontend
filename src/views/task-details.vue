@@ -9,7 +9,7 @@
         <section class="task-header task-cmp flex column align-start">
             <div class="flex row align-center">
                 <span class="trellicons card-icon large"></span>
-                <input v-model="title" @input="updateTitle" />
+                <input v-model="title" @input="debounceHandler('title', title)" />
             </div>
             <div class="flex column pad-40">
                 <span class="small">In list {{ getGroupName }}</span>
@@ -45,7 +45,8 @@
         <!-- @updateChecklists="updateTask('checklist-preview', $event)" /> -->
         <section class="task-main">
             <labels-preview />
-            <description-preview :description="task.description" @updateDescription="updateTask" />
+            <description-preview :description="task.description"
+                @updateDescription="updateTask('description', $event)" />
             <checklists-preview :checklists="task.checklists"
                 @updateChecklists="debounceHandler('checklist-preview', $event)" />
             <activities-preview :taskId="task.id" />
@@ -108,9 +109,9 @@ export default {
             // await this.$store.dispatch({ type: 'loadBoards' })
             this.$store.commit({ type: "setBoard", boardId: id });
             this.$store.commit({ type: "setEditedTask", taskId, groupId, boardId: id });
-            this.task = JSON.parse(JSON.stringify(this.getTask));
+            this.task = JSON.parse(JSON.stringify(this.getTask))
 
-            this.title = this.task.title;
+            this.title = this.getTask.title
             this.description = this.task.description;
         } catch (err) {
             console.log(err);
@@ -157,6 +158,9 @@ export default {
                     },
                 },
             });
+        },
+        updateDescription(payload) {
+            console.log(payload);
         },
         updateMembers(members) {
             console.log('update task', members)
@@ -238,7 +242,7 @@ export default {
                 });
                 this.task = updatedTask;
             } catch (err) {
-                console.log("Failed in task update", err);
+                console.log("Failed in task update", err)
             }
         },
         closeDetails() {
@@ -249,8 +253,8 @@ export default {
                     boardId: this.$route.params.id,
                     groupId: this.groupId,
                 },
-            });
-            this.$router.push(`/board/${this.$route.params.id}`);
+            })
+            this.$router.push(`/board/${this.$route.params.id}`)
         },
         async addChecklist(checklist) {
             await this.$store.dispatch({
