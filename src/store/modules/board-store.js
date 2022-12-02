@@ -28,6 +28,21 @@ export const boardStore = {
                 if (editedTask.labelIds.includes(bl.id))
                     return bl
             })
+        },
+        boardDoneTodos({ board }) {
+            const boardDoneTodos = []
+            board.groups.forEach(group => {
+                group.tasks.forEach(task => {
+                    task.checklists.forEach(checklist => {
+                        checklist.todos.forEach(todo => {
+                            if (todo.idDone) {
+                                doneTodos.push(todo)
+                            }
+                        })
+                    })
+                })
+            })
+            return boardDoneTodos
         }
         // labelIds({ editedTask }) { return editedTask.labelIds }
     },
@@ -77,7 +92,7 @@ export const boardStore = {
             const task = group.tasks.find((task) => task.id === taskId)
             state.editedTask = task
         },
-        
+
         addChecklist(state, { payload }) {
             const group = state.board.groups.find(g => g.id === payload.groupId)
             const taskIdx = group.tasks.findIndex(task => task.id === payload.task.id)

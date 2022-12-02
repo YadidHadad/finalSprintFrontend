@@ -16,13 +16,25 @@
                 <button class="close-btn" @click="close">X</button>
             </div>
 
-            <div class="todos-container">
+            <!-- <form class="todos-container" @change="updateTodos(checklist)">
+                <div class="todo-container" v-for="todo in checklist.todos">
+                    <input type="checkbox" v-model="doneTodosIds" @change="toggleTodo" :value="">
+                    <div>{{ todo.title }}</div>
+                </div>
+            </form> -->
+            <form class="todos-container" @change="updateTodos(checklist)">
+                <div class="todo-container" v-for="todo in checklist.todos">
+                    <input type="checkbox" v-model="doneTodosIds" @change="toggleTodo" :value="todo.id">
+                    <div>{{ todo.title }}</div>
+                </div>
+            </form>
+            <!-- <div class="todos-container">
                 <div class="todo-container" v-for="todo in checklist.todos">
                     <input type="checkbox" @change="toggleTodo(todo, checklist)" v-model="doneTodosIds"
                         :value="todo.id">
                     <div>{{ todo.title }}</div>
                 </div>
-            </div>
+            </div> -->
 
 
             <button class="add-todo-btn" v-if="!isTodoPicked" @click="isTodoPicked = true">Add an item</button>
@@ -41,6 +53,8 @@
 import { utilService } from '../services/util.service'
 
 export default {
+
+    //DEBOUNCE FOR INPUT
     props: {
         checklists: {
             type: Array,
@@ -54,10 +68,14 @@ export default {
             editedChecklist: null,
             todoTxt: '',
             isTodoPicked: false,
-            doneTodosIds: []
+            doneTodosIds: [],
+
+
         }
     },
     created() {
+        this.debounceHandler = utilService.debounce(this.toggleTodo, 500)
+
         if (this.checklists) this.editedChecklists = JSON.parse(JSON.stringify(this.checklists))
         if (this.checklists) {
             this.checklists.forEach(checklist => {
@@ -116,18 +134,41 @@ export default {
             this.isTodoPicked = false
             this.todoTxt = ''
         },
-        toggleTodo(todo, checklist) {
-            const newTodo = JSON.parse(JSON.stringify(todo))
+        // toggleTodo(todo, checklist) {
+        //     const newTodo = JSON.parse(JSON.stringify(todo))
+        //     const newChecklist = JSON.parse(JSON.stringify(checklist))
+        //     newTodo.isDone = !newTodo.isDone
+
+        //     const todoIdx = checklist.todos.findIndex(currTodo => currTodo.id === todo.id)
+        //     newChecklist.todos.splice(todoIdx, 1, newTodo)
+
+        //     const checklistIdx = this.checklists.findIndex(cl => cl.id === checklist.id)
+        //     const updatedChecklists = JSON.parse(JSON.stringify(this.checklists))
+        //     updatedChecklists.splice(checklistIdx, 1, newChecklist)
+
+        //     this.$emit('updateChecklists', updatedChecklists)
+        // },
+        toggleTodo(ev) {
+            console.log(this.doneTodosIds);
+        },
+        updateTodos(checklist) {
+            // console.log(checklist);
             const newChecklist = JSON.parse(JSON.stringify(checklist))
-            newTodo.isDone = !newTodo.isDone
+            newChecklist.todos.forEach(todo => {
+                if (this.doneTodosIds.includes(todo.id)) {
+                    console.log('hi');
+                    todo.isDone = true
+                }
+                else {
+                    todo.isDone = false
+                }
+            })
+            console.log(newChecklist.todos);
 
-            const todoIdx = checklist.todos.findIndex(currTodo => currTodo.id === todo.id)
-            newChecklist.todos.splice(todoIdx, 1, newTodo)
-
+            // newChecklist.todos = updatedTodos
             const checklistIdx = this.checklists.findIndex(cl => cl.id === checklist.id)
             const updatedChecklists = JSON.parse(JSON.stringify(this.checklists))
             updatedChecklists.splice(checklistIdx, 1, newChecklist)
-
             this.$emit('updateChecklists', updatedChecklists)
         }
     },
