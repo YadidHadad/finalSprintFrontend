@@ -3,8 +3,10 @@
         <div class="task-preview">
             <section class="labels-preview">
                 <ul class="clean-list flex">
-                    <li @click.stop="toggleLabel" v-for="label in labels" :key="label.id" :style="{ backgroundColor: label.color }">
-                        <span v-if="(label.title && isLabelsOpen)">{{ label.title }}</span></li>
+                    <li @click.stop="toggleLabel" v-for="label in labels" :key="label.id"
+                        :style="{ backgroundColor: label.color }">
+                        <span v-if="(label.title && isLabelsOpen)">{{ label.title }}</span>
+                    </li>
                 </ul>
             </section>
             <h3>{{ task.title }}</h3>
@@ -39,13 +41,14 @@ export default {
     created() {
         this.taskLabelsIds = this.task.labelIds
 
+
     },
 
     methods: {
         goTo() {
             this.$router.push(`/board/${this.boardId}/${this.groupId}/${this.task.id}`)
         },
-        toggleLabel(){
+        toggleLabel() {
             this.isLabelsOpen = !this.isLabelsOpen
         }
     },
