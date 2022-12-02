@@ -1,7 +1,8 @@
 <template>
     <section class="labels-preview">
-        <div v-for="label in labels" :style="{ backgroundColor: label.color }">
-            <span>{{label.title}}</span>
+        <div v-for="label in taskLabels" :style="{ backgroundColor: label.color }" class="label-preview">
+            <div :style="{ backgroundColor: label.color }" class="color-circle"></div>
+            <span>{{ label.title }}</span>
         </div>
         <span>+</span>
     </section>
@@ -9,14 +10,11 @@
 
 <script>
 export default {
-    props: {
-        labels: {
-            type: Array,
-            required: true,
+    computed: {
+        taskLabels() {
+            console.log(this.$store.getters.taskLabels);
+            return this.$store.getters.taskLabels
         }
-    },
-    created() {
-        console.log(this.labels)
-    },
+    }
 }
 </script>

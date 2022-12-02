@@ -11,12 +11,12 @@
                 <li v-for="(label, index) in labels" :key="label.id">
                     <input class="check-box" type="checkbox" @change="updateLabels()" v-model="labelIds"
                         :value="label.id">
-                    <div class="label-color" :style="{ backgroundColor: label.color }">{{ labelTitle(label.title) }}
+                    <div class="label-color" :style="{ backgroundColor: label.color }">{{ label.title }}
                     </div>
-                    <span class="fa-regular pen-icon" @click="editTitle(index)"></span>
+                    <span class="fa-regular pen-icon" @click="editTitle(label.color)"></span>
                 </li>
                 <div v-if="isEditTitle" class="edit-title-container">
-                    <input type="text" placeholder="Enter title..." v-model="title">
+                    <input type="text" placeholder="Enter title..." v-model="colorEdited.title">
                     <button @click="save">Save</button>
                 </div>
             </ul>
@@ -30,7 +30,7 @@ export default {
     data() {
         return {
             // baseColors: ['#d6ecd2', '#faf3c0', '#fce6c6', '#f5d3ce', '#eddbf4', '#bcd9ea'],
-            labels: this.$store.getters.labels,
+            labels: JSON.parse(JSON.stringify(this.$store.getters.labels)),
             labelIds: [],
             isEditTitle: false,
             title: '',
@@ -39,9 +39,8 @@ export default {
     },
     created() {
         this.colorsSelected = this.labels.map(label => label.color)
-        // console.log(this.$store.getters.getEditedTask , '*********');
-        if (this.$store.getEditedTask?.labelIds)
-            this.labelIds = this.$store.getEditedTask.labelIds.map(l => l.id)
+        if (this.$store.getters.getEditedTask?.labelIds)
+            this.labelIds = [...this.$store.getters.getEditedTask.labelIds]
     },
     methods: {
         closeEdit() {
@@ -50,13 +49,13 @@ export default {
         updateLabels() {
             this.$emit('updateTask', { labelIds: this.labelIds })
         },
-        editTitle(idx) {
+        editTitle(color) {
             this.isEditTitle = true
-            this.colorEdited = this.baseColors[idx]
+            this.colorEdited = this.labels.find(l => l.color === color)
             // this.$emit('updateLabels' , {color: this.baseColors[idx] , title:})
         },
         save() {
-            this.$emit('updateLabelText', { title: this.title, color: this.colorEdited })
+            this.$emit('updateLabel', this.colorEdited)
             this.isEditTitle = false
             this.colorEdited = ''
             this.title = ''
