@@ -3,7 +3,6 @@ import { utilService } from '../../services/util.service'
 import { store } from '../store'
 
 export const boardStore = {
-
     state: {
         boards: null,
         board: null,
@@ -45,6 +44,7 @@ export const boardStore = {
         },
 
         updateTask(state, { payload }) {
+            // console.log(state.board);
             this.editedTask = payload.task
             const group = state.board.groups.find(g => g.id === payload.groupId)
             const taskIdx = group.tasks.findIndex(task => task.id === payload.task.id)
@@ -94,7 +94,6 @@ export const boardStore = {
             group.tasks.splice(taskIdx, 1, payload.task)
             //find(task => task.id === payload.task.id)
         },
-
         addChecklist(state, { payload }) {
             const group = state.board.groups.find(g => g.id === payload.groupId)
             const taskIdx = group.tasks.findIndex(task => task.id === payload.task.id)
@@ -103,13 +102,10 @@ export const boardStore = {
             group.tasks[taskIdx].checklists.push(payload.checklist)
             // console.log(group.tasks[taskIdx].checklists)
         },
-
         addActivity(state, { activity }) {
             // console.log('*************************', activity)
             if (!activity) return
             if (!state.board?.activities) state.board.activities = []
-            activity.id = utilService.makeId()
-            activity.createdAt = Date.now()
             state.board.activities.unshift(activity)
             // console.log(`activity:`, activity)
         },
@@ -142,11 +138,12 @@ export const boardStore = {
         },
 
         async updateBoard(context, { board }) {
-            console.log(board);
             context.commit({ type: 'updateBoard', board })
             context.commit({ type: 'setBoard', boardId: board._id })
             try {
                 board = await boardService.save(board)
+                context.commit({ type: 'updateBoard', board })
+                context.commit({ type: 'setBoard', boardId: board._id })
                 return board
             } catch (err) {
                 console.log('boardStore: Error in updateBoard', err)
