@@ -8,23 +8,7 @@
 }
 
 .task-details {
-    position: absolute;
-    margin-top: 50px;
-
-    font-size: 1rem;
-    background-color: $clr1;
-    min-height: 600px;
-    padding: 16px;
-    z-index: 100;
-    right: 50%;
-    top: 0;
-    bottom: 100px;
-    transform: translateX(50%);
-    border-radius: 3px;
     display: grid;
-    width: 770px;
-    // width: 60%;
-
     grid-template-areas:
         "cover cover"
         "header header"
@@ -32,26 +16,102 @@
     grid-template-columns: 1fr 170px;
     grid-template-rows: auto 85px 1fr;
 
+    position: absolute;
+    top: 50px;
+    right: 50%;
+    transform: translateX(50%);
+
+    font-size: 1rem;
+    color: $textDark;
+    background-color: $taskDetailsBGC;
+    padding: 16px;
+    border-radius: 3px;
+    width: 770px;
+
+    & * :not(.trellicons):not(.fa-regular) {
+        font-family: "opensans";
+    }
+
+    .large {
+        font-size: 1.5rem;
+        &.trellicons {
+            top: 0;
+            margin-inline-end: 1rem;
+        }
+        &.fa-regular {
+            top: 0;
+            margin-inline-end: 1rem;
+        }
+    }
+    .small {
+        font-size: 0.8rem;
+    }
+
+    .btn {
+        @include btn;
+        .trellicons {
+            top: 0;
+            margin-inline-end: 1rem;
+        }
+        .fa-regular {
+            top: 0;
+            margin-inline-end: 1rem;
+        }
+        margin-block: 0.2rem;
+
+        font-size: 0.9rem;
+        background-color: #eaecf0;
+
+        &:hover {
+            background-color: rgba($textDark, 0.1);
+            border-radius: 0;
+        }
+    }
+
+    .task-cmp {
+        padding-block: 1rem;
+    }
+
+    .task-cmp-title {
+        // height: 30px;
+        font-size: 1rem;
+        font-weight: bold;
+    }
+
     .task-cover {
         grid-area: cover;
+        .btn {
+            @include btn();
+            position: absolute;
+            right: 0.2rem;
+            top: 0.5rem;
+            font-size: 1.5rem;
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            background-color: transparent;
+            &:hover {
+                background-color: rgba($textDark, 0.3);
+            }
+        }
     }
     .task-header {
         grid-area: header;
 
-        padding: 12px 16px 8px 0px;
+        input {
+            height: 30px;
+            font-size: 20px;
+            font-weight: bold;
+            border: none;
+            background-color: transparent;
+            width: 100%;
+            padding: 0;
+        }
     }
 
     .task-details-aside {
         grid-area: aside;
-        display: flex;
-        flex-direction: column;
-        padding-inline-start: 8px;
-        padding-inline-end: 16px;
-        justify-self: end;
-
-        button {
-            padding: 6px 12px;
-        }
+        padding-inline-start: 1rem;
     }
 
     .task-details-main {
@@ -125,11 +185,16 @@
         &::after {
             background-color: black;
         }
-    }
-
-    .task-activities {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+    .pad-40 {
+        margin-inline-start: 40px;
     }
 }
+
+    // textarea {
+    //     border: none;
+    //     resize: vertical;
+    //     margin-block-start: 1rem;
+    //     background-color: $taskDetailsBtn;
+    //     border-radius: 3px;
+    // }
+// }

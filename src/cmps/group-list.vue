@@ -1,7 +1,6 @@
 <template>
     <section class="group-list flex">
-        <group @addTask="addTask" v-for="group in groups" :group="group" :boardId="boardId" :key="group.id" />
-
+        <group @addTask="addTask" @removeGroup="$emit('removeGroup', $event)" v-for="group in groups" :group="group" :boardId="boardId" :key="group.id" />
         <section class="add-new-list">
             <transition name="slide-in">
                 <button class="open-add-list" v-if="!isFormOpen" @click="toggleForm"><span
@@ -11,7 +10,7 @@
                 <form v-if="isFormOpen" @submit.prevent="addGroup" class="flex group-list-form">
                     <input v-model="group.title" type="text" name="add-list" placeholder="Enter list title...">
                     <div class="add-list-btns flex">
-                        <button class="add-list-btn">Add list</button>
+                        <button class="add-list-btn" @click="toggleForm">Add list</button>
                         <button type="button" @click="toggleForm"><span class="fa-solid x-icon"></span></button>
                     </div>
                 </form>
@@ -39,7 +38,7 @@ export default {
         return {
             isFormOpen: false,
             group: {
-                id: utilService.makeId(),
+                id: '',
                 title: ''
             },
 
@@ -47,20 +46,33 @@ export default {
     },
 
     methods: {
-
         toggleForm() {
             this.isFormOpen = !this.isFormOpen
         },
 
         addGroup() {
+            const activity = {
+                id: '',
+                txt: "Add new Group",
+                byMember: {
+                    _id: this.user._id,
+                    fullname: this.user.fullname,
+                    imgUrl: this.user.imgUrl || '',
+                },
+                task: this.task
+            }
             if (!this.group.title) return
-            this.$emit('addGroup', { ...this.group })
+            this.$emit('addGroup', { ...this.group }, activity)
             this.group.title = ''
         },
 
         addTask(groupId, task, activity) {
-            task.id = utilService.makeId()
             this.$emit('addTask', groupId, task, activity)
+        }
+    },
+    computed: {
+        user() {
+            return this.$store.getters.loggedinUser
         }
     },
 

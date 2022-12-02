@@ -13,6 +13,12 @@
     h3 {
         font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
             "Open Sans", "Helvetica Neue", sans-serif !important;
+            padding: rem(8px);
+    }
+    .main-title{
+        button{
+            padding-right: rem(7px);
+        }
     }
 
     button {
@@ -28,7 +34,8 @@
             font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
                 "Open Sans", "Helvetica Neue", sans-serif !important;
             font-weight: 400;
-            font-size: rem(14px);
+            font-size: rem(14px) !important; 
+            padding: 0;     
         }
 
         background-color: #ffffff;
@@ -39,6 +46,97 @@
 
 button.add-card-btn {
     text-align: left;
-    padding-left: rem(20px);
+    padding-left: rem(10px);
     color: $clr9;
+}
+
+.group-menu {
+    width: 280px;
+    height: 100px;
+    position: absolute;
+    border-radius: 5px;
+    z-index: 50;
+    transform: translateY(-15px) translateX(calc(70%));
+
+    // padding: 0 0.8rem;
+    background-color: #f4f5f7;
+    color: $textDark;
+    box-shadow: inset 1px 0px 0px 0px rgb(0 0 0 / 10%);
+    box-shadow: -10px 1px 20px 10px rgb(0 0 0 / 10%);
+    transition: all 0.3s ease-out;
+  
+
+    section:not(.menu-container) {
+        box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.1);
+        padding: 0.5rem;
+    }
+
+
+    .btn {
+        @include btn("board-nav");
+
+        &:hover {
+            background-color: rgba($textDark, 0.1);
+            border-radius: 0;
+        }
+    }
+
+    .title {
+        color: $clr9;
+
+        
+        span:first-of-type {
+            text-align: center;
+            font-weight: 200;
+        }
+        
+        .main-title {
+           flex-grow: 5;
+           font-size: rem(14px) !important;
+          
+
+        }
+        .remove{
+            font-size: rem(14px) !important;  
+            width: 100% !important;
+        }
+        .btn {
+            padding: 0;
+            color: $clr9;
+            font-size: rem(14px) !important;
+            span {
+                .fa-solid{
+
+                    justify-self: center;
+                    font-size: rem(14px) !important;
+                }
+
+                margin: 0;
+            }
+        }
+    }
+
+    .activity {
+        padding-block: 0.3rem;
+
+        .btn:first-of-type {
+            @include btn($type: "initials");
+        }
+    }
+
+    .costume {
+        .btn {
+            border-radius: 0.5rem;
+            height: 90px;
+            width: 140px;
+            background-size: cover;
+
+            &:hover {
+                opacity: 0.5;
+            }
+        }
+    }
+
+
+
 }

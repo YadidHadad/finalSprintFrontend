@@ -28,7 +28,7 @@
                         <span class="trellicons activity-icon"></span>
                         <span>Activity</span>
                     </button>
-                    <div class="activities-container">
+                    <div v-if="getActivitiesLength" class="activities-container">
                         <div v-for="activity in activities" class="activity flex row align-start">
                             <div class="activity">
                                 <span class="btn flex row align-baseline align-center justify-center">{{
@@ -116,6 +116,10 @@ export default {
             this.$emit("toggleBoardMenu", this.toggleBoardMenu);
         },
     },
-    computed: {},
+    computed: {
+        getActivitiesLength() {
+            return this.activities.length
+        }
+    },
 };
 </script>

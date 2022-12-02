@@ -38,8 +38,13 @@
 
 .trellicons {
     font-family: "trellicons";
-    font-size: 1rem;
 
+    &.desc-icon::before {
+        content: "\e922";
+    }
+    &.card-icon::before {
+        content: "\e912";
+    }
     &.plus-icon::before {
         content: "\2b";
     }
@@ -56,17 +61,13 @@
         content: "\e946";
     }
 
-    &.labels::before {
+    &.labels-icon::before {
         content: "\e93f";
     }
 
-    &.checklist::before {
+    &.checklist-icon::before {
         content: "\e91a";
         font-size: 1rem;
-    }
-
-    &.dates::before {
-        content: "\e91a";
     }
 
     &.attachment::before {
@@ -101,7 +102,7 @@
         content: "\e963";
     }
 
-    &.cover::before {
+    &.cover-icon::before {
         content: "\e914";
     }
 
@@ -115,14 +116,16 @@
     &.activity-icon:before {
         content: "\e900";
     }
+    &.x-icon::before {
+        content: "\e91c";
+    }
 }
 
 .fa-regular {
     font-family: "fa-regular";
-    font-size: 0.8rem;
 
-    &.trello-icon::before {
-        content: "\f181";
+    &.date-icon::before {
+        content: "\f017";
     }
     &.settings-icon::before {
         content: "\f013";
@@ -159,7 +162,6 @@
 
 .fa-brands {
     font-family: "fa-brands";
-    font-size: 0.8rem;
 
     &.trello-icon::before {
         content: "\f181";
@@ -167,7 +169,6 @@
 }
 .fa-solid {
     font-family: "fa-solid";
-    font-size: 0.8rem;
 
     &.grid-icon::before {
         content: "\f58e";

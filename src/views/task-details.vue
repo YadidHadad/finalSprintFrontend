@@ -1,25 +1,53 @@
 <template>
     <div class="screen"></div>
     <section v-if="task" class="task-details" v-click-outside="closeDetails">
-        <div class="task-header">
-            <p contenteditable @input="updateTitle">
-                {{ task.title }}
-            </p>
-            <button @click="closeDetails">X</button>
-        </div>
-        <div class="task-details-aside">
-            <button>Members</button>
-            <button @click="pickDetails('labels-edit')">Labels</button>
-            <button @click="pickDetails('checklist-edit')">Checklist</button>
-            <button>Dates</button>
-            <button>Attachment</button>
-            <button>Cover</button>
-        </div>
-        <div class="task-details-main">
+        <section class="task-cover">
+            <button class="btn" @click="closeDetails"><span class="trellicons x-icon"></span></button>
+
+        </section>
+        <section class="task-header task-cmp flex column align-start ">
+            <div class="flex row align-center">
+                <span class="trellicons card-icon large"></span>
+                <input v-model="task.title" @input="updateTitle" />
+            </div>
+            <div class="flex column pad-40">
+                <span class="small">In list {{ getGroupName }}</span>
+            </div>
+        </section>
+
+        <section class="task-details-aside flex column">
+            <button class="btn">
+                <span class="trellicons members-icon"></span>
+                <span>Members</span>
+            </button>
+            <button class="btn" @click="pickDetails('labels-edit')">
+                <span class="trellicons labels-icon"></span>
+                <span>Labels</span>
+            </button>
+            <button class="btn" @click="pickDetails('checklist-edit')">
+                <span class="trellicons checklist-icon"></span>
+                <span>Checklist</span>
+            </button>
+            <button class="btn">
+                <span class="fa-regular date-icon"></span>
+                <span>Dates</span>
+            </button>
+            <button class="btn">
+                <span class="trellicons location-icon"></span>
+                <span>Location</span>
+            </button>
+            <button class="btn">
+                <span class="trellicons cover-icon"></span>
+                <span>Cover</span>
+            </button>
+        </section>
+
+        <section class="task-main">
             <labels-preview v-if="task.labels" :labels="task.labels" />
 
             <div class="desc-container">
                 <div class="desc-header">Description</div>
+                {{ isDescOpen }}
                 <textarea placeholder="Add a more detailed description..." v-model="task.desc"
                     @focus="isDescOpen = true" :class="{ 'desc-open': isDescOpen }">
                         {{ task.desc }}
@@ -31,16 +59,8 @@
             </div>
             <!-- <checklists-preview v-if="task" :checklists="getChecklists" /> -->
 
-            <div class="task-activities">
-                <h1>activities</h1>
-                <button @click="showActivities = !showActivities">Show details</button>
-                <ul v-if="showActivities && getActivities.length">
-                    <li v-for="act in getActivities" :key="act.taskId">
-                        <span>{{ act.txt }}</span>
-                    </li>
-                </ul>
-            </div>
-        </div>
+
+        </section>
 
         <component v-if=detailsPicked.isPicked :is="detailsPicked.type" @closeEdit="closeEdit"
             v-click-outside="closeEdit" @updateTask="updateTask(detailsPicked.type, $event)"
@@ -53,15 +73,29 @@
 <script>
 
 
-import taskDetailsBtn from "../../data/task-details-btns.json";
 import labelsPreview from "../cmps/labels-preview.vue";
 import labelsEdit from "../cmps/labels-edit.vue";
 import checklistEdit from "../cmps/checklist-edit.vue";
 import checklistsPreview from "../cmps/checklists-preview.vue";
+import taskDescription from '../cmps/task-description.vue'
+import taskActivities from '../cmps/task-activities.vue'
+
+
+
+
+
 export default {
     emits: ['setRGB'],
     props: {
 
+    },
+    components: {
+        labelsEdit,
+        labelsPreview,
+        checklistEdit,
+        checklistsPreview,
+        taskDescription,
+        taskActivities
     },
 
     data() {
@@ -83,7 +117,7 @@ export default {
         this.groupId = groupId
         this.task = JSON.parse(JSON.stringify(this.getTask))
         try {
-            await this.$store.dispatch({ type: 'loadBoards' })
+            // await this.$store.dispatch({ type: 'loadBoards' })
             this.$store.commit({ type: "setBoard", boardId: id });
             this.$store.commit({ type: "setEditedTask", taskId, groupId, boardId: id });
 
@@ -96,6 +130,7 @@ export default {
     },
     methods: {
         updateTitle(ev) {
+            console.log(ev.data)
             if (typeof ev.data !== "string") return;
             this.task.title += ev.data;
         },
@@ -183,18 +218,12 @@ export default {
         getChecklists() {
             return this.$store.getters.checklists;
         },
-        getActivities() {
-            const acts = [];
-            this.$store.getters.activities.forEach((act) => {
-                if (act.taskId === this.task.id) acts.push(act);
-            });
-            return acts;
-        },
+
         user() {
             return this.$store.getters.loggedinUser;
         },
-        getTask() {
-            const task = this.$store.getters.getEditedTask
+        task() {
+            const task = JSON.parse(JSON.stringify(this.$store.getters.getEditedTask))
             console.log(task)
             return task
         },
@@ -204,8 +233,16 @@ export default {
                 if (this.task.labelIds.includes(label.id))
                     return label
             })
+        },
+        getGroupName() {
+            const board = this.$store.getters.board
+            console.log(`board:`, board)
+            const group = board.groups.find(group => group.id === this.$route.params.groupId)
+            return group.title
+
+            // return JSON.parse(JSON.stringify(this.$store.getters.getEditedTask)).title
+
         }
     },
-    components: { labelsEdit, labelsPreview, checklistEdit, checklistsPreview },
 };
 </script>

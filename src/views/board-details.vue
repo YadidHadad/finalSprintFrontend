@@ -4,13 +4,13 @@
         <section class="main flex column grow">
             <board-header :title="board.title" :class="{ isDark: rgb.isDark, menuIsShown: !menuIsHidden }" :rgb="rgb"
                 :members="board.members" :isStarred="board.isStarred" @toggleBoardMenu="toggleBoardMenu" />
-            <group-list @addTask="addNewTask" @addGroup="addNewGroup" :groups="board.groups" :boardId="board._id" />
+            <group-list @addTask="addNewTask" @addGroup="addNewGroup" @removeGroup="removeGroup" :groups="board.groups" :boardId="board._id" />
         </section>
         <board-menu :menuIsHidden="menuIsHidden" :activities="board.activities" @toggleBoardMenu="toggleBoardMenu" />
         <!-- <router-view class="task-details-view"></router-view> -->
     </section>
 
-    <task-details v-if="this.$route.params.taskId"></task-details>
+    <task-details v-if="this.$route.params.taskId" />
 </template>
 
 
@@ -41,6 +41,7 @@ export default {
             },
         }
     },
+
     components: {
         boardNav,
         boardHeader,
@@ -48,21 +49,23 @@ export default {
         boardMenu,
         taskDetails
     },
+
     async created() {
+        const { id } = this.$route.params
+        this.$store.commit({ type: 'setBoard', boardId: id })
+        console.log(this.boards)
         try {
-            await this.$store.dispatch({ type: 'loadBoards' })
-            const { id } = this.$route.params
-            this.$store.commit({ type: 'setBoard', boardId: id })
-            await this.$store.dispatch({ type: 'loadBoards' })
+            // await this.$store.dispatch({ type: 'loadBoards' })
+            // await this.$store.dispatch({ type: 'loadBoards' })
+            const avgColor = await this.avgColor()
+            this.rgb.value = avgColor.value
+            this.rgb.isDark = avgColor.isDark
+            this.$emit('setRGB', this.rgb)
         } catch (err) {
             console.log(err)
-
         }
-        const avgColor = await this.avgColor()
-        this.rgb.value = avgColor.value
-        this.rgb.isDark = avgColor.isDark
-        this.$emit('setRGB', this.rgb)
     },
+
     methods: {
         async avgColor() {
             const url = this.style
@@ -74,51 +77,48 @@ export default {
             }
         },
 
-        async addNewGroup(group) {
+        async addNewGroup(group, activity) {
             var board = JSON.parse(JSON.stringify(this.board))
-            board.groups.push(group)
             try {
-                this.$store.dispatch({ type: 'updateBoard', board: board })
+               await this.$store.dispatch({ type: 'addGroup', board: board, group, activity })
+            }
+            catch (err) {
+                console.log(err)
+            }
+        },
+
+        async removeGroup(groupId, activity){
+            var board = JSON.parse(JSON.stringify(this.board))
+            try {
+               await this.$store.dispatch({ type: 'removeGroup', board: board, groupId, activity })
             }
             catch (err) {
                 console.log(err);
-                showErrorMsg("Cannot add list");
             }
+
         },
 
         async addNewTask(groupId, task, activity) {
             var board = JSON.parse(JSON.stringify(this.board))
-            const groupIdx = board.groups.findIndex((group) => group.id === groupId)
-
-            if (board.groups[groupIdx].tasks && board.activities) {
-                board.groups[groupIdx].tasks.push(task)
-                board.activities.push(activity)
-            } else {
-                board.groups[groupIdx].tasks = [task]
-                board.activities = [activity]
-            }
-
-
-
             try {
-                this.$store.dispatch({ type: 'updateBoard', board: board })
-            } catch (err) {
-                board.groups[groupIdx].tasks.pop()
-                board.activities.push(activity.txt = "Cannot add task")
-                console.log(err);
-                showErrorMsg("Cannot add task");
+                await this.$store.dispatch({ type: 'addTask', board, groupId, task, activity })
             }
-            // pacimict
-            // let boardToSave = structuredClone(this.board)
-            // boardToSave.groups.push(group)
-            // try {
-
-            //     var board = this.$store.dispatch({ type: 'addBoard', board: boardToSave })
-            //     this.board = board
-            // } catch (err) {
-
-            // }
+            catch (err) {
+                console.log(err);
+            }
         },
+
+        // pacimict
+        // let boardToSave = structuredClone(this.board)
+        // boardToSave.groups.push(group)
+        // try {
+
+        //     var board = this.$store.dispatch({ type: 'addBoard', board: boardToSave })
+        //     this.board = board
+        // } catch (err) {
+
+        // }
+
         toggleBoardMenu() {
             console.log('toggleBoardMenu')
             this.menuIsHidden = !this.menuIsHidden
@@ -133,7 +133,12 @@ export default {
             return this.rgb
         },
         board() {
+            console.log(this.$store.getters.board)
             return this.$store.getters.board
+        },
+        boards() {
+            console.log(this.$store.getters.board)
+            return this.$store.getters.boards
         }
     },
 }
