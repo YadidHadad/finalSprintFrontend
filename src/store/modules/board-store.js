@@ -7,6 +7,7 @@ export const boardStore = {
         boards: null,
         board: null,
         editedTask: null,
+        openTask: null,
     },
 
     getters: {

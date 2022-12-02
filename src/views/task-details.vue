@@ -50,10 +50,9 @@
             <activities-preview :taskId="task.id" />
         </section>
 
-        <!-- <component v-if="pickedEditor.isOpen" :is="pickedEditor.editorType" @closeEdit="closeEditor" -->
         <component :is="pickedEditor.editorType" @closeEdit="closeEditor" v-click-outside="closeEditor"
             @updateTask="updateTask(pickedEditor.editorType, $event)" @addChecklist="addChecklist"
-            @updateLabel="updateLabel" @updateMembers="updateMembers">
+            @updateLabel="updateLabel" @updateMembers="updateTask">
             <h2>HI</h2>
         </component>
     </section>
@@ -156,35 +155,12 @@ export default {
                 },
             });
         },
-        updateMembers(members) {
-            console.log('update task', members)
-            // this.$store.dispatch({
-            //     type: "updateMember",
-            //     payload: {
-            //         members,
-            //         activity: {
-            //             txt: "Updated task members",
-            //             boardId: this.$route.params.id,
-            //             groupId: this.groupId,
-            //             taskId: this.task.id,
-            //             task: {
-            //                 id: this.task.id,
-            //                 title: this.task.title
-            //             },
-            //             byMember: {
-            //                 _id: this.user._id,
-            //                 fullname: this.user.fullname,
-            //                 imgUrl: this.user.imgUrl || "",
-            //             },
-            //         },
-            //     },
-            // });
-        },
+
         async updateTask(type, data) {
             console.log('UPDATE TASKKKKKKK')
-            console.log(type, data);
-            let taskToUpdate = JSON.parse(JSON.stringify(this.task));
-            let txt;
+            console.log(type, data)
+            let taskToUpdate = JSON.parse(JSON.stringify(this.task))
+            let txt
             switch (type) {
                 case "labels-edit":
                     if (!taskToUpdate?.labelIds) taskToUpdate.labelIds = [];
@@ -208,6 +184,13 @@ export default {
                     taskToUpdate.checklists.push(data);
                     this.closeEditor();
                     break;
+                case "members-edit":
+                    console.log('update task', data)
+                    taskToUpdate.memberIds = data.memberIds
+                    txt = `${data.action} ${data.fullname} ${data.action === 'added' ? 'to' : 'from'} ${this.task.title}`
+                    console.log('*******************', txt)
+                    console.log(this.task.memberIds)
+                    break;
             }
             try {
                 let updatedTask = await this.$store.dispatch({
@@ -217,6 +200,7 @@ export default {
                         groupId: this.groupId,
                         activity: {
                             txt,
+                            memberIds: this.task.memberIds,
                             boardId: this.$route.params.id,
                             groupId: this.groupId,
                             taskId: this.task.id,
