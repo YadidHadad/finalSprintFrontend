@@ -27,7 +27,22 @@
             {
                 "_id": "u101",
                 "fullname": "Tal Tarablus",
-                "imgUrl": "https://www.google.com"
+                "imgUrl": "src/assets/img/user1.jpg"
+            },
+            {
+                "_id": "u102",
+                "fullname": "Tal Tarablus",
+                "imgUrl": "src/assets/img/user2.jpg"
+            },
+            {
+                "_id": "u103",
+                "fullname": "Tal Tarablus",
+                "imgUrl": "src/assets/img/user3.jpg"
+            },
+            {
+                "_id": "u104",
+                "fullname": "Tal Tarablus",
+                "imgUrl": "src/assets/img/user4.jpg"
             }
         ],
         "groups": [
