@@ -5,9 +5,15 @@
     position: fixed;
     top: 0;
     left: 0;
+    overflow-y: scroll;
+}
+
+.task-details-container {
+    padding: 50px;
 }
 
 .task-details {
+    backdrop-filter: brightness(0.8);
     display: grid;
     grid-template-areas:
         "cover cover"
@@ -17,8 +23,9 @@
     grid-template-rows: auto 85px 1fr;
 
     position: absolute;
-    top: 50px;
+    margin-top: 50px;
     right: 50%;
+    margin-bottom: 50px;
     transform: translateX(50%);
 
     font-size: 1rem;
@@ -28,7 +35,7 @@
     border-radius: 3px;
     width: 770px;
     min-height: 600px;
-    & * :not(.trellicons):not(.fa-regular) {
+    & * :not(.trellicons):not(.fa-regular):not(.fa-solid) {
         font-family: "opensans";
     }
 
@@ -202,12 +209,3 @@
         }
     }
 }
-
-// textarea {
-//     border: none;
-//     resize: vertical;
-//     margin-block-start: 1rem;
-//     background-color: $taskDetailsBtn;
-//     border-radius: 3px;
-// }
-// }
