@@ -42,12 +42,12 @@
                 <span>Cover</span>
             </button>
         </section>
-
+        <!-- @updateChecklists="updateTask('checklist-preview', $event)" /> -->
         <section class="task-main">
             <labels-preview />
             <description-preview :description="task.description" @updateDescription="updateTask" />
             <checklists-preview :checklists="task.checklists"
-                @updateChecklists="updateTask('checklist-preview', $event)" />
+                @updateChecklists="debounceHandler('checklist-preview', $event)" />
             <activities-preview :taskId="task.id" />
         </section>
 
@@ -101,6 +101,7 @@ export default {
         };
     },
     async created() {
+        this.debounceHandler = utilService.debounce(this.updateTask, 1000)
         const { id, taskId, groupId } = this.$route.params;
         console.log(taskId);
         try {
