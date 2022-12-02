@@ -233,6 +233,30 @@ export const boardStore = {
             }
         },
 
+        async removeTask(context, { payload }) {
+            console.log(payload, 'REMOVEEEEEEEEEEEEEEEEE');
+            const prevBoard = context.state.boards.find(board => board._id === payload.activity.boardId)
+            const newBoard = JSON.parse(JSON.stringify(prevBoard))
+            const group = newBoard.groups.find(group => group.id === payload.activity.groupId)
+            const taskIdx = group.tasks.findIndex(task => task.id === payload.taskId)
+            console.log((taskIdx));
+            group.tasks.splice(taskIdx, 1)
+            context.commit({ type: 'updateBoard', board: newBoard })
+            context.commit({ type: 'setBoard', boardId: newBoard._id })
+
+            try {
+                await boardService.save(newBoard)
+                context.commit({ type: 'addActivity', activity: payload.activity })
+                console.log('DELETEEEEEEEEEEEEEEEEEEEEEEEEEED');
+            }
+            catch (err) {
+                console.log(err);
+                context.commit({ type: 'updateBoard', board: prevBoard })
+                context.commit({ type: 'setBoard', boardId: prevBoard._id })
+                throw err
+            }
+        },
+
         async removeGroup(context, { board, groupId, activity }) {
             const prevBoard = board
             const idx = board.groups.findIndex((currGroup) => currGroup.id === groupId)

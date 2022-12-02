@@ -41,10 +41,12 @@
                 <span class="trellicons cover-icon"></span>
                 <span>Cover</span>
             </button>
-
-            <button class="btn">
+            <button class="btn" @click="pickEditor('copy-task-edit')">
                 <span class="trellicons copy"></span>
                 <span>Copy</span>
+            </button>
+            <button class="btn" @click="removeTask">
+                <span>Delete</span>
             </button>
         </section>
         <!-- @updateChecklists="updateTask('checklist-preview', $event)" /> -->
@@ -60,7 +62,7 @@
         <!-- <component v-if="pickedEditor.isOpen" :is="pickedEditor.editorType" @closeEdit="closeEditor" -->
         <component :is="pickedEditor.editorType" @closeEdit="closeEditor" v-click-outside="closeEditor"
             @updateTask="updateTask(pickedEditor.editorType, $event)" @addChecklist="addChecklist"
-            @updateLabel="updateLabel" @updateMembers="updateMembers">
+            @updateLabel="updateLabel" @updateMembers="updateMembers" @copyTask="copyTask">
             <h2>HI</h2>
         </component>
     </section>
@@ -131,7 +133,6 @@ export default {
             this.task.title += ev.data;
         },
         pickEditor(type) {
-
             this.pickedEditor.editorType = type;
             this.pickedEditor.isOpen = true;
             console.log(this.pickedEditor);
@@ -165,6 +166,35 @@ export default {
                     },
                 },
             });
+        },
+        async removeTask() {
+            try {
+                await this.$store.dispatch({
+                    type: 'removeTask', payload: {
+                        taskId: this.task.id,
+                        activity: {
+                            txt: `Deleted ${this.task.title}`,
+                            boardId: this.$route.params.id,
+                            groupId: this.groupId,
+                            taskId: this.task.id,
+                            byMember: {
+                                _id: this.user._id,
+                                fullname: this.user.fullname,
+                                imgUrl: this.user.imgUrl || "",
+                            },
+                        },
+                    }
+                })
+                console.log('remove!');
+                this.closeDetails()
+            }
+            catch(err) {
+                console.log("Failed in task remove", err)
+            }
+        },
+        async copyTask(data) {
+            const { task, toGroupId, toBoardId } = data
+            // this.$store.dispatch({ type: 'addTask', board, groupId, task, activity })
         },
         updateDescription(payload) {
             console.log(payload);
@@ -253,14 +283,14 @@ export default {
             }
         },
         closeDetails() {
-            this.$store.dispatch({
-                type: "updateTask",
-                payload: {
-                    task: this.task,
-                    boardId: this.$route.params.id,
-                    groupId: this.groupId,
-                },
-            })
+            // this.$store.dispatch({
+            //     type: "updateTask",
+            //     payload: {
+            //         task: this.task,
+            //         boardId: this.$route.params.id,
+            //         groupId: this.groupId,
+            //     },
+            // })
             this.$router.push(`/board/${this.$route.params.id}`)
         },
         async addChecklist(checklist) {
@@ -277,7 +307,7 @@ export default {
                         taskId: this.task.id,
                     },
                 },
-            });
+            })
             this.closeEditor();
         },
     },
