@@ -3,7 +3,7 @@
         <div class="main-title flex justify-between">
             <h3>{{ group.title }}</h3>
             <button @click="toggleMenu"><span class="fa-solid elipsis-icon"></span></button>
-            <div  v-if="isMenuOpen" class="group-menu">
+            <div v-if="isMenuOpen" class="group-menu">
                 <section class="title flex">
                     <span class="main-title">List actions</span>
                     <button @click="toggleMenu" class="btn"><span class="fa-solid x-icon"></span></button>
@@ -19,7 +19,7 @@
         </ul>
 
         <button class="add-card-btn" v-if="!isCardOpen" @click="toggleCard">
-            <span class="fa-regular plus-icon"></span> Add a card
+            <span class="fa-regular plus-icon"> Add a card</span>
         </button>
         <form v-if="isCardOpen" @submit.prevent="addTask" class="flex">
             <textarea v-model="currTask.title" type="textarea" name="add-task" rows="4"
@@ -54,7 +54,7 @@ export default {
                 id: "",
                 title: "",
             },
-           isMenuOpen: false
+            isMenuOpen: false
 
         }
     },
