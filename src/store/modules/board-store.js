@@ -149,9 +149,6 @@ export const boardStore = {
         async updateTask(context, { payload }) {
             //update the task add new activity
             //and send socket to server task-updated.
-
-
-
             console.log(payload.activity)
             console.log('PAYLOAD!!!!!!!!');
             console.log(payload);
