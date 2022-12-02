@@ -1,52 +1,54 @@
 <template>
     <section class="checklist-preview">
-        <div v-for="(checklist, index) in getChecklists">
-            hi
-            <input v-if="getChecklists[index]" @input="updateChecklists(getChecklists[index].id, $event)"
-                @focus="isTitleEdit(getChecklists[index].id, index)" />
-            <div class="title-btns" v-if="isTitleEdit">
+        <div v-for="(checklist, index) in checklists">
+            <input v-if="checklists[index]" @input="editChecklistTitle(checklist, $event)"
+                @focus="pickChecklist(checklists[index].id)" :value="checklist.title" />
+            <div class="title-btns" v-if="checklistPicked === checklists[index].id">
                 <button>Save</button>
                 <button>Cancel</button>
             </div>
-            <!-- {{ checklists }} -->
         </div>
         <span>+</span>
     </section>
 </template>
 
 <script>
-//v-model="checklists[index].title" 
 export default {
     props: {
+        checklists: {
+            type: Array,
+            required: true
+        },
     },
     data() {
         return {
-            checklists: [],
-            isEditChecklists: []
+            editedChecklists: null,
+            checklistPicked: '',
+            editedChecklist: null,
         }
     },
     created() {
-        // this.checklists = JSON.parse(JSON.stringify(this.getChecklists))
-        this.isEditChecklists = this.getChecklists.map(c => false)
+        if (this.checklists) this.editedChecklists = JSON.parse(JSON.stringify(this.checklists))
     },
     methods: {
-        updateTitle(idx, ev) {
-            console.log(this.checklists[idx].title);
-            this.checklists = JSON.parse(JSON.stringify(this.getChecklists))
-            this.checklists[idx].title = ev.target.value
+        pickChecklist(checklistId) {
+            this.checklistPicked = checklistId
         },
-        updateChecklists(id, ev) {
-            console.log();
+        save() {
+            const checklistIdx = this.editedChecklists.findIndex(checklist => checklist.id === this.editedChecklist.id)
+            this.editedChecklists.splice(checklistIdx, 1, this.editedChecklist)
+            this.$emit('updateTask', this.editedChecklists)
+            this.checklistPicked = ''
+            this.editedChecklist = null
         },
-        isTitleEdit(id, idx) {
-            this.checklists = JSON.parse(JSON.stringify(this.getChecklists))
-            const editChecklist = this.checklists.find(c => c.id === id)
-            this.isEditChecklists[idx] = true
+        editChecklistTitle(checklist, ev) {
+            this.editedChecklist = JSON.parse(JSON.stringify(checklist))
+            this.editedChecklist.title = ev.target.value
+            console.log(this.editedChecklist);
         }
     },
     computed: {
         getChecklists() {
-            // console.log(this.$store.getters.checklists, 'hiiiiiiiiiiiiiiiiiiiii');
             return this.$store.getters.checklists || []
         }
     }

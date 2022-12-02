@@ -46,9 +46,8 @@
         <section class="task-main">
             <labels-preview />
             <description-preview :description="task.description" @updateDescription="updateTask" />
+            <checklists-preview :checklists="task.checklists" @updateTask="updateTask('checklist-edit', $event)" />
             <activities-preview :taskId="task.id" />
-
-            <checklists-preview :checklists="task.checklist" />
         </section>
 
         <component v-if="pickedEditor.isOpen" :is="pickedEditor.editorType" @closeEdit="closeEditor"
@@ -155,8 +154,8 @@ export default {
             });
         },
         async updateTask(type, data) {
+            console.log('UPDATE TASKKKKKKK')
             console.log(type, data);
-            console.log("update task");
             let taskToUpdate = JSON.parse(JSON.stringify(this.task));
             let txt;
             switch (type) {
