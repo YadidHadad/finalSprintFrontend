@@ -12,6 +12,7 @@
             </div>
 
         </div>
+
         <ul class="clean-list flex column">
             <li v-for="task in group.tasks" :key="task.id">
                 <task-preview :task="task" :groupId="this.group.id" :boardId="boardId" />

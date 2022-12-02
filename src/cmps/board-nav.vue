@@ -14,19 +14,20 @@
             <span>Your Boards</span>
             <button class="btn-regular"> <span class="fa-regular plus-icon"></span></button>
         </div>
-
-
+        <button v-for="board in boards" :key="board._id" class="btn-nav"
+            :class="{ isDark: isDark, isClicked: this.$route.params.id === board._id }" @click="goToBoard(board._id)">
+            <div class="board-icon" :style="boardBGC(board.style)"></div>
+            <span>{{ board.title }}</span>
+        </button>
     </section>
 </template>
-
-
 
 <script>
 import { utilService } from '../services/util.service'
 
 export default {
     name: 'board-nav',
-    props: ['rgb'],
+    props: ['rgb', 'boards'],
     components: {},
     created() {
 
@@ -34,6 +35,7 @@ export default {
     data() {
         return {
             navIsHidden: true,
+            isClicked: false,
             btns: [
                 {
                     txt: 'Boards',
@@ -53,7 +55,14 @@ export default {
     methods: {
         toggleBoardNav() {
             this.navIsHidden = !this.navIsHidden
-        }
+        },
+        goToBoard(id) {
+            return this.$router.push({ path: `/board/${id}` })
+        },
+        boardBGC(style) {
+            console.log()
+            return { backgroundImage: `url(${style.backgroundImage})` }
+        },
     },
     computed: {
         style() {
@@ -63,7 +72,8 @@ export default {
         isDark() {
             if (!this.rgb) return false
             return this.rgb.isDark
-        }
+        },
+
     },
 }
 </script>

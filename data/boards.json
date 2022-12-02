@@ -8,7 +8,9 @@
             "fullname": "Abi Abambi",
             "imgUrl": "http://some-img"
         },
-        "style": {},
+        "style": {
+            "backgroundImage": "src/assets/img/bgc-img-1.jpg"
+        },
         "labels": [
             {
                 "id": "l101",
@@ -25,7 +27,22 @@
             {
                 "_id": "u101",
                 "fullname": "Tal Tarablus",
-                "imgUrl": "https://www.google.com"
+                "imgUrl": "src/assets/img/user1.jpg"
+            },
+            {
+                "_id": "u102",
+                "fullname": "Tal Tarablus",
+                "imgUrl": "src/assets/img/user2.jpg"
+            },
+            {
+                "_id": "u103",
+                "fullname": "Tal Tarablus",
+                "imgUrl": "src/assets/img/user3.jpg"
+            },
+            {
+                "_id": "u104",
+                "fullname": "Tal Tarablus",
+                "imgUrl": "src/assets/img/user4.jpg"
             }
         ],
         "groups": [
@@ -369,7 +386,9 @@
             "fullname": "Abi Abambi",
             "imgUrl": "http://some-img"
         },
-        "style": {},
+        "style": {
+            "backgroundImage": "src/assets/img/bgc-img-2.jpg"
+        },
         "labels": [
             {
                 "id": "l101",
@@ -493,7 +512,9 @@
             "fullname": "Abi Abambi",
             "imgUrl": "http://some-img"
         },
-        "style": {},
+        "style": {
+            "backgroundImage": "src/assets/img/bgc-img-3.jpg"
+        },
         "labels": [
             {
                 "id": "l101",
@@ -617,7 +638,9 @@
             "fullname": "Abi Abambi",
             "imgUrl": "http://some-img"
         },
-        "style": {},
+        "style": {
+            "backgroundImage": "src/assets/img/bgc-img-4.jpg"
+        },
         "labels": [
             {
                 "id": "00asd0000",
