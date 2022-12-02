@@ -27,6 +27,7 @@
 
 <script>
 export default {
+    name: 'labels-edit',
     data() {
         return {
             // baseColors: ['#d6ecd2', '#faf3c0', '#fce6c6', '#f5d3ce', '#eddbf4', '#bcd9ea'],
@@ -38,6 +39,7 @@ export default {
         }
     },
     created() {
+        console.log('labels edit')
         this.colorsSelected = this.labels.map(label => label.color)
         if (this.$store.getters.getEditedTask?.labelIds)
             this.labelIds = [...this.$store.getters.getEditedTask.labelIds]

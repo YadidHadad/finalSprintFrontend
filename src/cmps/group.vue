@@ -3,7 +3,7 @@
         <div class="main-title flex justify-between">
             <h3>{{ group.title }}</h3>
             <button @click="toggleMenu"><span class="fa-solid elipsis-icon"></span></button>
-            <div  v-if="isMenuOpen" class="group-menu">
+            <div v-if="isMenuOpen" class="group-menu">
                 <section class="title flex">
                     <span class="main-title">List actions</span>
                     <button @click="toggleMenu" class="btn"><span class="fa-solid x-icon"></span></button>
@@ -54,7 +54,7 @@ export default {
                 id: "",
                 title: "",
             },
-           isMenuOpen: false
+            isMenuOpen: false
 
         }
     },
@@ -65,7 +65,7 @@ export default {
 
     methods: {
         toggleCard() {
-            console.log(this.isCardOpen);
+            // console.log(this.isCardOpen);
             this.isCardOpen = !this.isCardOpen;
         },
         toggleMenu() {

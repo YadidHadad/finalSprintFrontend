@@ -149,7 +149,7 @@
             padding: 6px 12px;
             border-radius: 3px;
             margin-inline-end: 10px;
-            transition: .2s;
+            transition: 0.2s;
 
             &:hover {
                 filter: brightness(95%);
@@ -160,8 +160,7 @@
             padding: 6px 12px;
             margin-top: 20px;
             font-size: 1rem;
-            transition: .2s;
-
+            transition: 0.2s;
 
             &:hover {
                 background: rgb(237, 237, 237);
@@ -171,10 +170,17 @@
         }
     }
 
+    .pad-40 {
+        margin-inline-start: 40px;
+    }
+
     textarea {
+        border: none;
+
         min-height: 60px;
         padding: 8px 12px;
-        background-color: #eaecf0;
+        background-color: $taskDetailsBtn;
+        border-radius: 3px;
         resize: none;
 
         &:hover {
@@ -194,10 +200,6 @@
 
         &::after {
             background-color: black;
-        }
-
-        .pad-40 {
-            margin-inline-start: 40px;
         }
     }
 }

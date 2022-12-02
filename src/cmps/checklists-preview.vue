@@ -3,7 +3,7 @@
         <div v-for="(checklist, index) in getChecklists">
             hi
             <input v-if="getChecklists[index]" @input="updateTitle" v-model="getChecklists[index].title" />
-            {{checklists}}
+            {{ checklists }}
         </div>
         <span>+</span>
     </section>
@@ -24,7 +24,7 @@ export default {
     },
     computed: {
         getChecklists() {
-            console.log(this.$store.getters.checklists, 'hiiiiiiiiiiiiiiiiiiiii');
+            // console.log(this.$store.getters.checklists, 'hiiiiiiiiiiiiiiiiiiiii');
             return this.$store.getters.checklists || []
         }
     }

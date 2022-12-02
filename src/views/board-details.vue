@@ -54,7 +54,7 @@ export default {
     async created() {
         const { id } = this.$route.params
         this.$store.commit({ type: 'setBoard', boardId: id })
-        console.log(this.boards)
+        // console.log(this.boards)
         try {
             // await this.$store.dispatch({ type: 'loadBoards' })
             // await this.$store.dispatch({ type: 'loadBoards' })
@@ -121,7 +121,7 @@ export default {
         // }
 
         toggleBoardMenu() {
-            console.log('toggleBoardMenu')
+            // console.log('toggleBoardMenu')
             this.menuIsHidden = !this.menuIsHidden
         }
     },
@@ -134,11 +134,11 @@ export default {
             return this.rgb
         },
         board() {
-            console.log(this.$store.getters.board)
+            // console.log(this.$store.getters.board)
             return this.$store.getters.board
         },
         boards() {
-            console.log(this.$store.getters.board)
+            // console.log(this.$store.getters.board)
             return this.$store.getters.boards
         }
     },

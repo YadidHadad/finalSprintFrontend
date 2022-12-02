@@ -23,9 +23,10 @@ window.cs = boardService
 
 async function query(filterBy = { title: '' }) {
     var boards = await storageService.query(STORAGE_KEY)
-    if(!boards) {
+    if (!boards) {
         boards = gBoards
-        storageService.save(STORAGE_KEY, boards)}
+        storageService.save(STORAGE_KEY, boards)
+    }
 
     // if (filterBy.title) {
     //     const regex = new RegExp(filterBy.title, 'i')
@@ -73,7 +74,7 @@ async function save(board) {
 }
 
 async function saveTask(boardId, groupId, task, activity) {
-    console.log(boardId, 'boardId');
+    // console.log(boardId, 'boardId');
     const board = await getById(boardId)
     // PUT /api/board/b123/task/t678
 
@@ -119,12 +120,12 @@ function getEmptyBoard(
         isStarred,
         createdBy,
         style,
-        labels :[{ id: utilService.makeId(), title: '', color: '#d6ecd2' },
-    { id: utilService.makeId(), title: '', color: '#faf3c0' },
-    { id: utilService.makeId(), title: '', color: '#fce6c6' },
-    { id: utilService.makeId(), title: '', color: '#f5d3ce' },
-    { id: utilService.makeId(), title: '', color: '#eddbf4' },
-    { id: utilService.makeId(), title: '', color: '#bcd9ea' }],
+        labels: [{ id: utilService.makeId(), title: '', color: '#d6ecd2' },
+        { id: utilService.makeId(), title: '', color: '#faf3c0' },
+        { id: utilService.makeId(), title: '', color: '#fce6c6' },
+        { id: utilService.makeId(), title: '', color: '#f5d3ce' },
+        { id: utilService.makeId(), title: '', color: '#eddbf4' },
+        { id: utilService.makeId(), title: '', color: '#bcd9ea' }],
         groups,
         members,
         activities,

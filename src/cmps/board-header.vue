@@ -90,7 +90,7 @@ export default {
             return utilService.getInitials(fullname)
         },
         toggleBoardMenu() {
-            console.log('app header')
+            // console.log('app header')
             this.$emit('toggleBoardMenu')
         }
 

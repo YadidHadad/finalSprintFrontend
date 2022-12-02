@@ -112,7 +112,7 @@ export default {
             return utilService.timeAgo(timestamp)
         },
         toggleBoardMenu() {
-            console.log("A");
+            // console.log("A");
             this.$emit("toggleBoardMenu", this.toggleBoardMenu);
         },
     },

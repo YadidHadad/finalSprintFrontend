@@ -2,10 +2,11 @@
     <div class="screen"></div>
     <section v-if="task" class="task-details" v-click-outside="closeDetails">
         <section class="task-cover">
-            <button class="btn" @click="closeDetails"><span class="trellicons x-icon"></span></button>
-
+            <button class="btn" @click="closeDetails">
+                <span class="trellicons x-icon"></span>
+            </button>
         </section>
-        <section class="task-header task-cmp flex column align-start ">
+        <section class="task-header task-cmp flex column align-start">
             <div class="flex row align-center">
                 <span class="trellicons card-icon large"></span>
                 <input v-model="title" @input="updateTitle" />
@@ -20,11 +21,11 @@
                 <span class="trellicons members-icon"></span>
                 <span>Members</span>
             </button>
-            <button class="btn" @click="pickDetails('labels-edit')">
+            <button class="btn" @click="pickEditor('labels-edit')">
                 <span class="trellicons labels-icon"></span>
                 <span>Labels</span>
             </button>
-            <button class="btn" @click="pickDetails('checklist-edit')">
+            <button class="btn" @click="pickEditor('checklist-edit')">
                 <span class="trellicons checklist-icon"></span>
                 <span>Checklist</span>
             </button>
@@ -44,25 +45,14 @@
 
         <section class="task-main">
             <labels-preview />
+            <description-preview :description="task.description" @updateDescription="updateTask" />
+            <activities-preview :taskId="task.id" />
 
-            <div class="desc-container">
-                <div class="desc-header">Description</div>
-                <textarea placeholder="Add a more detailed description..." v-model="description"
-                    @focus="isDescOpen = true" :class="{ 'desc-open': isDescOpen }">
-                        {{ task.desc }}
-                    </textarea>
-                <div class="desc-btns" v-if="isDescOpen">
-                    <button class="save-btn" @click="updateTask('description', description)">Save</button>
-                    <button class="cancel-btn" @click="isDescOpen = false">Cancel</button>
-                </div>
-            </div>
             <checklists-preview :checklists="task.checklist" />
-
-
         </section>
 
-        <component v-if=detailsPicked.isPicked :is="detailsPicked.type" @closeEdit="closeEdit"
-            v-click-outside="closeEdit" @updateTask="updateTask(detailsPicked.type, $event)"
+        <component v-if="pickedEditor.isOpen" :is="pickedEditor.editorType" @closeEdit="closeEditor"
+            v-click-outside="closeEditor" @updateTask="updateTask(pickedEditor.editorType, $event)"
             @addChecklist="addChecklist" @updateLabel="updateLabel">
             <h2>HI</h2>
         </component>
@@ -70,126 +60,128 @@
 </template>
 
 <script>
-
-
 import labelsPreview from "../cmps/labels-preview.vue";
 import labelsEdit from "../cmps/labels-edit.vue";
 import checklistEdit from "../cmps/checklist-edit.vue";
 import checklistsPreview from "../cmps/checklists-preview.vue";
-import taskDescription from '../cmps/task-description.vue'
-import taskActivities from '../cmps/task-activities.vue'
-
+import activitiesPreview from "../cmps/activities-preview.vue";
+import descriptionPreview from "../cmps/description-preview.vue";
 
 import { utilService } from "../services/util.service";
 
-
 export default {
-    emits: ['setRGB'],
-    props: {
-
-    },
+    emits: ["setRGB"],
+    props: {},
     components: {
         labelsEdit,
         labelsPreview,
         checklistEdit,
         checklistsPreview,
-        taskDescription,
-        taskActivities
+        activitiesPreview,
+        descriptionPreview,
     },
 
     data() {
         return {
             show: false,
-            detailsPicked: {
-                isPicked: false,
-                type: "",
+            pickedEditor: {
+                isOpen: false,
+                editorType: "",
             },
             groupId: this.$route.params.groupId,
             boardId: this.$route.params.boardId,
             task: null,
             showActivities: false,
-            isDescOpen: false,
-            description: '',
-            title: ''
+            description: "",
+            title: "",
             // labelIds: this.$store.getters.labelIds
         };
     },
     async created() {
         const { id, taskId, groupId } = this.$route.params;
+        console.log(taskId);
         try {
             // await this.$store.dispatch({ type: 'loadBoards' })
             this.$store.commit({ type: "setBoard", boardId: id });
             this.$store.commit({ type: "setEditedTask", taskId, groupId, boardId: id });
-            this.task = JSON.parse(JSON.stringify(this.getTask))
+            this.task = JSON.parse(JSON.stringify(this.getTask));
 
-            this.title = this.task.title
-            this.description = this.task.description
+            this.title = this.task.title;
+            this.description = this.task.description;
         } catch (err) {
             console.log(err);
         }
     },
     methods: {
         updateTitle(ev) {
-            console.log(ev.data)
+            console.log(ev.data);
             if (typeof ev.data !== "string") return;
             this.task.title += ev.data;
         },
-        pickDetails(type) {
-            this.detailsPicked.type = type;
-            this.detailsPicked.isPicked = true;
+        pickEditor(type) {
+
+            this.pickedEditor.editorType = type;
+            this.pickedEditor.isOpen = true;
+            console.log(this.pickedEditor);
         },
-        async closeEdit() {
+        async closeEditor() {
             // await this.updateTask()
-            this.detailsPicked = {
-                isPicked: false,
+            this.pickedEditor = {
+                isOpen: false,
                 type: "",
             };
         },
         updateLabel(label) {
             this.$store.dispatch({
-                type: 'updateLabel', payload: {
-                    label, activity: {
+                type: "updateLabel",
+                payload: {
+                    label,
+                    activity: {
                         txt: "Updated label title",
                         boardId: this.$route.params.id,
                         groupId: this.groupId,
                         taskId: this.task.id,
+                        task: {
+                            id: this.task.id,
+                            title: this.task.title
+                        },
                         byMember: {
                             _id: this.user._id,
                             fullname: this.user.fullname,
                             imgUrl: this.user.imgUrl || "",
                         },
-                    }
-                }
-            })
+                    },
+                },
+            });
         },
         async updateTask(type, data) {
-            let taskToUpdate = JSON.parse(JSON.stringify(this.task))
-            let txt
+            console.log(type, data);
+            console.log("update task");
+            let taskToUpdate = JSON.parse(JSON.stringify(this.task));
+            let txt;
             switch (type) {
-                case 'labels-edit':
-                    if (!taskToUpdate?.labelIds) taskToUpdate.labelIds = []
-                    taskToUpdate.labelIds = data.labelIds
-                    txt = 'Updated label'
+                case "labels-edit":
+                    if (!taskToUpdate?.labelIds) taskToUpdate.labelIds = [];
+                    taskToUpdate.labelIds = data.labelIds;
+                    txt = "Updated label";
                     // if (!this.task?.labelIds) this.task.labelIds = []
                     // this.task.labelIds = data.labelIds
-                    break
-                case 'description':
-                    txt = 'Updated description'
-                    taskToUpdate.description = data
-                    this.isDescOpen = false
-                    break
-                case 'title':
-                    txt = 'Updated title'
-                    taskToUpdate.title = data
-                    break
-                case 'checklist-edit':
-                    txt = 'Added checklist'
-                    if (!taskToUpdate?.checklists) taskToUpdate.checklists = []
-                    data.id = utilService.makeId()
-                    taskToUpdate.checklists.push(data)
-                    this.closeEdit()
-                    break
-
+                    break;
+                case "description":
+                    txt = "Updated description";
+                    taskToUpdate.description = data;
+                    break;
+                case "title":
+                    txt = "Updated title";
+                    taskToUpdate.title = data;
+                    break;
+                case "checklist-edit":
+                    txt = "Added checklist";
+                    if (!taskToUpdate?.checklists) taskToUpdate.checklists = [];
+                    data.id = utilService.makeId();
+                    taskToUpdate.checklists.push(data);
+                    this.closeEditor();
+                    break;
             }
             try {
                 let updatedTask = await this.$store.dispatch({
@@ -198,10 +190,14 @@ export default {
                         task: taskToUpdate,
                         groupId: this.groupId,
                         activity: {
-                            txt: "Updated label color",
+                            txt,
                             boardId: this.$route.params.id,
                             groupId: this.groupId,
                             taskId: this.task.id,
+                            task: {
+                                id: this.task.id,
+                                title: this.task.title
+                            },
                             byMember: {
                                 _id: this.user._id,
                                 fullname: this.user.fullname,
@@ -209,8 +205,8 @@ export default {
                             },
                         },
                     },
-                })
-                this.task = updatedTask
+                });
+                this.task = updatedTask;
             } catch (err) {
                 console.log("Failed in task update", err);
             }
@@ -241,7 +237,7 @@ export default {
                     },
                 },
             });
-            this.closeEdit();
+            this.closeEditor();
         },
     },
     computed: {
@@ -256,26 +252,24 @@ export default {
             return this.$store.getters.loggedinUser;
         },
         getTask() {
-            const task = this.$store.getters.getEditedTask
-            console.log(task)
-            return task
+            const task = this.$store.getters.getEditedTask;
+            console.log(task);
+            return task;
         },
         getTaskLabels() {
-            if (!this.task?.labelIds) return []
-            return this.$store.getters.labels.map(label => {
-                if (this.task.labelIds.includes(label.id))
-                    return label
-            })
+            if (!this.task?.labelIds) return [];
+            return this.$store.getters.labels.map((label) => {
+                if (this.task.labelIds.includes(label.id)) return label;
+            });
         },
         getGroupName() {
-            const board = this.$store.getters.board
-            console.log(`board:`, board)
-            const group = board.groups.find(group => group.id === this.$route.params.groupId)
-            return group.title
+            const board = this.$store.getters.board;
+            console.log(`board:`, board);
+            const group = board.groups.find((group) => group.id === this.$route.params.groupId);
+            return group.title;
 
             // return JSON.parse(JSON.stringify(this.$store.getters.getEditedTask)).title
-
-        }
+        },
     },
 };
 </script>
