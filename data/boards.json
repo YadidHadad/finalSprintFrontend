@@ -8,7 +8,9 @@
             "fullname": "Abi Abambi",
             "imgUrl": "http://some-img"
         },
-        "style": {},
+        "style": {
+            "backgroundImage": "src/assets/img/bgc-img-1.jpg"
+        },
         "labels": [
             {
                 "id": "l101",
@@ -369,7 +371,9 @@
             "fullname": "Abi Abambi",
             "imgUrl": "http://some-img"
         },
-        "style": {},
+        "style": {
+            "backgroundImage": "src/assets/img/bgc-img-2.jpg"
+        },
         "labels": [
             {
                 "id": "l101",
@@ -493,7 +497,9 @@
             "fullname": "Abi Abambi",
             "imgUrl": "http://some-img"
         },
-        "style": {},
+        "style": {
+            "backgroundImage": "src/assets/img/bgc-img-3.jpg"
+        },
         "labels": [
             {
                 "id": "l101",
@@ -617,7 +623,9 @@
             "fullname": "Abi Abambi",
             "imgUrl": "http://some-img"
         },
-        "style": {},
+        "style": {
+            "backgroundImage": "src/assets/img/bgc-img-4.jpg"
+        },
         "labels": [
             {
                 "id": "00asd0000",
