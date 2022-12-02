@@ -46,7 +46,8 @@
         <section class="task-main">
             <labels-preview />
             <description-preview :description="task.description" @updateDescription="updateTask" />
-            <checklists-preview :checklists="task.checklists" @updateTask="updateTask('checklist-edit', $event)" />
+            <checklists-preview :checklists="task.checklists"
+                @updateChecklists="updateTask('checklist-preview', $event)" />
             <activities-preview :taskId="task.id" />
         </section>
 
@@ -163,8 +164,6 @@ export default {
                     if (!taskToUpdate?.labelIds) taskToUpdate.labelIds = [];
                     taskToUpdate.labelIds = data.labelIds;
                     txt = "Updated label";
-                    // if (!this.task?.labelIds) this.task.labelIds = []
-                    // this.task.labelIds = data.labelIds
                     break;
                 case "description":
                     txt = "Updated description";
@@ -181,6 +180,10 @@ export default {
                     taskToUpdate.checklists.push(data);
                     this.closeEditor();
                     break;
+                case "checklist-preview":
+                    txt = "Edited checklist";
+                    taskToUpdate.checklists = data
+                    break
             }
             try {
                 let updatedTask = await this.$store.dispatch({
