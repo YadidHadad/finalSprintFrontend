@@ -1,9 +1,9 @@
 .board-details {
     height: 100%;
-    width: 100vw;
+    width: 100%;
     background-size: cover;
-    position: relative;
-    overflow: hidden;
+    position: fixed;
+    overflow-y: hidden;
 
     .main {
         width: calc(100vw - 270px);

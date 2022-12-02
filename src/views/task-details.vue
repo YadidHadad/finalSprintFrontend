@@ -1,5 +1,6 @@
 <template>
     <div class="screen"></div>
+
     <section v-if="task" class="task-details" v-click-outside="closeDetails">
         <section class="task-cover">
             <button class="btn" @click="closeDetails">

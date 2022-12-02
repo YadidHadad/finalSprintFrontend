@@ -52,7 +52,7 @@ export default {
             console.log(activities);
 
             return activities.filter(activity => {
-                console.log('****************', activity)
+                // console.log('****************', activity)
                 if (!activity.task) return
                 return activity.task.id === this.taskId
             }).splice(0, 5)
