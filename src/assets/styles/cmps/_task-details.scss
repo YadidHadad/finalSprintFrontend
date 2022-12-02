@@ -5,6 +5,7 @@
     position: fixed;
     top: 0;
     left: 0;
+    overflow-y: scroll;
 }
 
 .task-details {
@@ -28,7 +29,7 @@
     border-radius: 3px;
     width: 770px;
     min-height: 600px;
-    & * :not(.trellicons):not(.fa-regular) {
+    & * :not(.trellicons):not(.fa-regular):not(.fa-solid) {
         font-family: "opensans";
     }
 
@@ -202,12 +203,3 @@
         }
     }
 }
-
-// textarea {
-//     border: none;
-//     resize: vertical;
-//     margin-block-start: 1rem;
-//     background-color: $taskDetailsBtn;
-//     border-radius: 3px;
-// }
-// }

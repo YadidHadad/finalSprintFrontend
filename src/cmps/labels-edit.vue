@@ -1,5 +1,5 @@
 <template>
-    <section class="labels-edit">
+    <section class="labels-edit" v-click-outside="isOpen=false">
         <div class="labels-edit-header">
             <div class="text-header">Labels</div>
             <button @click.stop="closeEdit">X</button>

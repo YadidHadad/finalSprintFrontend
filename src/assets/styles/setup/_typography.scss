@@ -39,6 +39,9 @@
 .trellicons {
     font-family: "trellicons";
 
+    &.tick-icon::before {
+        content: "\e916";
+    }
     &.desc-icon::before {
         content: "\e922";
     }

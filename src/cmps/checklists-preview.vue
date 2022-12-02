@@ -15,28 +15,15 @@
                 <button class="save-btn" @click="save">Save</button>
                 <button class="close-btn" @click="close">X</button>
             </div>
-
-            <!-- <form class="todos-container" @change="updateTodos(checklist)">
-                <div class="todo-container" v-for="todo in checklist.todos">
-                    <input type="checkbox" v-model="doneTodosIds" @change="toggleTodo" :value="">
-                    <div>{{ todo.title }}</div>
-                </div>
-            </form> -->
+            <progress :value="checklist.todos.filter(todo => todo.isDone).length"
+                :max="checklist.todos.length"></progress>
             <form class="todos-container" @change="updateTodos(checklist)">
-                <div class="todo-container" v-for="todo in checklist.todos">
+                <div class="todo-container" v-for="(todo, index) in checklist.todos">
                     <input type="checkbox" v-model="doneTodosIds" @change="toggleTodo" :value="todo.id">
-                    <div>{{ todo.title }}</div>
+                    <div :class="{ 'line-through': todo.isDone }">{{ todo.title }}</div>
+                    <span class="fa-solid elipsis-icon" @click="removeTodo(index, checklist)"></span>
                 </div>
             </form>
-            <!-- <div class="todos-container">
-                <div class="todo-container" v-for="todo in checklist.todos">
-                    <input type="checkbox" @change="toggleTodo(todo, checklist)" v-model="doneTodosIds"
-                        :value="todo.id">
-                    <div>{{ todo.title }}</div>
-                </div>
-            </div> -->
-
-
             <button class="add-todo-btn" v-if="!isTodoPicked" @click="isTodoPicked = true">Add an item</button>
             <div v-else class="add-todo">
                 <textarea placeholder="Add an item" v-model="todoTxt">
@@ -127,27 +114,23 @@ export default {
                 isDone: false
             }
             newChecklist.todos.push(newTodo)
+            this.updateChecklists(newChecklist, checklist)
+            this.isTodoPicked = false
+            this.todoTxt = ''
+        },
+        removeTodo(todoIdx, checklist) {
+            console.log(todoIdx, checklist);
+            const newChecklist = JSON.parse(JSON.stringify(checklist))
+            newChecklist.todos.splice(todoIdx, 1)
+
+            this.updateChecklists(newChecklist, checklist)
+        },
+        updateChecklists(newChecklist, checklist) {
             const checklistIdx = this.checklists.findIndex(cl => cl.id === checklist.id)
             const updatedChecklists = JSON.parse(JSON.stringify(this.checklists))
             updatedChecklists.splice(checklistIdx, 1, newChecklist)
             this.$emit('updateChecklists', updatedChecklists)
-            this.isTodoPicked = false
-            this.todoTxt = ''
         },
-        // toggleTodo(todo, checklist) {
-        //     const newTodo = JSON.parse(JSON.stringify(todo))
-        //     const newChecklist = JSON.parse(JSON.stringify(checklist))
-        //     newTodo.isDone = !newTodo.isDone
-
-        //     const todoIdx = checklist.todos.findIndex(currTodo => currTodo.id === todo.id)
-        //     newChecklist.todos.splice(todoIdx, 1, newTodo)
-
-        //     const checklistIdx = this.checklists.findIndex(cl => cl.id === checklist.id)
-        //     const updatedChecklists = JSON.parse(JSON.stringify(this.checklists))
-        //     updatedChecklists.splice(checklistIdx, 1, newChecklist)
-
-        //     this.$emit('updateChecklists', updatedChecklists)
-        // },
         toggleTodo(ev) {
             console.log(this.doneTodosIds);
         },
@@ -166,16 +149,11 @@ export default {
             console.log(newChecklist.todos);
 
             // newChecklist.todos = updatedTodos
-            const checklistIdx = this.checklists.findIndex(cl => cl.id === checklist.id)
-            const updatedChecklists = JSON.parse(JSON.stringify(this.checklists))
-            updatedChecklists.splice(checklistIdx, 1, newChecklist)
-            this.$emit('updateChecklists', updatedChecklists)
+            this.updateChecklists(newChecklist, checklist)
         }
     },
-    // computed: {
-    //     getChecklists() {
-    //         return this.$store.getters.checklists || []
-    //     }
-    // }
+    computed: {
+
+    }
 }
 </script>

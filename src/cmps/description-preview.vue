@@ -39,8 +39,7 @@ export default {
         },
         updateDescription() {
             this.isDescOpen = false
-            this.$emit('updateDescription', { type: 'description', data: this.description })
-
+            this.$emit('updateDescription', this.description)
         }
 
     },
