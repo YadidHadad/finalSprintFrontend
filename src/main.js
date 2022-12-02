@@ -20,6 +20,7 @@ app.use(store)
 
 
 app.directive('click-outside', clickOutsideDirective)
+app.directive('focus', focusDirective)
 
 
 app.mount('#app')

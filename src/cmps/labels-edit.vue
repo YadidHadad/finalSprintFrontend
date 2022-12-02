@@ -20,7 +20,7 @@
                     <button @click="save">Save</button>
                 </div>
             </ul>
-            <button>Create a new label</button>
+            <button class="create-label-btn">Create a new label</button>
         </div>
     </section>
 </template>
