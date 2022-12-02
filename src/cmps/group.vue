@@ -23,7 +23,7 @@
         </button>
         <form v-if="isCardOpen" @submit.prevent="addTask" class="flex">
             <textarea v-model="currTask.title" type="textarea" name="add-task" rows="4"
-                placeholder="Enter a title for this card..."></textarea>
+                placeholder="Enter a title for this card..." v-focus></textarea>
             <div class="add-list-btns flex">
                 <button class="add-list-btn">Add card</button>
                 <button type="button" @click.stop="toggleCard">
