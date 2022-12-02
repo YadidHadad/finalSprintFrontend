@@ -34,7 +34,7 @@ export default {
     data() {
         return {
             menuIsHidden: true,
-            style: 'src/assets/img/bgc-img-8.jpg',
+            style: 'src/assets/img/bgc-img-5.jpg',
             rgb: {
                 value: [],
                 isDark: false,
@@ -80,7 +80,7 @@ export default {
         async addNewGroup(group) {
             var board = JSON.parse(JSON.stringify(this.board))
             try {
-               await this.$store.dispatch({ type: 'addGroup', board: board, group })
+                await this.$store.dispatch({ type: 'addGroup', board: board, group })
             }
             catch (err) {
                 console.log(err);
