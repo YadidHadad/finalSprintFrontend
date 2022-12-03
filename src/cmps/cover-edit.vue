@@ -1,7 +1,11 @@
 <template>
-    <section class="cover-edit">
-        <div class="photos-container">
-            <img v-for="index in 10" :key="index" :src="imgUrls[index - 1]" @click="updateCover(imgUrls[index])">
+    <section class="task-editor cover-edit" @click.stop="">
+        <button class="btn-close" @click.stop="closeEdit">
+            <span class="trellicons x-icon"></span>
+        </button>
+        <div class="title">Unsplash</div>
+        <div class="photos-container flex justify-between  wrap">
+            <img v-for="index in 12" :key="index" :src="imgUrls[index - 1]" @click="updateCover(imgUrls[index])">
         </div>
 
         <input type="text" placeholder="Search Photos..." @input="debounceHandler" v-model="searchTxt">
@@ -34,7 +38,7 @@ export default {
             })
         },
         updateCover(imgUrl) {
-            this.$emit('updateTask' , imgUrl)
+            this.$emit('updateTask', imgUrl)
         }
     },
     computed: {

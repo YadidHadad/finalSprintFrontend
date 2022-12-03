@@ -1,5 +1,5 @@
 <template>
-    <section v-if="boardMembers" class="members-editor task-editor flex column">
+    <section v-if="boardMembers" class="members-editor task-editor flex column" @click.stop="">
         <button class="btn-close">
             <span class="trellicons x-icon" @click.stop="closeEdit"></span>
         </button>
