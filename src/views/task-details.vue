@@ -30,7 +30,7 @@
                 <span class="trellicons checklist-icon"></span>
                 <span>Checklist</span>
             </button>
-            <button class="btn">
+            <button class="btn" @click="pickEditor('dates-edit')">
                 <span class="fa-regular date-icon"></span>
                 <span>Dates</span>
             </button>
@@ -77,6 +77,7 @@ import checklistsPreview from "../cmps/checklists-preview.vue";
 import activitiesPreview from "../cmps/activities-preview.vue";
 import descriptionPreview from "../cmps/description-preview.vue";
 import copyTaskEdit from "../cmps/copy-task-edit.vue";
+import datesEdit from "../cmps/dates-edit.vue";
 
 import { utilService } from "../services/util.service";
 
@@ -91,7 +92,8 @@ export default {
         checklistsPreview,
         activitiesPreview,
         descriptionPreview,
-        copyTaskEdit
+        copyTaskEdit,
+        datesEdit
     },
 
     data() {
