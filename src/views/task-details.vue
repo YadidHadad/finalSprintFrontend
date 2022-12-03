@@ -54,8 +54,7 @@
         <section class="task-main">
             <dates-preview @markComplete="updateTask('dates-preview', $event)" :isComplete="this.task.isComplete" />
             <section class="task-tags flex row pad-40">
-                <members-preview v-if="task.memberIds" :memberIds="task.memberIds"
-                    @openMembersEditor="openMembersEditor" :isTaskDetails="true" />
+                <members-preview v-if="task.memberIds" @openMembersEditor="openMembersEditor" :isTaskDetails="true" />
                 <labels-preview v-if="task.labelIds" />
             </section>
             <description-preview :description="task.description"
