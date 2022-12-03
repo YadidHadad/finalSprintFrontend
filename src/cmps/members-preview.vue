@@ -1,11 +1,11 @@
 <template>
     <section v-if="boardMembers" class="members-preview flex column">
-        <span class="title">Members</span>
+        <span v-if="isTaskDetails" class="title">Members</span>
         <section class="members-container flex row align-center">
             <div v-for="member in taskMembers">
                 <div class=" member-image" :style="memberImage(member.imgUrl)"> </div>
             </div>
-            <div class="btn-plus flex justify-center align-center" @click="openMembersEditor">
+            <div v-if="isTaskDetails" class="btn-plus flex justify-center align-center" @click="openMembersEditor">
                 <span class="fa-regular plus-icon"></span>
             </div>
         </section>
@@ -16,7 +16,7 @@
 
 export default {
     name: 'members-preview',
-    props: ['memberIds'],
+    props: ['memberIds', 'isTaskDetails'],
     components: {},
     created() {
         console.log(this.memberIds, '***************')

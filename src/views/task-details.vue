@@ -54,7 +54,7 @@
         <section class="task-main">
             <section class="task-tags flex row pad-40">
                 <members-preview v-if="task.memberIds" :memberIds="task.memberIds"
-                    @openMembersEditor="openMembersEditor" />
+                    @openMembersEditor="openMembersEditor" :isTaskDetails="true" />
                 <labels-preview v-if="task.labelIds" />
             </section>
             <description-preview :description="task.description"
