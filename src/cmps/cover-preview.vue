@@ -12,20 +12,23 @@ export default {
             required: true
         }
     },
+    created() {
+        console.log(this.coverBcg)
+    },
     computed: {
-        coverStyle() {
-            console.log(this.coverBcg);
-            // return this.coverBcg ?  { backgroundImage: `url(${this.coverBcg})` } : ''
-            // return { backgroundImage: `url(${this.coverBcg.imgUrl})` }
-            return this.coverBcg.imgUrl
-        },
+        // coverStyle() {
+        //     console.log(this.coverBcg);
+        //     // return this.coverBcg ?  { backgroundImage: `url(${this.coverBcg})` } : ''
+        //     // return { backgroundImage: `url(${this.coverBcg.imgUrl})` }
+        //     return this.coverBcg.imgUrl
+        // },
         bgcStyle() {
             console.log(this.coverBcg);
             // return this.coverBcg ?  { backgroundImage: `url(${this.coverBcg})` } : ''
             // return { backgroundImage: `url(${this.coverBcg.imgUrl})` }
 
-            if (this.style.imgUrl) return { backgroundImage: `url(${this.coverBcg.imgUrl})` }
-            if (this.style.bgColor) return { backgroundColor: `${this.coverBcg.bgColor}` }
+            if (this.coverBcg.imgUrl) return { backgroundImage: `url(${this.coverBcg.imgUrl})` }
+            if (this.coverBcg.bgColor) return { backgroundColor: `${this.coverBcg.bgColor}` }
 
         }
     }
