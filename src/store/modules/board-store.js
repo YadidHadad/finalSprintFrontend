@@ -81,6 +81,7 @@ export const boardStore = {
             const group = state.board.groups.find(g => g.id === payload.groupId)
             const taskIdx = group.tasks.findIndex(task => task.id === payload.task.id)
             group.tasks.splice(taskIdx, 1, payload.task)
+            // return payload.task
         },
 
         updateLabel(state, { label }) {
@@ -200,7 +201,7 @@ export const boardStore = {
                         }
                     })
                     context.commit(({ type: 'removeLastActivity' }))
-                    throw err
+                    throw prevTask
                 }
             }
         },

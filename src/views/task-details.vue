@@ -52,7 +52,7 @@
         </section>
         <!-- @updateChecklists="updateTask('checklist-preview', $event)" /> -->
         <section class="task-main">
-            <dates-preview @markComplete="updateTask('dates-preview', $event)" :isComplete="this.task.isComplete"/>
+            <dates-preview @markComplete="updateTask('dates-preview', $event)" :isComplete="this.task.isComplete" />
             <section class="task-tags flex row pad-40">
                 <members-preview v-if="task.memberIds" :memberIds="task.memberIds"
                     @openMembersEditor="openMembersEditor" />
@@ -61,7 +61,9 @@
             <description-preview :description="task.description"
                 @updateDescription="updateTask('description', $event)" />
             <checklists-preview v-if="task.checklists" :checklists="task.checklists"
-                @updateChecklists="debounceHandler('checklist-preview', $event)" />
+                @updateChecklists="updateTask('checklist-preview', $event)" />
+            <!-- <checklists-preview v-if="task.checklists" :checklists="task.checklists"
+                @updateChecklists="debounceHandler('checklist-preview', $event)" /> -->
             <activities-preview :taskId="task.id" />
         </section>
 
@@ -122,7 +124,7 @@ export default {
         };
     },
     async created() {
-        this.debounceHandler = utilService.debounce(this.updateTask, 1000)
+        // this.debounceHandler = utilService.debounce(this.updateTask, 500)
         const { id, taskId, groupId } = this.$route.params;
         console.log(taskId);
         try {
@@ -271,6 +273,9 @@ export default {
                 }
             }
             try {
+                this.$store.commit({ type: 'updateTask', payload: { task: taskToUpdate, groupId: this.groupId } })
+                this.task = JSON.parse(JSON.stringify(this.getTask))
+                console.log('hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii');
                 let updatedTask = await this.$store.dispatch({
                     type: "updateTask",
                     payload: {
@@ -295,8 +300,11 @@ export default {
                     },
                 });
                 this.task = updatedTask;
-            } catch (err) {
-                console.log("Failed in task update", err)
+            } catch (prevTask) {
+                this.$store.commit({ type: 'updateTask', payload: { task: prevTask, groupId: this.groupId } })
+                this.task = JSON.parse(JSON.stringify(this.getTask))
+                console.log("Failed in task update")
+                // this.task = prevTask
             }
         },
         closeDetails() {
