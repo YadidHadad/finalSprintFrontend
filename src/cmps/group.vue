@@ -70,7 +70,8 @@ export default {
             try {
                 this.tasksCopy = JSON.parse(JSON.stringify(this.group.tasks || []))
                 this.tasksCopy = this.applyDrag(this.tasksCopy, dropResult);
-                const newGroups = this.$store.dispatch({ type: 'updateTasks', payload: { tasks: this.tasksCopy, groupId: this.group.id } })
+                const tasks = await this.$store.dispatch({ type: 'updateTasks', payload: { tasks: this.tasksCopy, groupId: this.group.id } })
+                this.tasksCopy = JSON.parse(JSON.stringify(this.group.tasks || []))
             }
             catch (prevGroups) {
                 this.tasksCopy = JSON.parse(JSON.stringify(prevGroups))
