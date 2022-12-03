@@ -127,7 +127,13 @@ export const boardStore = {
             state.board.groups = groups
             console.log(groups);
             return groups
-        }
+        },
+        updateTasks(state, { payload }) {
+            const {groupId , tasks} = payload
+            const group = state.board.groups.find(group => group.id === groupId)
+            group.tasks = tasks
+            return tasks
+        },
     },
 
     actions: {
@@ -156,9 +162,36 @@ export const boardStore = {
         async updateGroups(context, { groups }) {
             const prevGroups = context.state.board.groups
             const newGroups = context.commit({ type: 'updateGroups', groups })
-            context.commit({ type: 'updateBoard', board : context.state.board })
-            context.commit({ type: 'setBoard', boardId: context.state.board._id })
-            return context.state.board.groups
+            try {
+                const board = await boardService.save(context.state.board)
+                context.commit({ type: 'updateBoard', board })
+                context.commit({ type: 'setBoard', boardId: board._id })
+                return context.state.board.groups
+            }
+            catch (prevGroups) {
+                console.log('boardStore: Error in updateGroups')
+                context.commit({ type: 'updateGroups', groups: prevGroups })
+                throw prevGroups
+            }
+        },
+
+        async updateTasks(context, { payload }) {
+            const { groupId, tasks } = payload
+            console.log(payload);
+            const group = context.state.board.groups.find(group => groupId === group.id)
+            const prevTasks = group.tasks
+            const newTasks = context.commit({ type: 'updateTasks', payload })
+            try {
+                const board = await boardService.save(context.state.board)
+                context.commit({ type: 'updateBoard', board })
+                context.commit({ type: 'setBoard', boardId: board._id })
+                return context.state.board.tasks
+            }
+            catch (prevTasks) {
+                console.log('boardStore: Error in updateGroups')
+                context.commit({ type: 'updateGroups', payload: {tasks: prevTasks, groupId} })
+                throw prevTasks
+            }
         },
 
         async updateBoard(context, { board }) {
