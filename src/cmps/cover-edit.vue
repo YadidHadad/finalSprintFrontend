@@ -3,7 +3,17 @@
         <button class="btn-close" @click.stop="closeEdit">
             <span class="trellicons x-icon"></span>
         </button>
-        <div class="title">Unsplash</div>
+        <div class="title">Cover</div>
+        <div class="mini-title">Colors</div>
+        <div class="colors-pallet flex row wrap justify-center align-center">
+            <div v-for=" (color, i) in colorsPallet" :key="i" :style="{ backgroundColor: color }" class="color-sample"
+                @click="updateCover(color)">
+
+            </div>
+        </div>
+        <div class="mini-title">Attachments</div>
+        <button class="btn-upload" @click="">Upload a cover image </button>
+        <div class="mini-title">Photos from Unsplash</div>
         <div class="photos-container flex justify-between  wrap">
             <img v-for="index in 12" :key="index" :src="imgUrls[index]" @click="updateCover(imgUrls[index])">
         </div>
@@ -15,13 +25,15 @@
 <script>
 import axios from 'axios'
 import { utilService } from '../services/util.service';
+import { uploadService } from '../services/upload.service';
 export default {
     data() {
         return {
             imageDownloadUrl: '',
             clientId: 'wONkEH1Be08ksV3ijwHHpfu8tfvmD6SnhsRpvZBWVgg',
             searchTxt: '',
-            imgUrls: []
+            imgUrls: [],
+            colorsPallet: ['#7bc86c', '#f5dd29', '#ffaf3f', '#ef7564', '#cd8de5', '#5ba4cf', '#29cce5', '#6deca9', '#ff8ed4', '#172b4d'],
         }
     },
     created() {
@@ -29,6 +41,7 @@ export default {
         this.debounceHandler()
     },
     methods: {
+
 
         getPhotos() {
             const key = 'unsplashDB'
@@ -41,9 +54,10 @@ export default {
                 // console.log(this.imgUrls);
             })
         },
-        updateCover(imgUrl) {
-            this.$emit('updateTask', imgUrl)
+        updateCover(value) {
+            this.$emit('updateTask', value)
         },
+
         closeEdit() {
             this.$emit('closeEdit')
         },

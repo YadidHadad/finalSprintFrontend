@@ -264,10 +264,10 @@ export default {
                 case "labels-edit":
                     if (!taskToUpdate?.labelIds) taskToUpdate.labelIds = [];
                     taskToUpdate.labelIds = data.labelIds;
-                    txt = "Updated label";
+                    txt = "updated label";
                     break;
                 case "description":
-                    txt = "Updated description";
+                    txt = "updated description";
                     taskToUpdate.description = data;
                     break;
                 case "title":
@@ -285,27 +285,32 @@ export default {
                     console.log('update task', data)
                     taskToUpdate.memberIds = data.memberIds
                     txt = `${data.action} ${data.fullname} ${data.action === 'added' ? 'to' : 'from'} ${this.task.title}`
-                    console.log('*******************', txt)
-                    console.log(this.task.memberIds)
                     break;
                 case "checklist-preview":
-                    txt = "Edited checklist";
+                    txt = "edited checklist";
                     taskToUpdate.checklists = data
                     break
                 case "dates-edit":
-                    txt = "Edited due date";
+                    txt = "edited due date";
                     taskToUpdate.dueDate = data
                     this.closeEditor();
                     break
                 case 'dates-preview':
-                    data ? txt = `Marked ${this.task.title} as complete` : txt = `Unmarked ${this.task.title} as complete`
+                    data ? txt = `marked ${this.task.title} as complete` : txt = `Unmarked ${this.task.title} as complete`
                     taskToUpdate.isComplete = data
                     console.log(taskToUpdate);
                     break
                 case 'cover-edit':
-                    txt = `Updated  ${this.task.title} cover`;
-                    taskToUpdate.style = {
-                        'imgUrl': data
+                    console.log(data)
+                    txt = `updated  ${this.task.title} cover`;
+                    if (data.startsWith('#')) {
+                        taskToUpdate.style = {
+                            'bgColor': data
+                        }
+                    } else {
+                        taskToUpdate.style = {
+                            'imgUrl': data
+                        }
                     }
                     break
             }
