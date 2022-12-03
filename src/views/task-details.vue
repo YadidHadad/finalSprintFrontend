@@ -55,7 +55,7 @@
             <section class="task-tags flex row pad-40">
                 <members-preview v-if="task.memberIds" :memberIds="task.memberIds"
                     @openMembersEditor="openMembersEditor" />
-                <labels-preview v-if="task.labelsId" />
+                <labels-preview v-if="task.labelIds" />
             </section>
             <description-preview :description="task.description"
                 @updateDescription="updateTask('description', $event)" />
@@ -66,7 +66,7 @@
 
         <component :is="pickedEditor.editorType" @closeEdit="closeEditor" v-click-outside="closeEditor"
             @updateTask="updateTask(pickedEditor.editorType, $event)" @addChecklist="addChecklist"
-            @updateLabel="updateLabel" @updateMembers="updateMembers" @copyTask="copyTask">
+            @updateLabel="updateLabel" @updateMembers="updateTask" @copyTask="copyTask">
             <h2>HI</h2>
         </component>
     </section>
