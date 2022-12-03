@@ -6,7 +6,7 @@
             <button class="btn" @click="closeDetails">
                 <span class="trellicons x-icon"></span>
             </button>
-            <cover-preview :coverBcg="task.style" />
+            <cover-preview v-if="task.style?.imgUrl" :coverBcg="task.style" />
         </section>
         <section class="task-header task-cmp flex column align-start">
             <div class="flex row align-center">
