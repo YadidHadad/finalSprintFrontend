@@ -45,10 +45,14 @@
         </section>
         <!-- @updateChecklists="updateTask('checklist-preview', $event)" /> -->
         <section class="task-main">
-            <labels-preview />
+            <section class="task-tags flex row pad-40">
+                <members-preview v-if="task.memberIds" :memberIds="task.memberIds"
+                    @openMembersEditor="openMembersEditor" />
+                <labels-preview v-if="task.labelsId" />
+            </section>
             <description-preview :description="task.description"
                 @updateDescription="updateTask('description', $event)" />
-            <checklists-preview :checklists="task.checklists"
+            <checklists-preview v-if="task.checklists" :checklists="task.checklists"
                 @updateChecklists="debounceHandler('checklist-preview', $event)" />
             <activities-preview :taskId="task.id" />
         </section>
@@ -68,6 +72,7 @@ import checklistEdit from "../cmps/checklist-edit.vue";
 import membersEdit from "../cmps/members-edit.vue";
 import checklistsPreview from "../cmps/checklists-preview.vue";
 import activitiesPreview from "../cmps/activities-preview.vue";
+import membersPreview from "../cmps/members-preview.vue";
 import descriptionPreview from "../cmps/description-preview.vue";
 
 import { utilService } from "../services/util.service";
@@ -82,6 +87,7 @@ export default {
         membersEdit,
         checklistsPreview,
         activitiesPreview,
+        membersPreview,
         descriptionPreview,
     },
 
@@ -258,6 +264,10 @@ export default {
             });
             this.closeEditor();
         },
+        openMembersEditor() {
+            this.pickEditor('members-edit')
+
+        }
     },
     computed: {
         getLabels() {

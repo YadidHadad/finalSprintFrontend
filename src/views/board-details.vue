@@ -2,8 +2,8 @@
     <section v-if="board" class="board-details flex row" :style="boardBGC">
         <board-nav :rgb="rgb" :boards="boards"></board-nav>
         <section class="main flex column grow">
-            <board-header :title="board.title" :class="{ isDark: rgb.isDark, menuIsShown: !menuIsHidden }" :rgb="rgb"
-                :members="board.members" :isStarred="board.isStarred" @toggleBoardMenu="toggleBoardMenu" />
+            <board-header :board="board" :class="{ isDark: rgb.isDark, menuIsShown: !menuIsHidden }" :rgb="rgb"
+                @toggleBoardMenu="toggleBoardMenu" />
             <group-list @addTask="addNewTask" @addGroup="addNewGroup" @removeGroup="removeGroup" :groups="board.groups"
                 :boardId="board._id" />
         </section>

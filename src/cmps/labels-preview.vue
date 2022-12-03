@@ -1,10 +1,16 @@
 <template>
-    <section class="labels-preview">
-        <div v-for="label in taskLabels" :style="{ backgroundColor: label.color }" class="label-preview">
-            <div :style="{ backgroundColor: label.color }" class="color-circle"></div>
-            <span>{{ label.title }}</span>
-        </div>
-        <span>+</span>
+    <section class="labels-preview  flex column">
+        <span class="title">Labels</span>
+        <section class="labels-container flex row align-center justify-center">
+            <div v-for="label in taskLabels" :style="{ backgroundColor: label.color }"
+                class="label-preview flex row align-center justify-center">
+                <div :style="{ backgroundColor: label.color }" class="color-circle"></div>
+                <span>{{ label.title }}</span>
+            </div>
+            <div class="btn-plus flex justify-center align-center">
+                <span class="fa-regular plus-icon"></span>
+            </div>
+        </section>
     </section>
 </template>
 
