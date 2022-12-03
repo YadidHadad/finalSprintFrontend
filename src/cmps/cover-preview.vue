@@ -1,7 +1,6 @@
 <template>
     <section class="cover-preview" :style="coverStyle">
         <img :src="coverStyle">
-        <h1>Cover</h1>
     </section>
 </template>
 

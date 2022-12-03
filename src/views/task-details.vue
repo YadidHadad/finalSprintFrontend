@@ -41,7 +41,7 @@
                     <span class="trellicons location-icon"></span>
                     <span>Location</span>
                 </button>
-                <button class="btn">
+                <button class="btn" @click="pickEditor('cover-edit')">
                     <span class="trellicons cover-icon"></span>
                     <span>Cover</span>
                 </button>
