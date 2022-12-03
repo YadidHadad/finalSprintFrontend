@@ -6,6 +6,7 @@
             <button class="btn" @click="closeDetails">
                 <span class="trellicons x-icon"></span>
             </button>
+            <cover-preview :coverBcg="task.style"/>
         </section>
         <section class="task-header task-cmp flex column align-start">
             <div class="flex row align-center">
@@ -17,38 +18,49 @@
             </div>
         </section>
 
-        <section class="task-details-aside flex column">
-            <button class="btn" @click="pickEditor('members-edit')">
-                <span class="trellicons members-icon"></span>
-                <span>Members</span>
-            </button>
-            <button class="btn" @click="pickEditor('labels-edit')">
-                <span class="trellicons labels-icon"></span>
-                <span>Labels</span>
-            </button>
-            <button class="btn" @click="pickEditor('checklist-edit')">
-                <span class="trellicons checklist-icon"></span>
-                <span>Checklist</span>
-            </button>
-            <button class="btn" @click="pickEditor('dates-edit')">
-                <span class="fa-regular date-icon"></span>
-                <span>Dates</span>
-            </button>
-            <button class="btn">
-                <span class="trellicons location-icon"></span>
-                <span>Location</span>
-            </button>
-            <button class="btn">
-                <span class="trellicons cover-icon"></span>
-                <span>Cover</span>
-            </button>
-            <button class="btn" @click="pickEditor('copy-task-edit')">
-                <span class="trellicons copy"></span>
-                <span>Copy</span>
-            </button>
-            <button class="btn" @click="removeTask">
-                <span>Delete</span>
-            </button>
+        <section class="task-details-aside ">
+            <section class="flex column">
+                <h4>Add to card</h4>
+                <button class="btn" @click="pickEditor('members-edit')">
+                    <span class="trellicons members-icon"></span>
+                    <span>Members</span>
+                </button>
+                <button class="btn" @click="pickEditor('labels-edit')">
+                    <span class="trellicons labels-icon"></span>
+                    <span>Labels</span>
+                </button>
+                <button class="btn" @click="pickEditor('checklist-edit')">
+                    <span class="trellicons checklist-icon"></span>
+                    <span>Checklist</span>
+                </button>
+                <button class="btn" @click="pickEditor('dates-edit')">
+                    <span class="fa-regular date-icon"></span>
+                    <span>Dates</span>
+                </button>
+                <button class="btn">
+                    <span class="trellicons location-icon"></span>
+                    <span>Location</span>
+                </button>
+                <button class="btn" @click="pickEditor('cover-edit')">
+                    <span class="trellicons cover-icon"></span>
+                    <span>Cover</span>
+                </button>
+            </section>
+            <section class="btns-actions flex column">
+                <h4>Actions</h4>
+                <button class="btn" @click="pickEditor('copy-task-edit')">
+                    <span class="trellicons move"></span>
+                    <span>Move</span>
+                </button>
+                <button class="btn" @click="pickEditor('copy-task-edit')">
+                    <span class="trellicons copy"></span>
+                    <span>Copy</span>
+                </button>
+                <button class="btn" @click="removeTask">
+                    <span class="trellicons archive"></span>
+                    <span>Remove</span>
+                </button>
+            </section>
         </section>
         <!-- @updateChecklists="updateTask('checklist-preview', $event)" /> -->
         <section class="task-main">
@@ -70,7 +82,6 @@
         <component :is="pickedEditor.editorType" @closeEdit="closeEditor" v-click-outside="closeEditor"
             @updateTask="updateTask(pickedEditor.editorType, $event)" @addChecklist="addChecklist"
             @updateLabel="updateLabel" @updateMembers="updateTask" @copyTask="copyTask">
-            <h2>HI</h2>
         </component>
     </section>
 </template>
@@ -87,6 +98,8 @@ import descriptionPreview from "../cmps/description-preview.vue";
 import copyTaskEdit from "../cmps/copy-task-edit.vue";
 import datesEdit from "../cmps/dates-edit.vue";
 import datesPreview from "../cmps/dates-preview.vue";
+import coverEdit from "../cmps/cover-edit.vue";
+import coverPreview from "../cmps/cover-preview.vue";
 
 import { utilService } from "../services/util.service";
 
@@ -104,7 +117,9 @@ export default {
         descriptionPreview,
         copyTaskEdit,
         datesEdit,
-        datesPreview
+        datesPreview,
+        coverEdit,
+        coverPreview
     },
 
     data() {
@@ -230,7 +245,6 @@ export default {
         updateDescription(payload) {
             console.log(payload);
         },
-
         async updateTask(type, data) {
             console.log('UPDATE TASKKKKKKK')
             console.log(type, data)
@@ -272,11 +286,16 @@ export default {
                     txt = "Edited due date";
                     taskToUpdate.dueDate = data
                     break
-                case 'dates-preview': {
+                case 'dates-preview':
                     data ? txt = `Marked ${this.task.title} as complete` : txt = `Unmarked ${this.task.title} as complete`
                     taskToUpdate.isComplete = data
                     break
-                }
+                case 'cover-edit':
+                    txt = `Updated  ${this.task.title} cover`;
+                    taskToUpdate.style = {
+                        'imgUrl': data
+                    }
+                    break
             }
             try {
                 this.$store.commit({ type: 'updateTask', payload: { task: taskToUpdate, groupId: this.groupId } })

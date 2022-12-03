@@ -38,4 +38,12 @@
             filter: brightness(0.9);
         }
     }
+
+    .member-initials {
+        @include btn($type: "initials");
+        height: 2rem;
+        aspect-ratio: 1/1;
+        margin-inline-end: 0.5rem;
+        box-shadow: inset 0px -1px 0px rgb(0 0 0 / 33%);
+    }
 }

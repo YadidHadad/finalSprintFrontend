@@ -1,12 +1,12 @@
 <template>
-    <section class="labels-edit" v-click-outside="isOpen=false">
-        <div class="labels-edit-header">
-            <div class="text-header">Labels</div>
-            <button @click.stop="closeEdit">X</button>
-        </div>
-        <div class="labels-edit-main">
+    <section class="task-editor labels-edit" v-click-outside="isOpen = false">
+        <button class="btn-close" @click.stop="closeEdit">
+            <span class="trellicons x-icon"></span>
+        </button>
+        <div class="title">Labels</div>
+        <div class="flex column">
             <input type="text" placeholder="Search labels...">
-            <p>Labels</p>
+            <div class="mini-title">Labels</div>
             <ul class="label-color-list">
                 <li v-for="(label, index) in labels" :key="label.id">
                     <input class="check-box" type="checkbox" @change="updateLabels()" v-model="labelIds"

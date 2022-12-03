@@ -1,38 +1,45 @@
 <template>
     <section class="checklist-preview">
         <div v-for="(checklist, index) in checklists" class="checklist-container">
-            <div class="checklist-preview-header">
-                <div v-if="checklistPicked !== checklists[index].id" @click="pickChecklist(checklist)">
+            <div class="flex align-center justify-between">
+                <!-- <div class="flex align-center"> -->
+                <span class="trellicons checklist-icon large"></span>
+                <div v-if="checklistPicked !== checklists[index].id" class="task-cmp-title grow"
+                    @click="pickChecklist(checklist)">
                     <div>{{ checklist.title }}</div>
-                    <button @click.stop="removeChecklist(checklist.id)">Delete</button>
                 </div>
-                <textarea v-else class="checklist-title-input " v-if="checklists[index]"
+                <textarea v-else class="checklist-title-input task-cmp-title grow" v-if="checklists[index]"
                     @input="editChecklistTitle(checklist, $event)" @focus="pickChecklist(checklist)"
                     :value="checklist.title">
                     </textarea>
+                <!-- </div> -->
+                <button v-if="!editedChecklist" class="btn-delete"
+                    @click.stop="removeChecklist(checklist.id)">Delete</button>
             </div>
             <div class="title-btns" v-if="checklistPicked === checklists[index].id">
                 <button class="save-btn" @click="save">Save</button>
-                <button class="close-btn" @click="close">X</button>
+                <button class="close-btn" @click="close">Cancel</button>
             </div>
-            <progress :value="checklist.todos.filter(todo => todo.isDone).length"
-                :max="checklist.todos.length"></progress>
-            <form class="todos-container" @change="updateTodos(checklist)">
-                <div class="todo-container" v-for="(todo, index) in checklist.todos">
-                    <input type="checkbox" v-model="doneTodosIds" @change="toggleTodo" :value="todo.id">
-                    <div :class="{ 'line-through': todo.isDone }">{{ todo.title }}</div>
-                    <span class="fa-solid elipsis-icon" @click="isOpenOptions = !isOpenOptions"></span>
-                    <span v-if="isOpenOptions" @click="removeTodo(index, checklist)">Delete</span>
+            <section class="pad-40 flex column">
+                <progress :value="checklist.todos.filter(todo => todo.isDone).length"
+                    :max="checklist.todos.length"></progress>
+                <form class="todos-container flex column" @change="updateTodos(checklist)">
+                    <div class="todo-container flex row w-100" v-for="(todo, index) in checklist.todos">
+                        <input type="checkbox" v-model="doneTodosIds" @change="toggleTodo" :value="todo.id">
+                        <div class="grow" :class="{ 'line-through': todo.isDone }">{{ todo.title }}</div>
+                        <span class="fa-solid elipsis-icon" @click="isOpenOptions = !isOpenOptions"></span>
+                        <span v-if="isOpenOptions" @click="removeTodo(index, checklist)">Delete</span>
+                    </div>
+                </form>
+                <button class="add-todo-btn" v-if="!isTodoPicked" @click="isTodoPicked = true">Add an item</button>
+                <div v-else class="add-todo flex column">
+                    <textarea placeholder="Add an item" v-model="todoTxt"></textarea>
+                    <div>
+                        <button class="save-btn" @click="saveTodo(checklist)">Save</button>
+                        <button class="close-btn" @click="isTodoPicked = false">Cancel</button>
+                    </div>
                 </div>
-            </form>
-            <button class="add-todo-btn" v-if="!isTodoPicked" @click="isTodoPicked = true">Add an item</button>
-            <div v-else class="add-todo">
-                <textarea placeholder="Add an item" v-model="todoTxt">
-                </textarea>
-
-                <button class="save-btn" @click="saveTodo(checklist)">Save</button>
-                <button class="close-btn" @click="isTodoPicked = false">X</button>
-            </div>
+            </section>
         </div>
     </section>
 </template>

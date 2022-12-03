@@ -44,7 +44,7 @@ export default {
             btns: [
                 {
                     txt: null,
-                    icon: this.isStarred || "fa-regular star-icon",
+                    icon: this.board?.isStarred || "fa-regular star-icon",
                     function: this.setBoardStar
                 },
                 {
