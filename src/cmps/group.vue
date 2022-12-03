@@ -10,7 +10,6 @@
                 </section>
                 <div @click="removeGroup" class="remove btn"><span> Remove list</span></div>
             </div>
-
         </div>
 
         <ul class="clean-list flex column">

@@ -41,6 +41,7 @@ export default {
     created() {
         this.taskLabelsIds = this.task.labelIds
 
+
     },
 
     methods: {
