@@ -54,4 +54,25 @@
             margin-right: 340px;
         }
     }
+    .member-initials {
+        @include btn($type: "initials");
+        height: 2rem;
+        aspect-ratio: 1/1;
+        margin: 0;
+        box-shadow: inset 0px -1px 0px rgb(0 0 0 / 33%);
+    }
+    .member-image {
+        cursor: pointer;
+        background-size: cover;
+        background-position: center;
+        border-radius: 50%;
+        margin: 0;
+        height: 2rem;
+        aspect-ratio: 1/1;
+        box-shadow: inset 0px -1px 0px rgb(0 0 0 / 33%);
+
+        &:hover {
+            filter: brightness(1.1);
+        }
+    }
 }

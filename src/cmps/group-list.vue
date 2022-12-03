@@ -58,7 +58,7 @@ export default {
             try {
                 this.groupsCopy = JSON.parse(JSON.stringify(this.groups))
                 this.groupsCopy = this.applyDrag(this.groupsCopy, dropResult);
-                const newGroups = this.$store.dispatch({ type: 'updateGroups', groups: this.groupsCopy })
+                const newGroups = await this.$store.dispatch({ type: 'updateGroups', groups: this.groupsCopy })
             }
             catch (prevGroups) {
                 this.groupsCopy = JSON.parse(JSON.stringify(prevGroups))

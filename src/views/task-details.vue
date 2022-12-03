@@ -7,6 +7,7 @@
                 <span class="trellicons x-icon"></span>
             </button>
             <cover-preview v-if="task.style?.imgUrl" class="full" :coverBcg="task.style" />
+            <!-- <cover-preview v-if="task.style?.imgUrl || task.style?.bgColor" class="full" :coverBcg="task.style" /> -->
         </section>
         <section class="task-header task-cmp flex column align-start">
             <div class="flex row align-center">
@@ -227,7 +228,7 @@ export default {
                 console.log(data, 'BOARDDDDDDDDDDDDDDDDDDD');
                 task.id = utilService.makeId()
                 this.$store.dispatch({
-                    type: 'addTask', boardId: toBoardId, groupId: toGroupId, task,
+                    type: 'copyTask', toBoardId, toGroupId, task,
                     activity: {
                         txt: `Made copy for ${task.title}`,
                         byMember: {
@@ -290,6 +291,7 @@ export default {
                 case 'dates-preview':
                     data ? txt = `Marked ${this.task.title} as complete` : txt = `Unmarked ${this.task.title} as complete`
                     taskToUpdate.isComplete = data
+                    console.log(taskToUpdate);
                     break
                 case 'cover-edit':
                     txt = `Updated  ${this.task.title} cover`;

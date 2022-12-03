@@ -48,6 +48,21 @@
                 "_id": "u105",
                 "fullname": "Yaron Cohen",
                 "imgUrl": ""
+            },
+            {
+                "_id": "u106",
+                "fullname": "Amir Gombo",
+                "imgUrl": "src/assets/img/amir-gombo.jpg"
+            },
+            {
+                "_id": "u107",
+                "fullname": "Gal Lankri",
+                "imgUrl": "src/assets/img/gal-lankri.jpg"
+            },
+            {
+                "_id": "u108",
+                "fullname": "Yadid Hadad",
+                "imgUrl": "src/assets/img/yadid-hadad.jpeg"
             }
         ],
         "groups": [
@@ -57,7 +72,7 @@
                 "tasks": [
                     {
                         "id": "dddgsgs",
-                        "title": "Help me",
+                        "title": "Make Trello Happen!",
                         "description": "description",
                         "comments": [
                             {
@@ -85,10 +100,9 @@
                             }
                         ],
                         "memberIds": [
-                            "u101",
-                            "u102",
-                            "u103",
-                            "u105"
+                            "u108",
+                            "u107",
+                            "u106"
                         ],
                         "labelIds": [
                             "l101",
@@ -173,6 +187,373 @@
             }
         ],
         "activities": [
+            {
+                "txt": "Updated title",
+                "memberIds": [
+                    "u108",
+                    "u107",
+                    "u106"
+                ],
+                "boardId": "b101",
+                "groupId": "g101",
+                "taskId": "dddgsgs",
+                "task": {
+                    "id": "dddgsgs",
+                    "title": "Make Trello Happen!"
+                },
+                "byMember": {
+                    "_id": "fsdfds",
+                    "fullname": "Puki Norma",
+                    "imgUrl": ""
+                },
+                "createdAt": 1670090568113,
+                "id": "lO648J"
+            },
+            {
+                "txt": "Updated title",
+                "memberIds": [
+                    "u108",
+                    "u107",
+                    "u106"
+                ],
+                "boardId": "b101",
+                "groupId": "g101",
+                "taskId": "dddgsgs",
+                "task": {
+                    "id": "dddgsgs",
+                    "title": "Make Trello Happen"
+                },
+                "byMember": {
+                    "_id": "fsdfds",
+                    "fullname": "Puki Norma",
+                    "imgUrl": ""
+                },
+                "createdAt": 1670090567766,
+                "id": "yDs8O2"
+            },
+            {
+                "txt": "Updated title",
+                "memberIds": [
+                    "u108",
+                    "u107",
+                    "u106"
+                ],
+                "boardId": "b101",
+                "groupId": "g101",
+                "taskId": "dddgsgs",
+                "task": {
+                    "id": "dddgsgs",
+                    "title": "Make Trello Happe"
+                },
+                "byMember": {
+                    "_id": "fsdfds",
+                    "fullname": "Puki Norma",
+                    "imgUrl": ""
+                },
+                "createdAt": 1670090567297,
+                "id": "RdgOHr"
+            },
+            {
+                "txt": "Updated title",
+                "memberIds": [
+                    "u108",
+                    "u107",
+                    "u106"
+                ],
+                "boardId": "b101",
+                "groupId": "g101",
+                "taskId": "dddgsgs",
+                "task": {
+                    "id": "dddgsgs",
+                    "title": "Make Trello "
+                },
+                "byMember": {
+                    "_id": "fsdfds",
+                    "fullname": "Puki Norma",
+                    "imgUrl": ""
+                },
+                "createdAt": 1670090565962,
+                "id": "XATfCb"
+            },
+            {
+                "txt": "Updated title",
+                "memberIds": [
+                    "u108",
+                    "u107",
+                    "u106"
+                ],
+                "boardId": "b101",
+                "groupId": "g101",
+                "taskId": "dddgsgs",
+                "task": {
+                    "id": "dddgsgs",
+                    "title": "Make Tre"
+                },
+                "byMember": {
+                    "_id": "fsdfds",
+                    "fullname": "Puki Norma",
+                    "imgUrl": ""
+                },
+                "createdAt": 1670090565248,
+                "id": "vNYVo0"
+            },
+            {
+                "txt": "Updated title",
+                "memberIds": [
+                    "u108",
+                    "u107",
+                    "u106"
+                ],
+                "boardId": "b101",
+                "groupId": "g101",
+                "taskId": "dddgsgs",
+                "task": {
+                    "id": "dddgsgs",
+                    "title": "Make Tr"
+                },
+                "byMember": {
+                    "_id": "fsdfds",
+                    "fullname": "Puki Norma",
+                    "imgUrl": ""
+                },
+                "createdAt": 1670090564981,
+                "id": "1utyxZ"
+            },
+            {
+                "txt": "Updated title",
+                "memberIds": [
+                    "u108",
+                    "u107",
+                    "u106"
+                ],
+                "boardId": "b101",
+                "groupId": "g101",
+                "taskId": "dddgsgs",
+                "task": {
+                    "id": "dddgsgs",
+                    "title": "Make "
+                },
+                "byMember": {
+                    "_id": "fsdfds",
+                    "fullname": "Puki Norma",
+                    "imgUrl": ""
+                },
+                "createdAt": 1670090564367,
+                "id": "3QlgU6"
+            },
+            {
+                "txt": "Updated title",
+                "memberIds": [
+                    "u108",
+                    "u107",
+                    "u106"
+                ],
+                "boardId": "b101",
+                "groupId": "g101",
+                "taskId": "dddgsgs",
+                "task": {
+                    "id": "dddgsgs",
+                    "title": "M"
+                },
+                "byMember": {
+                    "_id": "fsdfds",
+                    "fullname": "Puki Norma",
+                    "imgUrl": ""
+                },
+                "createdAt": 1670090563145,
+                "id": "WoUU5m"
+            },
+            {
+                "txt": "Updated title",
+                "memberIds": [
+                    "u108",
+                    "u107",
+                    "u106"
+                ],
+                "boardId": "b101",
+                "groupId": "g101",
+                "taskId": "dddgsgs",
+                "task": {
+                    "id": "dddgsgs",
+                    "title": "Mש"
+                },
+                "byMember": {
+                    "_id": "fsdfds",
+                    "fullname": "Puki Norma",
+                    "imgUrl": ""
+                },
+                "createdAt": 1670090561964,
+                "id": "xxlgQf"
+            },
+            {
+                "txt": "removed Phoebe Bouffe from Help me",
+                "memberIds": [
+                    "u108",
+                    "u107",
+                    "u106"
+                ],
+                "boardId": "b101",
+                "groupId": "g101",
+                "taskId": "dddgsgs",
+                "task": {
+                    "id": "dddgsgs",
+                    "title": "Help me"
+                },
+                "byMember": {
+                    "_id": "fsdfds",
+                    "fullname": "Puki Norma",
+                    "imgUrl": ""
+                },
+                "createdAt": 1670090099442,
+                "id": "bi1bpE"
+            },
+            {
+                "txt": "removed Rachel Greem from Help me",
+                "memberIds": [
+                    "u103",
+                    "u108",
+                    "u107",
+                    "u106"
+                ],
+                "boardId": "b101",
+                "groupId": "g101",
+                "taskId": "dddgsgs",
+                "task": {
+                    "id": "dddgsgs",
+                    "title": "Help me"
+                },
+                "byMember": {
+                    "_id": "fsdfds",
+                    "fullname": "Puki Norma",
+                    "imgUrl": ""
+                },
+                "createdAt": 1670090097585,
+                "id": "9ZiNJI"
+            },
+            {
+                "txt": "removed Monica Lewinski from Help me",
+                "memberIds": [
+                    "u101",
+                    "u103",
+                    "u108",
+                    "u107",
+                    "u106"
+                ],
+                "boardId": "b101",
+                "groupId": "g101",
+                "taskId": "dddgsgs",
+                "task": {
+                    "id": "dddgsgs",
+                    "title": "Help me"
+                },
+                "byMember": {
+                    "_id": "fsdfds",
+                    "fullname": "Puki Norma",
+                    "imgUrl": ""
+                },
+                "createdAt": 1670090096769,
+                "id": "v62ASC"
+            },
+            {
+                "txt": "removed Yaron Cohen from Help me",
+                "memberIds": [
+                    "u101",
+                    "u102",
+                    "u103",
+                    "u108",
+                    "u107",
+                    "u106"
+                ],
+                "boardId": "b101",
+                "groupId": "g101",
+                "taskId": "dddgsgs",
+                "task": {
+                    "id": "dddgsgs",
+                    "title": "Help me"
+                },
+                "byMember": {
+                    "_id": "fsdfds",
+                    "fullname": "Puki Norma",
+                    "imgUrl": ""
+                },
+                "createdAt": 1670090095489,
+                "id": "7ruCZf"
+            },
+            {
+                "txt": "added Amir Gombo to Help me",
+                "memberIds": [
+                    "u101",
+                    "u102",
+                    "u103",
+                    "u105",
+                    "u108",
+                    "u107",
+                    "u106"
+                ],
+                "boardId": "b101",
+                "groupId": "g101",
+                "taskId": "dddgsgs",
+                "task": {
+                    "id": "dddgsgs",
+                    "title": "Help me"
+                },
+                "byMember": {
+                    "_id": "fsdfds",
+                    "fullname": "Puki Norma",
+                    "imgUrl": ""
+                },
+                "createdAt": 1670090090889,
+                "id": "hQpPDG"
+            },
+            {
+                "txt": "added Gal Lankri to Help me",
+                "memberIds": [
+                    "u101",
+                    "u102",
+                    "u103",
+                    "u105",
+                    "u108",
+                    "u107"
+                ],
+                "boardId": "b101",
+                "groupId": "g101",
+                "taskId": "dddgsgs",
+                "task": {
+                    "id": "dddgsgs",
+                    "title": "Help me"
+                },
+                "byMember": {
+                    "_id": "fsdfds",
+                    "fullname": "Puki Norma",
+                    "imgUrl": ""
+                },
+                "createdAt": 1670090084825,
+                "id": "AxKNAK"
+            },
+            {
+                "txt": "added Yadid Hadad to Help me",
+                "memberIds": [
+                    "u101",
+                    "u102",
+                    "u103",
+                    "u105",
+                    "u108"
+                ],
+                "boardId": "b101",
+                "groupId": "g101",
+                "taskId": "dddgsgs",
+                "task": {
+                    "id": "dddgsgs",
+                    "title": "Help me"
+                },
+                "byMember": {
+                    "_id": "fsdfds",
+                    "fullname": "Puki Norma",
+                    "imgUrl": ""
+                },
+                "createdAt": 1670090082012,
+                "id": "xpT0JI"
+            },
             {
                 "txt": "removed Chandler Bing from Help me",
                 "memberIds": [
