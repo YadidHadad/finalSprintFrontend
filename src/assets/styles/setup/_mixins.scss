@@ -107,6 +107,13 @@
     &:hover {
       background-color: rgba($userBgc1, 0.8);
     }
+  } @else if $type == "task-details" {
+    font-size: 0.9rem;
+    background-color: #eaecf0;
+    &:hover {
+      background-color: rgba($textDark, 0.1);
+      border-radius: 0;
+    }
   }
   // } @else if $type == dark {
   //   // background-color: $clr2;
