@@ -6,7 +6,7 @@
             <button class="btn" @click="closeDetails">
                 <span class="trellicons x-icon"></span>
             </button>
-            <cover-preview :coverBcg="task.style"/>
+            <cover-preview :coverBcg="task.style" />
         </section>
         <section class="task-header task-cmp flex column align-start">
             <div class="flex row align-center">
@@ -64,12 +64,13 @@
         </section>
         <!-- @updateChecklists="updateTask('checklist-preview', $event)" /> -->
         <section class="task-main">
-            <dates-preview @markComplete="updateTask('dates-preview', $event)" :isComplete="this.task.isComplete" />
             <section class="task-tags flex row pad-40">
                 <members-preview v-if="task.memberIds" :memberIds="task.memberIds"
                     @openMembersEditor="openMembersEditor" :isTaskDetails="true" />
                 <labels-preview v-if="task.labelIds" />
             </section>
+            <dates-preview class="pad-40" @markComplete="updateTask('dates-preview', $event)"
+                :isComplete="this.task.isComplete" />
             <description-preview :description="task.description"
                 @updateDescription="updateTask('description', $event)" />
             <!-- <checklists-preview v-if="task.checklists" :checklists="task.checklists"
