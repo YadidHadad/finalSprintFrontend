@@ -8,7 +8,7 @@
     font-size: rem(14px) !important;
     padding: rem(8px);
     gap: rem(8px);
-    
+
 
     h3 {
         font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
@@ -19,15 +19,17 @@
 
     .main-title {
         input {
-            height: 30px;
+            // height: 30px;
             font-size: 14px;
             font-weight: bold;
             border: none;
             background-color: transparent;
             width: 100%;
-            padding: 0;
+            padding-left: rem(5px);
         }
+
         button {
+
             padding-right: rem(7px);
         }
     }
@@ -41,7 +43,7 @@
         display: flex;
         flex-direction: column;
         height: fit-content;
-      
+
     }
 
     .smooth-dnd-draggable-wrapper {
@@ -116,7 +118,12 @@ button.add-card-btn {
         padding: 0.5rem;
     }
 
-
+    .remove {
+        width: 100% !important;
+        span {
+            font-size: rem(14px) !important;
+        }
+    }
     .btn {
         @include btn("board-nav");
 
@@ -140,12 +147,9 @@ button.add-card-btn {
             font-size: rem(14px) !important;
 
 
+
         }
 
-        .remove {
-            font-size: rem(14px) !important;
-            width: 100% !important;
-        }
 
         .btn {
             padding: 0;

@@ -7,8 +7,12 @@
                     :group="group" :boardId="boardId" />
             </Draggable>
             <section class="add-new-list">
-                <button class="open-add-list" v-if="!isFormOpen" @click="toggleForm"><span
-                        class="fa-regular plus-icon"></span> Add a list</button>
+                <transition name="open">
+                    <button class="open-add-list" v-if="!isFormOpen" @click="toggleForm"><span
+                            class="fa-regular plus-icon"></span> Add a list</button>
+                </transition>
+
+                <transition name="close">
                 <form v-if="isFormOpen" @submit.prevent="addGroup" class="flex group-list-form">
                     <input v-model="group.title" type="text" name="add-list" placeholder="Enter list title..." v-focus>
                     <div class="add-list-btns flex">
@@ -16,6 +20,7 @@
                         <button type="button" @click="toggleForm"><span class="fa-solid x-icon"></span></button>
                     </div>
                 </form>
+            </transition>
             </section>
         </Container>
     </section>
@@ -119,7 +124,7 @@ export default {
             console.log('fhgfhghgfgf');
             console.log(group);
             console.log(activity);
-            this.$store.dispatch({ type: 'updateGroup', group, activity})
+            this.$store.dispatch({ type: 'updateGroup', group, activity })
         },
         addTask(groupId, task, activity) {
             this.$emit('addTask', groupId, task, activity)

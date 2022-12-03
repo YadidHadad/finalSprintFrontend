@@ -39,6 +39,7 @@
 import taskPreview from "../cmps/task-preview.vue";
 import { utilService } from "../services/util.service.js";
 import { Container, Draggable } from "vue3-smooth-dnd";
+import copyTaskEdit from './copy-task-edit.vue';
 export default {
     props: {
         group: {
@@ -130,7 +131,7 @@ export default {
             const group = JSON.parse(JSON.stringify(this.group))
             group.title = this.newGroupTitle
             console.log('hgfhgfhgfdgfdgfdgd');
-            this.$emit('updateGroup',  group, activity)
+            this.$emit('updateGroup', group, activity)
         },
 
         toggleCard() {
@@ -181,6 +182,6 @@ export default {
             return 'on-drag'
         }
     },
-    components: { taskPreview, Container, Draggable },
+    components: { taskPreview, Container, Draggable, copyTaskEdit },
 };
 </script>
