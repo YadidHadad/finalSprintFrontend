@@ -1,37 +1,10 @@
 .checklist-preview {
-
     .save-btn {
-        align-self: flex-start;
-        padding: 0;
-        margin-top: 20px;
-        font-size: 1rem;
-        background-color: #0079bf;
-        color: $clr1;
-        padding: 6px 24px;
-        border-radius: 3px;
-        margin-inline-end: 10px;
-
-        &:hover {
-            filter: brightness(95%);
-            cursor: pointer;
-        }
+        @include btn-add-save($type: "save");
     }
-
+    .btn-delete,
     .close-btn {
-        align-self: flex-start;
-        padding: 0;
-        margin-top: 20px;
-        font-size: 1rem;
-        color: $clr1;
-        padding: 6px 24px;
-        border-radius: 3px;
-        color: black;
-        // font-size: 5rem;
-
-        &:hover {
-            filter: brightness(95%);
-            cursor: pointer;
-        }
+        @include btn-add-save($type: "cancel");
     }
 }
 
@@ -44,7 +17,8 @@
     box-shadow: inset 0 0 0 1px var(--ds-border-input, #091e4221);
 }
 
-.title-btns {}
+.title-btns {
+}
 
 .add-todo-btn {
     align-self: flex-start;
@@ -66,7 +40,7 @@
 .checklist-preview-header {
     // display: flex;
 
-    >:first-child {
+    > :first-child {
         display: flex;
         justify-content: space-between;
     }

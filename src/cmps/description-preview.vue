@@ -1,8 +1,6 @@
 <template>
-    <!-- <section class="desc-container" v-click-outside="descClosed"> -->
     <section class="desc-container">
         <div class="flex row align-center">
-
             <span class="trellicons desc-icon large"></span>
             <div class="task-cmp-title grow">Description</div>
         </div>
