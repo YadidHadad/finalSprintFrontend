@@ -9,6 +9,11 @@
         @include btn-add-save($type: cancel);
     }
 
+    input[type="time"] {
+        width: 100%;
+        text-align: center;
+    }
+
     .vuejs3-datepicker__calendar {
         position: absolute;
         z-index: 100;
@@ -19,7 +24,7 @@
         margin-top: 4px;
     }
     header {
-        // display: none;
+        display: none;
         width: 100%;
         position: static;
     }
@@ -31,7 +36,7 @@
         display: none;
     }
     .vuejs3-datepicker__calendar header {
-        display: block;
+        // display: block;
         position: static;
         line-height: 40px;
         box-shadow: none;
@@ -40,5 +45,16 @@
     .vuejs3-datepicker__calendar .cell.selected {
         background: #f4f5f7;
         color: $textDark;
+        outline: 1px solid $textDark;
+    }
+    .vuejs3-datepicker__calendar .cell:not(.blank):not(.disabled).day:hover {
+        border: none;
+        background: #f4f5f7;
+    }
+    .vuejs3-datepicker__calendar .cell:not(.blank):not(.disabled).day,
+    .vuejs3-datepicker__calendar .cell:not(.blank):not(.disabled).month,
+    .vuejs3-datepicker__calendar .cell:not(.blank):not(.disabled).year {
+        cursor: pointer;
+        transition: 0s;
     }
 }
