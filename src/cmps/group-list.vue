@@ -1,10 +1,10 @@
 <template>
     <section class="group-list flex">
-        <Container  orientation="horizontal" @drop="onDrop" group-name="group-lists"
-            :get-child-payload="getChildPayload" :drag-class="dragClass" :drop-class="dragClass">
+        <Container orientation="horizontal" @drop="onDrop" group-name="group-lists" :get-child-payload="getChildPayload"
+            :drag-class="dragClass" :drop-class="dragClass">
             <Draggable v-for="(group, i) in groups" :key="group.id">
-                <group @addTask="addTask" @removeGroup="$emit('removeGroup', $event)" :group="group"
-                    :boardId="boardId" />
+                <group @addTask="addTask" @updateGroup="updateGroup" @removeGroup="$emit('removeGroup', $event)"
+                    :group="group" :boardId="boardId" />
             </Draggable>
             <section class="add-new-list">
                 <button class="open-add-list" v-if="!isFormOpen" @click="toggleForm"><span
@@ -96,8 +96,6 @@ export default {
         },
 
 
-
-
         toggleForm() {
             this.isFormOpen = !this.isFormOpen
         },
@@ -117,7 +115,12 @@ export default {
             this.$emit('addGroup', { ...this.group }, activity)
             this.group.title = ''
         },
-
+        updateGroup(group, activity) {
+            console.log('fhgfhghgfgf');
+            console.log(group);
+            console.log(activity);
+            this.$store.dispatch({ type: 'updateGroup', group, activity})
+        },
         addTask(groupId, task, activity) {
             this.$emit('addTask', groupId, task, activity)
         }

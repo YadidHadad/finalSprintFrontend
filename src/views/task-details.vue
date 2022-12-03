@@ -57,9 +57,13 @@
                     <span class="trellicons copy"></span>
                     <span>Copy</span>
                 </button>
-                <button class="btn" @click="removeTask">
+                <button class="btn" @click="isShowDelete=!isShowDelete">
                     <span class="trellicons archive"></span>
                     <span>Remove</span>
+                </button>
+                <button v-if="isShowDelete" class="delete-btn btn" @click="removeTask">
+                    <span>-</span>
+                    <span>Delete</span>
                 </button>
             </section>
         </section>
@@ -137,8 +141,9 @@ export default {
             showActivities: false,
             description: "",
             title: "",
+            isShowDelete: false,
             // labelIds: this.$store.getters.labelIds
-        };
+        }
     },
     async created() {
         this.debounceHandler = utilService.debounce(this.updateTask, 200)
@@ -287,6 +292,7 @@ export default {
                 case "dates-edit":
                     txt = "Edited due date";
                     taskToUpdate.dueDate = data
+                    this.closeEditor();
                     break
                 case 'dates-preview':
                     data ? txt = `Marked ${this.task.title} as complete` : txt = `Unmarked ${this.task.title} as complete`
@@ -395,7 +401,7 @@ export default {
             console.log(`board:`, board);
             const group = board.groups.find((group) => group.id === this.$route.params.groupId);
             console.log(group.title, 'TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT');
-            if(!group.title) return ''
+            if (!group.title) return ''
             return group.title;
 
             // return JSON.parse(JSON.stringify(this.$store.getters.getEditedTask)).title

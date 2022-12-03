@@ -19,7 +19,7 @@
         </div>
         <section class="flex column">
             <button class="btn-save" @click.prevent="addDate">Save</button>
-            <button class="btn-remove">Remove</button>
+            <button class="btn-remove" @click="removeDate">Remove</button>
         </section>
     </section>
 </template>
@@ -48,6 +48,12 @@ export default {
             const chosenDateAndTime = dateParsed.slice(0, 11) + this.timeStr + dateParsed.slice(16, -1)
             const timestamp = Date.parse(chosenDateAndTime)
             this.$emit('updateTask', timestamp)
+        },
+        removeDate() {
+            this.$emit('updateTask', 0)
+        },
+        closeEdit() {
+            this.$emit('closeEdit')
         },
         // addDate(ev) {
         //     if (this.getTimeInMs)
