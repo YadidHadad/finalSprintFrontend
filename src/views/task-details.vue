@@ -394,7 +394,8 @@ export default {
             const board = this.$store.getters.board;
             console.log(`board:`, board);
             const group = board.groups.find((group) => group.id === this.$route.params.groupId);
-            console.log(group, 'TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT');
+            console.log(group.title, 'TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT');
+            if(!group.title) return ''
             return group.title;
 
             // return JSON.parse(JSON.stringify(this.$store.getters.getEditedTask)).title
