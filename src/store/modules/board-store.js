@@ -210,6 +210,7 @@ export const boardStore = {
             const board = JSON.parse(JSON.stringify(context.state.boards.find(board => board._id === boardId)))
 
             const groupIdx = board.groups.findIndex((group) => group.id === groupId)
+            console.log(groupIdx , '>>>>>>>>>>>>>>');
             if (!board.groups[groupIdx].tasks) board.groups[groupIdx].tasks = []
             board.groups[groupIdx].tasks.push(task)
             try {

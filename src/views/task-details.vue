@@ -52,7 +52,7 @@
         </section>
         <!-- @updateChecklists="updateTask('checklist-preview', $event)" /> -->
         <section class="task-main">
-            <dates-preview />
+            <dates-preview @markComplete="updateTask('dates-preview', $event)" :isComplete="this.task.isComplete"/>
             <section class="task-tags flex row pad-40">
                 <members-preview v-if="task.memberIds" :memberIds="task.memberIds"
                     @openMembersEditor="openMembersEditor" />
@@ -205,7 +205,7 @@ export default {
         },
         async copyTask(data) {
             const { task, toGroupId, toBoardId } = data
-            console.log(toBoardId, 'BOADDDDDDDDDDDDDDDDDDD');
+            console.log(data, 'BOARDDDDDDDDDDDDDDDDDDD');
             task.id = utilService.makeId()
             this.$store.dispatch({
                 type: 'addTask', boardId: toBoardId, groupId: toGroupId, task,
@@ -264,6 +264,11 @@ export default {
                     txt = "Edited due date";
                     taskToUpdate.dueDate = data
                     break
+                case 'dates-preview': {
+                    data ? txt = `Marked ${this.task.title} as complete` : txt = `Unmarked ${this.task.title} as complete`
+                    taskToUpdate.isComplete = data
+                    break
+                }
             }
             try {
                 let updatedTask = await this.$store.dispatch({

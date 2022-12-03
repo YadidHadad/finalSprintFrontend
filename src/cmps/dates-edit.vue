@@ -44,7 +44,7 @@ export default {
             this.myDateStr = day + ' ' + month + ' ' + year
         },
         convertTime() {
-            const myTimeStr = this.timeStr + ':00 GMT'
+            const myTimeStr = this.timeStr + ':00 GMT +2'
             console.log(myTimeStr);
             this.myTimeStr = myTimeStr
         }
