@@ -3,8 +3,9 @@
         <button class="btn-close">
             <span class="trellicons x-icon" @click.stop="closeEdit"></span>
         </button>
-        <div class="title"> Due date </div>
-        <datepicker :inline="true" v-model="date" ref="inputRef" @selected="handleSelectDate"></datepicker>
+        <div class="title">Due date</div>
+        <span class="mini-title">Date</span>
+        <datepicker :inline="true" v-model="date" ref="inputRef"></datepicker>
         <!-- <form @submit.prevent="addDate">
             <div class="dates-picker">
                 <input type="date" v-model="dateStr" @input="convertDate" data-date-inline-picker="true">
@@ -12,6 +13,10 @@
                 <input type="time" v-model="timeStr" @input="convertTime">
             </div>
         </form> -->
+        <div>
+            <span class="mini-title">Time</span>
+            <input type="time" v-model="timeStr" @input="convertTime" />
+        </div>
         <section class="flex column">
             <button class="btn-save" @click.prevent="addDate">Save</button>
             <button class="btn-remove" @click="removeDate">Remove</button>
@@ -20,30 +25,28 @@
 </template>
 
 <script>
-import Datepicker from 'vuejs3-datepicker';
+import Datepicker from "vuejs3-datepicker";
 
 export default {
     data() {
         return {
-            date: '',
-            dateStr: '',
-            timeStr: '',
-            myTimeStr: '',
-            myDateStr: ''
-        }
+            date: "",
+            dateStr: "",
+            timeStr: "10:00",
+            myTimeStr: "",
+            myDateStr: "",
+        };
     },
     components: {
-        Datepicker
+        Datepicker,
     },
-    created() {
-
-    },
+    created() { },
     methods: {
         addDate() {
-            console.log(this.$refs.inputRef.selectedDate)
             const dateStr = this.$refs.inputRef.selectedDate
-            const timestamp = Date.parse(dateStr)
-            console.log(dateStr, timestamp)
+            const dateParsed = JSON.parse(JSON.stringify(dateStr))
+            const chosenDateAndTime = dateParsed.slice(0, 11) + this.timeStr + dateParsed.slice(16, -1)
+            const timestamp = Date.parse(chosenDateAndTime)
             this.$emit('updateTask', timestamp)
         },
         removeDate() {
@@ -74,21 +77,13 @@ export default {
         //     console.log(myTimeStr);
         //     this.myTimeStr = myTimeStr
         // },
-        handleSelectDate() {
-
-            console.log(this.$refs.inputRef.selectedDate)
-            const dateStr = this.$refs.inputRef.selectedDate
-            const timestamp = Date.parse(dateStr)
-            console.log(dateStr, timestamp)
-        }
-
     },
     computed: {
         getTimeInMs() {
-            const timeStr = this.convertDate + ' ' + this.convertTime
+            const timeStr = this.convertDate + " " + this.convertTime;
 
-            return Date.parse(this.myDateStr + ' ' + this.myTimeStr)
+            return Date.parse(this.myDateStr + " " + this.myTimeStr);
         },
-    }
-}
+    },
+};
 </script>

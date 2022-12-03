@@ -25,9 +25,9 @@
                     <div class="todo-container flex row w-100" v-for="(todo, index) in checklist.todos">
                         <input type="checkbox" v-model="doneTodosIds" @change="toggleTodo" :value="todo.id">
                         <div class="grow" :class="{ 'line-through': todo.isDone }">{{ todo.title }}</div>
-                        <button v-if="isOpenOptions" class="btn-delete"
+                        <button v-if="isOpenOptions" class="btn-delete margin-0"
                             @click="removeTodo(index, checklist)">Remove</button>
-                        <button class="btn-delete" @click="isOpenOptions = !isOpenOptions">
+                        <button class="btn-delete margin-0" @click="isOpenOptions = !isOpenOptions">
                             <span class=" fa-solid elipsis-icon">
                             </span></button>
                     </div>
