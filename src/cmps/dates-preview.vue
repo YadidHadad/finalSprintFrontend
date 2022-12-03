@@ -28,11 +28,12 @@ export default {
     },
     computed: {
         dueDateStr() {
+            if (!this.$store.getters.getEditedTask?.dueDate) return ''
             const dueDateStr = new Date(this.$store.getters.getEditedTask.dueDate)
             const dueTime = dueDateStr.toLocaleTimeString('en-GB').slice(0, 5)
             const dueDate = `${dueDateStr.getDate()}/${dueDateStr.getMonth() + 1}`
 
-            console.log(dueTime, ',,,,,,,,,,,,,,,,,,,,,,,,,,,,');
+            // console.log(dueDateStr ,',,,,,,,,,,,,,,,,,,,,,,,,,,,,');
             return dueDate + ' '  + dueTime
         },
         dueDateMs() {

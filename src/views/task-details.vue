@@ -6,6 +6,7 @@
             <button class="btn" @click="closeDetails">
                 <span class="trellicons x-icon"></span>
             </button>
+            <cover-preview :coverBcg="task.style"/>
         </section>
         <section class="task-header task-cmp flex column align-start">
             <div class="flex row align-center">
@@ -40,7 +41,7 @@
                     <span class="trellicons location-icon"></span>
                     <span>Location</span>
                 </button>
-                <button class="btn">
+                <button class="btn" @click="pickEditor('cover-edit')">
                     <span class="trellicons cover-icon"></span>
                     <span>Cover</span>
                 </button>
@@ -81,7 +82,6 @@
         <component :is="pickedEditor.editorType" @closeEdit="closeEditor" v-click-outside="closeEditor"
             @updateTask="updateTask(pickedEditor.editorType, $event)" @addChecklist="addChecklist"
             @updateLabel="updateLabel" @updateMembers="updateTask" @copyTask="copyTask">
-            <h2>HI</h2>
         </component>
     </section>
 </template>
@@ -98,6 +98,8 @@ import descriptionPreview from "../cmps/description-preview.vue";
 import copyTaskEdit from "../cmps/copy-task-edit.vue";
 import datesEdit from "../cmps/dates-edit.vue";
 import datesPreview from "../cmps/dates-preview.vue";
+import coverEdit from "../cmps/cover-edit.vue";
+import coverPreview from "../cmps/cover-preview.vue";
 
 import { utilService } from "../services/util.service";
 
@@ -115,7 +117,9 @@ export default {
         descriptionPreview,
         copyTaskEdit,
         datesEdit,
-        datesPreview
+        datesPreview,
+        coverEdit,
+        coverPreview
     },
 
     data() {
@@ -241,7 +245,6 @@ export default {
         updateDescription(payload) {
             console.log(payload);
         },
-
         async updateTask(type, data) {
             console.log('UPDATE TASKKKKKKK')
             console.log(type, data)
@@ -283,11 +286,16 @@ export default {
                     txt = "Edited due date";
                     taskToUpdate.dueDate = data
                     break
-                case 'dates-preview': {
+                case 'dates-preview':
                     data ? txt = `Marked ${this.task.title} as complete` : txt = `Unmarked ${this.task.title} as complete`
                     taskToUpdate.isComplete = data
                     break
-                }
+                case 'cover-edit':
+                    txt = `Updated  ${this.task.title} cover`;
+                    taskToUpdate.style = {
+                        'imgUrl': data
+                    }
+                    break
             }
             try {
                 this.$store.commit({ type: 'updateTask', payload: { task: taskToUpdate, groupId: this.groupId } })
