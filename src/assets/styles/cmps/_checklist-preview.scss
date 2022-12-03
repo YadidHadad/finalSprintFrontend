@@ -1,8 +1,8 @@
 .checklist-preview {
-    .add-todo-btn,
     .save-btn {
         @include btn-add-save($type: "save");
     }
+    .add-todo-btn,
     .btn-delete,
     .close-btn {
         @include btn-add-save($type: "cancel");

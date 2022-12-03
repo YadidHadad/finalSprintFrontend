@@ -31,7 +31,10 @@
     font-size: 1rem;
     color: $textDark;
     background-color: $taskDetailsBGC;
-    padding: 16px;
+
+    & > *:not(.task-cover) {
+        padding: 1rem;
+    }
     border-radius: 3px;
     width: 770px;
     min-height: 600px;

@@ -3,10 +3,10 @@
 
     <section v-if="task" class="task-details" v-click-outside="closeDetails">
         <section class="task-cover">
-            <button class="btn" @click="closeDetails">
+            <button class="btn-close" @click="closeDetails">
                 <span class="trellicons x-icon"></span>
             </button>
-            <cover-preview :coverBcg="task.style" />
+            <cover-preview v-if="task.style?.imgUrl" class="full" :coverBcg="task.style" />
         </section>
         <section class="task-header task-cmp flex column align-start">
             <div class="flex row align-center">
