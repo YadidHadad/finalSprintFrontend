@@ -23,7 +23,7 @@ form > * {
 
 .task-editor {
     position: absolute;
-    top: 25%;
+    top: 10%;
     right: -130px;
 
     border-radius: 3px;
@@ -54,6 +54,7 @@ form > * {
         background-color: $taskDetailsBtn;
         border: 1px solid #dfe1e6;
         padding: 8px 12px;
+        border-radius: 3px;
         border: none;
         // margin-block-start: 1rem;
         &:hover {

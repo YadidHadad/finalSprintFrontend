@@ -1,7 +1,7 @@
 <template>
     <div class="group flex column">
         <div class="main-title flex justify-between">
-            <h3>{{ group.title }}</h3>
+            <input v-model="newGroupTitle" @input="updateGroup(this.newGroupTitle)" />
             <button @click="toggleMenu"><span class="fa-solid elipsis-icon"></span></button>
             <div v-if="isMenuOpen" class="group-menu">
                 <section class="title flex">
@@ -12,15 +12,15 @@
             </div>
         </div>
 
-            <Container orientation="vertical" @drop="onDrop" group-name="group-tasks"
-                :get-child-payload="getChildPayload" :drag-class="dragClass" :drop-class="dragClass">
-                <Draggable v-for="(task, i) in group.tasks" :key="task.id">
-                    <task-preview :task="task" :groupId="this.group.id" :boardId="boardId" />
-                </Draggable>
-            </Container>
+        <Container orientation="vertical" @drop="onDrop" group-name="group-tasks" :get-child-payload="getChildPayload"
+            :drag-class="dragClass" :drop-class="dragClass">
+            <Draggable v-for="(task, i) in group.tasks" :key="task.id">
+                <task-preview :task="task" :groupId="this.group.id" :boardId="boardId" />
+            </Draggable>
+        </Container>
 
         <button class="add-card-btn" v-if="!isCardOpen" @click="toggleCard">
-            <span class="fa-regular plus-icon"></span><span>Add a card</span> 
+            <span class="fa-regular plus-icon"></span><span>Add a card</span>
         </button>
         <form v-if="isCardOpen" @submit.prevent="addTask" class="flex">
             <textarea v-model="currTask.title" type="textarea" name="add-task" rows="4"
@@ -56,13 +56,20 @@ export default {
                 id: utilService.makeId(),
                 title: '',
             },
-            isMenuOpen: false
+            isMenuOpen: false,
+            newGroupTitle: JSON.parse(JSON.stringify(this.group.title))
 
         }
     },
 
-    created() {
+    async created() {
         this.tasksCopy = JSON.parse(JSON.stringify(this.group.tasks || []))
+        try {
+            this.debounceHandler = utilService.debounce(this.updateGroup, 200)
+
+        } catch (err) {
+            console.log(err);
+        }
     },
 
     methods: {
@@ -101,11 +108,29 @@ export default {
         getShouldAcceptDrop(index, sourceContainerOptions, payload) {
             return true;
         },
+
         getChildPayload(index) {
             console.log(this.tasksCopy);
             return {
                 itemToMove: this.tasksCopy[index]
             }
+        },
+        updateGroup() {
+            const activity = {
+                id: '',
+                txt: `Update Group: ${this.group.title}`,
+                byMember: {
+                    _id: this.user._id,
+                    fullname: this.user.fullname,
+                    imgUrl: this.user.imgUrl || '',
+                },
+                // task: this.task
+            }
+            if (!this.group.title) return
+            const group = JSON.parse(JSON.stringify(this.group))
+            group.title = this.newGroupTitle
+            console.log('hgfhgfhgfdgfdgfdgd');
+            this.$emit('updateGroup',  group, activity)
         },
 
         toggleCard() {
