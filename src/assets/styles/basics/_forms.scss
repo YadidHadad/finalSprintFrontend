@@ -48,10 +48,13 @@ form > * {
         font-weight: bold;
     }
 
+    select,
+    textarea,
     input {
-        background-color: #fafbfc;
+        background-color: $taskDetailsBtn;
         border: 1px solid #dfe1e6;
         padding: 8px 12px;
+        border: none;
         // margin-block-start: 1rem;
         &:hover {
             cursor: auto;
@@ -61,6 +64,8 @@ form > * {
             // border: 1px solid blue;
         }
     }
+    select,
+    textarea,
     input[type="text"] {
         width: 100%;
     }

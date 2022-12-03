@@ -36,4 +36,9 @@
         line-height: 40px;
         box-shadow: none;
     }
+
+    .vuejs3-datepicker__calendar .cell.selected {
+        background: #f4f5f7;
+        color: $textDark;
+    }
 }

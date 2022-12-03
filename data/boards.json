@@ -48,6 +48,21 @@
                 "_id": "u105",
                 "fullname": "Yaron Cohen",
                 "imgUrl": ""
+            },
+            {
+                "_id": "u106",
+                "fullname": "Amir Gombo",
+                "imgUrl": ""
+            },
+            {
+                "_id": "u107",
+                "fullname": "Gal Lankri",
+                "imgUrl": "src/assets/img/gal-lankri.jpg"
+            },
+            {
+                "_id": "u108",
+                "fullname": "Yadid Hadad",
+                "imgUrl": "src/assets/img/yadid-hadad.jpeg"
             }
         ],
         "groups": [
