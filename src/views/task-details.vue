@@ -39,7 +39,7 @@
                     <span class="fa-regular date-icon"></span>
                     <span>Dates</span>
                 </button>
-                <button class="btn">
+                <button class="btn" @click="pickEditor('location-edit')">
                     <span class="trellicons location-icon"></span>
                     <span>Location</span>
                 </button>
@@ -107,6 +107,7 @@ import datesEdit from "../cmps/dates-edit.vue";
 import datesPreview from "../cmps/dates-preview.vue";
 import coverEdit from "../cmps/cover-edit.vue";
 import coverPreview from "../cmps/cover-preview.vue";
+import locationEdit from "../cmps/location-edit.vue"
 
 import { utilService } from "../services/util.service";
 
@@ -126,7 +127,8 @@ export default {
         datesEdit,
         datesPreview,
         coverEdit,
-        coverPreview
+        coverPreview,
+        locationEdit
     },
 
     data() {

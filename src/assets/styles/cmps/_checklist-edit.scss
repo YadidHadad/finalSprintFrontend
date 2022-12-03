@@ -13,17 +13,17 @@
         }
     }
 
-    .checklist-edit-main {
-        padding: 0 12px 12px 12px;
-        display: flex;
-        flex-direction: column;
-    }
-    .btn-add {
-        @include btn-add-save;
-    }
+    // .checklist-edit-main {
+    //     padding: 0 12px 12px 12px;
+    //     display: flex;
+    //     flex-direction: column;
+    // }
+    // .btn-add {
+    //     @include btn-add-save;
+    // }
 
-    .trellicons {
-        color: grey;
-        font-size: 1rem;
-    }
+    // .trellicons {
+    //     color: grey;
+    //     font-size: 1rem;
+    // }
 }
