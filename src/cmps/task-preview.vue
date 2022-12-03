@@ -11,7 +11,8 @@
             </section>
             <h3>{{ task.title }}</h3>
         </div>
-        <members-preview v-if="task.memberIds" :isTaskDetails="false" class="task-members" />
+        <members-preview v-if="task.memberIds" :memberIds="task.memberIds" :isTaskDetails="false"
+            class="task-members" />
     </section>
 </template>
 
