@@ -19,11 +19,11 @@ export default {
     //
     data() {
         return {
-            isComplete: this.getIsComplete || false
+            
         }
     },
     created() {
-        // if(!this.isComplete) this.isComplete = false
+        const isComplete = this.getIsComplete || false
     },
     methods: {
         toggleIsComplete() {
