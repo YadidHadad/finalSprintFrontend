@@ -21,7 +21,8 @@
                 <div class="todo-container" v-for="(todo, index) in checklist.todos">
                     <input type="checkbox" v-model="doneTodosIds" @change="toggleTodo" :value="todo.id">
                     <div :class="{ 'line-through': todo.isDone }">{{ todo.title }}</div>
-                    <span class="fa-solid elipsis-icon" @click="removeTodo(index, checklist)"></span>
+                    <span class="fa-solid elipsis-icon" @click="isOpenOptions = !isOpenOptions"></span>
+                    <span v-if="isOpenOptions" @click="removeTodo(index, checklist)">Delete</span>
                 </div>
             </form>
             <button class="add-todo-btn" v-if="!isTodoPicked" @click="isTodoPicked = true">Add an item</button>
@@ -56,8 +57,7 @@ export default {
             todoTxt: '',
             isTodoPicked: false,
             doneTodosIds: [],
-
-
+            isOpenOptions: false
         }
     },
     created() {

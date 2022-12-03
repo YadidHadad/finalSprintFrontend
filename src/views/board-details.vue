@@ -104,9 +104,10 @@ export default {
         },
 
         async addNewTask(groupId, task, activity) {
-            var board = JSON.parse(JSON.stringify(this.board))
+            // var board = JSON.parse(JSON.stringify(this.board))
+            const boardId = this.board._id
             try {
-                await this.$store.dispatch({ type: 'addTask', board, groupId, task, activity })
+                await this.$store.dispatch({ type: 'addTask', boardId, groupId, task, activity })
             }
             catch (err) {
                 console.log(err);
