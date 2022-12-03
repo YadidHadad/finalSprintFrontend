@@ -9,17 +9,17 @@
                 <span v-if="btn.txt" class="txt">{{ btn.txt }}</span>
             </button>
         </div>
-        <div class="flex align-center justify-end wrap self-end">
+        <div class="btns-container flex align-center row  ">
             <button class="btn" :class="{ isDark: !isDark }" :style="buttonBackground">
                 <span class="location filter-icon"></span>
                 <span class="txt">Filter</span>
             </button>
-            <button v-for="member in board.members">
+            <div v-for="member in board.members">
                 <div v-if="member.imgUrl" class="member-image" :style="memberImage(member.imgUrl)"> </div>
                 <span v-else class="member-initials">
                     {{ getInitials(member.fullname) }}
                 </span>
-            </button>
+            </div>
             <button class="btn" :class="{ isDark: !isDark }" :style="buttonBackground" @click="toggleBoardMenu">
                 <span class="fa-solid elipsis-icon"></span>
             </button>

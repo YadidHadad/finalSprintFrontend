@@ -140,6 +140,24 @@ export const boardStore = {
             group.tasks = tasks
             return tasks
         },
+        copyTask(state, { payload }) {
+            const { toBoard, task } = payload
+            if (task.labelIds) {
+                const labelsTxts = toBoard.labels.map(lbl => {
+                    return lbl.txt ? lbl.txt : ''
+                })
+                console.log(labelsTxts, ')000000000000000000000000');
+                const labelsToUpdate = state.board.labels.filter(lbl => {
+                    if (task.labelIds.includes(lbl.id)) {
+                        if (!labelsTxts.includes(lbl.txt)) return true
+                    }
+                    return false
+                })
+                console.log(toBoard.labels , ')000000000000000000000000');
+                toBoard.labels.push(...labelsToUpdate)
+                console.log(toBoard.labels , ')000000000000000000000000');
+            }
+        }
     },
 
     actions: {
@@ -281,8 +299,19 @@ export const boardStore = {
 
         async copyTask(context, { toBoardId, toGroupId, task, activity }) {
             console.log(toBoardId, toGroupId, task, activity);
-            const toBoard = context.state.boards.find(board => board._id === boardId)
-            context.commit({ type: 'copyTask', payload: { toBoardId, toGroupId, task, activity } })
+            const toBoard = context.state.boards.find(board => board._id === toBoardId)
+            // console.log(toBoard, 'FFFFFFFFFFFFFFFFFFFFFFFFF');
+            // const toGroup = toBoard.find(group => group.id === toGroupId)
+            const prevBoard = JSON.parse(JSON.stringify(toBoard))
+            context.commit({ type: 'copyTask', payload: { toBoard, task } })
+
+            try {
+                await context.dispatch({ type: 'addTask', boardId: toBoardId, groupId: toGroupId, task, activity })
+            }
+            catch (err) {
+                console.log(err);
+                throw err
+            }
         },
 
         async addGroup(context, { board, group, activity }) {
