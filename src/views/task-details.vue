@@ -7,7 +7,8 @@
                 <span class="trellicons x-icon"></span>
             </button>
             <!-- <cover-preview v-if="task.style?.imgUrl" class="full" :coverBcg="task.style" /> -->
-            <cover-preview v-if="task.style?.imgUrl || task.style?.bgColor" class="full" :coverBcg="task.style" />
+            <cover-preview v-if="task.style?.imgUrl || task.style?.bgColor" class="full" :coverBcg="task.style"
+                @closeEdit="closeEditor" />
         </section>
         <section class="task-header task-cmp flex column align-start">
             <div class="flex row align-center">
@@ -57,7 +58,7 @@
                     <span class="trellicons copy"></span>
                     <span>Copy</span>
                 </button>
-                <button class="btn" @click="isShowDelete=!isShowDelete">
+                <button class="btn" @click="isShowDelete = !isShowDelete">
                     <span class="trellicons archive"></span>
                     <span>Remove</span>
                 </button>

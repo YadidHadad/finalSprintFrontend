@@ -5,7 +5,7 @@
         </button>
         <div class="title">Unsplash</div>
         <div class="photos-container flex justify-between  wrap">
-            <img v-for="index in 12" :key="index" :src="imgUrls[index - 1]" @click="updateCover(imgUrls[index])">
+            <img v-for="index in 12" :key="index" :src="imgUrls[index]" @click="updateCover(imgUrls[index])">
         </div>
 
         <input type="text" placeholder="Search Photos..." @input="debounceHandler" v-model="searchTxt">
@@ -29,17 +29,24 @@ export default {
         this.debounceHandler()
     },
     methods: {
+
         getPhotos() {
-            console.log(this.searchTxt);
+            const key = 'unsplashDB'
+
+            if (!localStorage.getItem(key))
+                console.log(this.searchTxt);
             let apiUrl = `https://api.unsplash.com/search/photos?query=${this.searchTxt ? this.searchTxt : 'pretty'}&per_page=1200&client_id=${this.clientId}`
             axios(apiUrl).then(({ data }) => {
-                this.imgUrls = data.results.map(res => res.urls.full).slice(0, 10)
+                this.imgUrls = data.results.map(res => res.urls.full).slice(0, 12)
                 // console.log(this.imgUrls);
             })
         },
         updateCover(imgUrl) {
             this.$emit('updateTask', imgUrl)
-        }
+        },
+        closeEdit() {
+            this.$emit('closeEdit')
+        },
     },
     computed: {
 

@@ -8,7 +8,7 @@
 export default {
     props: {
         coverBcg: {
-            type: String,
+            type: Object,
             required: true
         }
     },

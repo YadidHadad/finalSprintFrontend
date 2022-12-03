@@ -209,7 +209,12 @@
                                     {
                                         "id": "212jX",
                                         "title": "To Do 1",
-                                        "isDone": false
+                                        "isDone": true
+                                    },
+                                    {
+                                        "id": "2D8pnF",
+                                        "title": "gdgd",
+                                        "isDone": true
                                     }
                                 ]
                             }
@@ -223,7 +228,7 @@
                             "l101",
                             "l102"
                         ],
-                        "dueDate": 1671044220000,
+                        "dueDate": 1671782400000,
                         "byMember": {
                             "_id": "u101",
                             "username": "Tal",
@@ -231,7 +236,7 @@
                             "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
                         },
                         "style": {
-                            "bgColor": "#26de81"
+                            "imgUrl": "https://images.unsplash.com/photo-1594315590298-329f49c8dcb9?crop=entropy&cs=tinysrgb&fm=jpg&ixid=MnwzODYyOTJ8MHwxfHNlYXJjaHwxNXx8c3VufGVufDB8fHx8MTY3MDEwMjYyMQ&ixlib=rb-4.0.3&q=80"
                         }
                     },
                     {
@@ -248,7 +253,10 @@
                             "2222as2222",
                             "33cc33333"
                         ],
-                        "dueDate": 1671735540000
+                        "dueDate": 1671735540000,
+                        "style": {
+                            "imgUrl": "https://images.unsplash.com/photo-1528183429752-a97d0bf99b5a?crop=entropy&cs=tinysrgb&fm=jpg&ixid=MnwzODYyOTJ8MHwxfHNlYXJjaHwzfHx0cmVlfGVufDB8fHx8MTY3MDEwMzUzNQ&ixlib=rb-4.0.3&q=80"
+                        }
                     }
                 ],
                 "style": {}
@@ -264,13 +272,14 @@
                         "title": "Do that",
                         "archivedAt": 1589983468418,
                         "style": {
-                            "imgUrl": "https://images.unsplash.com/photo-1601133971180-15e6dafc11e1?crop=entropy&cs=tinysrgb&fm=jpg&ixid=MnwzODYyOTJ8MHwxfHNlYXJjaHw1fHxwcmV0dHl8ZW58MHx8fHwxNjcwMDY0OTAx&ixlib=rb-4.0.3&q=80"
+                            "imgUrl": "https://images.unsplash.com/photo-1593555330172-1ac07da0e291?crop=entropy&cs=tinysrgb&fm=jpg&ixid=MnwzODYyOTJ8MHwxfHNlYXJjaHwyMnx8cHJldHR5fGVufDB8fHx8MTY3MDA2NDkwMQ&ixlib=rb-4.0.3&q=80"
                         },
                         "memberIds": [
                             "u106",
                             "u101",
                             "u102"
-                        ]
+                        ],
+                        "dueDate": 1671177600000
                     }
                 ]
             },
@@ -315,11 +324,748 @@
                                 ]
                             }
                         ]
+                    },
+                    {
+                        "id": "rUcDOy",
+                        "title": "Eat cakes!",
+                        "style": {
+                            "imgUrl": "https://images.unsplash.com/photo-1602351447937-745cb720612f?crop=entropy&cs=tinysrgb&fm=jpg&ixid=MnwzODYyOTJ8MHwxfHNlYXJjaHw4fHxjYWtlfGVufDB8fHx8MTY3MDEwMzU5NA&ixlib=rb-4.0.3&q=80"
+                        }
                     }
                 ]
+            },
+            {
+                "id": "6rKSFq",
+                "title": "gdfgd",
+                "groupsCopy": [],
+                "isDrag": false
             }
         ],
         "activities": [
+            {
+                "txt": "Updated  Eat cakes! cover",
+                "boardId": "b101",
+                "groupId": "CxyEGG",
+                "taskId": "rUcDOy",
+                "task": {
+                    "id": "rUcDOy",
+                    "title": "Eat cakes!"
+                },
+                "byMember": {
+                    "_id": "fsdfds",
+                    "fullname": "Puki Norma",
+                    "imgUrl": ""
+                },
+                "createdAt": 1670103601275,
+                "id": "3BVxgV"
+            },
+            {
+                "id": "aoDNCI",
+                "txt": "Add new task",
+                "byMember": {
+                    "_id": "fsdfds",
+                    "fullname": "Puki Norma",
+                    "imgUrl": ""
+                },
+                "task": {
+                    "id": "rUcDOy",
+                    "title": "Eat cakes!"
+                },
+                "createdAt": 1670103583882
+            },
+            {
+                "txt": "Updated  Add Samples cover",
+                "memberIds": [
+                    "u102",
+                    "u101",
+                    "u103",
+                    "u104"
+                ],
+                "boardId": "b101",
+                "groupId": "g101",
+                "taskId": "c102",
+                "task": {
+                    "id": "c102",
+                    "title": "Add Samples"
+                },
+                "byMember": {
+                    "_id": "fsdfds",
+                    "fullname": "Puki Norma",
+                    "imgUrl": ""
+                },
+                "createdAt": 1670103540682,
+                "id": "FtVFHe"
+            },
+            {
+                "id": "kqIGa0",
+                "txt": "Add new Group",
+                "byMember": {
+                    "_id": "fsdfds",
+                    "fullname": "Puki Norma",
+                    "imgUrl": ""
+                },
+                "createdAt": 1670103456667
+            },
+            {
+                "txt": "Edited checklist",
+                "memberIds": [
+                    "u108",
+                    "u107",
+                    "u106"
+                ],
+                "boardId": "b101",
+                "groupId": "g101",
+                "taskId": "dddgsgs",
+                "task": {
+                    "id": "dddgsgs",
+                    "title": "Make Trello Happen!"
+                },
+                "byMember": {
+                    "_id": "fsdfds",
+                    "fullname": "Puki Norma",
+                    "imgUrl": ""
+                },
+                "createdAt": 1670103165635,
+                "id": "xvzRSX"
+            },
+            {
+                "txt": "Edited checklist",
+                "memberIds": [
+                    "u108",
+                    "u107",
+                    "u106"
+                ],
+                "boardId": "b101",
+                "groupId": "g101",
+                "taskId": "dddgsgs",
+                "task": {
+                    "id": "dddgsgs",
+                    "title": "Make Trello Happen!"
+                },
+                "byMember": {
+                    "_id": "fsdfds",
+                    "fullname": "Puki Norma",
+                    "imgUrl": ""
+                },
+                "createdAt": 1670103164125,
+                "id": "EZtPJG"
+            },
+            {
+                "txt": "Edited checklist",
+                "memberIds": [
+                    "u108",
+                    "u107",
+                    "u106"
+                ],
+                "boardId": "b101",
+                "groupId": "g101",
+                "taskId": "dddgsgs",
+                "task": {
+                    "id": "dddgsgs",
+                    "title": "Make Trello Happen!"
+                },
+                "byMember": {
+                    "_id": "fsdfds",
+                    "fullname": "Puki Norma",
+                    "imgUrl": ""
+                },
+                "createdAt": 1670102835110,
+                "id": "SkOkad"
+            },
+            {
+                "txt": "Updated  Make Trello Happen! cover",
+                "memberIds": [
+                    "u108",
+                    "u107",
+                    "u106"
+                ],
+                "boardId": "b101",
+                "groupId": "g101",
+                "taskId": "dddgsgs",
+                "task": {
+                    "id": "dddgsgs",
+                    "title": "Make Trello Happen!"
+                },
+                "byMember": {
+                    "_id": "fsdfds",
+                    "fullname": "Puki Norma",
+                    "imgUrl": ""
+                },
+                "createdAt": 1670102631862,
+                "id": "PstMa0"
+            },
+            {
+                "txt": "Updated  Do that cover",
+                "memberIds": [
+                    "u106",
+                    "u101",
+                    "u102"
+                ],
+                "boardId": "b101",
+                "groupId": "W07Jdc",
+                "taskId": "c103",
+                "task": {
+                    "id": "c103",
+                    "title": "Do that"
+                },
+                "byMember": {
+                    "_id": "fsdfds",
+                    "fullname": "Puki Norma",
+                    "imgUrl": ""
+                },
+                "createdAt": 1670102425958,
+                "id": "FMRAok"
+            },
+            {
+                "txt": "Updated  Do that cover",
+                "memberIds": [
+                    "u106",
+                    "u101",
+                    "u102"
+                ],
+                "boardId": "b101",
+                "groupId": "W07Jdc",
+                "taskId": "c103",
+                "task": {
+                    "id": "c103",
+                    "title": "Do that"
+                },
+                "byMember": {
+                    "_id": "fsdfds",
+                    "fullname": "Puki Norma",
+                    "imgUrl": ""
+                },
+                "createdAt": 1670102416571,
+                "id": "iVNueA"
+            },
+            {
+                "txt": "Updated  Do that cover",
+                "memberIds": [
+                    "u106",
+                    "u101",
+                    "u102"
+                ],
+                "boardId": "b101",
+                "groupId": "W07Jdc",
+                "taskId": "c103",
+                "task": {
+                    "id": "c103",
+                    "title": "Do that"
+                },
+                "byMember": {
+                    "_id": "fsdfds",
+                    "fullname": "Puki Norma",
+                    "imgUrl": ""
+                },
+                "createdAt": 1670102412324,
+                "id": "cixR8b"
+            },
+            {
+                "txt": "Updated  Do that cover",
+                "memberIds": [
+                    "u106",
+                    "u101",
+                    "u102"
+                ],
+                "boardId": "b101",
+                "groupId": "W07Jdc",
+                "taskId": "c103",
+                "task": {
+                    "id": "c103",
+                    "title": "Do that"
+                },
+                "byMember": {
+                    "_id": "fsdfds",
+                    "fullname": "Puki Norma",
+                    "imgUrl": ""
+                },
+                "createdAt": 1670102332741,
+                "id": "Y2OZ2E"
+            },
+            {
+                "txt": "Updated  Do that cover",
+                "memberIds": [
+                    "u106",
+                    "u101",
+                    "u102"
+                ],
+                "boardId": "b101",
+                "groupId": "W07Jdc",
+                "taskId": "c103",
+                "task": {
+                    "id": "c103",
+                    "title": "Do that"
+                },
+                "byMember": {
+                    "_id": "fsdfds",
+                    "fullname": "Puki Norma",
+                    "imgUrl": ""
+                },
+                "createdAt": 1670102328515,
+                "id": "WpLEze"
+            },
+            {
+                "txt": "Updated  Do that cover",
+                "memberIds": [
+                    "u106",
+                    "u101",
+                    "u102"
+                ],
+                "boardId": "b101",
+                "groupId": "W07Jdc",
+                "taskId": "c103",
+                "task": {
+                    "id": "c103",
+                    "title": "Do that"
+                },
+                "byMember": {
+                    "_id": "fsdfds",
+                    "fullname": "Puki Norma",
+                    "imgUrl": ""
+                },
+                "createdAt": 1670102290110,
+                "id": "CTJJST"
+            },
+            {
+                "txt": "Updated  Do that cover",
+                "memberIds": [
+                    "u106",
+                    "u101",
+                    "u102"
+                ],
+                "boardId": "b101",
+                "groupId": "W07Jdc",
+                "taskId": "c103",
+                "task": {
+                    "id": "c103",
+                    "title": "Do that"
+                },
+                "byMember": {
+                    "_id": "fsdfds",
+                    "fullname": "Puki Norma",
+                    "imgUrl": ""
+                },
+                "createdAt": 1670102288477,
+                "id": "fd2KXu"
+            },
+            {
+                "txt": "Updated  Do that cover",
+                "memberIds": [
+                    "u106",
+                    "u101",
+                    "u102"
+                ],
+                "boardId": "b101",
+                "groupId": "W07Jdc",
+                "taskId": "c103",
+                "task": {
+                    "id": "c103",
+                    "title": "Do that"
+                },
+                "byMember": {
+                    "_id": "fsdfds",
+                    "fullname": "Puki Norma",
+                    "imgUrl": ""
+                },
+                "createdAt": 1670102285711,
+                "id": "NcP6wF"
+            },
+            {
+                "txt": "Edited due date",
+                "memberIds": [
+                    "u108",
+                    "u107",
+                    "u106"
+                ],
+                "boardId": "b101",
+                "groupId": "g101",
+                "taskId": "dddgsgs",
+                "task": {
+                    "id": "dddgsgs",
+                    "title": "Make Trello Happen!"
+                },
+                "byMember": {
+                    "_id": "fsdfds",
+                    "fullname": "Puki Norma",
+                    "imgUrl": ""
+                },
+                "createdAt": 1670101097779,
+                "id": "MySslB"
+            },
+            {
+                "txt": "Edited due date",
+                "memberIds": [
+                    "u106",
+                    "u101",
+                    "u102"
+                ],
+                "boardId": "b101",
+                "groupId": "W07Jdc",
+                "taskId": "c103",
+                "task": {
+                    "id": "c103",
+                    "title": "Do that"
+                },
+                "byMember": {
+                    "_id": "fsdfds",
+                    "fullname": "Puki Norma",
+                    "imgUrl": ""
+                },
+                "createdAt": 1670101071283,
+                "id": "tZqqer"
+            },
+            {
+                "txt": "Edited due date",
+                "memberIds": [
+                    "u106",
+                    "u101",
+                    "u102"
+                ],
+                "boardId": "b101",
+                "groupId": "W07Jdc",
+                "taskId": "c103",
+                "task": {
+                    "id": "c103",
+                    "title": "Do that"
+                },
+                "byMember": {
+                    "_id": "fsdfds",
+                    "fullname": "Puki Norma",
+                    "imgUrl": ""
+                },
+                "createdAt": 1670100516051,
+                "id": "gyfEmJ"
+            },
+            {
+                "txt": "Edited due date",
+                "memberIds": [
+                    "u106",
+                    "u101",
+                    "u102"
+                ],
+                "boardId": "b101",
+                "groupId": "W07Jdc",
+                "taskId": "c103",
+                "task": {
+                    "id": "c103",
+                    "title": "Do that"
+                },
+                "byMember": {
+                    "_id": "fsdfds",
+                    "fullname": "Puki Norma",
+                    "imgUrl": ""
+                },
+                "createdAt": 1670100449619,
+                "id": "WgaTV7"
+            },
+            {
+                "txt": "Edited due date",
+                "memberIds": [
+                    "u106",
+                    "u101",
+                    "u102"
+                ],
+                "boardId": "b101",
+                "groupId": "W07Jdc",
+                "taskId": "c103",
+                "task": {
+                    "id": "c103",
+                    "title": "Do that"
+                },
+                "byMember": {
+                    "_id": "fsdfds",
+                    "fullname": "Puki Norma",
+                    "imgUrl": ""
+                },
+                "createdAt": 1670100440402,
+                "id": "loarvn"
+            },
+            {
+                "txt": "Edited due date",
+                "memberIds": [
+                    "u106",
+                    "u101",
+                    "u102"
+                ],
+                "boardId": "b101",
+                "groupId": "W07Jdc",
+                "taskId": "c103",
+                "task": {
+                    "id": "c103",
+                    "title": "Do that"
+                },
+                "byMember": {
+                    "_id": "fsdfds",
+                    "fullname": "Puki Norma",
+                    "imgUrl": ""
+                },
+                "createdAt": 1670100435036,
+                "id": "HALluZ"
+            },
+            {
+                "txt": "Edited due date",
+                "memberIds": [
+                    "u106",
+                    "u101",
+                    "u102"
+                ],
+                "boardId": "b101",
+                "groupId": "W07Jdc",
+                "taskId": "c103",
+                "task": {
+                    "id": "c103",
+                    "title": "Do that"
+                },
+                "byMember": {
+                    "_id": "fsdfds",
+                    "fullname": "Puki Norma",
+                    "imgUrl": ""
+                },
+                "createdAt": 1670100388222,
+                "id": "2LXNlH"
+            },
+            {
+                "txt": "Edited due date",
+                "memberIds": [
+                    "u106",
+                    "u101",
+                    "u102"
+                ],
+                "boardId": "b101",
+                "groupId": "W07Jdc",
+                "taskId": "c103",
+                "task": {
+                    "id": "c103",
+                    "title": "Do that"
+                },
+                "byMember": {
+                    "_id": "fsdfds",
+                    "fullname": "Puki Norma",
+                    "imgUrl": ""
+                },
+                "createdAt": 1670100252436,
+                "id": "RQXiIi"
+            },
+            {
+                "txt": "Edited due date",
+                "memberIds": [
+                    "u106",
+                    "u101",
+                    "u102"
+                ],
+                "boardId": "b101",
+                "groupId": "W07Jdc",
+                "taskId": "c103",
+                "task": {
+                    "id": "c103",
+                    "title": "Do that"
+                },
+                "byMember": {
+                    "_id": "fsdfds",
+                    "fullname": "Puki Norma",
+                    "imgUrl": ""
+                },
+                "createdAt": 1670100245780,
+                "id": "VoDU6K"
+            },
+            {
+                "txt": "Edited due date",
+                "memberIds": [
+                    "u106",
+                    "u101",
+                    "u102"
+                ],
+                "boardId": "b101",
+                "groupId": "W07Jdc",
+                "taskId": "c103",
+                "task": {
+                    "id": "c103",
+                    "title": "Do that"
+                },
+                "byMember": {
+                    "_id": "fsdfds",
+                    "fullname": "Puki Norma",
+                    "imgUrl": ""
+                },
+                "createdAt": 1670100032101,
+                "id": "oNbI6C"
+            },
+            {
+                "txt": "Edited due date",
+                "memberIds": [
+                    "u106",
+                    "u101",
+                    "u102"
+                ],
+                "boardId": "b101",
+                "groupId": "W07Jdc",
+                "taskId": "c103",
+                "task": {
+                    "id": "c103",
+                    "title": "Do that"
+                },
+                "byMember": {
+                    "_id": "fsdfds",
+                    "fullname": "Puki Norma",
+                    "imgUrl": ""
+                },
+                "createdAt": 1670100011908,
+                "id": "FrliLy"
+            },
+            {
+                "txt": "Edited due date",
+                "memberIds": [
+                    "u106",
+                    "u101",
+                    "u102"
+                ],
+                "boardId": "b101",
+                "groupId": "W07Jdc",
+                "taskId": "c103",
+                "task": {
+                    "id": "c103",
+                    "title": "Do that"
+                },
+                "byMember": {
+                    "_id": "fsdfds",
+                    "fullname": "Puki Norma",
+                    "imgUrl": ""
+                },
+                "createdAt": 1670100002940,
+                "id": "FJ2UZo"
+            },
+            {
+                "txt": "Edited due date",
+                "memberIds": [
+                    "u106",
+                    "u101",
+                    "u102"
+                ],
+                "boardId": "b101",
+                "groupId": "W07Jdc",
+                "taskId": "c103",
+                "task": {
+                    "id": "c103",
+                    "title": "Do that"
+                },
+                "byMember": {
+                    "_id": "fsdfds",
+                    "fullname": "Puki Norma",
+                    "imgUrl": ""
+                },
+                "createdAt": 1670099985676,
+                "id": "Sm7DJ5"
+            },
+            {
+                "txt": "Edited due date",
+                "memberIds": [
+                    "u106",
+                    "u101",
+                    "u102"
+                ],
+                "boardId": "b101",
+                "groupId": "W07Jdc",
+                "taskId": "c103",
+                "task": {
+                    "id": "c103",
+                    "title": "Do that"
+                },
+                "byMember": {
+                    "_id": "fsdfds",
+                    "fullname": "Puki Norma",
+                    "imgUrl": ""
+                },
+                "createdAt": 1670099981883,
+                "id": "ieYTCp"
+            },
+            {
+                "txt": "Edited due date",
+                "memberIds": [
+                    "u106",
+                    "u101",
+                    "u102"
+                ],
+                "boardId": "b101",
+                "groupId": "W07Jdc",
+                "taskId": "c103",
+                "task": {
+                    "id": "c103",
+                    "title": "Do that"
+                },
+                "byMember": {
+                    "_id": "fsdfds",
+                    "fullname": "Puki Norma",
+                    "imgUrl": ""
+                },
+                "createdAt": 1670099975468,
+                "id": "kci9xU"
+            },
+            {
+                "txt": "Edited due date",
+                "memberIds": [
+                    "u106",
+                    "u101",
+                    "u102"
+                ],
+                "boardId": "b101",
+                "groupId": "W07Jdc",
+                "taskId": "c103",
+                "task": {
+                    "id": "c103",
+                    "title": "Do that"
+                },
+                "byMember": {
+                    "_id": "fsdfds",
+                    "fullname": "Puki Norma",
+                    "imgUrl": ""
+                },
+                "createdAt": 1670099972918,
+                "id": "IJTPot"
+            },
+            {
+                "txt": "Edited due date",
+                "memberIds": [
+                    "u106",
+                    "u101",
+                    "u102"
+                ],
+                "boardId": "b101",
+                "groupId": "W07Jdc",
+                "taskId": "c103",
+                "task": {
+                    "id": "c103",
+                    "title": "Do that"
+                },
+                "byMember": {
+                    "_id": "fsdfds",
+                    "fullname": "Puki Norma",
+                    "imgUrl": ""
+                },
+                "createdAt": 1670099953342,
+                "id": "kmYotw"
+            },
+            {
+                "txt": "Edited due date",
+                "memberIds": [
+                    "u106",
+                    "u101",
+                    "u102"
+                ],
+                "boardId": "b101",
+                "groupId": "W07Jdc",
+                "taskId": "c103",
+                "task": {
+                    "id": "c103",
+                    "title": "Do that"
+                },
+                "byMember": {
+                    "_id": "fsdfds",
+                    "fullname": "Puki Norma",
+                    "imgUrl": ""
+                },
+                "createdAt": 1670099909654,
+                "id": "2vwrOX"
+            },
             {
                 "txt": "added Monica Lewinski to Do that",
                 "memberIds": [
