@@ -2,7 +2,6 @@
     <section class="checklist-preview">
         <div v-for="(checklist, index) in checklists" class="checklist-container">
             <div class="flex align-center justify-between">
-                <!-- <div class="flex align-center"> -->
                 <span class="trellicons checklist-icon large"></span>
                 <div v-if="checklistPicked !== checklists[index].id" class="task-cmp-title grow"
                     @click="pickChecklist(checklist)">
@@ -12,11 +11,10 @@
                     @input="editChecklistTitle(checklist, $event)" @focus="pickChecklist(checklist)"
                     :value="checklist.title">
                     </textarea>
-                <!-- </div> -->
-                <button v-if="!editedChecklist" class="btn-delete"
-                    @click.stop="removeChecklist(checklist.id)">Delete</button>
+                <button v-if="!editedChecklist" class="btn-delete "
+                    @click.stop="removeChecklist(checklist.id)">Remove</button>
             </div>
-            <div class="title-btns" v-if="checklistPicked === checklists[index].id">
+            <div class="title-btns pad-40" v-if="checklistPicked === checklists[index].id">
                 <button class="save-btn" @click="save">Save</button>
                 <button class="close-btn" @click="close">Cancel</button>
             </div>
@@ -27,8 +25,11 @@
                     <div class="todo-container flex row w-100" v-for="(todo, index) in checklist.todos">
                         <input type="checkbox" v-model="doneTodosIds" @change="toggleTodo" :value="todo.id">
                         <div class="grow" :class="{ 'line-through': todo.isDone }">{{ todo.title }}</div>
-                        <span class="fa-solid elipsis-icon" @click="isOpenOptions = !isOpenOptions"></span>
-                        <span v-if="isOpenOptions" @click="removeTodo(index, checklist)">Delete</span>
+                        <button v-if="isOpenOptions" class="btn-delete"
+                            @click="removeTodo(index, checklist)">Remove</button>
+                        <button class="btn-delete" @click="isOpenOptions = !isOpenOptions">
+                            <span class=" fa-solid elipsis-icon">
+                            </span></button>
                     </div>
                 </form>
                 <button class="add-todo-btn" v-if="!isTodoPicked" @click="isTodoPicked = true">Add an item</button>

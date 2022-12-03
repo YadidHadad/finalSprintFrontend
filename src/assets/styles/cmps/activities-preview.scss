@@ -1,4 +1,4 @@
-.task-activities {
+.activities-preview {
     font-size: 0.8rem;
     span:first-of-type:not(.fullname) {
         margin-inline-end: 1rem;
@@ -7,17 +7,11 @@
     .title {
         font-weight: bold;
         text-align: center;
-
-        .btn {
-            padding: 0;
-            color: $clr9;
-
-            span {
-                margin: 0;
-            }
-        }
     }
 
+    .btn {
+        @include btn-add-save($type: "cancel");
+    }
     .activity {
         width: 100%;
         padding-block: 0.3rem;

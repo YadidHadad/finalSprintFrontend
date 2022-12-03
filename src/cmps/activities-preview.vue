@@ -1,9 +1,10 @@
 <template>
-    <section class="task-activities task-cmp flex column ">
+    <section class="activities-preview task-cmp flex column ">
         <div class="flex row w-100 align-center ">
             <span class="trellicons activity-icon large "></span>
             <div class="task-cmp-title grow">Activities</div>
-            <button class="btn" @click="isActShown = !isActShown">Show details</button>
+            <button class="btn" @click="isActShown = !isActShown">{{ isActShown ? 'Hide details' : 'Show details'
+            }}</button>
         </div>
         <div v-if="isActShown" v-for="activity in activities" class="activity flex row align-start grow">
             <div class="activity-user flex row align-center">
