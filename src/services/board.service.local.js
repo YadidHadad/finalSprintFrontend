@@ -110,7 +110,7 @@ function getEmptyBoard(
     title = '',
     isStarred = false,
     createdBy = {},
-    style = {},
+    style = {backgroundImage: "src/assets/img/bgc-img-1.jpg"},
     groups = [],
     members = [],
     activities = []) {
