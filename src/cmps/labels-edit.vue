@@ -11,7 +11,8 @@
                 <li v-for="(label, index) in labels" :key="label.id" class="flex row align-center">
                     <input class="check-box" type="checkbox" @change="updateLabels()" v-model="labelIds"
                         :value="label.id">
-                    <div class="label-color grow" :style="{ backgroundColor: label.color }">{{ label.title }}
+                    <div class="label-color grow" :style="{ backgroundColor: label.color }"
+                        @click="updateLabels(label.id)">{{ label.title }}
                     </div>
                     <span class="fa-regular pen-icon" @click.stop="editTitle(label.color)"></span>
                 </li>
@@ -43,13 +44,19 @@ export default {
         this.colorsSelected = this.labels.map(label => label.color)
         if (this.$store.getters.getEditedTask?.labelIds)
             this.labelIds = [...this.$store.getters.getEditedTask.labelIds]
+
     },
     methods: {
         closeEdit() {
             this.$emit('closeEdit')
         },
-        updateLabels() {
-            this.$emit('updateTask', { labelIds: this.labelIds })
+        updateLabels(labelId = '') {
+            if (labelId) {
+                const lblIdx = this.labelIds.findIndex(currLblId => currLblId === labelId)
+                lblIdx === -1 ? this.labelIds.push(labelId) : this.labelIds.splice(lblIdx, 1)
+            }
+            this.$emit('updateTask', { labelIds: [...this.labelIds] })
+            console.log(this.labelIds);
         },
         editTitle(color) {
             this.isEditTitle = true
