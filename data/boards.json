@@ -26,23 +26,28 @@
         "members": [
             {
                 "_id": "u101",
-                "fullname": "Tal Tarablus",
+                "fullname": "Rachel Greem",
                 "imgUrl": "src/assets/img/user1.jpg"
             },
             {
                 "_id": "u102",
-                "fullname": "Tal Tarablus",
+                "fullname": "Monica Lewinski",
                 "imgUrl": "src/assets/img/user2.jpg"
             },
             {
                 "_id": "u103",
-                "fullname": "Tal Tarablus",
+                "fullname": "Phoebe Bouffe",
                 "imgUrl": "src/assets/img/user3.jpg"
             },
             {
                 "_id": "u104",
-                "fullname": "Tal Tarablus",
+                "fullname": "Chandler Bing",
                 "imgUrl": "src/assets/img/user4.jpg"
+            },
+            {
+                "_id": "u105",
+                "fullname": "Yaron Cohen",
+                "imgUrl": ""
             }
         ],
         "groups": [
@@ -80,7 +85,10 @@
                             }
                         ],
                         "memberIds": [
-                            "u101"
+                            "u101",
+                            "u102",
+                            "u103",
+                            "u105"
                         ],
                         "labelIds": [
                             "l101",
@@ -165,6 +173,119 @@
             }
         ],
         "activities": [
+            {
+                "txt": "removed Chandler Bing from Help me",
+                "memberIds": [
+                    "u101",
+                    "u102",
+                    "u103",
+                    "u105"
+                ],
+                "boardId": "b101",
+                "groupId": "g101",
+                "taskId": "dddgsgs",
+                "task": {
+                    "id": "dddgsgs",
+                    "title": "Help me"
+                },
+                "byMember": {
+                    "_id": "fsdfds",
+                    "fullname": "Puki Norma",
+                    "imgUrl": ""
+                },
+                "createdAt": 1670062540721,
+                "id": "8E2Xu6"
+            },
+            {
+                "txt": "added Chandler Bing to Help me",
+                "memberIds": [
+                    "u101",
+                    "u102",
+                    "u103",
+                    "u105",
+                    "u104"
+                ],
+                "boardId": "b101",
+                "groupId": "g101",
+                "taskId": "dddgsgs",
+                "task": {
+                    "id": "dddgsgs",
+                    "title": "Help me"
+                },
+                "byMember": {
+                    "_id": "fsdfds",
+                    "fullname": "Puki Norma",
+                    "imgUrl": ""
+                },
+                "createdAt": 1670062539474,
+                "id": "l0dgEW"
+            },
+            {
+                "txt": "added Yaron Cohen to Help me",
+                "memberIds": [
+                    "u101",
+                    "u102",
+                    "u103",
+                    "u105"
+                ],
+                "boardId": "b101",
+                "groupId": "g101",
+                "taskId": "dddgsgs",
+                "task": {
+                    "id": "dddgsgs",
+                    "title": "Help me"
+                },
+                "byMember": {
+                    "_id": "fsdfds",
+                    "fullname": "Puki Norma",
+                    "imgUrl": ""
+                },
+                "createdAt": 1670062451344,
+                "id": "u9L2Nk"
+            },
+            {
+                "txt": "added Phoebe Bouffe to Help me",
+                "memberIds": [
+                    "u101",
+                    "u102",
+                    "u103"
+                ],
+                "boardId": "b101",
+                "groupId": "g101",
+                "taskId": "dddgsgs",
+                "task": {
+                    "id": "dddgsgs",
+                    "title": "Help me"
+                },
+                "byMember": {
+                    "_id": "fsdfds",
+                    "fullname": "Puki Norma",
+                    "imgUrl": ""
+                },
+                "createdAt": 1670062450544,
+                "id": "Ghr17m"
+            },
+            {
+                "txt": "added Monica Lewinski to Help me",
+                "memberIds": [
+                    "u101",
+                    "u102"
+                ],
+                "boardId": "b101",
+                "groupId": "g101",
+                "taskId": "dddgsgs",
+                "task": {
+                    "id": "dddgsgs",
+                    "title": "Help me"
+                },
+                "byMember": {
+                    "_id": "fsdfds",
+                    "fullname": "Puki Norma",
+                    "imgUrl": ""
+                },
+                "createdAt": 1670062449866,
+                "id": "PpiSfy"
+            },
             {
                 "id": "a101",
                 "txt": "Changed Color",

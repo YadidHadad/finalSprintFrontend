@@ -17,38 +17,49 @@
             </div>
         </section>
 
-        <section class="task-details-aside flex column">
-            <button class="btn" @click="pickEditor('members-edit')">
-                <span class="trellicons members-icon"></span>
-                <span>Members</span>
-            </button>
-            <button class="btn" @click="pickEditor('labels-edit')">
-                <span class="trellicons labels-icon"></span>
-                <span>Labels</span>
-            </button>
-            <button class="btn" @click="pickEditor('checklist-edit')">
-                <span class="trellicons checklist-icon"></span>
-                <span>Checklist</span>
-            </button>
-            <button class="btn" @click="pickEditor('dates-edit')">
-                <span class="fa-regular date-icon"></span>
-                <span>Dates</span>
-            </button>
-            <button class="btn">
-                <span class="trellicons location-icon"></span>
-                <span>Location</span>
-            </button>
-            <button class="btn">
-                <span class="trellicons cover-icon"></span>
-                <span>Cover</span>
-            </button>
-            <button class="btn" @click="pickEditor('copy-task-edit')">
-                <span class="trellicons copy"></span>
-                <span>Copy</span>
-            </button>
-            <button class="btn" @click="removeTask">
-                <span>Delete</span>
-            </button>
+        <section class="task-details-aside ">
+            <section class="flex column">
+                <h4>Add to card</h4>
+                <button class="btn" @click="pickEditor('members-edit')">
+                    <span class="trellicons members-icon"></span>
+                    <span>Members</span>
+                </button>
+                <button class="btn" @click="pickEditor('labels-edit')">
+                    <span class="trellicons labels-icon"></span>
+                    <span>Labels</span>
+                </button>
+                <button class="btn" @click="pickEditor('checklist-edit')">
+                    <span class="trellicons checklist-icon"></span>
+                    <span>Checklist</span>
+                </button>
+                <button class="btn" @click="pickEditor('dates-edit')">
+                    <span class="fa-regular date-icon"></span>
+                    <span>Dates</span>
+                </button>
+                <button class="btn">
+                    <span class="trellicons location-icon"></span>
+                    <span>Location</span>
+                </button>
+                <button class="btn">
+                    <span class="trellicons cover-icon"></span>
+                    <span>Cover</span>
+                </button>
+            </section>
+            <section class="btns-actions flex column">
+                <h4>Actions</h4>
+                <button class="btn" @click="pickEditor('copy-task-edit')">
+                    <span class="trellicons move"></span>
+                    <span>Move</span>
+                </button>
+                <button class="btn" @click="pickEditor('copy-task-edit')">
+                    <span class="trellicons copy"></span>
+                    <span>Copy</span>
+                </button>
+                <button class="btn" @click="removeTask">
+                    <span class="trellicons archive"></span>
+                    <span>Remove</span>
+                </button>
+            </section>
         </section>
         <!-- @updateChecklists="updateTask('checklist-preview', $event)" /> -->
         <section class="task-main">
