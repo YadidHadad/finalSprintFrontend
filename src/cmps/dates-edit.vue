@@ -1,8 +1,8 @@
 <template>
-    <section class="dates-edit">
+    <section class="task-editor dates-edit">
         <form @submit.prevent="addDate">
             <div class="dates-picker">
-                <input type="date" v-model="dateStr" @input="convertDate">
+                <input type="date" v-model="dateStr" @input="convertDate" data-date-inline-picker="true">
 
                 <input type="time" v-model="timeStr" @input="convertTime">
             </div>
@@ -27,7 +27,7 @@ export default {
     },
     methods: {
         addDate(ev) {
-            if(this.getTimeInMs)
+            if (this.getTimeInMs)
                 this.$emit('updateTask', this.getTimeInMs)
         },
         convertDate() {
