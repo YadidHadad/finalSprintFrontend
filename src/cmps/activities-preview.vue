@@ -49,7 +49,7 @@ export default {
     computed: {
         activities() {
             const activities = this.$store.getters.activities
-            console.log(activities);
+            // console.log(activities);
 
             return activities.filter(activity => {
                 // console.log('****************', activity)

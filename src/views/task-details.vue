@@ -52,18 +52,22 @@
         </section>
         <!-- @updateChecklists="updateTask('checklist-preview', $event)" /> -->
         <section class="task-main">
-            <labels-preview />
             <dates-preview />
+            <section class="task-tags flex row pad-40">
+                <members-preview v-if="task.memberIds" :memberIds="task.memberIds"
+                    @openMembersEditor="openMembersEditor" />
+                <labels-preview v-if="task.labelIds" />
+            </section>
             <description-preview :description="task.description"
                 @updateDescription="updateTask('description', $event)" />
-            <checklists-preview :checklists="task.checklists"
+            <checklists-preview v-if="task.checklists" :checklists="task.checklists"
                 @updateChecklists="debounceHandler('checklist-preview', $event)" />
             <activities-preview :taskId="task.id" />
         </section>
 
         <component :is="pickedEditor.editorType" @closeEdit="closeEditor" v-click-outside="closeEditor"
             @updateTask="updateTask(pickedEditor.editorType, $event)" @addChecklist="addChecklist"
-            @updateLabel="updateLabel" @updateMembers="updateMembers" @copyTask="copyTask">
+            @updateLabel="updateLabel" @updateMembers="updateTask" @copyTask="copyTask">
             <h2>HI</h2>
         </component>
     </section>
@@ -76,6 +80,7 @@ import checklistEdit from "../cmps/checklist-edit.vue";
 import membersEdit from "../cmps/members-edit.vue";
 import checklistsPreview from "../cmps/checklists-preview.vue";
 import activitiesPreview from "../cmps/activities-preview.vue";
+import membersPreview from "../cmps/members-preview.vue";
 import descriptionPreview from "../cmps/description-preview.vue";
 import copyTaskEdit from "../cmps/copy-task-edit.vue";
 import datesEdit from "../cmps/dates-edit.vue";
@@ -93,6 +98,7 @@ export default {
         membersEdit,
         checklistsPreview,
         activitiesPreview,
+        membersPreview,
         descriptionPreview,
         copyTaskEdit,
         datesEdit,
@@ -316,6 +322,10 @@ export default {
             })
             this.closeEditor();
         },
+        openMembersEditor() {
+            this.pickEditor('members-edit')
+
+        }
     },
     computed: {
         getLabels() {

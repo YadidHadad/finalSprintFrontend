@@ -1,21 +1,27 @@
 <template>
     <section v-if="boardMembers" class="task-editor flex column">
-        <span class=" title">Members</span>
-        <input type="search" placeholder="Search members" />
+        <div class="title flex justify-between">
+            <span></span>
+            <span>Members</span>
+            <span class="trellicons x-icon" @click.stop="closeEdit"></span>
+        </div>
+        <input type="search" placeholder="Search members" v-model="filterByName" @input="debounceHandler" />
         <span class="mini-title">Board members</span>
         <section class="members-container">
-            <div v-for="member in boardMembers" class="member ">
-                <div class="member-user flex row align-center " @click.stop="toggleMember(member)">
-                    <div class="flex align-center  grow ">
-                        <span class="btn member-image " :style="memberImage(member.imgUrl)">
-                        </span>
-                        <span class="fullname ">{{ member.fullname + " " }}</span>
+            <div v-for="member in boardMembers" class="member">
+                <div class="member-user flex row align-center" @click.stop="toggleMember(member)">
+                    <div class="flex align-center grow">
+                        <span class=" member-image" :style="memberImage(member.imgUrl)"> </span>
+                        <span class="fullname">{{ member.fullname + " " }}</span>
                     </div>
                     <div v-if="isMemberInTask(member._id)">
-                        <div class="trellicons tick-icon "></div>
+                        <div class="trellicons tick-icon"></div>
                     </div>
                 </div>
             </div>
+        </section>
+        <section v-if="noSearchResults" class="no-results">
+            <span>No results</span>
         </section>
     </section>
 </template>
@@ -26,11 +32,18 @@ export default {
     name: "members-edit",
     props: [],
     components: {},
-    created() { },
+    created() {
+
+        this.boardMembers = this.$store.getters.members
+        this.debounceHandler = utilService.debounce(this.getBoardMembers, 500)
+
+        console.log(this.boardMembers)
+    },
     data() {
         return {
-            boardMembers: this.$store.getters.members.slice() || null,
-            taskMembersIds: this.$store.getters.getEditedTask.memberIds.slice() || null,
+            boardMembers: null,
+            taskMembersIds: this.$store.getters.getEditedTask.memberIds,
+            filterByName: '',
         };
     },
     methods: {
@@ -60,18 +73,32 @@ export default {
         isMemberInTask(memberId) {
             if (!this.taskMembersIds) return
             return this.taskMembersIds.includes(memberId)
-        }
+        },
+        getBoardMembers() {
+            console.log('members')
+            const boardMembers = JSON.parse(JSON.stringify(this.$store.getters.members))
+
+            const regex = new RegExp(this.filterByName, 'i');
+
+            this.boardMembers = boardMembers.filter(member => regex.test(member.fullname))
+
+        },
+        closeEdit() {
+            this.$emit('closeEdit')
+        },
+
 
     },
     computed: {
-        getBoardMembers() {
-            this.boardMembers = JSON.parse(JSON.stringify(this.$store.getters.members));
+
+        getTaskMembersIds() {
+            this.taskMembersIds = JSON.parse(JSON.stringify(this.$store.getters.getEditedTask.memberIds || []));
 
         },
-        getTaskMembersIds() {
-            this.taskMembersIds = JSON.parse(JSON.stringify(this.$store.getters.getEditedTask.memberIds));
+        noSearchResults() {
+            return !this.boardMembers.length
 
-        }
+        },
 
 
     },
