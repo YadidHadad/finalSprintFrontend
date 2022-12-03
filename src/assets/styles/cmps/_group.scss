@@ -1,6 +1,5 @@
 .group {
     background-color: $clr12;
-    overflow-y: auto;
     border-radius: 3px;
     min-width: 272px;
     max-width: 273px;
@@ -9,6 +8,7 @@
     font-size: rem(14px) !important;
     padding: rem(8px);
     gap: rem(8px);
+    
 
     h3 {
         font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
@@ -18,6 +18,15 @@
     }
 
     .main-title {
+        input {
+            height: 30px;
+            font-size: 14px;
+            font-weight: bold;
+            border: none;
+            background-color: transparent;
+            width: 100%;
+            padding: 0;
+        }
         button {
             padding-right: rem(7px);
         }
@@ -31,11 +40,13 @@
         gap: rem(8px);
         display: flex;
         flex-direction: column;
-        min-height: 5px;
+        height: fit-content;
+      
     }
 
     .smooth-dnd-draggable-wrapper {
         .group {
+
             min-height: 5px;
         }
 
@@ -81,6 +92,7 @@ button.add-card-btn {
     .plus-icon {
         font-size: rem(14px);
     }
+
 }
 
 .group-menu {
@@ -98,10 +110,12 @@ button.add-card-btn {
     box-shadow: -10px 1px 20px 10px rgb(0 0 0 / 10%);
     transition: all 0.3s ease-out;
 
+
     section:not(.menu-container) {
         box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.1);
         padding: 0.5rem;
     }
+
 
     .btn {
         @include btn("board-nav");
@@ -115,6 +129,7 @@ button.add-card-btn {
     .title {
         color: $clr9;
 
+
         span:first-of-type {
             text-align: center;
             font-weight: 200;
@@ -123,6 +138,8 @@ button.add-card-btn {
         .main-title {
             flex-grow: 5;
             font-size: rem(14px) !important;
+
+
         }
 
         .remove {
@@ -166,4 +183,7 @@ button.add-card-btn {
             }
         }
     }
+
+
+
 }
