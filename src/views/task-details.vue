@@ -53,6 +53,7 @@
         <!-- @updateChecklists="updateTask('checklist-preview', $event)" /> -->
         <section class="task-main">
             <labels-preview />
+            <dates-preview />
             <description-preview :description="task.description"
                 @updateDescription="updateTask('description', $event)" />
             <checklists-preview :checklists="task.checklists"
@@ -78,6 +79,7 @@ import activitiesPreview from "../cmps/activities-preview.vue";
 import descriptionPreview from "../cmps/description-preview.vue";
 import copyTaskEdit from "../cmps/copy-task-edit.vue";
 import datesEdit from "../cmps/dates-edit.vue";
+import datesPreview from "../cmps/dates-preview.vue";
 
 import { utilService } from "../services/util.service";
 
@@ -93,7 +95,8 @@ export default {
         activitiesPreview,
         descriptionPreview,
         copyTaskEdit,
-        datesEdit
+        datesEdit,
+        datesPreview
     },
 
     data() {
@@ -250,6 +253,10 @@ export default {
                 case "checklist-preview":
                     txt = "Edited checklist";
                     taskToUpdate.checklists = data
+                    break
+                case "dates-edit":
+                    txt = "Edited due date";
+                    taskToUpdate.dueDate = data
                     break
             }
             try {
