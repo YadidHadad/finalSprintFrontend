@@ -1,17 +1,17 @@
 .copy-task-edit {
-    right: 0px;
-    top: 40%;
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    background-color: $clr1;
-    width: 300px;
-    box-shadow: 0px 0px 1px;
-    gap: 10px;
+    // right: 0px;
+    // top: 40%;
+    // display: flex;
+    // flex-direction: column;
+    // position: absolute;
+    // background-color: $clr1;
+    // width: 300px;
+    // box-shadow: 0px 0px 1px;
+    // gap: 10px;
 
     .copy-edit-header {
-        display: grid;
-        grid-template-columns: 1fr auto;
+        // display: grid;
+        // grid-template-columns: 1fr auto;
         // align-items: center;
         margin: 0 12px;
         padding: 10px 12px;
@@ -29,22 +29,22 @@
     }
 
     textarea {
-        box-shadow: inset 0 0 0 2px var(--ds-border-input, #dfe1e6);
-        border: none;
-        border-radius: 4px;
-        padding: 8px 12px;
-        background-color: #ffffff;
+        // box-shadow: inset 0 0 0 2px var(--ds-border-input, #dfe1e6);
+        // border: none;
+        // border-radius: 4px;
+        // padding: 8px 12px;
+        // background-color: #ffffff;
 
-        &:hover {
-            cursor: auto;
-            filter: brightness(95%);
-        }
+        // &:hover {
+        //     cursor: auto;
+        //     filter: brightness(95%);
+        // }
     }
 
     .copy-edit-main {
         display: flex;
         flex-direction: column;
-        margin-inline-start: 12px;
+        // margin-inline-start: 12px;
     }
 
     label {
@@ -54,15 +54,23 @@
         margin: 4px 0;
     }
 
-    button {
-        align-self: flex-start;
-        padding: 0;
-        margin-top: 20px;
-        font-size: 1rem;
-        background-color: #0079bf;
-        color: $clr1;
-        padding: 6px 24px;
-        border-radius: 3px;
-        margin: 0 12px 12px 12px;
+    form {
+        margin: 0;
     }
+
+    .btn-add {
+        @include btn-add-save($type: "save");
+        width: 100%;
+    }
+    // button {
+    //     align-self: flex-start;
+    //     padding: 0;
+    //     margin-top: 20px;
+    //     font-size: 1rem;
+    //     background-color: #0079bf;
+    //     color: $clr1;
+    //     padding: 6px 24px;
+    //     border-radius: 3px;
+    //     margin: 0 12px 12px 12px;
+    // }
 }

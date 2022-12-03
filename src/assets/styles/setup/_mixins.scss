@@ -139,7 +139,7 @@
   font-size: 0.8rem;
   padding: 6px 12px;
   border-radius: 3px;
-  // margin-block-end: 1rem;
+  margin-block: 0.5rem;
 
   @if $type == "save" {
     background-color: #0079bf;
@@ -171,3 +171,4 @@
     font-variation-settings: "wght" 200;
   }
 }
+

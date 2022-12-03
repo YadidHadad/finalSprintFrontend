@@ -1,9 +1,9 @@
 <template>
-    <section v-if="task" class="copy-task-edit">
-        <div class="copy-edit-header">
-            <div>Copy card</div>
-            <button @click.stop="closeEdit" class="trellicons x-icon"></button>
-        </div>
+    <section v-if="task" class="copy-task-edit task-editor" @click.stop="">
+        <button class="btn-close" @click.stop="closeEdit">
+            <span class="trellicons x-icon"></span>
+        </button>
+        <div class="title">Copy task</div>
 
         <form class="copy-edit-main">
             <label for="copy-input">Title</label>
@@ -13,15 +13,15 @@
                 <option v-for="board in getBoards" :value="board._id">{{ board.title }}</option>
             </select>
 
-            {{toBoardId}}
+            {{ toBoardId }}
 
             <select class="group-select" v-model="toGroupId" @change="setGroup">
                 <option v-for="group in board.groups" :value="group.id">{{ group.title }}
                 </option>
             </select>
 
-            {{toGroupId}}
-            <button @click="copyTask">Create card</button>
+            {{ toGroupId }}
+            <button class="btn-add" @click="copyTask">Create card</button>
         </form>
     </section>
 </template>
