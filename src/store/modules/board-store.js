@@ -279,6 +279,12 @@ export const boardStore = {
             }
         },
 
+        async copyTask(context, { toBoardId, toGroupId, task, activity }) {
+            console.log(toBoardId, toGroupId, task, activity);
+            const toBoard = context.state.boards.find(board => board._id === boardId)
+            context.commit({ type: 'copyTask', payload: { toBoardId, toGroupId, task, activity } })
+        },
+
         async addGroup(context, { board, group, activity }) {
             group.id = utilService.makeId()
             board.groups.push(group)

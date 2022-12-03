@@ -227,7 +227,7 @@ export default {
                 console.log(data, 'BOARDDDDDDDDDDDDDDDDDDD');
                 task.id = utilService.makeId()
                 this.$store.dispatch({
-                    type: 'addTask', boardId: toBoardId, groupId: toGroupId, task,
+                    type: 'copyTask', toBoardId, toGroupId, task,
                     activity: {
                         txt: `Made copy for ${task.title}`,
                         byMember: {
