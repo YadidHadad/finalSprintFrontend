@@ -2,7 +2,7 @@
     {
         "_id": "b101",
         "title": "Demo Board",
-        "isStarred": false,
+        "isStarred": true,
         "createdBy": {
             "_id": "u101",
             "fullname": "Abi Abambi",
@@ -267,7 +267,9 @@
                             "imgUrl": "https://images.unsplash.com/photo-1601133971180-15e6dafc11e1?crop=entropy&cs=tinysrgb&fm=jpg&ixid=MnwzODYyOTJ8MHwxfHNlYXJjaHw1fHxwcmV0dHl8ZW58MHx8fHwxNjcwMDY0OTAx&ixlib=rb-4.0.3&q=80"
                         },
                         "memberIds": [
-                            "u106"
+                            "u106",
+                            "u101",
+                            "u102"
                         ]
                     }
                 ]
@@ -318,6 +320,49 @@
             }
         ],
         "activities": [
+            {
+                "txt": "added Monica Lewinski to Do that",
+                "memberIds": [
+                    "u106",
+                    "u101",
+                    "u102"
+                ],
+                "boardId": "b101",
+                "groupId": "W07Jdc",
+                "taskId": "c103",
+                "task": {
+                    "id": "c103",
+                    "title": "Do that"
+                },
+                "byMember": {
+                    "_id": "fsdfds",
+                    "fullname": "Puki Norma",
+                    "imgUrl": ""
+                },
+                "createdAt": 1670094994588,
+                "id": "GhTtGk"
+            },
+            {
+                "txt": "added Rachel Greem to Do that",
+                "memberIds": [
+                    "u106",
+                    "u101"
+                ],
+                "boardId": "b101",
+                "groupId": "W07Jdc",
+                "taskId": "c103",
+                "task": {
+                    "id": "c103",
+                    "title": "Do that"
+                },
+                "byMember": {
+                    "_id": "fsdfds",
+                    "fullname": "Puki Norma",
+                    "imgUrl": ""
+                },
+                "createdAt": 1670094993500,
+                "id": "MI1Ofy"
+            },
             {
                 "txt": "Edited checklist",
                 "memberIds": [
