@@ -14,8 +14,11 @@
                 <span class="location filter-icon"></span>
                 <span class="txt">Filter</span>
             </button>
-            <button v-for="member in board.members" class="btn-initials">
-                <span>{{ this.getInitials(member.fullname) }}</span>
+            <button v-for="member in board.members">
+                <div v-if="member.imgUrl" class="member-image" :style="memberImage(member.imgUrl)"> </div>
+                <span v-else class="member-initials">
+                    {{ getInitials(member.fullname) }}
+                </span>
             </button>
             <button class="btn" :class="{ isDark: !isDark }" :style="buttonBackground" @click="toggleBoardMenu">
                 <span class="fa-solid elipsis-icon"></span>
@@ -45,6 +48,9 @@ export default {
     },
 
     methods: {
+        memberImage(imgUrl) {
+            return { backgroundImage: `url(${imgUrl})` };
+        },
         getInitials(fullname) {
             return utilService.getInitials(fullname);
         },
