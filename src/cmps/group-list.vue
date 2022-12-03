@@ -1,13 +1,12 @@
 <template>
     <section class="group-list flex">
-        <Container orientation="horizontal" @drop="onDrop" group-name="group-lists" :get-child-payload="getChildPayload"
-            :drag-class="dragClass" :drop-class="dragClass">
+        <Container  orientation="horizontal" @drop="onDrop" group-name="group-lists"
+            :get-child-payload="getChildPayload" :drag-class="dragClass" :drop-class="dragClass">
             <Draggable v-for="(group, i) in groups" :key="group.id">
                 <group @addTask="addTask" @removeGroup="$emit('removeGroup', $event)" :group="group"
                     :boardId="boardId" />
             </Draggable>
-        </Container>
-        <section class="add-new-list">
+            <section class="add-new-list">
                 <button class="open-add-list" v-if="!isFormOpen" @click="toggleForm"><span
                         class="fa-regular plus-icon"></span> Add a list</button>
                 <form v-if="isFormOpen" @submit.prevent="addGroup" class="flex group-list-form">
@@ -17,7 +16,8 @@
                         <button type="button" @click="toggleForm"><span class="fa-solid x-icon"></span></button>
                     </div>
                 </form>
-        </section>
+            </section>
+        </Container>
     </section>
 </template>
 
@@ -60,7 +60,7 @@ export default {
                 this.groupsCopy = this.applyDrag(this.groupsCopy, dropResult);
                 const newGroups = this.$store.dispatch({ type: 'updateGroups', groups: this.groupsCopy })
             }
-            catch(prevGroups) {
+            catch (prevGroups) {
                 this.groupsCopy = JSON.parse(JSON.stringify(prevGroups))
             }
         },
