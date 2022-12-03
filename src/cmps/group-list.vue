@@ -8,11 +8,8 @@
             </Draggable>
         </Container>
         <section class="add-new-list">
-            <transition name="slide-in">
                 <button class="open-add-list" v-if="!isFormOpen" @click="toggleForm"><span
                         class="fa-regular plus-icon"></span> Add a list</button>
-            </transition>
-            <transition name="slide-out">
                 <form v-if="isFormOpen" @submit.prevent="addGroup" class="flex group-list-form">
                     <input v-model="group.title" type="text" name="add-list" placeholder="Enter list title..." v-focus>
                     <div class="add-list-btns flex">
@@ -20,7 +17,6 @@
                         <button type="button" @click="toggleForm"><span class="fa-solid x-icon"></span></button>
                     </div>
                 </form>
-            </transition>
         </section>
     </section>
 </template>

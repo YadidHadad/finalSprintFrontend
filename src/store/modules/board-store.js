@@ -31,17 +31,23 @@ export const boardStore = {
         },
         boardDoneTodos({ board }) {
             const boardDoneTodos = []
-            board.groups.forEach(group => {
-                group.tasks.forEach(task => {
-                    task.checklists.forEach(checklist => {
-                        checklist.todos.forEach(todo => {
-                            if (todo.idDone) {
-                                doneTodos.push(todo)
+            if (board.groups) {
+                board.groups.forEach(group => {
+                    if (group.tasks) {
+                        group.tasks.forEach(task => {
+                            if (task.checklists) {
+                                task.checklists.forEach(checklist => {
+                                    if (checklist.todos) {
+                                        checklist.todos.forEach(todo => {
+                                            boardDoneTodos.push(todo)
+                                        })
+                                    }
+                                })
                             }
                         })
-                    })
+                    }
                 })
-            })
+            }
             return boardDoneTodos
         },
         isPreviewLabelsOpen({ board }) {
