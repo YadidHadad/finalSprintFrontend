@@ -60,10 +60,10 @@
             </section>
             <description-preview :description="task.description"
                 @updateDescription="updateTask('description', $event)" />
-            <checklists-preview v-if="task.checklists" :checklists="task.checklists"
-                @updateChecklists="updateTask('checklist-preview', $event)" />
             <!-- <checklists-preview v-if="task.checklists" :checklists="task.checklists"
-                @updateChecklists="debounceHandler('checklist-preview', $event)" /> -->
+                @updateChecklists="updateTask('checklist-preview', $event)" /> -->
+            <checklists-preview v-if="task.checklists" :checklists="task.checklists"
+                @updateChecklists="debounceHandler('checklist-preview', $event)" />
             <activities-preview :taskId="task.id" />
         </section>
 
@@ -124,7 +124,7 @@ export default {
         };
     },
     async created() {
-        // this.debounceHandler = utilService.debounce(this.updateTask, 500)
+        this.debounceHandler = utilService.debounce(this.updateTask, 200)
         const { id, taskId, groupId } = this.$route.params;
         console.log(taskId);
         try {
@@ -206,20 +206,26 @@ export default {
             }
         },
         async copyTask(data) {
-            const { task, toGroupId, toBoardId } = data
-            console.log(data, 'BOARDDDDDDDDDDDDDDDDDDD');
-            task.id = utilService.makeId()
-            this.$store.dispatch({
-                type: 'addTask', boardId: toBoardId, groupId: toGroupId, task,
-                activity: {
-                    txt: `Made copy for ${task.title}`,
-                    byMember: {
-                        _id: this.user._id,
-                        fullname: this.user.fullname,
-                        imgUrl: this.user.imgUrl || "",
-                    },
-                }
-            })
+            try {
+                const { task, toGroupId, toBoardId } = data
+                console.log(data, 'BOARDDDDDDDDDDDDDDDDDDD');
+                task.id = utilService.makeId()
+                this.$store.dispatch({
+                    type: 'addTask', boardId: toBoardId, groupId: toGroupId, task,
+                    activity: {
+                        txt: `Made copy for ${task.title}`,
+                        byMember: {
+                            _id: this.user._id,
+                            fullname: this.user.fullname,
+                            imgUrl: this.user.imgUrl || "",
+                        },
+                    }
+                })
+                this.closeEditor()
+            }
+            catch (err) {
+                console.log("Failed in task copy", err)
+            }
         },
         updateDescription(payload) {
             console.log(payload);
