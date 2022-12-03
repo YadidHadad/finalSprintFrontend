@@ -128,6 +128,11 @@ export const boardStore = {
         },
         togglePreviewLabels(state, { isOpen }) {
             state.board.isPreviewLabelsOpen = isOpen
+        },
+        updateGroups(state, { groups }) {
+            state.board.groups = groups
+            console.log(groups);
+            return groups
         }
     },
 
@@ -152,6 +157,14 @@ export const boardStore = {
                 console.log('boardStore: Error in addBoard', err)
                 throw err
             }
+        },
+
+        async updateGroups(context, { groups }) {
+            const prevGroups = context.state.board.groups
+            const newGroups = context.commit({ type: 'updateGroups', groups })
+            context.commit({ type: 'updateBoard', board : context.state.board })
+            context.commit({ type: 'setBoard', boardId: context.state.board._id })
+            return context.state.board.groups
         },
 
         async updateBoard(context, { board }) {

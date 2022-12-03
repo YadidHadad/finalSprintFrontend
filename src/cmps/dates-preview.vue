@@ -1,11 +1,16 @@
 <template>
-    <section class="dates-preview">
-        <div v-if="dueDateStr">
+    <section v-if="dueDateStr" class="dates-preview">
+        <span class="title">Due date</span>
+        <div class="flex row">
             <input type="checkbox" @change="toggleIsComplete">
-            <span>{{ dueDateStr }}</span>
+            <button class="btn-date">{{ dueDateStr }}
+
+                <span v-if="isComplete" class="time-tag" :style="{ backgroundColor: '#61bd4f' }">complete</span>
+                <span v-else-if="dueDateMs < Date.now()" class="time-tag"
+                    :style="{ backgroundColor: '#ec9488' }">overdue</span>
+
+            </button>
         </div>
-        <span v-if="isComplete" :style="{ backgroundColor: 'rgb(97, 189, 79)' }">complete</span>
-        <span v-else-if="dueDateMs < Date.now()" :style="{ backgroundColor: 'red' }">overDue</span>
     </section>
 </template>
 
@@ -30,11 +35,11 @@ export default {
         dueDateStr() {
             if (!this.$store.getters.getEditedTask?.dueDate) return ''
             const dueDateStr = new Date(this.$store.getters.getEditedTask.dueDate)
-            const dueTime = dueDateStr.toLocaleTimeString('en-GB').slice(0, 5)
-            const dueDate = `${dueDateStr.getDate()}/${dueDateStr.getMonth() + 1}`
+            return dueDateStr.toLocaleString('en-US', {
+                dateStyle: 'long',
+                timeStyle: 'short',
+            })
 
-            // console.log(dueDateStr ,',,,,,,,,,,,,,,,,,,,,,,,,,,,,');
-            return dueDate + ' '  + dueTime
         },
         dueDateMs() {
             return this.$store.getters.getEditedTask.dueDate

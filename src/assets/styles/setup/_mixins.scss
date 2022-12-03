@@ -107,6 +107,13 @@
     &:hover {
       background-color: rgba($userBgc1, 0.8);
     }
+  } @else if $type == "task-details" {
+    font-size: 0.9rem;
+    background-color: #eaecf0;
+    &:hover {
+      background-color: rgba($textDark, 0.1);
+      border-radius: 0;
+    }
   }
   // } @else if $type == dark {
   //   // background-color: $clr2;
@@ -128,11 +135,11 @@
 @mixin btn-add-save($type: "save") {
   align-self: flex-start;
   padding: 0;
-  margin-top: 20px;
+  // margin-top: 20px;
   font-size: 0.8rem;
-  padding: 6px 24px;
+  padding: 6px 12px;
   border-radius: 3px;
-  margin-block-end: 1rem;
+  // margin-block-end: 1rem;
 
   @if $type == "save" {
     background-color: #0079bf;
