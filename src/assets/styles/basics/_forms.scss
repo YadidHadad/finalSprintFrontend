@@ -50,7 +50,10 @@ form > * {
         background-color: #fafbfc;
         border: 1px solid #dfe1e6;
         padding: 8px 12px;
-
+        &:hover {
+            cursor: auto;
+            filter: brightness(95%);
+        }
         &:focus {
             // border: 1px solid blue;
         }

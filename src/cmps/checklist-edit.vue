@@ -1,13 +1,15 @@
 <template>
-    <section class="checklist-edit">
-        <div class="checklist-edit-header">
-            <div>Add checklist</div>
-            <button @click.stop="closeEdit" class="trellicons x-icon"></button>
+    <section class="task-editor checklist-edit">
+        <div class=" checklist-edit-header">
+            <div class="title">Add checklist</div>
+            <button class="btn-close" @click.stop="closeEdit">
+                <span class="trellicons x-icon"></span>
+            </button>
         </div>
-        <div class="checklist-edit-main">
-            <label for="checklist-input">Title</label>
+        <div class="flex column">
+            <label class="mini-title" for="checklist-input">Title</label>
             <input type="text" v-model="checklist.title" id="checklist-input">
-            <button @click="addChecklist">Add</button>
+            <button class="btn-add" @click="addChecklist">Add</button>
         </div>
     </section>
 </template>
