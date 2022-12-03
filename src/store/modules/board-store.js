@@ -201,14 +201,15 @@ export const boardStore = {
         },
 
         async updateBoard(context, { board }) {
-            context.commit({ type: 'updateBoard', board })
-            context.commit({ type: 'setBoard', boardId: board._id })
+            const prevBoard = context.state.board
             try {
-                board = await boardService.save(board)
                 context.commit({ type: 'updateBoard', board })
                 context.commit({ type: 'setBoard', boardId: board._id })
+                board = await boardService.save(board)
                 return board
             } catch (err) {
+                context.commit({ type: 'updateBoard', board: prevBoard })
+                context.commit({ type: 'setBoard', boardId: prevBoard._id })
                 console.log('boardStore: Error in updateBoard', err)
                 throw err
             }
