@@ -17,9 +17,8 @@
                 <task-preview :task="task" :groupId="this.group.id" :boardId="boardId" />
             </li>
         </ul>
-
         <button class="add-card-btn" v-if="!isCardOpen" @click="toggleCard">
-            <span class="fa-regular plus-icon"> Add a card</span>
+            <span class="fa-regular plus-icon"></span><span>Add a card</span> 
         </button>
         <form v-if="isCardOpen" @submit.prevent="addTask" class="flex">
             <textarea v-model="currTask.title" type="textarea" name="add-task" rows="4"

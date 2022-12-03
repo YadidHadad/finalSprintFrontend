@@ -122,6 +122,12 @@
     &.x-icon::before {
         content: "\e91c";
     }
+    &.icon-checklist-task-preview::before {
+        height: 16px;
+        width: 16px;
+        color: #f20000;
+        content: "\e91a";
+    }
 }
 
 .fa-regular {

@@ -6,7 +6,7 @@
     width: 100%;
     margin: 0rem 0 0.5rem 0.5rem;
 
-    & *:not(.fa-solid) {
+    & *:not(.fa-solid):not(.fa-regular):not(.trellicons) {
         font-family: "opensans";
     }
 
@@ -82,4 +82,3 @@
         margin-right: rem(15px) !important;
     }
 }
-

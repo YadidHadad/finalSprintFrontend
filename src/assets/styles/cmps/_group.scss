@@ -40,15 +40,19 @@
             padding: 0;
         }
 
+        cursor: pointer;
         background-color: #ffffff;
-        padding: rem(12px) rem(10px);
+        padding: rem(6px) rem(8px);
         border-radius: 3px;
+        &:hover{
+            background-color: rgba($textDark, 0.1) ;
+        }
     }
 }
 
 button.add-card-btn {
     text-align: left;
-    padding:  rem(5px) 0 rem(5px) rem(10px);
+    padding: rem(5px) 0 rem(5px) rem(10px);
     color: $clr9;
     border-radius: 3px;
     font-size: rem(14px);
@@ -56,6 +60,9 @@ button.add-card-btn {
     &:hover {
         background-color: rgba($textDark, 0.1);
         border-radius: 0;
+    }
+    span{
+        padding-right: rem(5px);
     }
 
     .add-card-txt {

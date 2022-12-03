@@ -1,21 +1,24 @@
 <template>
-    <section class="task-preview" @click="goTo">
-        <div class="task-preview">
-            <section class="labels-preview">
-                <ul class="clean-list flex">
-                    <li @click.stop="togglePreviewLabels" v-for="label in labels" :key="label.id"
-                        :style="{ backgroundColor: label.color }">
-                        <span v-if="isPreviewLabelsOpen">{{ label.title }}</span>
-                    </li>
-                </ul>
-            </section>
-            <h3>{{ task.title }}</h3>
+    <section class="task-preview flex column" @click="goTo">
+        <div class="task-cover" :style="{ backgroundColor: getBackgroundColor }"></div>
+        <section class="labels-preview">
+            <ul class="clean-list flex">
+                <li @click.stop="togglePreviewLabels" v-for="label in labels" :key="label.id"
+                    :style="{ backgroundColor: label.color }">
+                    <span v-if="isPreviewLabelsOpen">{{ label.title }}</span>
+                </li>
+            </ul>
+        </section>
+        <h3>{{ task.title }}</h3>
+        <div>
+            <span class="trellicons checklist-icon"></span>
+            <span>{{ taskDoneTodos }}/{{ taskTodosLength }}</span>
+
         </div>
         <members-preview v-if="task.memberIds" :memberIds="task.memberIds" :isTaskDetails="false"
-            class="task-members" />
+            class="task-members-preview" />
     </section>
 </template>
-
 <script>
 
 import membersPreview from './members-preview.vue'
@@ -50,8 +53,6 @@ export default {
     created() {
         this.taskLabelsIds = this.task.labelIds
 
-
-
     },
 
     methods: {
@@ -61,7 +62,8 @@ export default {
         togglePreviewLabels() {
             this.isLabelsOpen = !this.isLabelsOpen
             this.$store.commit({ type: 'togglePreviewLabels', isOpen: this.isLabelsOpen })
-        }
+        },
+
     },
 
     computed: {
@@ -74,6 +76,35 @@ export default {
         },
         isPreviewLabelsOpen() {
             return this.$store.getters.isPreviewLabelsOpen
+        },
+        taskTodos() {
+            const taskTodos = []
+            if (this.task.checklists) {
+                this.task.checklists.forEach(checklist => {
+                    if (checklist.todos) {
+                        checklist.todos.forEach(todo => {
+                            taskTodos.push(todo)
+                        })
+                    }
+                })
+            }
+            return taskTodos
+            // if (this.task.checklists?.todos)
+            //     return this.task.checklists.todos
+            // // return this.$store.getters.boardDoneTodos
+        },
+        taskDoneTodos() {
+            const doneTodos = this.taskTodos.filter(todo => todo.isDone)
+            return doneTodos.length
+        },
+        taskTodosLength() {
+            console.log(this.taskTodos.length);
+            return this.taskTodos.length
+        },
+        getBackgroundColor() {
+            if (this.task.style?.bgColor) {
+                return this.task.style.bgColor
+            }
         }
 
     }
