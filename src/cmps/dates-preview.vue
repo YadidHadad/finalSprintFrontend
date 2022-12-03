@@ -2,7 +2,7 @@
     <section v-if="dueDateStr" class="dates-preview">
         <span class="title">Due date</span>
         <div class="flex row">
-            <input type="checkbox" @change="toggleIsComplete">
+            <input type="checkbox" @change="toggleIsComplete" v-model="isComplete">
             <button class="btn-date">{{ dueDateStr }}
 
                 <span v-if="isComplete" class="time-tag" :style="{ backgroundColor: '#61bd4f' }">complete</span>
@@ -19,15 +19,17 @@ export default {
     //
     data() {
         return {
-
+            isComplete: false
         }
     },
     created() {
-        const isComplete = this.getIsComplete || false
+        // let isComplete = this.getIsComplete || false
+        this.getIsComplete ? this.isComplete = true : this.isComplete = false
+        console.log(this.isComplete);
     },
     methods: {
         toggleIsComplete() {
-            this.isComplete = !this.isComplete
+            // this.isComplete = !this.isComplete
             this.$emit('markComplete', this.isComplete)
         }
     },

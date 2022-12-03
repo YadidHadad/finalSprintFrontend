@@ -290,6 +290,7 @@ export default {
                 case 'dates-preview':
                     data ? txt = `Marked ${this.task.title} as complete` : txt = `Unmarked ${this.task.title} as complete`
                     taskToUpdate.isComplete = data
+                    console.log(taskToUpdate);
                     break
                 case 'cover-edit':
                     txt = `Updated  ${this.task.title} cover`;
