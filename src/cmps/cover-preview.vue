@@ -23,7 +23,7 @@ export default {
             console.log(this.coverBcg);
             // return this.coverBcg ?  { backgroundImage: `url(${this.coverBcg})` } : ''
             // return { backgroundImage: `url(${this.coverBcg.imgUrl})` }
-            return { backgroundImage: `url(${this.coverBcg.imgUrl})` }
+            return { backgroundImage: `url(${this.coverBcg.imgUrl})`}
         }
     }
 }
