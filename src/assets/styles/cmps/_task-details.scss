@@ -57,27 +57,43 @@
         font-size: 0.8rem;
     }
 
-    .btn {
-        @include btn;
+    .task-details-aside {
+        & * {
+            color: $txtMedium;
+        }
+        .btn {
+            @include btn;
 
-        .trellicons {
-            top: 0;
-            margin-inline-end: 1rem;
+            margin-inline: 0;
+
+            .trellicons {
+                top: 0;
+                margin-inline-end: 1rem;
+            }
+
+            .fa-regular {
+                top: 0;
+                margin-inline-end: 1rem;
+            }
+
+            margin-block: 0.2rem;
+
+            font-size: 0.9rem;
+            background-color: #eaecf0;
+
+            &:hover {
+                background-color: rgba($textDark, 0.1);
+                border-radius: 0;
+            }
         }
 
-        .fa-regular {
-            top: 0;
-            margin-inline-end: 1rem;
+        h4 {
+            font-weight: bold;
+            font-size: 0.7rem;
         }
 
-        margin-block: 0.2rem;
-
-        font-size: 0.9rem;
-        background-color: #eaecf0;
-
-        &:hover {
-            background-color: rgba($textDark, 0.1);
-            border-radius: 0;
+        .btns-actions {
+            margin-block-start: 5rem;
         }
     }
 
@@ -100,8 +116,7 @@
             right: 0.2rem;
             top: 0.5rem;
             font-size: 1.5rem;
-            height: 40px;
-            width: 40px;
+
             border-radius: 50%;
             background-color: transparent;
 

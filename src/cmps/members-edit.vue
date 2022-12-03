@@ -1,9 +1,10 @@
 <template>
-    <section v-if="boardMembers" class="task-editor flex column">
-        <div class="title flex justify-between">
-            <span></span>
-            <span>Members</span>
+    <section v-if="boardMembers" class="members-editor task-editor flex column">
+        <button class="btn-close">
             <span class="trellicons x-icon" @click.stop="closeEdit"></span>
+        </button>
+        <div class="title flex justify-between">
+            <span>Members</span>
         </div>
         <input type="search" placeholder="Search members" v-model="filterByName" @input="debounceHandler" />
         <span class="mini-title">Board members</span>
@@ -11,7 +12,10 @@
             <div v-for="member in boardMembers" class="member">
                 <div class="member-user flex row align-center" @click.stop="toggleMember(member)">
                     <div class="flex align-center grow">
-                        <span class=" member-image" :style="memberImage(member.imgUrl)"> </span>
+                        <div v-if="member.imgUrl" class="member-image" :style="memberImage(member.imgUrl)"> </div>
+                        <span v-else class="member-initials">
+                            {{ getInitials(member.fullname) }}
+                        </span>
                         <span class="fullname">{{ member.fullname + " " }}</span>
                     </div>
                     <div v-if="isMemberInTask(member._id)">
@@ -29,6 +33,7 @@
 import { utilService } from "../services/util.service";
 
 export default {
+
     name: "members-edit",
     props: [],
     components: {},

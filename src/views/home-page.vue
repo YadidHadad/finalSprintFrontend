@@ -27,7 +27,6 @@
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
 import { boardService } from '../services/board.service.local'
 
-import taskDetailsBtn from '../cmps/task-details-btn.vue'
 // import { getActionRemoveBoard, getActionUpdateBoard, getActionAddBoardMsg } from '../store/board.store'
 
 import boardPreview from '../cmps/board-preview.vue'

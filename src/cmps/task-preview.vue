@@ -11,10 +11,15 @@
             </section>
             <h3>{{ task.title }}</h3>
         </div>
+        <members-preview v-if="task.memberIds" :memberIds="task.memberIds" :isTaskDetails="false"
+            class="task-members" />
     </section>
 </template>
 
 <script>
+
+import membersPreview from './members-preview.vue'
+
 export default {
     props: {
         task: {
@@ -31,6 +36,10 @@ export default {
         }
     },
 
+    components: {
+        membersPreview
+    },
+
     data() {
         return {
             taskLabelsIds: null,
@@ -40,6 +49,7 @@ export default {
 
     created() {
         this.taskLabelsIds = this.task.labelIds
+
 
 
     },

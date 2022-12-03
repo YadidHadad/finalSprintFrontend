@@ -1,7 +1,67 @@
-
-
 form > * {
     display: block;
     width: 200px;
     margin: 10px 0px;
+}
+
+.btn-close {
+    @include btn();
+    position: absolute;
+    right: 0.2rem;
+    top: 0.2rem;
+    font-size: 1.5rem;
+    border-radius: 50%;
+    background-color: transparent;
+    display: inline;
+    margin: 0;
+    padding: 0;
+
+    &:hover {
+        background-color: rgba($textDark, 0.3);
+    }
+}
+
+.task-editor {
+    position: absolute;
+
+    border-radius: 3px;
+    background-color: white;
+    padding-inline: 0.8rem;
+    box-shadow: 0px 0px 1px 1px rgb(0 0 0 / 10%);
+    color: $textDark;
+    width: 300px;
+
+    & * {
+        font-size: 0.9rem;
+    }
+    .title {
+        text-align: center;
+        padding-block: 10px;
+        box-shadow: inset 0px -1px 0px rgb(0 0 0 / 10%);
+        margin-block-end: 10px;
+    }
+    .mini-title {
+        padding-block: 10px;
+        margin-block-end: 10px;
+        font-weight: bold;
+    }
+
+    input {
+        background-color: #fafbfc;
+        border: 1px solid #dfe1e6;
+        padding: 8px 12px;
+        &:hover {
+            cursor: auto;
+            filter: brightness(95%);
+        }
+        &:focus {
+            // border: 1px solid blue;
+        }
+    }
+
+    .no-results {
+        font-style: italic;
+        font-weight: lighter;
+        padding-block: 1rem;
+    }
 }
