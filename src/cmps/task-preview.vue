@@ -1,6 +1,6 @@
 <template>
     <section class="task-preview flex column" @click="goTo">
-        <div class="task-cover" :style="{ backgroundColor: getBackgroundColor }"></div>
+        <div v-if="getBackgroundColor" class="task-cover" :style="{ backgroundColor: getBackgroundColor }"></div>
         <section class="labels-preview">
             <ul class="clean-list flex">
                 <li @click.stop="togglePreviewLabels" v-for="label in labels" :key="label.id"
@@ -10,13 +10,14 @@
             </ul>
         </section>
         <h3>{{ task.title }}</h3>
-        <div>
-            <span class="trellicons checklist-icon"></span>
-            <span>{{ taskDoneTodos }}/{{ taskTodosLength }}</span>
-
-        </div>
-        <members-preview v-if="task.memberIds" :memberIds="task.memberIds" :isTaskDetails="false"
-            class="task-members-preview" />
+        <section class="task-preview-icons flex">
+            <div v-if="taskTodosLength" class="task-todos flex" :style="{backgroundColor: allTodosDone}">
+                <span class="trellicons checklist-icon"></span>
+                <span>{{ taskDoneTodos }}/{{ taskTodosLength }}</span>
+            </div>
+            <members-preview v-if="task.memberIds" :memberIds="task.memberIds" :isTaskDetails="false"
+                class="task-members-preview" />
+        </section>
     </section>
 </template>
 <script>
@@ -89,9 +90,6 @@ export default {
                 })
             }
             return taskTodos
-            // if (this.task.checklists?.todos)
-            //     return this.task.checklists.todos
-            // // return this.$store.getters.boardDoneTodos
         },
         taskDoneTodos() {
             const doneTodos = this.taskTodos.filter(todo => todo.isDone)
@@ -105,6 +103,10 @@ export default {
             if (this.task.style?.bgColor) {
                 return this.task.style.bgColor
             }
+        },
+        allTodosDone(){
+            if (this.taskTodosLength ===  this.taskDoneTodos)
+            return '#61bd4f'
         }
 
     }
