@@ -3,8 +3,8 @@
         <div class="flex align-center justify-start wrap">
             <input type="text" v-model="board.title" :style="titleLength" @input="debounceHandler" />
 
-            <button v-if="board" v-for="btn in btns" class="btn" :class="{ isDark: !isDark }" :style="buttonBackground"
-                @click="btn.function">
+            <button v-if="board" v-for="(btn, i) in btns" :key="i" class="btn" :class="{ isDark: !isDark }"
+                :style="buttonBackground" @click="btn.function">
                 <span :class="btn.icon"></span>
                 <span v-if="btn.txt" class="txt">{{ btn.txt }}</span>
             </button>
@@ -14,7 +14,7 @@
                 <span class="location filter-icon"></span>
                 <span class="txt">Filter</span>
             </button>
-            <div v-for="member in board.members">
+            <div v-for="member in board.members" :key="member._id">
                 <div v-if="member.imgUrl" class="member-image" :style="memberImage(member.imgUrl)"> </div>
                 <span v-else class="member-initials">
                     {{ getInitials(member.fullname) }}

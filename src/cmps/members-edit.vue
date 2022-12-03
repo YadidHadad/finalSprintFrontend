@@ -9,7 +9,7 @@
         <input type="search" placeholder="Search members" v-model="filterByName" @input="debounceHandler" />
         <span class="mini-title">Board members</span>
         <section class="members-container">
-            <div v-for="member in boardMembers" class="member">
+            <div v-for="member in boardMembers" :key="member._id" class="member">
                 <div class="member-user flex row align-center" @click.stop="toggleMember(member)">
                     <div class="flex align-center grow">
                         <div v-if="member.imgUrl" class="member-image" :style="memberImage(member.imgUrl)"> </div>

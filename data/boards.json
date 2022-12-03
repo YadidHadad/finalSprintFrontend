@@ -329,7 +329,7 @@
                         "id": "rUcDOy",
                         "title": "Eat cakes!",
                         "style": {
-                            "imgUrl": "https://images.unsplash.com/photo-1602351447937-745cb720612f?crop=entropy&cs=tinysrgb&fm=jpg&ixid=MnwzODYyOTJ8MHwxfHNlYXJjaHw4fHxjYWtlfGVufDB8fHx8MTY3MDEwMzU5NA&ixlib=rb-4.0.3&q=80"
+                            "imgUrl": "https://res.cloudinary.com/dnznyz6om/image/upload/v1670108894/xelclijmejfxrdl0aznl.webp"
                         }
                     }
                 ]
@@ -342,6 +342,57 @@
             }
         ],
         "activities": [
+            {
+                "txt": "updated  Eat cakes! cover",
+                "boardId": "b101",
+                "groupId": "CxyEGG",
+                "taskId": "rUcDOy",
+                "task": {
+                    "id": "rUcDOy",
+                    "title": "Eat cakes!"
+                },
+                "byMember": {
+                    "_id": "fsdfds",
+                    "fullname": "Puki Norma",
+                    "imgUrl": ""
+                },
+                "createdAt": 1670108893545,
+                "id": "EVFWcA"
+            },
+            {
+                "txt": "updated  Eat cakes! cover",
+                "boardId": "b101",
+                "groupId": "CxyEGG",
+                "taskId": "rUcDOy",
+                "task": {
+                    "id": "rUcDOy",
+                    "title": "Eat cakes!"
+                },
+                "byMember": {
+                    "_id": "fsdfds",
+                    "fullname": "Puki Norma",
+                    "imgUrl": ""
+                },
+                "createdAt": 1670108878388,
+                "id": "oPsbTw"
+            },
+            {
+                "txt": "updated  Eat cakes! cover",
+                "boardId": "b101",
+                "groupId": "CxyEGG",
+                "taskId": "rUcDOy",
+                "task": {
+                    "id": "rUcDOy",
+                    "title": "Eat cakes!"
+                },
+                "byMember": {
+                    "_id": "fsdfds",
+                    "fullname": "Puki Norma",
+                    "imgUrl": ""
+                },
+                "createdAt": 1670107374807,
+                "id": "XtcUfW"
+            },
             {
                 "txt": "updated  Make Trello Happen! cover",
                 "memberIds": [

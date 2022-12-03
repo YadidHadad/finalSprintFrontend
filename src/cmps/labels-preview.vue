@@ -2,7 +2,7 @@
     <section class="labels-preview  flex column">
         <span class="title">Labels</span>
         <section class="labels-container flex row align-center justify-center">
-            <div v-for="label in taskLabels" :style="{ backgroundColor: label.color }"
+            <div v-for="(label, i) in taskLabels" :key="i" :style="{ backgroundColor: label.color }"
                 class="label-preview flex row align-center justify-center">
                 <div :style="{ backgroundColor: label.color }" class="color-circle"></div>
                 <span>{{ label.title }}</span>

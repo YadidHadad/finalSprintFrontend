@@ -67,6 +67,7 @@ form > * {
     }
     select,
     textarea,
+    input[type="file"],
     input[type="text"] {
         width: 100%;
     }

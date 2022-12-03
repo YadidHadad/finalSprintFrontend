@@ -1,6 +1,6 @@
 <template>
     <section class="checklist-preview">
-        <div v-for="(checklist, index) in checklists" class="checklist-container">
+        <div v-for="(checklist, index) in checklists" :key="checklist.id" class="checklist-container">
             <div class="flex align-center justify-between">
                 <span class="trellicons checklist-icon large"></span>
                 <div v-if="checklistPicked !== checklists[index].id" class="task-cmp-title grow"
@@ -22,7 +22,7 @@
                 <progress :value="checklist.todos.filter(todo => todo.isDone).length"
                     :max="checklist.todos.length"></progress>
                 <form class="todos-container flex column" @change="updateTodos(checklist)">
-                    <div class="todo-container flex row w-100" v-for="(todo, index) in checklist.todos">
+                    <div class="todo-container flex row w-100" v-for="(todo, i) in checklist.todos" :key="i">
                         <input type="checkbox" v-model="doneTodosIds" @change="toggleTodo" :value="todo.id">
                         <div class="grow" :class="{ 'line-through': todo.isDone }">{{ todo.title }}</div>
                         <button v-if="isOpenOptions" class="btn-delete margin-0"

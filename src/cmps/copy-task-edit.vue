@@ -10,13 +10,13 @@
             <textarea type="text" v-model="task.title" id="copy-input"></textarea>
 
             <select class="board-select" v-model="toBoardId" @change="setBoard">
-                <option v-for="board in getBoards" :value="board._id">{{ board.title }}</option>
+                <option v-for="board in getBoards" :key="board._id" :value="board._id">{{ board.title }}</option>
             </select>
 
             {{ toBoardId }}
 
             <select class="group-select" v-model="toGroupId" @change="setGroup">
-                <option v-for="group in board.groups" :value="group.id">{{ group.title }}
+                <option v-for="(group, i) in board.groups" :key="i" :value="group.id">{{ group.title }}
                 </option>
             </select>
 

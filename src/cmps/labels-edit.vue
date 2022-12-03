@@ -8,7 +8,7 @@
             <input type="text" placeholder="Search labels...">
             <div class="mini-title">Labels</div>
             <ul class="label-color-list">
-                <li v-for="(label, index) in labels" :key="label.id" class="flex row align-center">
+                <li v-for="(label, index) in labels" :key="index" class="flex row align-center">
                     <input class="check-box" type="checkbox" @change="updateLabels()" v-model="labelIds"
                         :value="label.id">
                     <div class="label-color grow" :style="{ backgroundColor: label.color }"
