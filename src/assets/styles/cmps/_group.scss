@@ -31,11 +31,11 @@
         gap: rem(8px);
         display: flex;
         flex-direction: column;
+        min-height: 5px;
     }
 
     .smooth-dnd-draggable-wrapper {
         .group {
-
             min-height: 5px;
         }
 
@@ -81,7 +81,6 @@ button.add-card-btn {
     .plus-icon {
         font-size: rem(14px);
     }
-
 }
 
 .group-menu {
@@ -99,12 +98,10 @@ button.add-card-btn {
     box-shadow: -10px 1px 20px 10px rgb(0 0 0 / 10%);
     transition: all 0.3s ease-out;
 
-
     section:not(.menu-container) {
         box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.1);
         padding: 0.5rem;
     }
-
 
     .btn {
         @include btn("board-nav");
@@ -118,7 +115,6 @@ button.add-card-btn {
     .title {
         color: $clr9;
 
-
         span:first-of-type {
             text-align: center;
             font-weight: 200;
@@ -127,8 +123,6 @@ button.add-card-btn {
         .main-title {
             flex-grow: 5;
             font-size: rem(14px) !important;
-
-
         }
 
         .remove {
@@ -172,7 +166,4 @@ button.add-card-btn {
             }
         }
     }
-
-
-
 }
