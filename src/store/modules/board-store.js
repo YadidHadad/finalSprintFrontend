@@ -81,6 +81,7 @@ export const boardStore = {
             const group = state.board.groups.find(g => g.id === payload.groupId)
             const taskIdx = group.tasks.findIndex(task => task.id === payload.task.id)
             group.tasks.splice(taskIdx, 1, payload.task)
+            // return payload.task
         },
 
         updateLabel(state, { label }) {
@@ -200,7 +201,7 @@ export const boardStore = {
                         }
                     })
                     context.commit(({ type: 'removeLastActivity' }))
-                    throw err
+                    throw prevTask
                 }
             }
         },
@@ -210,6 +211,7 @@ export const boardStore = {
             const board = JSON.parse(JSON.stringify(context.state.boards.find(board => board._id === boardId)))
 
             const groupIdx = board.groups.findIndex((group) => group.id === groupId)
+            console.log(groupIdx , '>>>>>>>>>>>>>>');
             if (!board.groups[groupIdx].tasks) board.groups[groupIdx].tasks = []
             board.groups[groupIdx].tasks.push(task)
             try {

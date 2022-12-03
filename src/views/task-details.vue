@@ -52,6 +52,7 @@
         </section>
         <!-- @updateChecklists="updateTask('checklist-preview', $event)" /> -->
         <section class="task-main">
+            <dates-preview @markComplete="updateTask('dates-preview', $event)" :isComplete="this.task.isComplete" />
             <section class="task-tags flex row pad-40">
                 <members-preview v-if="task.memberIds" :memberIds="task.memberIds"
                     @openMembersEditor="openMembersEditor" :isTaskDetails="true" />
@@ -59,6 +60,8 @@
             </section>
             <description-preview :description="task.description"
                 @updateDescription="updateTask('description', $event)" />
+            <!-- <checklists-preview v-if="task.checklists" :checklists="task.checklists"
+                @updateChecklists="updateTask('checklist-preview', $event)" /> -->
             <checklists-preview v-if="task.checklists" :checklists="task.checklists"
                 @updateChecklists="debounceHandler('checklist-preview', $event)" />
             <activities-preview :taskId="task.id" />
@@ -83,6 +86,7 @@ import membersPreview from "../cmps/members-preview.vue";
 import descriptionPreview from "../cmps/description-preview.vue";
 import copyTaskEdit from "../cmps/copy-task-edit.vue";
 import datesEdit from "../cmps/dates-edit.vue";
+import datesPreview from "../cmps/dates-preview.vue";
 
 import { utilService } from "../services/util.service";
 
@@ -99,7 +103,8 @@ export default {
         membersPreview,
         descriptionPreview,
         copyTaskEdit,
-        datesEdit
+        datesEdit,
+        datesPreview
     },
 
     data() {
@@ -119,7 +124,7 @@ export default {
         };
     },
     async created() {
-        this.debounceHandler = utilService.debounce(this.updateTask, 1000)
+        this.debounceHandler = utilService.debounce(this.updateTask, 200)
         const { id, taskId, groupId } = this.$route.params;
         console.log(taskId);
         try {
@@ -201,20 +206,26 @@ export default {
             }
         },
         async copyTask(data) {
-            const { task, toGroupId, toBoardId } = data
-            console.log(toBoardId, 'BOADDDDDDDDDDDDDDDDDDD');
-            task.id = utilService.makeId()
-            this.$store.dispatch({
-                type: 'addTask', boardId: toBoardId, groupId: toGroupId, task,
-                activity: {
-                    txt: `Made copy for ${task.title}`,
-                    byMember: {
-                        _id: this.user._id,
-                        fullname: this.user.fullname,
-                        imgUrl: this.user.imgUrl || "",
-                    },
-                }
-            })
+            try {
+                const { task, toGroupId, toBoardId } = data
+                console.log(data, 'BOARDDDDDDDDDDDDDDDDDDD');
+                task.id = utilService.makeId()
+                this.$store.dispatch({
+                    type: 'addTask', boardId: toBoardId, groupId: toGroupId, task,
+                    activity: {
+                        txt: `Made copy for ${task.title}`,
+                        byMember: {
+                            _id: this.user._id,
+                            fullname: this.user.fullname,
+                            imgUrl: this.user.imgUrl || "",
+                        },
+                    }
+                })
+                this.closeEditor()
+            }
+            catch (err) {
+                console.log("Failed in task copy", err)
+            }
         },
         updateDescription(payload) {
             console.log(payload);
@@ -257,8 +268,20 @@ export default {
                     txt = "Edited checklist";
                     taskToUpdate.checklists = data
                     break
+                case "dates-edit":
+                    txt = "Edited due date";
+                    taskToUpdate.dueDate = data
+                    break
+                case 'dates-preview': {
+                    data ? txt = `Marked ${this.task.title} as complete` : txt = `Unmarked ${this.task.title} as complete`
+                    taskToUpdate.isComplete = data
+                    break
+                }
             }
             try {
+                this.$store.commit({ type: 'updateTask', payload: { task: taskToUpdate, groupId: this.groupId } })
+                this.task = JSON.parse(JSON.stringify(this.getTask))
+                console.log('hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii');
                 let updatedTask = await this.$store.dispatch({
                     type: "updateTask",
                     payload: {
@@ -283,8 +306,11 @@ export default {
                     },
                 });
                 this.task = updatedTask;
-            } catch (err) {
-                console.log("Failed in task update", err)
+            } catch (prevTask) {
+                this.$store.commit({ type: 'updateTask', payload: { task: prevTask, groupId: this.groupId } })
+                this.task = JSON.parse(JSON.stringify(this.getTask))
+                console.log("Failed in task update")
+                // this.task = prevTask
             }
         },
         closeDetails() {
