@@ -4,7 +4,7 @@
         <section class="main flex column grow">
             <board-header :board="board" :class="{ isDark: rgb.isDark, menuIsShown: !menuIsHidden }" :rgb="rgb"
                 @toggleBoardMenu="toggleBoardMenu" />
-            <group-list-copy @addTask="addNewTask" @addGroup="addNewGroup" @removeGroup="removeGroup" :groups="board.groups"
+            <group-list @addTask="addNewTask" @addGroup="addNewGroup" @removeGroup="removeGroup" :groups="board.groups"
                 :boardId="board._id" />
         </section>
         <board-menu :menuIsHidden="menuIsHidden" :activities="board.activities" @toggleBoardMenu="toggleBoardMenu" />
@@ -21,8 +21,7 @@ import { boardStore } from '../store/modules/board-store'
 import { FastAverageColor } from 'fast-average-color'
 
 import boardHeader from '.././cmps/board-header.vue'
-// import groupList from '../cmps/group-list.vue'
-import groupListCopy from '../cmps/group-list-copy.vue'
+import groupList from '../cmps/group-list.vue'
 import boardNav from '../cmps/board-nav.vue'
 import boardMenu from '../cmps/board-menu.vue'
 import taskDetails from '../views/task-details.vue'
@@ -47,10 +46,9 @@ export default {
     components: {
         boardNav,
         boardHeader,
-        // groupList,
+        groupList,
         boardMenu,
         taskDetails,
-        groupListCopy
     },
 
     created() {

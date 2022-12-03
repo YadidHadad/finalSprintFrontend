@@ -41,44 +41,8 @@ export default {
 
     data() {
         return {
-            btns: [
-                {
-                    txt: null,
-                    icon: this.board?.isStarred || "fa-regular star-icon",
-                    function: this.setBoardStar
-                },
-                {
-                    txt: "Board",
-                    icon: "fa-solid board-icon",
-                    function: 'setBoardStar()'
-
-                },
-                {
-                    txt: "Table",
-                    icon: "fa-solid table-icon",
-                    function: 'setBoardStar()'
-
-                },
-                {
-                    txt: "Calender",
-                    icon: "fa-solid calender-icon",
-                    function: 'setBoardStar()'
-
-                },
-                {
-                    txt: "Dashboard",
-                    icon: "fa-solid dashboard-icon",
-                    function: 'setBoardStar()'
-
-                },
-                {
-                    txt: "Map",
-                    icon: "trellicons location-icon",
-                    function: 'setBoardStar()'
-
-                },
-            ],
-        };
+            btns: []
+        }
     },
 
     methods: {
@@ -121,6 +85,45 @@ export default {
             // return "fa-regular star-icon"
             // if (!this.board.isStarred) return "fa-regular star-icon"
             return this.board.isStarred ? "fa-solid star-icon" : "fa-regular star-icon"
+        },
+        btns() {
+            return [
+                {
+                    txt: null,
+                    icon: this.board.isStarred ? "fa-solid star-icon" : "fa-regular star-icon",
+                    function: this.setBoardStar
+                },
+                {
+                    txt: "Board",
+                    icon: "fa-solid board-icon",
+                    function: 'setBoardStar()'
+
+                },
+                {
+                    txt: "Table",
+                    icon: "fa-solid table-icon",
+                    function: 'setBoardStar()'
+
+                },
+                {
+                    txt: "Calender",
+                    icon: "fa-solid calender-icon",
+                    function: 'setBoardStar()'
+
+                },
+                {
+                    txt: "Dashboard",
+                    icon: "fa-solid dashboard-icon",
+                    function: 'setBoardStar()'
+
+                },
+                {
+                    txt: "Map",
+                    icon: "trellicons location-icon",
+                    function: 'setBoardStar()'
+
+                },
+            ]
         }
     },
 

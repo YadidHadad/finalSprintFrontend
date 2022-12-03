@@ -1,6 +1,12 @@
 <template>
     <section class="group-list flex">
-        <group @addTask="addTask" @removeGroup="$emit('removeGroup', $event)" v-for="group in groups" :group="group" :boardId="boardId" :key="group.id" />
+        <Container orientation="horizontal" @drop="onDrop" group-name="group-lists" :get-child-payload="getChildPayload"
+            :drag-class="dragClass" :drop-class="dragClass">
+            <Draggable v-for="(group, i) in groups" :key="group.id">
+                <group @addTask="addTask" @removeGroup="$emit('removeGroup', $event)" :group="group"
+                    :boardId="boardId" />
+            </Draggable>
+        </Container>
         <section class="add-new-list">
                 <button class="open-add-list" v-if="!isFormOpen" @click="toggleForm"><span
                         class="fa-regular plus-icon"></span> Add a list</button>
@@ -18,6 +24,7 @@
 <script>
 import group from './group.vue';
 import { utilService } from '../services/util.service.js';
+import { Container, Draggable } from "vue3-smooth-dnd";
 export default {
     name: 'group-list',
     props: {
@@ -35,13 +42,62 @@ export default {
             isFormOpen: false,
             group: {
                 id: '',
-                title: ''
+                title: '',
+                groupsCopy: [],
+                isDrag: false
             },
 
         }
     },
+    created() {
+        this.groupsCopy = JSON.parse(JSON.stringify(this.groups))
+    },
 
     methods: {
+        async onDrop(dropResult) {
+            try {
+                this.groupsCopy = JSON.parse(JSON.stringify(this.groups))
+                this.groupsCopy = this.applyDrag(this.groupsCopy, dropResult);
+                const newGroups = this.$store.dispatch({ type: 'updateGroups', groups: this.groupsCopy })
+            }
+            catch(prevGroups) {
+                this.groupsCopy = JSON.parse(JSON.stringify(prevGroups))
+            }
+        },
+        applyDrag(arr, dragResult) {
+            const { removedIndex, addedIndex, payload } = dragResult;
+
+            if (removedIndex === null && addedIndex === null) return arr;
+            const result = [...arr];
+            // console.log(result);
+            let itemToAdd = payload;
+
+            if (removedIndex !== null) {
+                itemToAdd = result.splice(removedIndex, 1)[0];
+            }
+            if (addedIndex !== null && removedIndex !== null) {
+                // console.log(itemToAdd);
+                // console.log(itemToAdd.itemToMove);
+                result.splice(addedIndex, 0, itemToAdd);
+                // result.splice(addedIndex, 0, itemToAdd.itemToMove);
+                // console.log(this.groupsCopy);
+            }
+            else if (addedIndex !== null) result.splice(addedIndex, 0, itemToAdd.itemToMove);
+            return result;
+        },
+        getShouldAcceptDrop(index, sourceContainerOptions, payload) {
+            return true;
+        },
+        getChildPayload(index) {
+            console.log(index);
+            return {
+                itemToMove: this.groupsCopy[index]
+            }
+        },
+
+
+
+
         toggleForm() {
             this.isFormOpen = !this.isFormOpen
         },
@@ -69,11 +125,16 @@ export default {
     computed: {
         user() {
             return this.$store.getters.loggedinUser
+        },
+        dragClass() {
+            return 'on-drag'
         }
     },
 
     components: {
-        group
+        group,
+        Container,
+        Draggable
     }
 
 }
