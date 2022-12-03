@@ -1,5 +1,5 @@
 <template>
-    <section class="task-editor labels-edit" v-click-outside="isOpen = false">
+    <section class="task-editor labels-edit" @click.stop="">
         <button class="btn-close" @click.stop="closeEdit">
             <span class="trellicons x-icon"></span>
         </button>
@@ -8,10 +8,10 @@
             <input type="text" placeholder="Search labels...">
             <div class="mini-title">Labels</div>
             <ul class="label-color-list">
-                <li v-for="(label, index) in labels" :key="label.id">
+                <li v-for="(label, index) in labels" :key="label.id" class="flex row align-center">
                     <input class="check-box" type="checkbox" @change="updateLabels()" v-model="labelIds"
                         :value="label.id">
-                    <div class="label-color" :style="{ backgroundColor: label.color }">{{ label.title }}
+                    <div class="label-color grow" :style="{ backgroundColor: label.color }">{{ label.title }}
                     </div>
                     <span class="fa-regular pen-icon" @click.stop="editTitle(label.color)"></span>
                 </li>
