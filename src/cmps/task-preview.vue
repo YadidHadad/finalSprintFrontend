@@ -4,7 +4,7 @@
             :style="{ backgroundColor: getBackground, backgroundImage: `url(${getBackground})` }"></div>
         <section class="labels-preview">
             <ul class="clean-list flex">
-                <li @click.stop="togglePreviewLabels" v-for="label in labels" :key="label.id"
+                <li :title="(label.title)" @click.stop="togglePreviewLabels" v-for="label in labels" :key="label.id"
                     :style="{ backgroundColor: label.color }">
                     <span v-if="isPreviewLabelsOpen">{{ label.title }}</span>
                 </li>
@@ -123,7 +123,7 @@ export default {
             else {
                 return 'background-img'
             }
-        }
+        },
 
     }
 }

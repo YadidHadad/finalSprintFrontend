@@ -18,14 +18,15 @@
 
     .main-title {
         input {
-            height: 30px;
+            // height: 30px;
             font-size: 14px;
             font-weight: bold;
             border: none;
             background-color: transparent;
             width: 100%;
-            padding: 0;
+            padding-left: rem(5px);
         }
+
         button {
             padding-right: rem(7px);
         }
@@ -131,11 +132,6 @@ button.add-card-btn {
         .main-title {
             flex-grow: 5;
             font-size: rem(14px) !important;
-        }
-
-        .remove {
-            font-size: rem(14px) !important;
-            width: 100% !important;
         }
 
         .btn {
