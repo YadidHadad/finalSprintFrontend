@@ -15,22 +15,22 @@
             {
                 "id": "l101",
                 "title": "Done",
-                "color": "#61bd4f"
+                "color": "#d6ecd2"
             },
             {
                 "id": "l102",
                 "title": "Progress",
-                "color": "#61bd33"
+                "color": "#fce6c6"
             },
             {
                 "id": "00asd0000",
                 "title": "Green!",
-                "color": "#d6ecd2"
+                "color": "#f5d3ce"
             },
             {
                 "id": "1111asd1111",
                 "title": "Discuss",
-                "color": "#faf3c0"
+                "color": "#bcd9ea "
             },
             {
                 "id": "2222as2222",
@@ -50,7 +50,7 @@
             {
                 "id": "55sa5555",
                 "title": "",
-                "color": "#bcd9ea"
+                "color": "#dfe1e6"
             }
         ],
         "members": [
