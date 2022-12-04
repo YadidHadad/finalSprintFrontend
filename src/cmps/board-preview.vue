@@ -1,6 +1,7 @@
 <template>
-    <section class="board-preview">
-        <h2>{{board.title}}</h2>
+    <section class="board-preview" :style="getBoardBc">
+        <span class="trellicons star" @click.stop="toggleStar"></span>
+        <div>{{ board.title }}</div>
         <!-- <group-list :group="board.groups"/> -->
     </section>
 </template>
@@ -12,7 +13,21 @@ export default {
     props: {
         board: Object,
     },
-    components: {boardList},
+    computed: {
+        getBoardBc() {
+            const style = { ...this.board.style }
+            console.log(style);
+            if (style.backgroundImage)
+                return { backgroundImage: `url(${style.backgroundImage})` }
+            else {
+                return { backgroundColor: style.backgroundColor }
+            }
+        },
+        toggleStar() {
+            this.$emit('toggleStar')
+        }
+    },
+    components: { boardList },
     // created() {
     //     console.log(this.board)
     // },
