@@ -172,3 +172,32 @@
   }
 }
 
+@mixin scroll-bar() {
+  /* ===== Scrollbar CSS ===== */
+  /* Firefox */
+  * {
+    scrollbar-width: auto;
+    scrollbar-color: #bfc4ce #d9dce2;
+  }
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-button {
+    width: 0px;
+    height: 0px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #bfc4ce;
+    border: 0px none #ffffff;
+    border-radius: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #d9dce2;
+    border: 0px none #ffffff;
+    border-radius: 8px;
+  }
+  ::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+}
