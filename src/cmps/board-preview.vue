@@ -1,6 +1,7 @@
 <template>
-    <section class="board-preview">
-        <h2>{{board.title}}</h2>
+    <section class="board-preview" >
+        <span class="trellicons icon-starred"></span>
+        <!-- <h2>{{ board.title }}</h2> -->
         <!-- <group-list :group="board.groups"/> -->
     </section>
 </template>
@@ -12,7 +13,14 @@ export default {
     props: {
         board: Object,
     },
-    components: {boardList},
+    computed: {
+        getBoardBc() {
+            const style = { ...this.board.style }
+            if (style?.backgroundImage || style?.backgroundColor)
+                return { backgroundImage: `url(${style.backgroundImage || style.backgroundColor})` }
+        }
+    },
+    components: { boardList },
     // created() {
     //     console.log(this.board)
     // },

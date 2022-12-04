@@ -1,25 +1,41 @@
 <template>
-  <div class="container home">
+  <section class="container home boards-page">
 
+    <app-nav />
+    <div class="board-main">
+      <div class="recently-viewed">
+        <ul v-if="boards" class="starred-board-list">
+          <li v-for="board in boards" :key="board._id">
+            <board-preview class="starred" v-if="board.isStarred" :board="board" @click="goToBoard(board._id)" 
+            :style="{ backgroundImage: `url(${board.style.backgroundImage || board.style.backgroundColor})` }"/>
+          </li>
+        </ul>
+      </div>
+      <div class="full-board-list">
+        <ul v-if="boards" class="board-list">
+          <li v-for="board in boards" :key="board._id">
+            <!-- <pre>{{ board }}</pre> -->
+            <board-preview :board="board" @click="goToBoard(board._id)"
+            :style="{ backgroundImage: `url(${board.style.backgroundImage || board.style.backgroundColor})` }"/>
+            <!-- <button @click="removeBoard(board._id)">x</button>
+            <button @click="updateBoard(board)">Update</button> -->
+            <!-- <button @click="addBoardMsg(board._id)">Add board msg</button>
+            <button @click="printBoardToConsole(board)">Print msgs to console</button> -->
+          </li>
+          <li @click="isAddBoard=true">
+            <span>Create new board</span>
+          </li>
+        </ul>
+      </div>
 
-    <ul v-if="boards" class="board-list">
-      <li v-for="board in boards" :key="board._id">
-        <!-- <pre>{{ board }}</pre> -->
-        <board-preview :board="board" @click="goToBoard(board._id)" />
-        <button @click="removeBoard(board._id)">x</button>
-        <button @click="updateBoard(board)">Update</button>
-        <hr />
-        <button @click="addBoardMsg(board._id)">Add board msg</button>
-        <button @click="printBoardToConsole(board)">Print msgs to console</button>
-      </li>
-    </ul>
-    <hr />
+    </div>
     <form @submit.prevent="addBoard()">
       <h2>Add board</h2>
       <input type="text" v-model="boardToAdd.title" />
       <button>Save</button>
     </form>
-  </div>
+    <add-board-modal v-if="isAddBoard"/>
+  </section>
 </template>
 
 <script>
@@ -30,10 +46,13 @@ import { boardService } from '../services/board.service.local'
 // import { getActionRemoveBoard, getActionUpdateBoard, getActionAddBoardMsg } from '../store/board.store'
 
 import boardPreview from '../cmps/board-preview.vue'
+import addBoardModal from '../cmps/add-board-modal.vue'
+import appNav from '../cmps/app-nav.vue'
 export default {
   data() {
     return {
-      boardToAdd: boardService.getEmptyBoard()
+      boardToAdd: boardService.getEmptyBoard(),
+      isAddBoard: false,
     }
   },
   computed: {
@@ -102,7 +121,9 @@ export default {
     }
   },
   components: {
-    boardPreview
+    boardPreview,
+    appNav,
+    addBoardModal
   }
 
 

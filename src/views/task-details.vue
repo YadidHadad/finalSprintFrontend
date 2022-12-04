@@ -23,8 +23,12 @@
         <section class="task-details-aside ">
             <section class="flex column">
                 <h4>Add to card</h4>
-                <button class="btn" @click="pickEditor('members-edit')">
-                    <span class="trellicons members-icon"></span>
+                <button v-for="btn in addBtns" :key="btn.arg" class="btn" @click="pickEditor(btn.arg)">
+                    <span :class="btn.icon"></span>
+                    <span>{{ btn.title }}</span>
+                </button>
+                <!-- <button class="btn" @click="pickEditor('members-edit')">
+                   <span class="trellicons members-icon"></span>
                     <span>Members</span>
                 </button>
                 <button class="btn" @click="pickEditor('labels-edit')">
@@ -46,7 +50,7 @@
                 <button class="btn" @click="pickEditor('cover-edit')">
                     <span class="trellicons cover-icon"></span>
                     <span>Cover</span>
-                </button>
+                </button> -->
             </section>
             <section class="btns-actions flex column">
                 <h4>Actions</h4>
@@ -148,6 +152,15 @@ export default {
             description: "",
             title: "",
             isShowDelete: false,
+            addBtns: [
+                { arg: 'members-edit', icon: 'trellicons members-icon', title: 'Members' },
+                { arg: 'labels-edit', icon: 'trellicons labels-icon', title: 'Labels' },
+                { arg: 'checklist-edit', icon: 'trellicons checklist-icon', title: 'Checklist' },
+                { arg: 'dates-edit', icon: 'fa-regular date-icon', title: 'Dates' },
+                { arg: 'location-edit', icon: 'trellicons location-icon', title: 'Location' },
+                { arg: 'cover-edit', icon: 'trellicons cover-icon', title: 'Cover' },
+            ]
+
             // labelIds: this.$store.getters.labelIds
         }
     },
