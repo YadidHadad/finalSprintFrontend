@@ -18,13 +18,13 @@
 
     .menu-container {
         .board-menu-page {
-            height: calc(100vh - 200px);
+            height: calc(100vh - 220px);
         }
         .activities {
             @include scroll-bar;
             .activities-container {
                 font-size: 0.8rem;
-                height: calc(100vh - 200px);
+                height: calc(100vh - 230px);
                 overflow-y: scroll;
             }
         }

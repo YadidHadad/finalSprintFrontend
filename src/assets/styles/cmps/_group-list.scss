@@ -1,4 +1,7 @@
 .group-list {
+    & *:not(.fa-solid):not(.fa-regular):not(.trellicons) {
+        font-family: "opensans";
+    }
     display: flex !important;
     height: calc(100vh - 96px);
     padding: 0.5rem;
@@ -20,10 +23,6 @@
             }
             // width: 272px;
         }
-    }
-
-    & *:not(.fa-solid):not(.fa-regular):not(.trellicons) {
-        font-family: "opensans";
     }
 
     .add-new-list {

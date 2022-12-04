@@ -1,5 +1,10 @@
+:root {
+    font-family: "opensans";
+}
+
 * {
     box-sizing: border-box;
+    font-family: "opensans";
 }
 
 ::selection {
@@ -15,12 +20,6 @@ html {
 
 body {
     margin: 0;
-    // background-color: lightblue;
-    // font-size: 0.8rem;
-
-    & * {
-        // font-family: "opensans";
-    }
 }
 
 h1,

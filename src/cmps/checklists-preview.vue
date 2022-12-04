@@ -46,7 +46,8 @@
                             </div>
                         </div>
 
-                        <button class="btn-delete margin-0" @click="removeTodo(index, checklist)">Remove</button>
+                        <button v-if="(todoEditId !== todo.id)" class="btn-delete margin-0"
+                            @click="removeTodo(index, checklist)">Remove</button>
                         <button v-if="(todoEditId !== todo.id)" class="btn-delete margin-0"
                             @click="isOpenOptions = !isOpenOptions">
                             <span class=" fa-solid elipsis-icon">

@@ -16,7 +16,7 @@
                 <input v-model="title" @input="debounceHandler('title', title)" />
             </div>
             <div class="flex column pad-40">
-                <span class="small">In list {{ getGroupName }}</span>
+                <span class="small">In list <span class="underline">{{ getGroupName }}</span></span>
             </div>
         </section>
 
