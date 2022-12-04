@@ -13,16 +13,6 @@
         },
         "labels": [
             {
-                "id": "l101",
-                "title": "Done",
-                "color": "#61bd4f"
-            },
-            {
-                "id": "l102",
-                "title": "Progress",
-                "color": "#61bd33"
-            },
-            {
                 "id": "00asd0000",
                 "title": "Green!",
                 "color": "#d6ecd2"
