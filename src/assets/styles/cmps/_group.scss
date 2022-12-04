@@ -58,7 +58,14 @@
 
         cursor: pointer;
         background-color: #ffffff;
-        padding: rem(6px) rem(8px);
+
+        .task-preview {
+            &>*:not(.task-preview-cover) {
+                padding: rem(6px) rem(8px) rem(2px);
+            }
+        }
+
+
         border-radius: 3px;
 
         &:hover {
