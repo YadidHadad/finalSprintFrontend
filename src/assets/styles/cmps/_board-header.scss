@@ -1,5 +1,5 @@
 .board-header {
-    padding: 0.5rem;
+    padding: 8px 4px 4px 32px;
     width: 100%;
     color: $textDark;
     transition: all 0.3s ease-out;
@@ -41,9 +41,7 @@
     .btn-initials {
         @include btn($type: initials);
     }
-    div {
-        margin-top: 0.5rem;
-    }
+
     div:last-of-type {
         transition: all 0.3s ease-out;
     }
@@ -51,6 +49,7 @@
     &.menuIsShown {
         // width: calc(100% - 340px);
         .btns-container:last-of-type {
+            margin: 0;
             margin-right: 340px;
         }
     }

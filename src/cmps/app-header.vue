@@ -2,9 +2,6 @@
     <header class="app-header" :style="headerBackground" :class="{ isDark: isDark }">
         <section class="flex">
             <button class="header-btn">
-                <span class="fa-solid grid-icon"></span>
-            </button>
-            <button class="header-btn">
                 <span class="fa-brands trello-icon "></span>
                 <span class="logo">Kanban</span>
             </button>
