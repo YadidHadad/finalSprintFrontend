@@ -1,7 +1,7 @@
 <template>
     <section class="checklist-preview">
         <div v-for="(checklist, index) in checklists" :key="checklist.id" class="checklist-container">
-            <div class="flex align-center justify-between">
+            <div class="flex align-center  justify-between">
                 <span class="trellicons checklist-icon large"></span>
                 <div v-if="checklistPicked !== checklists[index].id" class="task-cmp-title grow"
                     @click="pickChecklist(checklist)">
@@ -15,42 +15,50 @@
                     @click.stop="removeChecklist(checklist.id)">Remove</button>
             </div>
             <div class="title-btns pad-40" v-if="checklistPicked === checklists[index].id">
-                <button class="save-btn" @click="save">Save</button>
+                <button class="btn-save" @click="save">Save</button>
                 <button class="close-btn" @click="close">Cancel</button>
             </div>
-            <section class="pad-40 flex column">
-                <progress :value="checklist.todos.filter(todo => todo.isDone).length"
+            <section class=" flex column">
+                <progress class="pad-40" :value="checklist.todos.filter(todo => todo.isDone).length"
                     :max="checklist.todos.length"></progress>
-                <form class="todos-container flex column" @change="updateTodos(checklist)">
-                    <div class="todo-container flex row w-100" v-for="(todo, i) in checklist.todos" :key="i">
+                <form class="todos-container flex column " @change="updateTodos(checklist)">
+                    <div class="todo-container flex row w-100 align-start" v-for="(todo, i) in checklist.todos"
+                        :key="i">
                         <input type="checkbox" v-model="doneTodosIds" @change="toggleTodo" :value="todo.id">
+                        <span class="checkmark"></span>
                         <div class="todo-edit-container" @click="todoEditId = todo.id">
-                            <div v-if="(todoEditId !== todo.id)" class="grow" :class="{ 'line-through': todo.isDone }">{{
-                                    todo.title
-                            }}</div>
+                            <div v-if="(todoEditId !== todo.id)" class="grow" :class="{ 'line-through': todo.isDone }">
+                                {{
+                                        todo.title
+                                }}</div>
                             <div class="todo-edit" v-else>
-                                <textarea class="todo-title-input task-cmp-title grow" @focus="pickChecklist(checklist)"
-                                    :value="todo.title">
+                                <textarea class="checklist-title-input todo-title-input task-cmp-title grow"
+                                    @focus="pickChecklist(checklist)" :value="todo.title">
                                 </textarea>
                                 <div class="todo-edit-btns">
                                     <button class="btn-save" @click.stop="updateTodo(todo, checklist)">Save</button>
-                                    <button @click.stop="todoEditId=''">X</button>
+                                    <button class="close-btn" @click.stop="todoEditId = ''">
+                                        <span class="trellicons x-icon"></span>
+                                    </button>
                                 </div>
                             </div>
                         </div>
 
-                        <button v-if="isOpenOptions" class="btn-delete margin-0"
+                        <button v-if="(todoEditId !== todo.id)" class="btn-delete margin-0"
                             @click="removeTodo(index, checklist)">Remove</button>
-                        <button class="btn-delete margin-0" @click="isOpenOptions = !isOpenOptions">
+                        <button v-if="(todoEditId !== todo.id)" class="btn-delete margin-0"
+                            @click="isOpenOptions = !isOpenOptions">
                             <span class=" fa-solid elipsis-icon">
-                            </span></button>
+                            </span>
+                        </button>
                     </div>
                 </form>
-                <button class="add-todo-btn" v-if="!isTodoPicked" @click="isTodoPicked = true">Add an item</button>
-                <div v-else class="add-todo flex column">
+                <button class="add-todo-btn pad-40" v-if="!isTodoPicked" @click="isTodoPicked = true">Add an
+                    item</button>
+                <div v-else class="add-todo pad-40 flex column">
                     <textarea placeholder="Add an item" v-model="todoTxt"></textarea>
                     <div>
-                        <button class="save-btn" @click="saveTodo(checklist)">Save</button>
+                        <button class="btn-save" @click="saveTodo(checklist)">Save</button>
                         <button class="close-btn" @click="isTodoPicked = false">Cancel</button>
                     </div>
                 </div>

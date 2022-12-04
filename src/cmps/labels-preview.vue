@@ -1,6 +1,6 @@
 <template>
     <section class="labels-preview  flex column">
-        <span class="title">Labels</span>
+        <h4 class="title">Labels</h4>
         <section class="labels-container flex row align-center justify-center">
             <div v-for="(label, i) in taskLabels" :key="i" :style="{ backgroundColor: label.color }"
                 class="label-preview flex row align-center justify-center">

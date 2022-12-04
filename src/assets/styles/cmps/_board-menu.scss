@@ -21,11 +21,11 @@
             height: calc(100vh - 200px);
         }
         .activities {
+            @include scroll-bar;
             .activities-container {
                 font-size: 0.8rem;
                 height: calc(100vh - 200px);
                 overflow-y: scroll;
-                @include scroll-bar;
             }
         }
     }

@@ -10,6 +10,16 @@
     .smooth-dnd-container {
         display: flex !important;
         gap: 10px;
+
+        // height: 500px;
+        .smooth-dnd-draggable-wrapper {
+            .group {
+                // overflow-y: scroll;
+                // overflow-x: visible;
+                // height: 500px;
+            }
+            // width: 272px;
+        }
     }
 
     & *:not(.fa-solid):not(.fa-regular):not(.trellicons) {

@@ -36,7 +36,6 @@
         padding: 0 16px 16px 16px;
     }
     border-radius: 3px;
-    width: 770px;
     min-height: 600px;
     & * :not(.trellicons):not(.fa-regular):not(.fa-solid) {
         font-family: "opensans";
@@ -68,8 +67,8 @@
             color: $txtMedium;
         }
         .btn {
-            @include btn;
-            margin-inline: 0;
+            @include btn($type: "task-details");
+
             .trellicons {
                 top: 0;
                 margin-inline-end: 1rem;
@@ -79,11 +78,6 @@
                 margin-inline-end: 1rem;
             }
 
-            margin-block: 0.2rem;
-
-            font-size: 0.9rem;
-            background-color: #eaecf0;
-
             &:hover {
                 background-color: rgba($textDark, 0.1);
                 border-radius: 0;
@@ -92,7 +86,7 @@
 
         h4 {
             font-weight: bold;
-            font-size: 0.7rem;
+            font-size: 0.75rem;
         }
 
         .btns-actions {
