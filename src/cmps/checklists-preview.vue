@@ -24,7 +24,21 @@
                 <form class="todos-container flex column" @change="updateTodos(checklist)">
                     <div class="todo-container flex row w-100" v-for="(todo, i) in checklist.todos" :key="i">
                         <input type="checkbox" v-model="doneTodosIds" @change="toggleTodo" :value="todo.id">
-                        <div class="grow" :class="{ 'line-through': todo.isDone }">{{ todo.title }}</div>
+                        <div class="todo-edit-container" @click="todoEditId = todo.id">
+                            <div v-if="(todoEditId !== todo.id)" class="grow" :class="{ 'line-through': todo.isDone }">{{
+                                    todo.title
+                            }}</div>
+                            <div class="todo-edit" v-else>
+                                <textarea class="todo-title-input task-cmp-title grow" @focus="pickChecklist(checklist)"
+                                    :value="todo.title">
+                                </textarea>
+                                <div class="todo-edit-btns">
+                                    <button class="btn-save" @click.stop="updateTodo(todo, checklist)">Save</button>
+                                    <button @click.stop="todoEditId=''">X</button>
+                                </div>
+                            </div>
+                        </div>
+
                         <button v-if="isOpenOptions" class="btn-delete margin-0"
                             @click="removeTodo(index, checklist)">Remove</button>
                         <button class="btn-delete margin-0" @click="isOpenOptions = !isOpenOptions">
@@ -59,19 +73,20 @@ export default {
     },
     data() {
         return {
-            editedChecklists: null,
+            // editedChecklists: null,
             checklistPicked: '',
             editedChecklist: null,
             todoTxt: '',
             isTodoPicked: false,
             doneTodosIds: [],
-            isOpenOptions: false
+            isOpenOptions: false,
+            todoEditId: ''
         }
     },
     created() {
         this.debounceHandler = utilService.debounce(this.toggleTodo, 500)
 
-        if (this.checklists) this.editedChecklists = JSON.parse(JSON.stringify(this.checklists))
+        // if (this.checklists) this.editedChecklists = JSON.parse(JSON.stringify(this.checklists))
         if (this.checklists) {
             this.checklists.forEach(checklist => {
                 checklist.todos.forEach(todo => {
@@ -158,6 +173,11 @@ export default {
 
             // newChecklist.todos = updatedTodos
             this.updateChecklists(newChecklist, checklist)
+        },
+        updateTodo(todo, checklist) {
+            // const todoIdx = checklist.todos.findIndex(currTodo => todo.id === currTodo.id)
+            // checklist.splice(todoIdx, 1, checklist.todos)
+            // console.log(todoIdx, '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
         }
     },
     computed: {

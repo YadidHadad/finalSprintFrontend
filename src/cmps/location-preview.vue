@@ -1,15 +1,11 @@
 <template>
     <section class="location-preview">
-        <div class="flex row w-100 align-center ">
-            <span class="trellicons location-icon large "></span>
-            <div class="task-cmp-title grow">Location</div>
-        </div>
-        <div class="map-container pad-40">
-            <GoogleMap api-key="AIzaSyAV_zVjXKofPeV5nwAzfNKJ7Gt4VEMjHOw" style="width: 100%; height: 100%"
-                :center="center" :zoom="10">
-                <Marker v-for="m in markers" :options="m" @click="center = m.position" />
-            </GoogleMap>
-        </div>
+
+
+        <GoogleMap api-key="AIzaSyAV_zVjXKofPeV5nwAzfNKJ7Gt4VEMjHOw" style="width: 100%; height: 100%" :center="center"
+            :zoom="10">
+            <Marker v-for="m in markers" :options="m" @click="center = m.position" />
+        </GoogleMap>
 
     </section>
 </template>
@@ -28,19 +24,6 @@ export default {
         return {
             center: {},
             markers: [
-                // {
-                //     title: 'Tel-Aviv',
-                //     label: 'Hi!',
-                //     position: { lat: 32.0853, lng: 34.7818 },
-                // },
-                // {
-                //     title: 'Jerusalem',
-                //     position: { lat: 31.7683, lng: 35.2137 },
-                // },
-                // {
-                //     title: 'Rehovot',
-                //     position: { lat: 31.8928, lng: 34.8113 },
-                // },
             ],
         }
     },
