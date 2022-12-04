@@ -1,5 +1,5 @@
 <template>
-    <section class="group-list flex">
+    <section class="group-list flex scroll">
         <Container orientation="horizontal" @drop="onDrop" group-name="group-lists" :get-child-payload="getChildPayload"
             :drag-class="dragClass" :drop-class="dragClass">
             <Draggable v-for="(group, i) in groups" :key="group.id">
@@ -13,14 +13,15 @@
                 </transition>
 
                 <transition name="close">
-                <form v-if="isFormOpen" @submit.prevent="addGroup" class="flex group-list-form">
-                    <input v-model="group.title" type="text" name="add-list" placeholder="Enter list title..." v-focus>
-                    <div class="add-list-btns flex">
-                        <button class="add-list-btn">Add list</button>
-                        <button type="button" @click="toggleForm"><span class="fa-solid x-icon"></span></button>
-                    </div>
-                </form>
-            </transition>
+                    <form v-if="isFormOpen" @submit.prevent="addGroup" class="flex group-list-form">
+                        <input v-model="group.title" type="text" name="add-list" placeholder="Enter list title..."
+                            v-focus>
+                        <div class="add-list-btns flex">
+                            <button class="add-list-btn">Add list</button>
+                            <button type="button" @click="toggleForm"><span class="fa-solid x-icon"></span></button>
+                        </div>
+                    </form>
+                </transition>
             </section>
         </Container>
     </section>

@@ -1,11 +1,16 @@
 <template>
     <section class="location-preview">
+        <div class="flex row w-100 align-center ">
+            <span class="trellicons location-icon large "></span>
+            <div class="task-cmp-title grow">Location</div>
+        </div>
+        <div class="map-container">
 
-
-        <GoogleMap api-key="AIzaSyAV_zVjXKofPeV5nwAzfNKJ7Gt4VEMjHOw" style="width: 100%; height: 100%" :center="center"
-            :zoom="10">
-            <Marker v-for="(m ,index) in markers" :options="m" @click="center = m.position" :key="index" />
-        </GoogleMap>
+            <GoogleMap api-key="AIzaSyAV_zVjXKofPeV5nwAzfNKJ7Gt4VEMjHOw" style="width: 100%; height: 100%"
+                :center="center" :zoom="10">
+                <Marker v-for="m in markers" :options="m" @click="center = m.position" />
+            </GoogleMap>
+        </div>
 
     </section>
 </template>
@@ -28,8 +33,8 @@ export default {
         }
     },
     created() {
-        this.center =  this.location
-        console.log(this.center , this.location , '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+        this.center = this.location
+        console.log(this.center, this.location, '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
         const marker = {
             title: 'Tel-Aviv',
             label: 'Hi!',
