@@ -101,7 +101,7 @@ export default {
         },
 
         taskTodosLength() {
-            console.log(this.taskTodos.length);
+            // console.log(this.taskTodos.length);
             return this.taskTodos.length
         },
 

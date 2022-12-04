@@ -55,11 +55,11 @@ export default {
         },
         setBoard() {
             this.board = this.getBoards.find(b => b._id === this.toBoardId)
-            console.log(this.board);
+            // console.log(this.board);
         },
         setGroup() {
             this.group = this.board.groups.find(g => g.id === this.toGroupId)
-            console.log(this.group);
+            // console.log(this.group);
         }
     },
     computed: {

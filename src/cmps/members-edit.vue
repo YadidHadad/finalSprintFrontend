@@ -42,7 +42,7 @@ export default {
         this.boardMembers = this.$store.getters.members
         this.debounceHandler = utilService.debounce(this.getBoardMembers, 500)
 
-        console.log(this.boardMembers)
+        // console.log(this.boardMembers)
     },
     data() {
         return {
@@ -60,7 +60,7 @@ export default {
         },
         toggleMember(clickedMember) {
             this.getTaskMembersIds
-            console.log('********************', clickedMember)
+            // console.log('********************', clickedMember)
             var action
             const memberIdx = this.taskMembersIds.findIndex(id => {
                 return clickedMember._id === id
@@ -80,7 +80,7 @@ export default {
             return this.taskMembersIds.includes(memberId)
         },
         getBoardMembers() {
-            console.log('members')
+            // console.log('members')
             const boardMembers = JSON.parse(JSON.stringify(this.$store.getters.members))
 
             const regex = new RegExp(this.filterByName, 'i');

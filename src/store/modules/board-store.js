@@ -146,16 +146,16 @@ export const boardStore = {
                 const labelsTxts = toBoard.labels.map(lbl => {
                     return lbl.txt ? lbl.txt : ''
                 })
-                console.log(labelsTxts, ')000000000000000000000000');
+                // console.log(labelsTxts, ')000000000000000000000000');
                 const labelsToUpdate = state.board.labels.filter(lbl => {
                     if (task.labelIds.includes(lbl.id)) {
                         if (!labelsTxts.includes(lbl.txt)) return true
                     }
                     return false
                 })
-                console.log(toBoard.labels , ')000000000000000000000000');
+                // console.log(toBoard.labels , ')000000000000000000000000');
                 toBoard.labels.push(...labelsToUpdate)
-                console.log(toBoard.labels , ')000000000000000000000000');
+                // console.log(toBoard.labels , ')000000000000000000000000');
             }
         }
     },
@@ -201,7 +201,7 @@ export const boardStore = {
 
         async updateTasks(context, { payload }) {
             const { groupId, tasks } = payload
-            console.log(payload);
+            // console.log(payload);
             const group = context.state.board.groups.find(group => groupId === group.id)
             const prevTasks = group.tasks
             const newTasks = context.commit({ type: 'updateTasks', payload })
@@ -246,9 +246,9 @@ export const boardStore = {
         async updateTask(context, { payload }) {
             //update the task add new activity
             //and send socket to server task-updated.
-            console.log(payload.activity)
-            console.log('PAYLOAD!!!!!!!!');
-            console.log(payload);
+            // console.log(payload.activity)
+            // console.log('PAYLOAD!!!!!!!!');
+            // console.log(payload);
             const groupId = payload.groupId
             const taskId = payload.task.id
             const prevGroup = context.state.board.groups.find(g => g.id === groupId)
@@ -278,7 +278,7 @@ export const boardStore = {
         },
 
         async addTask(context, { boardId, groupId, task, activity }) {
-            console.log(boardId, groupId, task, activity);
+            // console.log(boardId, groupId, task, activity);
             const board = JSON.parse(JSON.stringify(context.state.boards.find(board => board._id === boardId)))
 
             const groupIdx = board.groups.findIndex((group) => group.id === groupId)
@@ -298,7 +298,7 @@ export const boardStore = {
         },
 
         async copyTask(context, { toBoardId, toGroupId, task, activity }) {
-            console.log(toBoardId, toGroupId, task, activity);
+            // console.log(toBoardId, toGroupId, task, activity);
             const toBoard = context.state.boards.find(board => board._id === toBoardId)
             // console.log(toBoard, 'FFFFFFFFFFFFFFFFFFFFFFFFF');
             // const toGroup = toBoard.find(group => group.id === toGroupId)
@@ -351,12 +351,12 @@ export const boardStore = {
         },
 
         async removeTask(context, { payload }) {
-            console.log(payload, 'REMOVEEEEEEEEEEEEEEEEE');
+            // console.log(payload, 'REMOVEEEEEEEEEEEEEEEEE');
             const prevBoard = context.state.boards.find(board => board._id === payload.activity.boardId)
             const newBoard = JSON.parse(JSON.stringify(prevBoard))
             const group = newBoard.groups.find(group => group.id === payload.activity.groupId)
             const taskIdx = group.tasks.findIndex(task => task.id === payload.taskId)
-            console.log((taskIdx));
+            // console.log((taskIdx));
             group.tasks.splice(taskIdx, 1)
             context.commit({ type: 'updateBoard', board: newBoard })
             context.commit({ type: 'setBoard', boardId: newBoard._id })
@@ -364,7 +364,7 @@ export const boardStore = {
             try {
                 await boardService.save(newBoard)
                 context.commit({ type: 'addActivity', activity: payload.activity })
-                console.log('DELETEEEEEEEEEEEEEEEEEEEEEEEEEED');
+                // console.log('DELETEEEEEEEEEEEEEEEEEEEEEEEEEED');
             }
             catch (err) {
                 console.log(err);

@@ -29,7 +29,7 @@ export default {
 
     try {
       await this.$store.dispatch({ type: 'loadBoards' })
-      console.log(this.boards)
+      // console.log(this.boards)
     } catch (err) {
       console.log(err)
     }

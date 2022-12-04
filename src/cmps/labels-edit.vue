@@ -40,7 +40,7 @@ export default {
         }
     },
     created() {
-        console.log('labels edit')
+        // console.log('labels edit')
         this.colorsSelected = this.labels.map(label => label.color)
         if (this.$store.getters.getEditedTask?.labelIds)
             this.labelIds = [...this.$store.getters.getEditedTask.labelIds]
@@ -56,7 +56,7 @@ export default {
                 lblIdx === -1 ? this.labelIds.push(labelId) : this.labelIds.splice(lblIdx, 1)
             }
             this.$emit('updateTask', { labelIds: [...this.labelIds] })
-            console.log(this.labelIds);
+            // console.log(this.labelIds);
         },
         editTitle(color) {
             this.isEditTitle = true

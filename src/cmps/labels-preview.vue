@@ -18,7 +18,7 @@
 export default {
     computed: {
         taskLabels() {
-            console.log(this.$store.getters.taskLabels);
+            // console.log(this.$store.getters.taskLabels);
             return this.$store.getters.taskLabels
         }
     }

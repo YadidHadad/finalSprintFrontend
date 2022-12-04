@@ -6,10 +6,10 @@
         </div>
         <div class="map-container">
 
-            <GoogleMap api-key="AIzaSyAV_zVjXKofPeV5nwAzfNKJ7Gt4VEMjHOw" style="width: 100%; height: 100%"
+            <!-- <GoogleMap api-key="AIzaSyAV_zVjXKofPeV5nwAzfNKJ7Gt4VEMjHOw" style="width: 100%; height: 100%"
                 :center="center" :zoom="10">
                 <Marker v-for="m in markers" :options="m" @click="center = m.position" />
-            </GoogleMap>
+            </GoogleMap> -->
         </div>
 
     </section>
@@ -34,7 +34,7 @@ export default {
     },
     created() {
         this.center = this.location
-        console.log(this.center, this.location, '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+        // console.log(this.center, this.location, '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
         const marker = {
             title: 'Tel-Aviv',
             label: 'Hi!',

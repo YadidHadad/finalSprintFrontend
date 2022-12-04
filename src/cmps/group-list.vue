@@ -1,30 +1,29 @@
 <template>
-    
-        <Container class="group-list flex scroll" orientation="horizontal" @drop="onDrop" group-name="group-lists" :get-child-payload="getChildPayload"
-            :drag-class="dragClass" :drop-class="dragClass">
-            <Draggable v-for="(group, i) in groups" :key="group.id">
-                <group id="group-details"  @addTask="addTask" @updateGroup="updateGroup" @removeGroup="$emit('removeGroup', $event)"
-                    :group="group" :boardId="boardId" />
-            </Draggable>
-            <section class="add-new-list">
-                <transition name="open">
-                    <button class="open-add-list" v-if="!isFormOpen" @click="toggleForm"><span
-                            class="fa-regular plus-icon"></span> Add a list</button>
-                </transition>
 
-                <transition name="close">
-                    <form v-if="isFormOpen" @submit.prevent="addGroup" class="flex group-list-form">
-                        <input v-model="group.title" type="text" name="add-list" placeholder="Enter list title..."
-                            v-focus>
-                        <div class="add-list-btns flex">
-                            <button class="add-list-btn">Add list</button>
-                            <button type="button" @click="toggleForm"><span class="fa-solid x-icon"></span></button>
-                        </div>
-                    </form>
-                </transition>
-            </section>
-        </Container>
-   
+    <Container class="group-list flex scroll" orientation="horizontal" @drop="onDrop" group-name="group-lists"
+        :get-child-payload="getChildPayload" :drag-class="dragClass" :drop-class="dragClass">
+        <Draggable v-for="(group, i) in groups" :key="group.id">
+            <group id="group-details" @addTask="addTask" @updateGroup="updateGroup"
+                @removeGroup="$emit('removeGroup', $event)" :group="group" :boardId="boardId" />
+        </Draggable>
+        <section class="add-new-list">
+            <transition name="open">
+                <button class="open-add-list" v-if="!isFormOpen" @click="toggleForm"><span
+                        class="fa-regular plus-icon"></span> Add a list</button>
+            </transition>
+
+            <transition name="close">
+                <form v-if="isFormOpen" @submit.prevent="addGroup" class="flex group-list-form">
+                    <input v-model="group.title" type="text" name="add-list" placeholder="Enter list title..." v-focus>
+                    <div class="add-list-btns flex">
+                        <button class="add-list-btn">Add list</button>
+                        <button type="button" @click="toggleForm"><span class="fa-solid x-icon"></span></button>
+                    </div>
+                </form>
+            </transition>
+        </section>
+    </Container>
+
 </template>
 
 <script>
@@ -95,7 +94,7 @@ export default {
             return true;
         },
         getChildPayload(index) {
-            console.log(index);
+            // console.log(index);
             return {
                 itemToMove: this.groupsCopy[index]
             }
@@ -122,9 +121,9 @@ export default {
             this.group.title = ''
         },
         updateGroup(group, activity) {
-            console.log('fhgfhghgfgf');
-            console.log(group);
-            console.log(activity);
+            // console.log('fhgfhghgfgf');
+            // console.log(group);
+            // console.log(activity);
             this.$store.dispatch({ type: 'updateGroup', group, activity })
         },
         addTask(groupId, task, activity) {

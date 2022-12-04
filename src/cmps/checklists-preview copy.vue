@@ -20,9 +20,8 @@
             </div>
             <section class=" flex column">
 
-                <section class="progress pad-40" v-if="checklist" :style="progressBarStyle[checklist.id]">
-                </section>
-
+                <progress class="pad-40" :value="checklist.todos.filter(todo => todo.isDone).length"
+                    :max="checklist.todos.length"></progress>
                 <form class="todos-container flex column " @change="updateTodos(checklist)">
                     <div class="todo-container flex row w-100 align-start" v-for="(todo, i) in checklist.todos"
                         :key="i">
@@ -89,31 +88,27 @@ export default {
             isTodoPicked: false,
             doneTodosIds: [],
             isOpenOptions: false,
-            todoEditId: '',
-            progress: {},
-            progressBarStyle: {},
+            todoEditId: ''
         }
     },
     created() {
         this.debounceHandler = utilService.debounce(this.toggleTodo, 500)
-        this.updateProgressBarStyle()
 
+        // if (this.checklists) this.editedChecklists = JSON.parse(JSON.stringify(this.checklists))
         if (this.checklists) {
             this.checklists.forEach(checklist => {
                 checklist.todos.forEach(todo => {
-                    if (todo.isDone) {
-                        this.doneTodosIds.push(todo.id)
-                        this.progress[checklist.id] ? this.progress[checklist.id] += 1 : this.progress[checklist.id] = 1
-                    }
+                    if (todo.isDone) this.doneTodosIds.push(todo.id)
                 })
             })
         }
-
+        console.log(this.doneTodosIds, 'DONE TODOSSSSSSSSSS');
     },
     methods: {
         pickChecklist(checklist) {
             this.editedChecklist = JSON.parse(JSON.stringify(checklist))
             this.checklistPicked = checklist.id
+            console.log(checklist);
         },
         save() {
             const checklistIdx = this.checklists.findIndex(checklist => checklist.id === this.editedChecklist.id)
@@ -126,8 +121,10 @@ export default {
             }, 500)
         },
         editChecklistTitle(checklist, ev) {
+            console.log('hiiiiii');
             this.editedChecklist = JSON.parse(JSON.stringify(checklist))
             this.editedChecklist.title = ev.target.value
+            console.log(this.editedChecklist);
         },
         close() {
             this.checklistPicked = ''
@@ -165,48 +162,35 @@ export default {
             updatedChecklists.splice(checklistIdx, 1, newChecklist)
             this.$emit('updateChecklists', updatedChecklists)
         },
-
+        toggleTodo(ev) {
+            console.log(this.doneTodosIds);
+        },
         updateTodos(checklist) {
-            this.progress[checklist.id] = 0
+            // console.log(checklist);
             const newChecklist = JSON.parse(JSON.stringify(checklist))
             newChecklist.todos.forEach(todo => {
                 if (this.doneTodosIds.includes(todo.id)) {
+                    console.log('hi');
                     todo.isDone = true
-                    this.progress[checklist.id] += 1
                 }
                 else {
                     todo.isDone = false
                 }
             })
+            console.log(newChecklist.todos);
 
+            // newChecklist.todos = updatedTodos
             this.updateChecklists(newChecklist, checklist)
         },
-
-        setProgress(checklist) {
-            const doneTodos = checklist.todos.length
-            const numOfTodos = checklist.todos.filter(todo => todo.isDone).length
-            this.progress = doneTodos / numOfTodos
+        updateTodo(todo, checklist) {
+            // const todoIdx = checklist.todos.findIndex(currTodo => todo.id === currTodo.id)
+            // checklist.splice(todoIdx, 1, checklist.todos)
+            // console.log(todoIdx, '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
         },
-        updateProgressBarStyle() {
-            this.checklists.forEach(checklist => {
-                const total = checklist.todos.length
-                const done = checklist.todos.filter(todo => todo.isDone === true).length
-                const progress = ((done / total) * 100).toFixed(0)
-                console.log(progress)
-                if (+progress === 100) this.progressBarStyle[checklist.id] = { background: 'linear-gradient(to right, #61bd4f ' + (progress * 5.28) + 'px, #61bd4f 20px)' }
-                else if (+progress > 0) this.progressBarStyle[checklist.id] = { background: 'linear-gradient(to right, #5ba4cf ' + (progress * 5.28) + 'px, #e2e4e9 20px)' }
-                else this.progressBarStyle[checklist.id] = { background: 'linear-gradient(to right, #e2e4e9 ' + (progress * 5.28) + 'px, #e2e4e9 20px)' }
-            })
-        }
-    },
 
-    watch: {
-        checklists: {
-            handler: function (val, oldVal) {
-                this.updateProgressBarStyle(); // call it in the context of your component object
-            },
-            deep: true
-        }
     },
+    computed: {
+
+    }
 }
 </script>
