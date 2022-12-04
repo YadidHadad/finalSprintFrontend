@@ -14,7 +14,7 @@
 
         <Container orientation="vertical" @drop="onDrop" group-name="group-tasks" :get-child-payload="getChildPayload"
             :drag-class="dragClass" :drop-class="dragClass">
-            <Draggable v-for="(task, i) in group.tasks" :key="i">
+            <Draggable id="task-preview" v-for="(task, i) in group.tasks" :key="i">
                 <task-preview :task="task" :groupId="this.group.id" :boardId="boardId" />
             </Draggable>
         </Container>
