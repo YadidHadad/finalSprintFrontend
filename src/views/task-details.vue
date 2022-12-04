@@ -3,7 +3,7 @@
 
     <section v-if="task" class="task-details" v-click-outside="closeDetails">
         <section class="task-cover">
-            <button class="btn-close" @click="closeDetails">
+            <button class=" close-task" @click="closeDetails">
                 <span class="trellicons x-icon"></span>
             </button>
             <!-- <cover-preview v-if="task.style?.imgUrl" class="full" :coverBcg="task.style" /> -->

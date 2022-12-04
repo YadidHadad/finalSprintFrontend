@@ -114,22 +114,23 @@
       background-color: rgba($textDark, 0.1);
       border-radius: 0;
     }
+  } @else if $type == "close" {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    font-size: 1rem;
+    height: 40px;
+    width: 40px;
+    background-color: transparent;
+    display: inline;
+    margin: 4px;
+    padding: 4px;
+    color: rgba($textDark, 0.6);
+
+    &:hover {
+      color: rgba($textDark, 1);
+    }
   }
-  // } @else if $type == dark {
-  //   // background-color: $clr2;
-  //   // color: $clr3;
-  //   &:hover {
-  //     background-color: $clr1;
-  //     color: $clr3;
-  //   }
-  // } @else if $type == light {
-  //   // background-color: $clr3;
-  //   // color: $clr2;
-  //   &:hover {
-  //     background-color: $clr1;
-  //     color: $clr3;
-  //   }
-  // }
 }
 
 @mixin btn-add-save($type: "save") {

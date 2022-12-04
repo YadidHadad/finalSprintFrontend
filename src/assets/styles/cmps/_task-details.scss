@@ -33,7 +33,7 @@
     background-color: $taskDetailsBGC;
 
     & > *:not(.task-cover) {
-        padding: 1rem;
+        padding: 0 16px 16px 16px;
     }
     border-radius: 3px;
     width: 770px;
@@ -234,6 +234,18 @@
 
         &::after {
             background-color: black;
+        }
+    }
+
+    .close-task {
+        @include btn($type: "close");
+        height: 40px;
+        width: 40px;
+        font-size: 20px;
+        border-radius: 50%;
+
+        &:hover {
+            background-color: rgba($textDark, 0.1);
         }
     }
 }
