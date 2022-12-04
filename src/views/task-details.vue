@@ -79,6 +79,7 @@
                 :isComplete="this.task.isComplete" />
             <description-preview :description="task.description"
                 @updateDescription="updateTask('description', $event)" />
+            <location-preview v-if="task.location" :location="task.location" />
             <!-- <checklists-preview v-if="task.checklists" :checklists="task.checklists"
                 @updateChecklists="updateTask('checklist-preview', $event)" /> -->
             <checklists-preview v-if="task.checklists" :checklists="task.checklists"
@@ -107,7 +108,8 @@ import datesEdit from "../cmps/dates-edit.vue";
 import datesPreview from "../cmps/dates-preview.vue";
 import coverEdit from "../cmps/cover-edit.vue";
 import coverPreview from "../cmps/cover-preview.vue";
-import locationEdit from "../cmps/location-edit.vue"
+import locationEdit from "../cmps/location-edit.vue";
+import locationPreview from "../cmps/location-preview.vue";
 
 import { utilService } from "../services/util.service";
 
@@ -128,7 +130,8 @@ export default {
         datesPreview,
         coverEdit,
         coverPreview,
-        locationEdit
+        locationEdit,
+        locationPreview
     },
 
     data() {
@@ -312,6 +315,9 @@ export default {
                             'imgUrl': data
                         }
                     }
+                case 'location-edit':
+                    taskToUpdate.location = data
+                    this.closeEditor();
                     break
             }
             try {

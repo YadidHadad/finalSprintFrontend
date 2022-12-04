@@ -9,12 +9,21 @@
             </div>
 
             <input type="text" placeholder="Search Google Maps">
+            <div>
+                <button @click="updateLocation">Add</button>
+            </div>
         </div>
     </section>
 </template>
 
 <script>
+
 export default {
 
+    methods: {
+        updateLocation() {
+            this.$emit('updateTask', { lat: 32.0853, lng: 34.7818 })
+        }
+    },
 }
 </script>
