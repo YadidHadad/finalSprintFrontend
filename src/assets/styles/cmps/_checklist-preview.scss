@@ -2,6 +2,7 @@
     .save-btn {
         @include btn-add-save($type: "save");
     }
+
     .add-todo-btn,
     .btn-delete,
     .close-btn {
@@ -42,5 +43,29 @@
 
     .margin-0 {
         margin: 0;
+    }
+}
+
+.checklist-preview {
+
+
+
+
+
+    .todo-edit {}
+
+    .todo-edit-btns {
+        button {
+            font-size: 0.8rem;
+            padding: 6px 12px;
+            border-radius: 3px;
+            margin-block: 0.5rem;
+            margin-inline-end: 5px;
+        }
+
+        .btn-save {
+            background-color: #0079bf;
+            color: #fafbfc;
+        }
     }
 }
