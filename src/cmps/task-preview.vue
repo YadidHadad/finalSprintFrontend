@@ -1,6 +1,6 @@
 <template>
     <section class="task-preview flex column" @click="goTo">
-        <div v-if="getBackground" :class="getCoverType"
+        <div v-if="getBackground" class="task-preview-cover" :class="getCoverType"
             :style="{ backgroundColor: getBackground, backgroundImage: `url(${getBackground})` }"></div>
         <section class="labels-preview">
             <ul class="clean-list flex">
