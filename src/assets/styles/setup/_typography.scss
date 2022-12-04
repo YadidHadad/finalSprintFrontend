@@ -35,7 +35,11 @@
 
 @font-face {
     font-family: "opensans";
-    src: url(/src/assets/fonts/opensans/OpenSans-VariableFont_wdth\,wght.ttf);
+    src: url(/src/assets/fonts/opensans/OpenSans-Regular.ttf);
+}
+@font-face {
+    font-family: "opensans-light";
+    src: url(/src/assets/fonts/opensans/OpenSans-Light.ttf);
 }
 
 @font-face {

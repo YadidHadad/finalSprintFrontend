@@ -1,5 +1,6 @@
 <template>
-    <section class="board-nav flex column" :style="style" :class="{ isDark: isDark }, { navIsHidden: navIsHidden }">
+    <section class="board-nav flex column wrap" :style="style"
+        :class="{ isDark: isDark }, { navIsHidden: navIsHidden }">
         <div class="nav-title flex row align-center justify-between" :class="{ isDark: isDark }">
             <span>Workspace</span>
             <button class="btn-regular btn-toggle" @click="toggleBoardNav"> <span
@@ -10,7 +11,7 @@
             <span :class="btn.icon"></span>
             <span>{{ btn.txt }}</span>
         </button>
-        <div class="nav-title flex row align-center justify-between">
+        <div class="nav-title flex row align-center justify-between ">
             <span>Your Boards</span>
             <button class="btn-regular"> <span class="fa-regular plus-icon"></span></button>
         </div>
