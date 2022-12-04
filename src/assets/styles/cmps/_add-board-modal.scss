@@ -1,15 +1,38 @@
+.created-board-header {
+    display: flex;
+    align-items: center;
+}
+
 .add-board-modal {
     background-color: white;
     width: 304px;
     padding: 0 12px 12px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 
     .colors-pallet {
         width: 100%;
         gap: 10px;
 
-        // >:last-child {
+        >*:not(:last-child) {
+            &:hover {
+                cursor: pointer;
+                filter: brightness(95%);
+            }
+        }
 
-        // }
+        >:last-child {
+            display: flex;
+            text-align: center;
+            background-color: white;
+            justify-content: center;
+
+            &:hover {
+                filter: brightness(80%);
+                cursor: pointer;
+            }
+        }
 
         .color-sample {
             height: 32px;
@@ -27,6 +50,7 @@
     .photos-container {
         display: flex;
         gap: 10px;
+        padding-bottom: 8px;
 
         img {
             object-fit: cover;

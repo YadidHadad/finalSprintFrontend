@@ -1,26 +1,27 @@
 <template>
     <section class="add-board-modal" @click.stop="">
-        <button class="btn-close" @click.stop="closeEdit">
-            <span class="trellicons x-icon"></span>
-        </button>
-        <div class="title">Create board</div>
-        <div class="mini-title">Colors</div>
+        <div class="created-board-header">
+            <button class="btn-close" @click.stop="closeEdit">
+                <span class="trellicons x-icon"></span>
+            </button>
+            <div class="title">Create board</div>
+        </div>
+
+        <input type="text" v-model="title" v-focus>
+        <div class="mini-title">Background</div>
+        <div class="photos-container flex">
+            <img v-for="index in 4" :key="index" :src="imgUrls[index]" @click="updateCover(imgUrls[index])">
+        </div>
         <div class="colors-pallet flex">
             <div v-for=" (color, i) in colorsPallet" :key="i" :style="{ backgroundColor: color }" class="color-sample"
                 @click="updateCover(color)">
 
             </div>
-            <div class="color-sample"></div>
+            <div class="color-sample">...</div>
         </div>
-        <div class="mini-title">Attachments</div>
-        <!-- <button class="btn-upload" @click="">Upload a cover image </button> -->
-
-        <div class="mini-title">Photos from Unsplash</div>
-        <div class="photos-container flex">
-            <img v-for="index in 4" :key="index" :src="imgUrls[index]" @click="updateCover(imgUrls[index])">
-        </div>
-
         <input type="text" placeholder="Search Photos..." @input="debounceHandler" v-model="searchTxt">
+
+        <button @click="addBoard">Create</button>
     </section>
 </template>
 
@@ -36,6 +37,8 @@ export default {
             searchTxt: '',
             imgUrls: [],
             colorsPallet: ['#7bc86c', '#f5dd29', '#ffaf3f', '#ef7564', '#cd8de5'],
+            title: '',
+            bcg: ''
         }
     },
     components: {
@@ -57,13 +60,16 @@ export default {
                 // console.log(this.imgUrls);
             })
         },
-        updateCover(value) {
-            this.$emit('updateTask', value)
+        updateCover(background) {
+            this.bcg = background
         },
 
         closeEdit() {
             this.$emit('closeEdit')
         },
+        addBoard() {
+            this.$emit('addBoard', { title: this.title, bcg: this.bcg })
+        }
     },
     computed: {
 

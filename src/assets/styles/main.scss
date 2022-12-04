@@ -12,6 +12,7 @@
 @import "basics/forms";
 
 // Components
+@import "cmps/app-main";
 @import "cmps/app-header";
 @import "cmps/user-msg";
 @import "cmps/review-list";
@@ -41,3 +42,4 @@
 @import "cmps/location-preview";
 @import "cmps/app-nav";
 @import "cmps/add-board-modal";
+// @import "cmps/add-board"

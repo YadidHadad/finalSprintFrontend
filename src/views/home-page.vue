@@ -1,40 +1,44 @@
 <template>
-  <section class="container home boards-page">
-
-    <app-nav />
-    <div class="board-main">
-      <div class="recently-viewed">
-        <ul v-if="boards" class="starred-board-list">
-          <li v-for="board in boards" :key="board._id">
-            <board-preview class="starred" v-if="board.isStarred" :board="board" @click="goToBoard(board._id)" 
-            :style="{ backgroundImage: `url(${board.style.backgroundImage || board.style.backgroundColor})` }"/>
-          </li>
-        </ul>
+  <section class="boards-page-container">
+    <section class="container home boards-page">
+      <app-nav />
+      <div class="board-main">
+        <div class="starred-boards">
+          <div class="star-header-container">
+            <span class="trellicons icon-starred"></span>
+            <h3>Starred boards</h3>
+          </div>
+          <ul v-if="boards" class="starred-board-list">
+            <li v-for="board in boards.filter(b=> b.isStarred)" :key="board._id">
+              <board-preview class="starred" :board="board" @click="goToBoard(board._id)"
+              @toggleStar="toggleStar(false , board)"/>
+            </li>
+          </ul>
+        </div>
+        <div class="full-board-list">
+          <h3>YOUR WORKSPACES</h3>
+          <ul v-if="boards" class="board-list">
+            <li v-for="board in boards" :key="board._id">
+              <!-- <pre>{{ board }}</pre> -->
+              <board-preview :board="board" @click="goToBoard(board._id)" @toggleStar="toggleStar(true , board)"/>
+              <!-- <button @click="removeBoard(board._id)">x</button>
+                <button @click="updateBoard(board)">Update</button> -->
+              <!-- <button @click="addBoardMsg(board._id)">Add board msg</button>
+                <button @click="printBoardToConsole(board)">Print msgs to console</button> -->
+            </li>
+            <li @click="isAddBoard = true">
+              <span>Create new board</span>
+            </li>
+          </ul>
+        </div>
       </div>
-      <div class="full-board-list">
-        <ul v-if="boards" class="board-list">
-          <li v-for="board in boards" :key="board._id">
-            <!-- <pre>{{ board }}</pre> -->
-            <board-preview :board="board" @click="goToBoard(board._id)"
-            :style="{ backgroundImage: `url(${board.style.backgroundImage || board.style.backgroundColor})` }"/>
-            <!-- <button @click="removeBoard(board._id)">x</button>
-            <button @click="updateBoard(board)">Update</button> -->
-            <!-- <button @click="addBoardMsg(board._id)">Add board msg</button>
-            <button @click="printBoardToConsole(board)">Print msgs to console</button> -->
-          </li>
-          <li @click="isAddBoard=true">
-            <span>Create new board</span>
-          </li>
-        </ul>
-      </div>
-
-    </div>
-    <form @submit.prevent="addBoard()">
-      <h2>Add board</h2>
-      <input type="text" v-model="boardToAdd.title" />
-      <button>Save</button>
-    </form>
-    <add-board-modal v-if="isAddBoard"/>
+      <!-- <form @submit.prevent="addBoard()">
+          <h2>Add board</h2>
+          <input type="text" v-model="boardToAdd.title" />
+          <button>Save</button>
+        </form> -->
+      <add-board-modal v-if="isAddBoard" @addBoard="addBoard" />
+    </section>
   </section>
 </template>
 
@@ -72,7 +76,14 @@ export default {
     }
   },
   methods: {
-    async addBoard() {
+    async addBoard({ bcg, title }) {
+      if (bcg.startsWith('#')) {
+        this.boardToAdd.style = { backgroundColor: bcg }
+      } else {
+        this.boardToAdd.style = { backgroundImage: bcg }
+      }
+      this.boardToAdd.title = title
+      this.isAddBoard = false
       try {
         await this.$store.dispatch({ type: 'addBoard', board: this.boardToAdd })
         showSuccessMsg('Board added')
@@ -94,10 +105,9 @@ export default {
     },
     async updateBoard(board) {
       try {
-        board = { ...board }
-        board.title = prompt('Board title?', board.title)
+        // board = { ...board }
         await this.$store.dispatch({ type: 'updateBoard', board })
-        showSuccessMsg('Board updated')
+        // showSuccessMsg('Board updated')
 
       } catch (err) {
         console.log(err)
@@ -118,6 +128,11 @@ export default {
     },
     goToBoard(id) {
       this.$router.push(`/board/${id}`)
+    },
+    toggleStar(isStarred , board) {
+      const newBoard = JSON.parse(JSON.stringify(board))
+      newBoard.isStarred = isStarred
+      this.updateBoard(newBoard)
     }
   },
   components: {

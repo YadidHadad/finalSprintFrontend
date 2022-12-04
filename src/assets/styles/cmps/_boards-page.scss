@@ -1,3 +1,13 @@
+.boards-page-container {
+    // display: grid;
+    // grid-template-columns: auto 1100px auto;
+
+    // >* {
+    //     grid-column: 2;
+    // }
+}
+
+
 .boards-page {
     display: grid;
     grid-template-columns: 272px auto;
@@ -47,11 +57,11 @@
         justify-content: center;
         align-items: center;
         background-color: #f0f2f5;
-        color:#9fa7b6;
+        color: #9fa7b6;
 
         &:hover {
             cursor: pointer;
-            filter:brightness(95%)
+            filter: brightness(95%)
         }
     }
 
@@ -66,6 +76,24 @@
     //     padding: .2em;
     //     margin: .2em;
     // }    
+}
+
+.starred-boards {
+    font-family: "segoe-italic";
+    color: #1d3152;
+
+    h3 {
+        margin-inline-start: 40px;
+        font-size: 20px;
+    }
+
+}
+
+.star-header-container {
+    display: flex;
+    align-items: center;
+    padding-bottom: 10px;
+    font-size: 24px;
 }
 
 .starred-board-list {
