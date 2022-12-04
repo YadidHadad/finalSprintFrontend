@@ -28,7 +28,7 @@
                         <span class="trellicons activity-icon"></span>
                         <span>Activity</span>
                     </button>
-                    <div v-if="getActivitiesLength" class="activities-container">
+                    <div v-if="getActivitiesLength" class="activities-container scroll">
                         <div v-for="( activity, i) in activities" :key="i" class="activity flex row align-start">
                             <div class="activity">
                                 <span class="btn flex row align-baseline align-center justify-center">{{
