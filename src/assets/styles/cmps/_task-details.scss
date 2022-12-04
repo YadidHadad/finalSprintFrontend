@@ -13,14 +13,15 @@
 }
 
 .task-details {
-    width: 768px;
+    max-width: 768px;
+    min-width: 768px;
     backdrop-filter: brightness(0.8);
     display: grid;
     grid-template-areas:
         "cover cover"
         "header header"
         "main aside";
-    grid-template-columns: 1fr 192px;
+    grid-template-columns: minmax(576px, 1fr) 192px;
     grid-template-rows: auto 85px 1fr;
 
     position: absolute;

@@ -27,30 +27,6 @@
                     <span :class="btn.icon"></span>
                     <span>{{ btn.title }}</span>
                 </button>
-                <!-- <button class="btn" @click="pickEditor('members-edit')">
-                   <span class="trellicons members-icon"></span>
-                    <span>Members</span>
-                </button>
-                <button class="btn" @click="pickEditor('labels-edit')">
-                    <span class="trellicons labels-icon"></span>
-                    <span>Labels</span>
-                </button>
-                <button class="btn" @click="pickEditor('checklist-edit')">
-                    <span class="trellicons checklist-icon"></span>
-                    <span>Checklist</span>
-                </button>
-                <button class="btn" @click="pickEditor('dates-edit')">
-                    <span class="fa-regular date-icon"></span>
-                    <span>Dates</span>
-                </button>
-                <button class="btn" @click="pickEditor('location-edit')">
-                    <span class="trellicons location-icon"></span>
-                    <span>Location</span>
-                </button>
-                <button class="btn" @click="pickEditor('cover-edit')">
-                    <span class="trellicons cover-icon"></span>
-                    <span>Cover</span>
-                </button> -->
             </section>
             <section class="btns-actions flex column">
                 <h4>Actions</h4>
@@ -287,11 +263,11 @@ export default {
                     taskToUpdate.description = data;
                     break;
                 case "title":
-                    txt = "Updated title";
+                    txt = "updated title";
                     taskToUpdate.title = data;
                     break;
                 case "checklist-edit":
-                    txt = "Added checklist";
+                    txt = "added checklist";
                     if (!taskToUpdate?.checklists) taskToUpdate.checklists = [];
                     data.id = utilService.makeId();
                     taskToUpdate.checklists.push(data);
