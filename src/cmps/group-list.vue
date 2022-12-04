@@ -1,9 +1,9 @@
 <template>
-    <section class="group-list flex scroll">
-        <Container orientation="horizontal" @drop="onDrop" group-name="group-lists" :get-child-payload="getChildPayload"
+    
+        <Container class="group-list flex scroll" orientation="horizontal" @drop="onDrop" group-name="group-lists" :get-child-payload="getChildPayload"
             :drag-class="dragClass" :drop-class="dragClass">
             <Draggable v-for="(group, i) in groups" :key="group.id">
-                <group @addTask="addTask" @updateGroup="updateGroup" @removeGroup="$emit('removeGroup', $event)"
+                <group id="group-details"  @addTask="addTask" @updateGroup="updateGroup" @removeGroup="$emit('removeGroup', $event)"
                     :group="group" :boardId="boardId" />
             </Draggable>
             <section class="add-new-list">
@@ -24,7 +24,7 @@
                 </transition>
             </section>
         </Container>
-    </section>
+   
 </template>
 
 <script>

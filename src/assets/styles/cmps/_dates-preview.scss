@@ -12,6 +12,7 @@
 
     .btn-date {
         @include btn($type: "task-details");
+        margin: 0;
     }
 
     .time-tag {

@@ -19,7 +19,7 @@
         "cover cover"
         "header header"
         "main aside";
-    grid-template-columns: 1fr 170px;
+    grid-template-columns: 1fr 192px;
     grid-template-rows: auto 85px 1fr;
 
     position: absolute;
@@ -33,10 +33,9 @@
     background-color: $taskDetailsBGC;
 
     & > *:not(.task-cover) {
-        padding: 1rem;
+        padding: 0 16px 16px 16px;
     }
     border-radius: 3px;
-    width: 770px;
     min-height: 600px;
     & * :not(.trellicons):not(.fa-regular):not(.fa-solid) {
         font-family: "opensans";
@@ -61,28 +60,23 @@
     }
 
     .task-details-aside {
+        grid-area: aside;
+        padding: 0 16px 16px 8px;
+
         & * {
             color: $txtMedium;
         }
         .btn {
-            @include btn;
-
-            margin-inline: 0;
+            @include btn($type: "task-details");
 
             .trellicons {
                 top: 0;
                 margin-inline-end: 1rem;
             }
-
             .fa-regular {
                 top: 0;
                 margin-inline-end: 1rem;
             }
-
-            margin-block: 0.2rem;
-
-            font-size: 0.9rem;
-            background-color: #eaecf0;
 
             &:hover {
                 background-color: rgba($textDark, 0.1);
@@ -92,7 +86,7 @@
 
         h4 {
             font-weight: bold;
-            font-size: 0.7rem;
+            font-size: 0.75rem;
         }
 
         .btns-actions {
@@ -153,16 +147,12 @@
         }
     }
 
-    .task-details-aside {
-        grid-area: aside;
-        padding-inline-start: 1rem;
-    }
-
     .task-main {
         grid-area: main;
         display: flex;
         flex-direction: column;
         gap: 30px;
+        padding: 0 8px 16px 16px;
     }
 
     .desc-container {
@@ -234,6 +224,18 @@
 
         &::after {
             background-color: black;
+        }
+    }
+
+    .close-task {
+        @include btn($type: "close");
+        height: 40px;
+        width: 40px;
+        font-size: 20px;
+        border-radius: 50%;
+
+        &:hover {
+            background-color: rgba($textDark, 0.1);
         }
     }
 }

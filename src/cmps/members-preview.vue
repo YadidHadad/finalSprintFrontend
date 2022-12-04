@@ -1,6 +1,6 @@
 <template>
     <section v-if="boardMembers" class="members-preview flex column">
-        <span v-if="isTaskDetails" class="title">Members</span>
+        <h4 v-if="isTaskDetails" class="title">Members</h4>
         <section class="members-container flex row align-center">
             <div v-for="member in taskMembers">
                 <div v-if="member.imgUrl" class="member-image" :style="memberImage(member.imgUrl)"> </div>

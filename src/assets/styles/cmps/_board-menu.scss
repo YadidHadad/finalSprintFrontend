@@ -1,5 +1,5 @@
 .board-menu {
-    width: 340px;
+    width: 331px;
     height: 100%;
     right: 0;
     position: absolute;
@@ -21,6 +21,7 @@
             height: calc(100vh - 200px);
         }
         .activities {
+            @include scroll-bar;
             .activities-container {
                 font-size: 0.8rem;
                 height: calc(100vh - 200px);
@@ -85,11 +86,13 @@
             background-image: url(https://a.trellocdn.com/prgb/dist/images/colors@2x.ec32a2ed8dd8198b8ef0.jpg);
         }
     }
+
     .photos {
         .btn {
             background-image: url(https://a.trellocdn.com/prgb/dist/images/photos-thumbnail@3x.8f9c1323c9c16601a9a4.jpg);
         }
     }
+
     .costume {
         .btn {
             background-color: #eaecf0;
