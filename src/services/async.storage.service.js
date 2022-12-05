@@ -12,7 +12,7 @@ export const storageService = {
 
 function query(entityType, delay = 500) {
     var entities = JSON.parse(localStorage.getItem(entityType))
-    // console.log(entities)
+    console.log(entities)
     return new Promise(resolve => setTimeout(() => resolve(entities), delay))
 }
 
@@ -29,6 +29,8 @@ function post(entityType, newEntity) {
     newEntity._id = _makeId()
     return query(entityType)
         .then(entities => {
+            //!!!!!!
+            if(!entities) entities = []
             entities.push(newEntity)
             _save(entityType, entities)
             return newEntity

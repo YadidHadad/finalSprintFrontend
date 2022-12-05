@@ -1,0 +1,27 @@
+[
+    {
+        "fullname": "Puki Norma",
+        "username": "puki",
+        "password": "123",
+        "score": 10000,
+        "isAdmin": false
+    },
+    {
+        "fullname": "Amir Gombo",
+        "username": "amir",
+        "password": "123",
+        "isAdmin": true
+    },
+    {
+        "fullname": "Gal Lankri",
+        "username": "gal",
+        "password": "123",
+        "isAdmin": true
+    },
+    {
+        "fullname": "Yadid Hadad",
+        "username": "yadid",
+        "password": "123",
+        "isAdmin": false
+    }
+]

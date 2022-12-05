@@ -50,6 +50,15 @@ export default {
     setRGB(rgb) {
       this.rgb = rgb
       this.isDark = rgb.isDark
+    },
+    async logout() {
+      try {
+        await this.$store.dispatch({ type: 'logout' })
+        this.$router.push('/login')
+      }
+      catch (err) {
+        console.log('Fail to logout', err);
+      }
     }
   },
   computed: {

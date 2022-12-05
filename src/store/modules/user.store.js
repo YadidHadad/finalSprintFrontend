@@ -36,7 +36,9 @@ export const userStore = {
     actions: {
         async login({ commit }, { userCred }) {
             try {
+                console.log(userCred);
                 const user = await userService.login(userCred)
+                if(!user) return
                 commit({ type: 'setLoggedinUser', user })
                 return user
             } catch (err) {

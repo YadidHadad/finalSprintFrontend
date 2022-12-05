@@ -11,7 +11,14 @@
                 Create
             </button>
         </section>
+<<<<<<< HEAD
 
+=======
+        <section class="user-buttons">
+            <span v-if="user" class="btn flex row profile-btn" @click="(showUserPreview = !showUserPreview)">
+                {{ getInitials(user.fullname) }}
+            </span>
+>>>>>>> 52d6a193592038a8269e52b5fd28646f4b9401ae
         <section class="user-buttons flex row align-center gap">
             <div class="search-boards flex row align-center gap justify-around">
                 <svg class="icon" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg"
@@ -49,6 +56,9 @@
                 <div v-else class="member-initials"> {{ getInitials(user.fullname) }} </div>
             </div>
         </section>
+    </section>
+
+        <user-preview v-if="showUserPreview" :user="user" v-click-outside="closeUserPreview" @logout="logout" />
     </header>
 </template>
 
@@ -57,6 +67,7 @@
 
 import { utilService } from '../services/util.service'
 
+import userPreview from './user-preview.vue'
 export default {
     name: 'app-header',
     props: ['rgb'],
@@ -65,9 +76,20 @@ export default {
     },
     data() {
         return {
+            showUserPreview: false
         }
     },
     methods: {
+        getInitials(fullname = 'Guest') {
+            return utilService.getInitials(fullname)
+        },
+        logout() {
+            this.$emit('logout')
+            this.showUserPreview = false
+        },
+        closeUserPreview() {
+            this.showUserPreview = false
+        },
         memberImage(imgUrl) {
             return { backgroundImage: `url(${imgUrl})` };
         },
@@ -93,12 +115,17 @@ export default {
         user() {
             return this.$store.getters.loggedinUser
         },
+<<<<<<< HEAD
         boards() {
             console.log(this.$store.getters.boards)
             return this.$store.getters.boards
         }
+=======
+
+>>>>>>> 52d6a193592038a8269e52b5fd28646f4b9401ae
 
     },
+    components: { userPreview }
 
 
 }
