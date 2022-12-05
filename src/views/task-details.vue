@@ -16,36 +16,16 @@
                 <input v-model="title" @input="debounceHandler('title', title)" />
             </div>
             <div class="flex column pad-40">
-                <span class="small">In list {{ getGroupName }}</span>
+                <span class="small">In list <span class="underline">{{ getGroupName }}</span></span>
             </div>
         </section>
 
         <section class="task-details-aside ">
             <section class="flex column">
                 <h4>Add to card</h4>
-                <button class="btn" @click="pickEditor('members-edit')">
-                    <span class="trellicons members-icon"></span>
-                    <span>Members</span>
-                </button>
-                <button class="btn" @click="pickEditor('labels-edit')">
-                    <span class="trellicons labels-icon"></span>
-                    <span>Labels</span>
-                </button>
-                <button class="btn" @click="pickEditor('checklist-edit')">
-                    <span class="trellicons checklist-icon"></span>
-                    <span>Checklist</span>
-                </button>
-                <button class="btn" @click="pickEditor('dates-edit')">
-                    <span class="fa-regular date-icon"></span>
-                    <span>Dates</span>
-                </button>
-                <button class="btn" @click="pickEditor('location-edit')">
-                    <span class="trellicons location-icon"></span>
-                    <span>Location</span>
-                </button>
-                <button class="btn" @click="pickEditor('cover-edit')">
-                    <span class="trellicons cover-icon"></span>
-                    <span>Cover</span>
+                <button v-for="btn in addBtns" :key="btn.arg" class="btn" @click="pickEditor(btn.arg)">
+                    <span :class="btn.icon"></span>
+                    <span>{{ btn.title }}</span>
                 </button>
             </section>
             <section class="btns-actions flex column">
@@ -148,13 +128,22 @@ export default {
             description: "",
             title: "",
             isShowDelete: false,
+            addBtns: [
+                { arg: 'members-edit', icon: 'trellicons members-icon', title: 'Members' },
+                { arg: 'labels-edit', icon: 'trellicons labels-icon', title: 'Labels' },
+                { arg: 'checklist-edit', icon: 'trellicons checklist-icon', title: 'Checklist' },
+                { arg: 'dates-edit', icon: 'fa-regular date-icon', title: 'Dates' },
+                { arg: 'location-edit', icon: 'trellicons location-icon', title: 'Location' },
+                { arg: 'cover-edit', icon: 'trellicons cover-icon', title: 'Cover' },
+            ]
+
             // labelIds: this.$store.getters.labelIds
         }
     },
     async created() {
         this.debounceHandler = utilService.debounce(this.updateTask, 200)
         const { id, taskId, groupId } = this.$route.params;
-        console.log(taskId);
+        // console.log(taskId);
         try {
             // await this.$store.dispatch({ type: 'loadBoards' })
             this.$store.commit({ type: "setBoard", boardId: id });
@@ -169,14 +158,14 @@ export default {
     },
     methods: {
         updateTitle(ev) {
-            console.log(ev.data);
+            // console.log(ev.data);
             if (typeof ev.data !== "string") return;
             this.task.title += ev.data;
         },
         pickEditor(type) {
             this.pickedEditor.editorType = type;
             this.pickedEditor.isOpen = true;
-            console.log(this.pickedEditor);
+            // console.log(this.pickedEditor);
         },
         async closeEditor() {
             // await this.updateTask()
@@ -226,7 +215,7 @@ export default {
                         },
                     }
                 })
-                console.log('remove!');
+                // console.log('remove!');
                 this.closeDetails()
             }
             catch (err) {
@@ -236,7 +225,7 @@ export default {
         async copyTask(data) {
             try {
                 const { task, toGroupId, toBoardId } = data
-                console.log(data, 'BOARDDDDDDDDDDDDDDDDDDD');
+                // console.log(data, 'BOARDDDDDDDDDDDDDDDDDDD');
                 task.id = utilService.makeId()
                 this.$store.dispatch({
                     type: 'copyTask', toBoardId, toGroupId, task,
@@ -256,7 +245,7 @@ export default {
             }
         },
         updateDescription(payload) {
-            console.log(payload);
+            // console.log(payload);
         },
         async updateTask(type, data) {
             console.log('UPDATE TASKKKKKKK')
@@ -274,18 +263,18 @@ export default {
                     taskToUpdate.description = data;
                     break;
                 case "title":
-                    txt = "Updated title";
+                    txt = "updated title";
                     taskToUpdate.title = data;
                     break;
                 case "checklist-edit":
-                    txt = "Added checklist";
+                    txt = "added checklist";
                     if (!taskToUpdate?.checklists) taskToUpdate.checklists = [];
                     data.id = utilService.makeId();
                     taskToUpdate.checklists.push(data);
                     this.closeEditor();
                     break;
                 case "members-edit":
-                    console.log('update task', data)
+                    // console.log('update task', data)
                     taskToUpdate.memberIds = data.memberIds
                     txt = `${data.action} ${data.fullname} ${data.action === 'added' ? 'to' : 'from'} ${this.task.title}`
                     break;
@@ -301,10 +290,10 @@ export default {
                 case 'dates-preview':
                     data ? txt = `marked ${this.task.title} as complete` : txt = `Unmarked ${this.task.title} as complete`
                     taskToUpdate.isComplete = data
-                    console.log(taskToUpdate);
+                    // console.log(taskToUpdate);
                     break
                 case 'cover-edit':
-                    console.log(data)
+                    // console.log(data)
                     txt = `updated  ${this.task.title} cover`;
                     if (data.startsWith('#')) {
                         taskToUpdate.style = {
@@ -323,7 +312,7 @@ export default {
             try {
                 this.$store.commit({ type: 'updateTask', payload: { task: taskToUpdate, groupId: this.groupId } })
                 this.task = JSON.parse(JSON.stringify(this.getTask))
-                console.log('hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii');
+                // console.log('hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii');
                 let updatedTask = await this.$store.dispatch({
                     type: "updateTask",
                     payload: {
@@ -401,7 +390,7 @@ export default {
         },
         getTask() {
             const task = this.$store.getters.getEditedTask;
-            console.log(task);
+            // console.log(task);
             return task;
         },
         getTaskLabels() {
@@ -412,9 +401,9 @@ export default {
         },
         getGroupName() {
             const board = this.$store.getters.board;
-            console.log(`board:`, board);
+            // console.log(`board:`, board);
             const group = board.groups.find((group) => group.id === this.$route.params.groupId);
-            console.log(group.title, 'TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT');
+            // console.log(group.title, 'TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT');
             if (!group.title) return ''
             return group.title;
 

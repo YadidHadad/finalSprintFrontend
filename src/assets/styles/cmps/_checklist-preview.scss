@@ -1,10 +1,10 @@
 .checklist-preview {
-    .save-btn {
+    .btn-save {
         @include btn-add-save($type: "save");
     }
 
-    .add-todo-btn,
     .btn-delete,
+    .add-todo-btn,
     .close-btn {
         @include btn-add-save($type: "cancel");
     }
@@ -20,8 +20,75 @@
 
     .todo-container {
         display: flex;
-        align-items: center;
         gap: 10px;
+
+        input {
+            // position: absolute;
+
+            opacity: 0.5;
+            cursor: pointer;
+            // height: 0;
+            // width: 0;
+
+            &:checked {
+                opacity: 1;
+            }
+
+            // margin-inline-start: -35px;
+            // margin-inline-end: 15px;
+            border: $textLight;
+        }
+
+        .todo-container {
+            height: 20px;
+            margin: 0;
+            padding: 0;
+            cursor: pointer;
+            align-items: flex-start !important;
+        }
+        .todo-edit-container {
+            font-size: 0.875rem;
+            flex-grow: 1;
+            .todo-edit {
+                width: 100%;
+                // position: absolute;
+                width: 100%;
+                textarea {
+                    width: 100%;
+                    // width: calc(100% - 40px);
+                    font-size: 0.875rem;
+                    // border: none;
+                    min-height: 60px;
+                    padding: 8px 12px;
+                    background-color: #eaecf0;
+                    border-radius: 3px;
+                    resize: none;
+                }
+            }
+            // position: absolute;
+        }
+        cursor: pointer;
+
+        margin-block-start: 0.5rem;
+        .btn-delete {
+            @include btn($type: "task-details");
+            background-color: transparent;
+            opacity: 0;
+            margin: 0;
+
+            &:hover {
+                background-color: transparent;
+            }
+        }
+
+        &:hover {
+            // background-color: #eaecf0;
+            border-radius: 3px;
+            .btn-delete {
+                margin: 0;
+                opacity: 1;
+            }
+        }
     }
 
     .elipsis-icon {
@@ -34,38 +101,34 @@
 
     progress {
         display: block;
-        width: 100%;
+        width: calc(100% - 40px);
+        // color: crimson;
+
+        // &::-webkit-progress-value {
+        //     background: red;
+        // }
     }
 
     .line-through {
         text-decoration: line-through;
     }
-
+    // progress::-webkit-progress-value {
+    //     background: red;
+    // }
     .margin-0 {
         margin: 0;
     }
 }
 
-.checklist-preview {
-
-
-
-
-
-    .todo-edit {}
-
-    .todo-edit-btns {
-        button {
-            font-size: 0.8rem;
-            padding: 6px 12px;
-            border-radius: 3px;
-            margin-block: 0.5rem;
-            margin-inline-end: 5px;
-        }
-
-        .btn-save {
-            background-color: #0079bf;
-            color: #fafbfc;
-        }
-    }
+.progress {
+    border-radius: 0.5rem;
+    height: 10px;
+    width: calc(100% - 40px);
+    margin-block-end: 0.5rem;
+    // border: 1px solid var(--clr1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #e2e4e9;
+    // color: var(--clr1);
 }

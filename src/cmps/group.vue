@@ -15,9 +15,10 @@
         <Container class="task-preview-container flex column" orientation="vertical" @drop="onDrop"
             group-name="group-tasks" :get-child-payload="getChildPayload" :drag-class="dragClass"
             :drop-class="dragClass">
-            <Draggable id="task-preview" v-for="(task, i) in group.tasks" :key="i">
+            <Draggable class="task-preview" v-for="(task, i) in group.tasks" :key="i">
                 <task-preview :task="task" :groupId="this.group.id" :boardId="boardId" />
             </Draggable>
+            
             <div class="add-card-container">
                 <button class="add-card-btn" v-if="!isCardOpen" @click="toggleCard">
                     <span class="fa-regular plus-icon"></span><span>Add a card</span>

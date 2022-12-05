@@ -12,6 +12,7 @@
 
     .btn-date {
         @include btn($type: "task-details");
+        margin: 0;
     }
 
     .time-tag {
@@ -19,5 +20,16 @@
         padding: 2px 6px;
         border-radius: 3px;
         margin-inline-start: 0.5rem;
+    }
+
+    input {
+        opacity: 0.5;
+        cursor: pointer;
+
+        &:checked {
+            opacity: 1;
+        }
+
+        border: $textLight;
     }
 }

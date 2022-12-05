@@ -1,4 +1,7 @@
 .group-list {
+    & *:not(.fa-solid):not(.fa-regular):not(.trellicons) {
+        font-family: "opensans";
+    }
     display: flex !important;
     height: 100%;
     padding: 0.5rem;
@@ -7,9 +10,11 @@
     overflow-x: scroll;
     // width: 100%;
 
-    #group-details{
-        height: fit-content; 
-    }
+    // #group-details{
+    //     // height: fit-content; 
+    //     overflow-y: scroll;
+    //     border: 3px solid blue;
+    // }
 
     & *:not(.fa-solid):not(.fa-regular):not(.trellicons) {
         font-family: "opensans";

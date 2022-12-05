@@ -1,10 +1,12 @@
 <template>
     <header class="app-header" :style="headerBackground" :class="{ isDark: isDark }">
         <section class="flex">
-            <button class="header-btn">
-                <span class="fa-brands trello-icon "></span>
-                <span class="logo">Kanban</span>
-            </button>
+            <router-link :to="'/'">
+                <button class="header-btn">
+                    <span class="fa-brands trello-icon "></span>
+                    <span class="logo">Kanban</span>
+                </button>
+            </router-link>
             <button class="create-btn" :style="buttonBackground">
                 Create
             </button>

@@ -1,26 +1,27 @@
 <template>
-    <section class="task-editor cover-edit" @click.stop="">
-        <button class="btn-close" @click.stop="closeEdit">
-            <span class="trellicons x-icon"></span>
-        </button>
-        <div class="title">Cover</div>
-        <div class="mini-title">Colors</div>
-        <div class="colors-pallet flex row wrap justify-center align-center">
+    <section class="add-board-modal" @click.stop="">
+        <div class="created-board-header">
+            <button class="btn-close" @click.stop="closeEdit">
+                <span class="trellicons x-icon"></span>
+            </button>
+            <div class="title">Create board</div>
+        </div>
+
+        <input type="text" v-model="title" v-focus>
+        <div class="mini-title">Background</div>
+        <div class="photos-container flex">
+            <img v-for="index in 4" :key="index" :src="imgUrls[index]" @click="updateCover(imgUrls[index])">
+        </div>
+        <div class="colors-pallet flex">
             <div v-for=" (color, i) in colorsPallet" :key="i" :style="{ backgroundColor: color }" class="color-sample"
                 @click="updateCover(color)">
 
             </div>
+            <div class="color-sample">...</div>
         </div>
-        <div class="mini-title">Attachments</div>
-        <!-- <button class="btn-upload" @click="">Upload a cover image </button> -->
-        <img-uploader @uploaded="updateCover"></img-uploader>
-
-        <div class="mini-title">Photos from Unsplash</div>
-        <div class="photos-container flex justify-between  wrap">
-            <img v-for="index in 12" :key="index" :src="imgUrls[index]" @click="updateCover(imgUrls[index])">
-        </div>
-
         <input type="text" placeholder="Search Photos..." @input="debounceHandler" v-model="searchTxt">
+
+        <button @click="addBoard">Create</button>
     </section>
 </template>
 
@@ -35,7 +36,9 @@ export default {
             clientId: 'wONkEH1Be08ksV3ijwHHpfu8tfvmD6SnhsRpvZBWVgg',
             searchTxt: '',
             imgUrls: [],
-            colorsPallet: ['#7bc86c', '#f5dd29', '#ffaf3f', '#ef7564', '#cd8de5', '#5ba4cf', '#29cce5', '#6deca9', '#ff8ed4', '#172b4d'],
+            colorsPallet: ['#7bc86c', '#f5dd29', '#ffaf3f', '#ef7564', '#cd8de5'],
+            title: '',
+            bcg: ''
         }
     },
     components: {
@@ -46,8 +49,6 @@ export default {
         this.debounceHandler()
     },
     methods: {
-
-
         getPhotos() {
             const key = 'unsplashDB'
 
@@ -58,17 +59,17 @@ export default {
                 this.imgUrls = data.results.map(res => res.urls.full).slice(0, 12)
                 // console.log(this.imgUrls);
             })
-            .catch((err) => {
-                console.log('Cant load imgs' , err);
-            })
         },
-        updateCover(value) {
-            this.$emit('updateTask', value)
+        updateCover(background) {
+            this.bcg = background
         },
 
         closeEdit() {
             this.$emit('closeEdit')
         },
+        addBoard() {
+            this.$emit('addBoard', { title: this.title, bcg: this.bcg })
+        }
     },
     computed: {
 

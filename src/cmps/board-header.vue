@@ -81,7 +81,8 @@ export default {
         },
         titleLength() {
             if (!this.board.title) return;
-            return { width: `${(this.board.title.length + 3) * 12}` + "px" };
+            // return { width: `${(this.board.title.length)}` + "ch" };
+            return { width: `${(this.board.title.length + 3) * 8}` + "px" };
         },
         board() {
             return JSON.parse(JSON.stringify(this.$store.getters.board || {}))

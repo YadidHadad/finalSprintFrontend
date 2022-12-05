@@ -5,9 +5,14 @@
         font-size: 0.8rem;
     }
 
-    .title {
-        margin-block-end: 10px;
-        font-weight: bolder;
+    h4 {
+        font-weight: bold;
+        font-size: 0.75rem;
+        color: $txtMedium;
+    }
+
+    .members-container {
+        margin-block-start: 0.5rem;
     }
 
     .member-image {

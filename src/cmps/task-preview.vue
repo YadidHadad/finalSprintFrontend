@@ -1,8 +1,8 @@
 <template>
-    <div v-if="getBackground" class="task-preview-cover" :class="getCoverType"
+    <div v-if="getBackground" class="task-preview-cover" @click="goTo" :class="getCoverType"
         :style="{ backgroundColor: getBackground, backgroundImage: `url(${getBackground})` }"></div>
-    <section class="task-preview flex column" @click="goTo">
-        <section class="labels-preview">
+    <section class="task-preview-details flex column" @click="goTo">
+        <section v-if="task.labelIds" class="labels-preview">
             <ul class="clean-list flex">
                 <li :title="(label.title)" @click.stop="togglePreviewLabels" v-for="label in labels" :key="label.id"
                     :style="{ backgroundColor: label.color, height: isPreviewLabelsOpen ? '20px' : '', transition: isPreviewLabelsOpen ? 'all 0.5s' : '' }">
@@ -102,7 +102,7 @@ export default {
         },
 
         taskTodosLength() {
-            console.log(this.taskTodos.length);
+            // console.log(this.taskTodos.length);
             return this.taskTodos.length
         },
 

@@ -1,39 +1,87 @@
 .task-preview-container {
-    overflow-y: scroll;
+    overflow-y: auto;
     overflow-x: hidden;
+    // height: 400px;
+    max-height: calc(100vh - 165px);
     gap: 8px;
     padding: 0 rem(4px);
     margin: 0 rem(4px);
 }
 
-
 .task-preview {
+    height: fit-content;
+    width: 100%;
+.task-preview-cover{
+    margin-bottom: rem(10px);
+}
+    h3 {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
+            "Open Sans", "Helvetica Neue", sans-serif !important;
+        font-weight: 400;
+        font-size: rem(14px) !important;
+        padding: 0;
+        margin-bottom: rem(8px);
+    }
+
+
+    cursor: pointer;
+    background-color: #ffffff;
+
+
+    // & > *:not(.task-preview-cover) {
+    //     padding: rem(6px) rem(8px) rem(2px);
+    // }
+
+
+    border-radius: 3px;
+
+    &:hover {
+        background-color: rgba($textDark, 0.1);
+    }
+
+}
+
+.task-preview-details {
+    flex-wrap: wrap;
+    width: 100%;
     gap: 10px;
     min-height: 5px;
-    padding: rem(6px) rem(8px) rem(6px);
+    height: 100%;
+    padding: rem(8px) rem(8px) rem(6px);
     // padding: rem(6px) rem(8px) rem(2px);
-
+    
 
     .labels-preview {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
         min-height: rem(22px);
+
         ul {
-            gap: 10px;
+            gap: 5px;
+            width: 100%;
+            flex-wrap: wrap;
         }
 
         li {
             padding: 0;
-            height:rem(8px);
+            &:not(:first-child) {
+                padding-right: rem(5px);
+            }
+
+            height: rem(8px);
             // margin: rem(4px) 0;
             border-radius: 3px;
-            min-width:rem(58px);
+            min-width: rem(40px);
             cursor: pointer;
-            
+
             &.open {
                 // width: fit-content;
                 height: 20px !important;
                 margin: 0;
                 padding: 0 rem(10px);
                 // transition: all 0.5s;
+                transition: all 0.5s
             }
 
             span {
@@ -41,7 +89,6 @@
                 font-size: rem(10px);
                 font-weight: 200;
                 transition: all 0.5s
-           
             }
         }
 
@@ -53,7 +100,8 @@
         position: relative;
         justify-content: space-between;
         align-items: center;
-        height: rem(35px);
+        // height: rem(35px);
+        height: fit-content;
 
         .task-todos {
             align-items: center;
@@ -88,6 +136,9 @@
     }
 
 
+    .task-preview-cover{
+
+    }
 }
 
 .background-img {
@@ -104,4 +155,8 @@
     width: 100%;
     height: 40px;
     padding: 0;
+}
+
+.smooth-dnd-ghost {
+    transform: rotate(5deg);
 }
