@@ -7,8 +7,8 @@
         <div class="map-container">
 
             <GoogleMap api-key="AIzaSyAV_zVjXKofPeV5nwAzfNKJ7Gt4VEMjHOw" style="width: 100%; height: 100%"
-                :center="center" :zoom="10">
-                <Marker v-for="m in markers" :options="m" @click="center = m.position" />
+                :center="location" :zoom="10">
+                <Marker :options="{ position: location }" @click="center = location" />
             </GoogleMap>
         </div>
 
@@ -36,8 +36,8 @@ export default {
         this.center = this.location
         // console.log(this.center, this.location, '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
         const marker = {
-            title: 'Tel-Aviv',
-            label: 'Hi!',
+            title: '',
+            label: '',
             position: this.location
 
         }
