@@ -13,7 +13,7 @@
             <img v-for="index in 4" :key="index" :src="imgUrls[index]" @click="updateCover(imgUrls[index])">
         </div>
         <div class="colors-pallet flex">
-            <div v-for=" (color, i) in colorsPallet" :key="i" :style="{ backgroundColor: color }" class="color-sample"
+            <div v-for=" color in colorsPallet" :key="color" :style="{ backgroundColor: color }" class="color-sample"
                 @click="updateCover(color)">
 
             </div>
@@ -30,6 +30,7 @@ import axios from 'axios'
 import { utilService } from '../services/util.service';
 import imgUploader from '../cmps/img-uploader.vue'
 export default {
+    name: 'add-board-moadl',
     data() {
         return {
             imageDownloadUrl: '',

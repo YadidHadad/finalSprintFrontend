@@ -5,7 +5,7 @@
             <button class="close-btn">X</button>
         </div>
         <div class="create-label-main">
-            <div class="picked-color" :style="{ backgroundColor: getPickedColor }"><span>{{title}}</span></div>
+            <div class="picked-color" :style="{ backgroundColor: getPickedColor }"><span>{{ title }}</span></div>
             <p>Title</p>
             <input type="text" v-model="title">
             <p>Select a color</p>
@@ -22,6 +22,7 @@
 
 <script>
 export default {
+    name: 'create-label-modal',
     data() {
         return {
             colorPallet: ['#b7ddb0', '#f5ea92', '#fad29c', '#efb3ab', '#dfc0eb'

@@ -10,6 +10,7 @@
 import { uploadService } from '../services/upload.service.js'
 
 export default {
+  name: 'img-uploader',
   data() {
     return {
       imgUrl: null,

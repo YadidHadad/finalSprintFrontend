@@ -28,6 +28,7 @@
 import Datepicker from "vuejs3-datepicker";
 
 export default {
+    name: 'dates-edit',
     data() {
         return {
             date: "",
