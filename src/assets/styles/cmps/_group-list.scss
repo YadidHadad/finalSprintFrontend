@@ -2,6 +2,13 @@
     & *:not(.fa-solid):not(.fa-regular):not(.trellicons) {
         font-family: "opensans";
     }
+    color: $textDark;
+
+    &.isDark {
+        * {
+            color: $textLight;
+        }
+    }
 
     display: flex !important;
     height: 100%;
@@ -12,7 +19,7 @@
     // width: 100%;
 
     // #group-details{
-    //     // height: fit-content; 
+    //     // height: fit-content;
     //     overflow-y: scroll;
     //     border: 3px solid blue;
     // }
@@ -52,8 +59,6 @@
         background-color: $clr12;
         gap: rem(8px);
 
-
-
         .add-list-btns {
             margin: 0 !important;
         }
@@ -75,7 +80,7 @@
                 padding: rem(6px) rem(12px);
 
                 &:hover {
-                  filter: brightness(0.8);
+                    filter: brightness(0.8);
                 }
             }
         }

@@ -1,6 +1,6 @@
 <template>
     <section class="board-menu" :class="{ menuIsHidden: menuIsHidden }">
-        <section v-if="!showBGCMenu" class="board-menu-page  flex column">
+        <section v-if="(page === 'main')" class="board-menu-page  flex column">
             <section class="title flex justify-center row">
                 <span>Menu</span>
                 <button class="btn-close" @click="toggleBoardMenu">
@@ -14,7 +14,7 @@
                         <span class="fa-brands trello-icon"></span>
                         <span class="mini-title">About this board</span>
                     </button>
-                    <button class="btn" @click="this.showBGCMenu = !this.showBGCMenu">
+                    <button class="btn" @click="this.page = 'background'">
                         <span class="fa-regular img-icon"></span>
                         <span class="mini-title">Change background</span>
                     </button>
@@ -46,9 +46,9 @@
             </section>
         </section>
 
-        <section v-if="showBGCMenu" class="board-menu-page  flex column">
+        <section v-if="page === 'background'" class="board-menu-page  flex column">
             <section class="title flex justify-center row">
-                <button class="btn-back" @click="this.showBGCMenu = !this.showBGCMenu">
+                <button class="btn-back" @click="this.page = 'main'">
                     <span class="fa-solid arrow-icon"></span>
                 </button>
                 <span>Change background</span>
@@ -58,12 +58,12 @@
             </section>
             <section>
                 <div class="  flex row align-center justify-between">
-                    <div class=" photos flex column align-center">
+                    <div class=" photos flex column align-center" @click="this.page = 'bgImg'">
                         <div class="btn">
                         </div>
                         <span>Photos</span>
                     </div>
-                    <div class="colors flex column  align-center">
+                    <div class="colors flex column  align-center" @click="this.page = 'bgColor'">
                         <div class="btn">
                         </div>
                         <span>Colors</span>
@@ -80,6 +80,40 @@
                 </div>
             </section>
         </section>
+
+        <section v-if="(page === 'bgColor')" class="board-menu-page  flex column">
+            <section class="title flex justify-center row">
+                <button class="btn-back" @click="this.page = 'background'">
+                    <span class="fa-solid arrow-icon"></span>
+                </button>
+                <span>Colors</span>
+                <button class="btn-close" @click="toggleBoardMenu">
+                    <span class="fa-solid x-icon"></span>
+                </button>
+            </section>
+
+            <section class=" flex row align-center wrap gap justify-between">
+                <div v-for="color in colors" :key="color" class="color-sample" :style="{ backgroundColor: color }"
+                    @click="setBoardStyle(color)">
+                </div>
+
+            </section>
+
+        </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     </section>
 </template>
 <script>
@@ -97,6 +131,8 @@ export default {
         return {
 
             showBGCMenu: false,
+            page: 'main',
+            colors: ['#0079bf', '#d29034', '#519839', '#b04632', '#89609e', '#cd5a91', '#4bbf6b', '#00aecc', '#838c91'],
 
         };
     },
@@ -109,10 +145,22 @@ export default {
 
             return utilService.timeAgo(timestamp)
         },
+        toggleMenuPage(page) {
+            this.page = page
+
+        },
         toggleBoardMenu() {
             // console.log("A");
             this.$emit("toggleBoardMenu", this.toggleBoardMenu);
         },
+        setBoardStyle(style) {
+            if (style.startsWith('#')) {
+                this.board.style = { bgColor: style }
+            } else {
+                this.board.style = { backgroundImage: style }
+            }
+            this.$store.dispatch({ type: "updateBoard", board: this.board });
+        }
     },
     computed: {
         getActivitiesLength() {
@@ -123,7 +171,12 @@ export default {
             const activities = JSON.parse(JSON.stringify(this.activities))
             return activities.reverse()
 
-        }
+        },
+        board() {
+            const board = JSON.parse(JSON.stringify(this.$store.getters.board || {}))
+
+            return board
+        },
 
     },
 };
