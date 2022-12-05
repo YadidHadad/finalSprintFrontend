@@ -12,26 +12,28 @@
             </div>
         </div>
 
-        <Container orientation="vertical" @drop="onDrop" group-name="group-tasks" :get-child-payload="getChildPayload"
-            :drag-class="dragClass" :drop-class="dragClass">
+        <Container class="task-preview-container flex column" orientation="vertical" @drop="onDrop"
+            group-name="group-tasks" :get-child-payload="getChildPayload" :drag-class="dragClass"
+            :drop-class="dragClass">
             <Draggable id="task-preview" v-for="(task, i) in group.tasks" :key="i">
                 <task-preview :task="task" :groupId="this.group.id" :boardId="boardId" />
             </Draggable>
-        </Container>
-
-        <button class="add-card-btn" v-if="!isCardOpen" @click="toggleCard">
-            <span class="fa-regular plus-icon"></span><span>Add a card</span>
-        </button>
-        <form v-if="isCardOpen" @submit.prevent="addTask" class="flex">
-            <textarea v-model="currTask.title" type="textarea" name="add-task" rows="4"
-                placeholder="Enter a title for this card..." v-focus></textarea>
-            <div class="add-list-btns flex">
-                <button class="add-list-btn">Add card</button>
-                <button type="button" @click.stop="toggleCard">
-                    <span class="fa-solid x-icon"></span>
+            <div class="add-card-container">
+                <button class="add-card-btn" v-if="!isCardOpen" @click="toggleCard">
+                    <span class="fa-regular plus-icon"></span><span>Add a card</span>
                 </button>
+                <form class="add-card-form flex" v-if="isCardOpen" @submit.prevent="addTask">
+                    <textarea v-model="currTask.title" type="textarea" name="add-task" rows="4"
+                        placeholder="Enter a title for this card..." v-focus></textarea>
+                    <div class="add-list-btns flex">
+                        <button class="add-list-btn">Add card</button>
+                        <button type="button" @click.stop="toggleCard">
+                            <span class="fa-solid x-icon"></span>
+                        </button>
+                    </div>
+                </form>
             </div>
-        </form>
+        </Container>
     </div>
 </template>
 

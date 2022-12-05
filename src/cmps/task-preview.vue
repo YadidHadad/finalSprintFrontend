@@ -1,18 +1,19 @@
 <template>
+    <div v-if="getBackground" class="task-preview-cover" :class="getCoverType"
+        :style="{ backgroundColor: getBackground, backgroundImage: `url(${getBackground})` }"></div>
     <section class="task-preview flex column" @click="goTo">
-        <div v-if="getBackground" class="task-preview-cover" :class="getCoverType"
-            :style="{ backgroundColor: getBackground, backgroundImage: `url(${getBackground})` }"></div>
         <section class="labels-preview">
             <ul class="clean-list flex">
                 <li :title="(label.title)" @click.stop="togglePreviewLabels" v-for="label in labels" :key="label.id"
-                    :style="{ backgroundColor: label.color }">
+                    :style="{ backgroundColor: label.color, height: isPreviewLabelsOpen ? '20px' : '', transition: isPreviewLabelsOpen ? 'all 0.5s' : '' }">
                     <span v-if="isPreviewLabelsOpen">{{ label.title }}</span>
                 </li>
             </ul>
         </section>
         <h3>{{ task.title }}</h3>
         <section class="task-preview-icons flex">
-            <div v-if="taskTodosLength" class="task-todos flex" :style="{ backgroundColor: allTodosDone }">
+            <div v-if="taskTodosLength" class="task-todos flex"
+                :style="{ backgroundColor: allTodosDone, color: allTodosDone ? '#fdfefd' : '' }">
                 <span class="trellicons checklist-icon"></span>
                 <span>{{ taskDoneTodos }}/{{ taskTodosLength }}</span>
             </div>
