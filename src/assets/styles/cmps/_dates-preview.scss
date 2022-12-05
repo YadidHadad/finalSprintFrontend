@@ -10,6 +10,12 @@
         font-weight: bolder;
     }
 
+    h4 {
+        font-weight: bold;
+        font-size: 0.75rem;
+        color: $txtMedium;
+    }
+
     .btn-date {
         @include btn($type: "task-details");
         margin: 0;

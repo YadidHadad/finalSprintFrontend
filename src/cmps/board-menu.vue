@@ -1,12 +1,9 @@
 <template>
     <section class="board-menu" :class="{ menuIsHidden: menuIsHidden }">
         <section v-if="!showBGCMenu" class="board-menu-page  flex column">
-            <section class="title flex justify-between row">
-                <button class="btn" @click="toggleBoardMenu">
-                    <!-- <span class="fa-solid arrow-icon"></span> -->
-                </button>
+            <section class="title flex justify-center row">
                 <span>Menu</span>
-                <button class="btn" @click="toggleBoardMenu">
+                <button class="btn-close" @click="toggleBoardMenu">
                     <span class="fa-solid x-icon"></span>
                 </button>
             </section>
@@ -15,18 +12,18 @@
                 <section class="nav-btns flex column">
                     <button class="btn">
                         <span class="fa-brands trello-icon"></span>
-                        <span>About this board</span>
+                        <span class="mini-title">About this board</span>
                     </button>
                     <button class="btn" @click="this.showBGCMenu = !this.showBGCMenu">
                         <span class="fa-regular img-icon"></span>
-                        <span>Change background</span>
+                        <span class="mini-title">Change background</span>
                     </button>
                 </section>
 
                 <section class="activities">
                     <button class="btn ">
                         <span class="trellicons activity-icon"></span>
-                        <span>Activity</span>
+                        <span class="mini-title">Activity</span>
                     </button>
                     <div v-if="getActivitiesLength" class="activities-container ">
                         <div v-for="( activity, i) in activities" :key="i" class="activity flex row align-start">
@@ -49,12 +46,12 @@
         </section>
 
         <section v-if="showBGCMenu" class="board-menu-page  flex column">
-            <section class="title flex justify-between row">
-                <button class="btn" @click="this.showBGCMenu = !this.showBGCMenu">
+            <section class="title flex justify-center row">
+                <button class="btn-back" @click="this.showBGCMenu = !this.showBGCMenu">
                     <span class="fa-solid arrow-icon"></span>
                 </button>
                 <span>Change background</span>
-                <button class="btn" @click="toggleBoardMenu">
+                <button class="btn-close" @click="toggleBoardMenu">
                     <span class="fa-solid x-icon"></span>
                 </button>
             </section>
@@ -73,7 +70,7 @@
                 </div>
             </section>
             <section>
-                <span>Costume</span>
+                <div class="mini-title">Costume</div>
 
                 <div class="costume flex column ">
                     <div class="btn flex align-center justify-center">

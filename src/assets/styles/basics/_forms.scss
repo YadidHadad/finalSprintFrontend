@@ -7,6 +7,9 @@ form > * {
 .btn-close {
     @include btn("close");
 }
+.btn-back {
+    @include btn("back");
+}
 
 .task-editor {
     position: absolute;

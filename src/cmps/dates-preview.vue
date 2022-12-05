@@ -1,6 +1,6 @@
 <template>
     <section v-if="dueDateStr" class="dates-preview">
-        <span class="title">Due date</span>
+        <h4>Due date</h4>
         <div class="flex row">
             <input type="checkbox" @change="toggleIsComplete" v-model="isComplete">
             <button class="btn-date">{{ dueDateStr }}
