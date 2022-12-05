@@ -1,10 +1,10 @@
 <template>
   <section class="main-layout">
     <user-msg />
-    <app-header :rgb="getRGB" @logout="logout" />
     <main v-if="boards" class="app-main">
       <router-view @setRGB="setRGB" />
     </main>
+    <app-header :rgb="getRGB" />
   </section>
 </template>
 

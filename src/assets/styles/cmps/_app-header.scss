@@ -29,6 +29,7 @@ header {
 
     & * {
         color: $textDark;
+        font-family: "segoe-regular";
     }
 
     &.isDark {
@@ -79,7 +80,7 @@ header {
             color: white;
             border: none;
             &:focus {
-                width: 780px;
+                width: 735px;
             }
 
             &::placeholder {
@@ -88,20 +89,12 @@ header {
         }
     }
 
-    .loggedin-user {
-        background-color: $clr1;
-        padding: 2px 8px;
-        border-radius: 1em;
-        align-self: flex-end;
-        color: whitesmoke;
+    .search-results {
+        & * {
+            font-size: 0.875rem;
 
-        span {
-            background-color: $clr2;
-            padding: 4px;
-            margin: 10px;
-            border-radius: 50%;
+            color: #172b4d !important;
         }
-
         img {
             width: 2em;
             height: 2em;
@@ -138,7 +131,6 @@ header {
         font-weight: bold;
 
         &:hover {
-
             cursor: pointer;
         }
     }
