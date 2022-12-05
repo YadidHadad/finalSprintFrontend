@@ -26,7 +26,8 @@
                         <span class="mini-title">Activity</span>
                     </button>
                     <div v-if="getActivitiesLength" class="activities-container ">
-                        <div v-for="( activity, i) in activities" :key="i" class="activity flex row align-start">
+                        <div v-for="activity in activitiesReverse" :key="activity.id"
+                            class="activity flex row align-start">
                             <div class="activity">
                                 <span class="btn flex row align-baseline align-center justify-center">{{
                                         getInitials(activity.byMember.fullname)
@@ -116,7 +117,14 @@ export default {
     computed: {
         getActivitiesLength() {
             return this.activities.length
+        },
+        activitiesReverse() {
+
+            const activities = JSON.parse(JSON.stringify(this.activities))
+            return activities.reverse()
+
         }
+
     },
 };
 </script>

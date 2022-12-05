@@ -92,7 +92,8 @@ export const boardStore = {
 
         updateLabel(state, { label }) {
             const labelIdx = state.board.labels.findIndex(l => l.id === label.id)
-            state.board.labels.splice(labelIdx, 1, label)
+            if (labelIdx === -1) state.board.labels.push(label)
+            else state.board.labels.splice(labelIdx, 1, label)
         },
 
         setEditedTask(state, { taskId, groupId, boardId }) {
@@ -113,14 +114,13 @@ export const boardStore = {
         },
 
         addActivity(state, { activity }) {
-            // console.log('*************************', activity)
+            if (!activity) return
             activity.createdAt = Date.now()
             activity.id = utilService.makeId()
-            if (!activity) return
             if (!state.board?.activities) state.board.activities = []
-            state.board.activities.unshift(activity)
-            // console.log(`activity:`, activity)
+            state.board.activities.push(activity)
         },
+
         removeLastActivity(state) {
             state.board.activities.splice(0, 1)
         },
@@ -155,6 +155,10 @@ export const boardStore = {
                 toBoard.labels.push(...labelsToUpdate)
                 // console.log(toBoard.labels , ')000000000000000000000000');
             }
+        },
+        updateBoardLabels(state, { label }) {
+            if (label) state.board.labels.push(label)
+            else state.board.labels.pop(label)
         }
     },
 
@@ -178,6 +182,19 @@ export const boardStore = {
             } catch (err) {
                 console.log('boardStore: Error in addBoard', err)
                 throw err
+            }
+        },
+
+        async updateBoardLabels(context, { label }) {
+            console.log(label);
+            try {
+                context.commit({ type: 'updateBoardLabels', label })
+                const board = await boardService.save(context.state.board)
+            }
+            catch (label) {
+                context.commit({ type: 'updateBoardLabels', label: null })
+                console.log('couldnt add label')
+                throw label
             }
         },
 

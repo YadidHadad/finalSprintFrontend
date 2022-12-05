@@ -62,14 +62,16 @@
             <location-preview v-if="task.location" :location="task.location" />
             <!-- <checklists-preview v-if="task.checklists" :checklists="task.checklists"
                 @updateChecklists="updateTask('checklist-preview', $event)" /> -->
-            <checklists-preview v-if="task.checklists" :checklists="task.checklists"
+            <!-- <checklists-preview v-if="task.checklists" :checklists="task.checklists" -->
+            <checklists-preview v-if="task.checklists"
                 @updateChecklists="debounceHandler('checklist-preview', $event)" />
             <activities-preview :taskId="task.id" />
         </section>
 
         <component :is="pickedEditor.editorType" @closeEdit="closeEditor" v-click-outside="closeEditor"
             @updateTask="updateTask(pickedEditor.editorType, $event)" @addChecklist="addChecklist"
-            @updateLabel="updateLabel" @updateMembers="updateTask" @copyTask="copyTask">
+            @updateLabel="updateLabel" @updateMembers="updateTask" @copyTask="copyTask"
+            @updateBoardLabels="updateBoardLabels">
         </component>
     </section>
 </template>
@@ -91,6 +93,7 @@ import coverPreview from "../cmps/cover-preview.vue";
 import locationEdit from "../cmps/location-edit.vue";
 import locationPreview from "../cmps/location-preview.vue";
 
+
 import { utilService } from "../services/util.service";
 
 export default {
@@ -111,7 +114,8 @@ export default {
         coverEdit,
         coverPreview,
         locationEdit,
-        locationPreview
+        locationPreview,
+
     },
 
     data() {
@@ -137,7 +141,8 @@ export default {
                 { arg: 'dates-edit', icon: 'fa-regular date-icon', title: 'Dates' },
                 { arg: 'location-edit', icon: 'trellicons location-icon', title: 'Location' },
                 { arg: 'cover-edit', icon: 'trellicons cover-icon', title: 'Cover' },
-            ]
+            ],
+            isCreateLabel: false
 
             // labelIds: this.$store.getters.labelIds
         }
@@ -169,7 +174,7 @@ export default {
             this.pickedEditor.isOpen = true;
             // console.log(this.pickedEditor);
         },
-        async closeEditor() {
+        closeEditor() {
             // await this.updateTask()
             this.pickedEditor = {
                 isOpen: false,
@@ -312,9 +317,9 @@ export default {
                     break
             }
             try {
+                console.log('hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii', this.task);
                 this.$store.commit({ type: 'updateTask', payload: { task: taskToUpdate, groupId: this.groupId } })
                 this.task = JSON.parse(JSON.stringify(this.getTask))
-                // console.log('hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii');
                 let updatedTask = await this.$store.dispatch({
                     type: "updateTask",
                     payload: {
@@ -377,6 +382,23 @@ export default {
         openMembersEditor() {
             this.pickEditor('members-edit')
 
+        },
+        openCreateLabel() {
+            this.isCreateLabel = true
+            this.closeEditor();
+        },
+        async updateBoardLabels(label) {
+            console.log(label);
+            this.$store.dispatch({
+                type: "updateBoardLabels",
+                label,
+                // activity: {
+                //     txt: "Added new label",
+                //     boardId: this.$route.params.id,
+                //     groupId: this.groupId,
+                //     taskId: this.task.id,
+                // },
+            })
         }
     },
     computed: {

@@ -39,11 +39,11 @@ export default {
         memberImage(imgUrl) {
             return { backgroundImage: `url(${imgUrl})` };
         },
-        openMembersEditor() {
-            this.$emit('openMembersEditor')
-        },
         getInitials(fullname) {
             return utilService.getInitials(fullname)
+        },
+        openMembersEditor() {
+            this.$emit('openMembersEditor')
         },
 
     },

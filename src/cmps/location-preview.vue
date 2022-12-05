@@ -19,6 +19,7 @@
 <script>
 import { GoogleMap, Marker, CustomMarker } from 'vue3-google-map'
 export default {
+    name: 'location-preview',
     props: {
         location: {
             type: Object,

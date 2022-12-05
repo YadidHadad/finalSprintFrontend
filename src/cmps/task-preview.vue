@@ -44,6 +44,7 @@
 import membersPreview from './members-preview.vue'
 
 export default {
+    name: 'task-preview',
     props: {
         task: {
             type: Object,

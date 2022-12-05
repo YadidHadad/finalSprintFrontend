@@ -18,7 +18,7 @@
             </li>
         </ul>
         <button class="add-card-btn" v-if="!isCardOpen" @click="toggleCard">
-            <span class="fa-regular plus-icon"></span><span>Add a card</span> 
+            <span class="fa-regular plus-icon"></span><span>Add a card</span>
         </button>
         <form v-if="isCardOpen" @submit.prevent="addTask" class="flex">
             <textarea v-model="currTask.title" type="textarea" name="add-task" rows="4"
@@ -37,6 +37,7 @@
 import taskPreview from "../cmps/task-preview.vue";
 import { utilService } from "../services/util.service.js";
 export default {
+    name: 'group',
     props: {
         group: {
             type: Object,

@@ -7,7 +7,7 @@
                     class="fa-solid arrow-icon"></span></button>
         </div>
 
-        <button v-for="(btn, i) in btns" :key="i" class="btn-nav" :class="{ isDark: isDark }">
+        <button v-for="(btn, i) in btns" class="btn-nav" :class="{ isDark: isDark }">
             <span :class="btn.icon"></span>
             <span>{{ btn.txt }}</span>
         </button>

@@ -3,7 +3,7 @@
         <div class="flex align-center justify-start wrap">
             <input type="text" v-model="board.title" :style="titleLength" @input="debounceHandler" />
 
-            <button v-if="board" v-for="(btn, i) in btns" :key="i" class="btn" :class="{ isDark: !isDark }"
+            <button v-if="board" v-for="(btn, i) in btns" class="btn" :class="{ isDark: !isDark }"
                 :style="buttonBackground" @click="btn.function">
                 <span :class="btn.icon"></span>
                 <span v-if="btn.txt" class="txt">{{ btn.txt }}</span>
@@ -68,6 +68,7 @@ export default {
             this.board.isStarred = !this.board.isStarred
             this.$store.dispatch({ type: "updateBoard", board: this.board });
         },
+
     },
 
     computed: {

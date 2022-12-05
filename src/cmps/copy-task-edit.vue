@@ -16,7 +16,7 @@
             {{ toBoardId }}
 
             <select class="group-select" v-model="toGroupId" @change="setGroup">
-                <option v-for="(group, i) in board.groups" :key="i" :value="group.id">{{ group.title }}
+                <option v-for="group in board.groups" :key="group.id" :value="group.id">{{ group.title }}
                 </option>
             </select>
 
@@ -28,6 +28,7 @@
 
 <script>
 export default {
+    name: 'copy-task-edit',
     data() {
         return {
             toGroupId: '',
