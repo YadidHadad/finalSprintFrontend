@@ -8,6 +8,7 @@ header {
     transition: all 0.5s ease-out;
     position: fixed;
     width: 100%;
+    position: relative;
 
     .header-btn {
         height: 32px;
@@ -44,12 +45,14 @@ header {
         border-radius: 1em;
         align-self: flex-end;
         color: whitesmoke;
+
         span {
             background-color: $clr2;
             padding: 4px;
             margin: 10px;
             border-radius: 50%;
         }
+
         img {
             width: 2em;
             height: 2em;
@@ -70,5 +73,24 @@ header {
 
     nav .active {
         color: $clr1;
+    }
+}
+
+.user-buttons {
+    .profile-btn {
+        height: 32px;
+        width: 32px;
+        background-color: #de350b;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 14px;
+        font-weight: bold;
+
+        &:hover {
+
+            cursor: pointer;
+        }
     }
 }

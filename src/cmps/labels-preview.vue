@@ -8,7 +8,7 @@
                 <span>{{ label.title }}</span>
             </div>
             <div class="btn-plus flex justify-center align-center">
-                <span class="fa-regular plus-icon"></span>
+                <span class="fa-regular plus-icon" @click="$emit('openLabelsDetails')"></span>
             </div>
         </section>
     </section>

@@ -12,14 +12,19 @@
             </button>
         </section>
         <section class="user-buttons">
+            <span v-if="user" class="btn flex row profile-btn" @click="(showUserPreview = !showUserPreview)">
+                {{ getInitials(user.fullname) }}
+            </span>
         </section>
+
+        <user-preview v-if="showUserPreview" :user="user" v-click-outside="closeUserPreview" @logout="logout" />
     </header>
 </template>
 <script>
 
 import { utilService } from '../services/util.service'
 
-
+import userPreview from './user-preview.vue'
 export default {
     name: 'app-header',
     props: ['rgb'],
@@ -28,10 +33,20 @@ export default {
     },
     data() {
         return {
+            showUserPreview: false
         }
     },
     methods: {
-
+        getInitials(fullname = 'Guest') {
+            return utilService.getInitials(fullname)
+        },
+        logout() {
+            this.$emit('logout')
+            this.showUserPreview = false
+        },
+        closeUserPreview() {
+            this.showUserPreview = false
+        }
     },
     computed: {
         isDark() {
@@ -47,8 +62,13 @@ export default {
             if (!this.rgb) return
             return this.rgb.isDark ? utilService.getBCG(this.rgb.value, 30, 0.5) : utilService.getBCG(this.rgb.value, 60, 0.5)
         },
+        user() {
+            return this.$store.getters.loggedinUser
+        },
+
 
     },
+    components: { userPreview }
 
 
 }

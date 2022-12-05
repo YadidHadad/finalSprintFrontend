@@ -1,7 +1,7 @@
 <template>
   <section class="main-layout">
     <user-msg />
-    <app-header :rgb="getRGB" />
+    <app-header :rgb="getRGB" @logout="logout" />
     <main v-if="boards" class="app-main">
       <router-view @setRGB="setRGB" />
     </main>
@@ -50,6 +50,15 @@ export default {
     setRGB(rgb) {
       this.rgb = rgb
       this.isDark = rgb.isDark
+    },
+    async logout() {
+      try {
+        await this.$store.dispatch({ type: 'logout' })
+        this.$router.push('/login')
+      }
+      catch (err) {
+        console.log('Fail to logout', err);
+      }
     }
   },
   computed: {
