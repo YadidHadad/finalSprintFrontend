@@ -11,10 +11,10 @@
                 Create
             </button>
         </section>
-        <!-- <section class="user-buttons"> -->
-            <!-- <span v-if="user" class="btn flex row profile-btn" @click="(showUserPreview = !showUserPreview)">
+        <!-- <section class="user-buttons">
+            <span v-if="user" class="btn flex row profile-btn" @click="(showUserPreview = !showUserPreview)">
                 {{ getInitials(user.fullname) }}
-            </span>
+            </span> -->
         <section class="user-buttons flex row align-center gap">
             <div class="search-boards flex row align-center gap justify-around">
                 <svg class="icon" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg"
@@ -111,14 +111,10 @@ export default {
         user() {
             return this.$store.getters.loggedinUser
         },
-<<<<<<< HEAD
         boards() {
             console.log(this.$store.getters.boards)
             return this.$store.getters.boards
         }
-=======
-
->>>>>>> 52d6a193592038a8269e52b5fd28646f4b9401ae
 
     },
     components: { userPreview }
