@@ -1,0 +1,71 @@
+.login-main-layout {
+    display: grid;
+    grid-template-columns: auto 400px auto;
+
+    >* {
+        grid-column: 2;
+    }
+}
+
+.login-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+    box-shadow: rgb(0 0 0 / 10%) 0 0 10px;
+    padding: 32px 40px;
+
+    span {
+        color: #c4bac5;
+        font-size: 11px;
+    }
+
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        input {
+            border: 2px solid #dfe1e6;
+            padding-inline-start: 8px;
+            border-radius: 3px;
+        }
+
+        >* {
+            height: 40px;
+        }
+
+        .login-btn {
+            background-color: #0052cc;
+            color: white;
+            // height: 40px;
+            border-radius: 3px;
+        }
+
+        .google-btn {
+            box-shadow: rgb(0 0 0 / 20%) 1px 1px 5px 0px !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .icon {
+                margin: 5px;
+                border-radius: 1px;
+                display: inline-block;
+                width: 18px;
+                height: 18px;
+                background: url(https://d2k1ftgv7pobq7.cloudfront.net/meta/c/p/res/images/8215f6659adc202403198fef903a447e/sign-in-with-google.svg);
+            }
+        }
+    }
+}
+
+.bottom-form-separator {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid hsl(0, 0%, 80%);
+    margin: 1em 0;
+    padding: 0;
+}

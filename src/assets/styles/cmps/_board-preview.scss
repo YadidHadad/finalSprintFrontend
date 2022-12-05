@@ -9,19 +9,38 @@
     // align-items: center;
     position: relative;
     background-size: cover;
+    font-family: "segoe-bold";
+    position: relative;
+
+    .board-title {
+        font-size: 16px;
+        font-weight: 700;
+    }
+
+    img {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        z-index: -1;
+        object-fit: cover;
+        filter: brightness(70%);
+        border-radius: 4px;
+        top: 0;
+        right: 0;
+    }
 
     &:hover {
         cursor: pointer;
-        filter: brightness(95%);
+        filter: brightness(90%);
 
-        .star{
+        .star {
             align-self: flex-end;
             opacity: 1;
             right: 10px;
         }
     }
 
-    .star{
+    .star {
         opacity: 0;
         position: absolute;
         right: -20px;
@@ -36,7 +55,7 @@
 
 .starred {
 
-    .star{
+    .star {
         align-self: flex-end;
         right: 10px;
         position: absolute;

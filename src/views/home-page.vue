@@ -5,7 +5,8 @@
       <div class="board-main">
         <div class="starred-boards">
           <div class="star-header-container">
-            <span class="trellicons icon-starred"></span>
+            <span class="trellicons star">
+            </span>
             <h3>Starred boards</h3>
           </div>
           <ul v-if="boards" class="starred-board-list">
@@ -15,12 +16,18 @@
             </li>
           </ul>
         </div>
-        <div class="full-board-list">
-          <h3>YOUR WORKSPACES</h3>
+        <div class="full-boards-list">
+          <div class="boards-header-container">
+            <span class="trellicons icon-template-board">
+            </span>
+            <h3>Your boards</h3>
+          </div>
           <ul v-if="boards" class="board-list">
             <li v-for="board in boards" :key="board._id">
               <!-- <pre>{{ board }}</pre> -->
-              <board-preview :board="board" @click="goToBoard(board._id)" @toggleStar="toggleStar(true , board)"/>
+              <!-- <div class="board-title">{{ board.title }}</div> -->
+              <board-preview :board="board" @click="goToBoard(board._id)" @toggleStar="toggleStar(true , board)">
+              </board-preview>
               <!-- <button @click="removeBoard(board._id)">x</button>
                 <button @click="updateBoard(board)">Update</button> -->
               <!-- <button @click="addBoardMsg(board._id)">Add board msg</button>
