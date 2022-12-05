@@ -1,9 +1,9 @@
 .boards-page-container {
-    // display: grid;
-    // grid-template-columns: auto 1100px auto;
+    display: grid;
+    grid-template-columns: auto 1100px auto;
 
-    // >* {
-    //     grid-column: 2;
+    >* {
+        grid-column: 2;
     font-family: "segoe-bold" !important;
     // }
     & *:not(.boards-page-container):not(.fa-solid):not(.fa-regular):not(.trellicons) {
@@ -11,12 +11,12 @@
     }
     // & * {
     //     font-family: "segoe-bold";
-    // }
+    }
 
     .boards-page {
         display: grid;
         grid-template-columns: 272px auto;
-        margin: 40px 16px 0;
+        margin: 40px 0px 0;
 
         .board-main {
             h2 {
