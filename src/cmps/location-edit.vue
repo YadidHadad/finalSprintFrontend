@@ -37,21 +37,29 @@ export default {
     methods: {
         updateLocation(ev) {
             console.log(ev.target.value);
-            const chosenLoc = this.locsCords.find(loc => loc.name === ev.target.value)
-            // console.log(chosenLoc);
+
+
+            // const chosenLoc = this.locsCords.find(loc => loc.name.includes(ev.target.value))
+            const chosenLoc = this.locsCords.find(loc => {
+                console.log(loc.name)
+                console.log(ev.target.value)
+                return loc.name === ev.target.value
+            })
+            console.log('chosen loc', chosenLoc);
             this.$emit('updateTask', chosenLoc.cords)
         },
         getLocationByName() {
             if (!this.locTxt.trim()) return
-            const locsUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${this.locTxt}&key=${this.API_KEY}`
+            const locsUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${this.locTxt}&key=${this.API_KEY}&language=en`
             axios(locsUrl)
                 .then(({ data }) => {
+                    console.log('data', data)
                     const topResults = data.results.slice(0, 5)
                     // console.log(topResults);
                     topResults.forEach(res => {
                         this.locsCords.push({ cords: res.geometry.location, name: res.formatted_address })
                     })
-                    console.log(this.locsCords);
+                    console.log('this.locsCords', this.locsCords);
                 })
                 .catch((err) => {
                     console.log('Cant load locations', err);
