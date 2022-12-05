@@ -62,7 +62,8 @@
             <location-preview v-if="task.location" :location="task.location" />
             <!-- <checklists-preview v-if="task.checklists" :checklists="task.checklists"
                 @updateChecklists="updateTask('checklist-preview', $event)" /> -->
-            <checklists-preview v-if="task.checklists" :checklists="task.checklists"
+            <!-- <checklists-preview v-if="task.checklists" :checklists="task.checklists" -->
+            <checklists-preview v-if="task.checklists"
                 @updateChecklists="debounceHandler('checklist-preview', $event)" />
             <activities-preview :taskId="task.id" />
         </section>
@@ -388,13 +389,13 @@ export default {
             console.log(label);
             this.$store.dispatch({
                 type: "updateBoardLabels",
-                    label,
-                    // activity: {
-                    //     txt: "Added new label",
-                    //     boardId: this.$route.params.id,
-                    //     groupId: this.groupId,
-                    //     taskId: this.task.id,
-                    // },
+                label,
+                // activity: {
+                //     txt: "Added new label",
+                //     boardId: this.$route.params.id,
+                //     groupId: this.groupId,
+                //     taskId: this.task.id,
+                // },
             })
         }
     },

@@ -2,7 +2,7 @@
     <section class="labels-preview  flex column">
         <h4 class="title">Labels</h4>
         <section class="labels-container flex row align-center justify-start gap5 wrap">
-            <div v-for="(label, i) in taskLabels" :key="i" :style="{ backgroundColor: rgbaColors[label.id] }"
+            <div v-for="label in taskLabels" :key="label.id" :style="{ backgroundColor: rgbaColors[label.id] }"
                 class="label-preview flex row align-center justify-start">
                 <div :style="{ backgroundColor: label.color }" class="color-circle"></div>
                 <span>{{ label.title }}</span>
@@ -16,6 +16,7 @@
 
 <script>
 export default {
+    name: 'labels-preview',
     data() {
         return {
             rgbaColors: {},
@@ -23,7 +24,7 @@ export default {
     },
     methods: {
         hexToRgbA(hex) {
-            console.log(hex)
+            // console.log(hex)
             var c;
             c = hex.substring(1).split('');
             if (c.length == 3) {
@@ -37,7 +38,7 @@ export default {
         taskLabels() {
             const labels = this.$store.getters.taskLabels
             labels.forEach(label => {
-                console.log(label.color)
+                // console.log(label.color)
                 this.rgbaColors[label.id] = this.hexToRgbA(label.color)
             })
             return labels

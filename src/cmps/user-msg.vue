@@ -9,12 +9,13 @@
 import { eventBus, SHOW_MSG } from "../services/event-bus.service.js"
 
 export default {
+  name: 'user-msg',
   created() {
     eventBus.on(SHOW_MSG, (msg) => {
       this.msg = msg
       var delay = msg.delay || 2000
       this.alive = true
-      window.scrollTo({top: 0, behavior: 'smooth'});
+      window.scrollTo({ top: 0, behavior: 'smooth' });
       setTimeout(() => {
         this.alive = false
       }, delay)

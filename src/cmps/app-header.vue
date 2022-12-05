@@ -21,7 +21,7 @@ import { utilService } from '../services/util.service'
 
 
 export default {
-    name: '',
+    name: 'app-header',
     props: ['rgb'],
     components: {},
     created() {

@@ -25,8 +25,8 @@
 
 
                 <form class="todos-container flex column " @change="debounceHandler(checklist)">
-                    <div class="todo-container flex row w-100 align-start" v-for="(todo, i) in checklist.todos"
-                        :key="i">
+                    <div class="todo-container flex row w-100 align-start" v-for="todo in checklist.todos"
+                        :key="todo.id">
                         <input type="checkbox" v-model="doneTodosIds" @change="toggleTodo(todo.id)" :value="todo.id">
                         <span class="checkmark"></span>
                         <div class="todo-edit-container" @click="todoEditId = todo.id">
@@ -76,6 +76,7 @@
 import { utilService } from '../services/util.service'
 
 export default {
+    name: 'checklists-preview',
 
     //DEBOUNCE FOR INPUT
     props: {

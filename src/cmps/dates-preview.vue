@@ -17,6 +17,7 @@
 <script>
 export default {
     //
+    name: 'dates-preview',
     data() {
         return {
             isComplete: false

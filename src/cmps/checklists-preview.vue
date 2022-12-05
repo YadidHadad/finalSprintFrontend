@@ -9,7 +9,7 @@
                 </div>
                 <textarea v-else class="checklist-title-input task-cmp-title grow" v-if="editedChecklists[index]"
                     @input="editChecklistTitle(checklist, $event)" @focus="pickChecklist(checklist)"
-                    :value="checklist.title">
+                    :value="editedChecklist.title">
                     </textarea>
                 <button v-if="!editedChecklist" class="btn-delete "
                     @click.stop="removeChecklist(checklist.id)">Remove</button>
@@ -25,8 +25,8 @@
 
 
                 <form class="todos-container flex column " @change="debounceHandler(checklist)">
-                    <div class="todo-container flex row w-100 align-start" v-for="(todo, i) in checklist.todos"
-                        :key="i">
+                    <div class="todo-container flex row w-100 align-start" v-for="todo in checklist.todos"
+                        :key="todo.id">
                         <input type="checkbox" v-model="doneTodosIds" @change="toggleTodo(todo.id)" :value="todo.id">
                         <span class="checkmark"></span>
                         <div class="todo-edit-container" @click="todoEditId = todo.id">
@@ -76,20 +76,23 @@
 import { utilService } from '../services/util.service'
 
 export default {
+    name: 'checklists-preview',
 
     //DEBOUNCE FOR INPUT
     props: {
-        checklists: {
-            type: Array,
-            required: true
-        },
+        // checklists: {
+        //     type: Array,
+        //     required: true
+        // },
     },
     data() {
         return {
             editedChecklists: null,
-            checklistIdTitlePicked: '',
-            checklistPicked: '',
             editedChecklist: null,
+
+            checklistPicked: '',
+            checklistIdTitlePicked: '',
+
             todoTxt: '',
             doneTodosIds: [],
             isOpenOptions: false,
@@ -99,10 +102,13 @@ export default {
         }
     },
     created() {
+        // getting data stringified from cimputed
         this.editedChecklists = JSON.parse(JSON.stringify(this.checklists))
-        console.log(this.editedChecklists, '................');
+
         this.debounceHandler = utilService.debounce(this.updateTodos, 500)
+        //render progress styles
         this.updateProgressBarStyle()
+
         if (this.editedChecklists) {
             this.editedChecklists.forEach(checklist => {
                 checklist.todos.forEach(todo => {
@@ -122,16 +128,17 @@ export default {
         },
         save() {
             const checklistIdx = this.editedChecklists.findIndex(checklist => checklist.id === this.editedChecklist.id)
-            const updatedChecklists = JSON.parse(JSON.stringify(this.editedChecklists))
-            updatedChecklists.splice(checklistIdx, 1, this.editedChecklist)
-            this.$emit('updateChecklists', updatedChecklists)
+            this.editedChecklists.splice(checklistIdx, 1, this.editedChecklist)
+            this.$emit('updateChecklists', this.editedChecklists)
             this.editedChecklist = null
-            setTimeout(() => {
-                this.checklistIdTitlePicked = ''
-            }, 500)
+            this.checklistIdTitlePicked = ''
+            // setTimeout(() => {
+            //     this.checklistIdTitlePicked = ''
+            // }, 500)
         },
         editChecklistTitle(checklist, ev) {
-            this.editedChecklist = JSON.parse(JSON.stringify(checklist))
+            // this.editedChecklist = JSON.parse(JSON.stringify(checklist))
+            console.log(ev.target.value)
             this.editedChecklist.title = ev.target.value
         },
         close() {
@@ -164,18 +171,19 @@ export default {
 
             this.updateChecklists(newChecklist, checklist)
         },
-        updateChecklists(newChecklist, checklist) {
-            // this.editedChecklists = JSON.parse(JSON.stringify(this.$store.getters.getEditedTask.checklists))
-            const checklistIdx = this.editedChecklists.findIndex(currChecklist => currChecklist.id === checklist.id)
-            const updatedChecklists = JSON.parse(JSON.stringify(this.editedChecklists))
-            updatedChecklists.splice(checklistIdx, 1, newChecklist)
-            this.$emit('updateChecklists', updatedChecklists)
+
+        updateChecklists(checklist) {
+            // const checklistIdx = this.editedChecklists.findIndex(currChecklist => currChecklist.id === checklist.id)
+            // this.editedChecklists.splice(checklistIdx, 1, newChecklist)
+            this.$emit('updateChecklists', this.editedChecklists)
         },
 
         updateTodos(checklist) {
             this.progress[checklist.id] = 0
-            const newChecklist = JSON.parse(JSON.stringify(checklist))
-            newChecklist.todos.forEach(todo => {
+
+            // const newChecklist = JSON.parse(JSON.stringify(checklist))
+
+            checklist.todos.forEach(todo => {
                 if (this.doneTodosIds.includes(todo.id)) {
                     todo.isDone = true
                     this.progress[checklist.id] += 1
@@ -185,7 +193,8 @@ export default {
                 }
             })
 
-            this.updateChecklists(newChecklist, checklist)
+            // this.updateChecklists(newChecklist, checklist)
+            this.updateChecklists(checklist)
         },
 
         // updateTodo(todo, checklist) {
@@ -232,6 +241,13 @@ export default {
                 else this.progressBarStyle[checklist.id] = { background: 'linear-gradient(to right, #e2e4e9 ' + (progress * 5.28) + 'px, #e2e4e9 20px)' }
             })
         },
+    },
+    computed: {
+        checklists() {
+            const task = this.$store.getters.getEditedTask
+            console.log('*******************', task.checklists)
+            return task.checklists
+        }
     },
 
     watch: {

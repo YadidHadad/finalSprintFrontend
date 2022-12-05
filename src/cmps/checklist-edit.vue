@@ -16,6 +16,7 @@
 
 <script>
 export default {
+    name: 'checklist-edit',
     data() {
         return {
             checklist: {

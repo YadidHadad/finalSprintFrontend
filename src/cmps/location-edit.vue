@@ -22,6 +22,7 @@
 import axios from 'axios'
 import { utilService } from '../services/util.service'
 export default {
+    name: 'location-edit',
     data() {
         return {
             locTxt: '',

@@ -6,7 +6,8 @@
             <button class="btn" @click="isActShown = !isActShown">{{ isActShown ? 'Hide details' : 'Show details'
             }}</button>
         </div>
-        <div v-if="isActShown" v-for="(activity, i) in activities" :key="i" class="activity flex row align-start grow">
+        <div v-if="isActShown" v-for="activity in activities" :key="activity.id"
+            class="activity flex row align-start grow">
             <div class="activity-user flex row align-center">
                 <span class="btn flex row align-baseline align-center justify-center">
                     {{
@@ -28,7 +29,7 @@
 import { utilService } from '../services/util.service';
 
 export default {
-    name: '',
+    name: 'activities-preview',
     props: ['taskId'],
     components: {},
     created() { },
