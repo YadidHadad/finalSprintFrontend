@@ -23,15 +23,8 @@
         margin-bottom: rem(8px);
     }
 
-
     cursor: pointer;
     background-color: #ffffff;
-
-
-    // & > *:not(.task-preview-cover) {
-    //     padding: rem(6px) rem(8px) rem(2px);
-    // }
-
 
     border-radius: 3px;
 
@@ -138,11 +131,6 @@
             bottom: 0;
 
         }
-    }
-
-
-    .task-preview-cover{
-
     }
 }
 

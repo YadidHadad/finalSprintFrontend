@@ -114,10 +114,8 @@ export const boardStore = {
 
         addActivity(state, { activity }) {
             // console.log('*************************', activity)
-
             activity.createdAt = Date.now()
             activity.id = utilService.makeId()
-
             if (!activity) return
             if (!state.board?.activities) state.board.activities = []
             state.board.activities.unshift(activity)

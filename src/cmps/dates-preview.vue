@@ -17,22 +17,26 @@
 <script>
 export default {
     //
+    
     data() {
         return {
             isComplete: false
         }
     },
+
     created() {
         // let isComplete = this.getIsComplete || false
         this.getIsComplete ? this.isComplete = true : this.isComplete = false
         console.log(this.isComplete);
     },
+
     methods: {
         toggleIsComplete() {
             // this.isComplete = !this.isComplete
             this.$emit('markComplete', this.isComplete)
         }
     },
+
     computed: {
         dueDateStr() {
             if (!this.$store.getters.getEditedTask?.dueDate) return ''
