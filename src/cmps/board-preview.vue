@@ -1,7 +1,8 @@
 <template>
-    <section class="board-preview" :style="getBoardBc">
+    <section class="board-preview">
+        <img :src="getBoardBc">
         <span class="trellicons star" @click.stop="toggleStar"></span>
-        <div>{{ board.title }}</div>
+        <div class="board-title">{{ board.title }}</div>
         <!-- <group-list :group="board.groups"/> -->
     </section>
 </template>
@@ -18,9 +19,11 @@ export default {
             const style = { ...this.board.style }
             console.log(style);
             if (style.backgroundImage)
-                return { backgroundImage: `url(${style.backgroundImage})` }
+            return style.backgroundImage
+                // return { backgroundImage: `url(${style.backgroundImage})` }
             else {
-                return { backgroundColor: style.backgroundColor }
+                style.backgroundColor
+                // return { backgroundColor: style.backgroundColor }
             }
         },
         toggleStar() {

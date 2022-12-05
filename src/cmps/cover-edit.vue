@@ -58,6 +58,9 @@ export default {
                 this.imgUrls = data.results.map(res => res.urls.full).slice(0, 12)
                 // console.log(this.imgUrls);
             })
+            .catch((err) => {
+                console.log('Cant load imgs' , err);
+            })
         },
         updateCover(value) {
             this.$emit('updateTask', value)

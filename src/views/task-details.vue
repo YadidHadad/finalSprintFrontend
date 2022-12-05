@@ -248,8 +248,8 @@ export default {
             // console.log(payload);
         },
         async updateTask(type, data) {
-            // console.log('UPDATE TASKKKKKKK')
-            // console.log(type, data)
+            console.log('UPDATE TASKKKKKKK')
+            console.log(type, data)
             let taskToUpdate = JSON.parse(JSON.stringify(this.task))
             let txt
             switch (type) {
