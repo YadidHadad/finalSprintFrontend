@@ -5,8 +5,10 @@
         <section v-if="task.labelIds" class="labels-preview">
             <ul class="clean-list flex">
                 <li :title="(label.title)" @click.stop="togglePreviewLabels" v-for="label in labels" :key="label.id"
-                    :style="{ backgroundColor: label.color, height: isPreviewLabelsOpen ? '17px' : '', transition: isPreviewLabelsOpen ? 'all 0.5s' : '', filter: !isPreviewLabelsOpen ? 'saturate(10)' : 'saturate(3)' }">
+                    :style="{ backgroundColor: label.color, height: isPreviewLabelsOpen ? '17px' : '', transition: isPreviewLabelsOpen ? 'all 0.5s' : 'all 0.5s', filter: !isPreviewLabelsOpen ? 'saturate(10)' : 'saturate(3)' }">
+                    <div v-if="isPreviewLabelsOpen" :style="{ backgroundColor: label.color }" class="color-circle"></div>
                     <span v-if="isPreviewLabelsOpen">{{ label.title }}</span>
+                    
                 </li>
             </ul>
         </section>
