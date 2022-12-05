@@ -21,12 +21,15 @@
                     <button @click.stop="save">Save</button>
                 </div>
             </ul>
-            <button class="create-label-btn">Create a new label</button>
+            <button class="create-label-btn" @click="openCreateLabel">Create a new label</button>
         </div>
+        <create-label-modal v-if="isOpenModal" @createdLabel="createdLabel" />
     </section>
 </template>
 
 <script>
+import createLabelModal from '../cmps/create-label-modal.vue';
+import { utilService } from '../services/util.service';
 export default {
     name: 'labels-edit',
     data() {
@@ -36,7 +39,8 @@ export default {
             labelIds: [],
             isEditTitle: false,
             title: '',
-            colorEdited: ''
+            colorEdited: '',
+            isOpenModal: false,
         }
     },
     created() {
@@ -72,7 +76,27 @@ export default {
         labelTitle(c) {
             const currLabel = this.labels.find(label => label.color === c)
             if (currLabel) return currLabel.title
-        }
+        },
+        openCreateLabel() {
+            this.isOpenModal = true
+            // this.$emit('closeEditor')
+        },
+        createdLabel({ color, title }) {
+            let label = this.labels.find(label => label.color === color)
+            if (!label) {
+                label = {
+                    color,
+                    title,
+                    id: utilService.makeId()
+                }
+                this.$emit('updateBoardLabels', label)
+            }
+            this.updateLabels(label.id)
+            console.log(label);
+        },
     },
+    components: {
+        createLabelModal
+    }
 }
 </script>
