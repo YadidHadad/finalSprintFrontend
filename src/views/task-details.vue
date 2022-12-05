@@ -314,9 +314,9 @@ export default {
                     break
             }
             try {
+                console.log('hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii', this.task);
                 this.$store.commit({ type: 'updateTask', payload: { task: taskToUpdate, groupId: this.groupId } })
                 this.task = JSON.parse(JSON.stringify(this.getTask))
-                // console.log('hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii');
                 let updatedTask = await this.$store.dispatch({
                     type: "updateTask",
                     payload: {
@@ -388,13 +388,13 @@ export default {
             console.log(label);
             this.$store.dispatch({
                 type: "updateBoardLabels",
-                    label,
-                    // activity: {
-                    //     txt: "Added new label",
-                    //     boardId: this.$route.params.id,
-                    //     groupId: this.groupId,
-                    //     taskId: this.task.id,
-                    // },
+                label,
+                // activity: {
+                //     txt: "Added new label",
+                //     boardId: this.$route.params.id,
+                //     groupId: this.groupId,
+                //     taskId: this.task.id,
+                // },
             })
         }
     },
