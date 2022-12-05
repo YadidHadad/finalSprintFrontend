@@ -432,5 +432,6 @@ export default {
             // return JSON.parse(JSON.stringify(this.$store.getters.getEditedTask)).title
         },
     },
+
 };
 </script>
