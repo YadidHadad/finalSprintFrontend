@@ -121,10 +121,12 @@ export default {
     data() {
         return {
             show: false,
+
             pickedEditor: {
                 isOpen: false,
                 editorType: "",
             },
+
             groupId: this.$route.params.groupId,
             boardId: this.$route.params.boardId,
             task: null,
