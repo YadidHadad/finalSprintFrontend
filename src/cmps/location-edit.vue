@@ -38,7 +38,7 @@ export default {
         updateLocation(ev) {
             console.log(ev.target.value);
             const chosenLoc = this.locsCords.find(loc => loc.name === ev.target.value)
-            // console.log(chosenLoc);
+            console.log(chosenLoc , '0000000000');
             this.$emit('updateTask', chosenLoc.cords)
         },
         getLocationByName() {
@@ -47,7 +47,7 @@ export default {
             axios(locsUrl)
                 .then(({ data }) => {
                     const topResults = data.results.slice(0, 5)
-                    // console.log(topResults);
+                    console.log(topResults);
                     topResults.forEach(res => {
                         this.locsCords.push({ cords: res.geometry.location, name: res.formatted_address })
                     })
