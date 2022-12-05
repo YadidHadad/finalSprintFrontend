@@ -37,9 +37,6 @@ export default {
     methods: {
         updateLocation(ev) {
             console.log(ev.target.value);
-
-
-            // const chosenLoc = this.locsCords.find(loc => loc.name.includes(ev.target.value))
             const chosenLoc = this.locsCords.find(loc => {
                 console.log(loc.name)
                 console.log(ev.target.value)
@@ -55,7 +52,7 @@ export default {
                 .then(({ data }) => {
                     console.log('data', data)
                     const topResults = data.results.slice(0, 5)
-                    // console.log(topResults);
+                    console.log(topResults);
                     topResults.forEach(res => {
                         this.locsCords.push({ cords: res.geometry.location, name: res.formatted_address })
                     })
