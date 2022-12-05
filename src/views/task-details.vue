@@ -315,9 +315,9 @@ export default {
                     break
             }
             try {
+                console.log('hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii', this.task);
                 this.$store.commit({ type: 'updateTask', payload: { task: taskToUpdate, groupId: this.groupId } })
                 this.task = JSON.parse(JSON.stringify(this.getTask))
-                // console.log('hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii');
                 let updatedTask = await this.$store.dispatch({
                     type: "updateTask",
                     payload: {
