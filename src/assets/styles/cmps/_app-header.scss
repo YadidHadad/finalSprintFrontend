@@ -28,6 +28,7 @@ header {
 
     & * {
         color: $textDark;
+        font-family: "segoe-regular";
     }
 
     &.isDark {
@@ -78,7 +79,7 @@ header {
             color: white;
             border: none;
             &:focus {
-                width: 780px;
+                width: 735px;
             }
 
             &::placeholder {
@@ -87,37 +88,40 @@ header {
         }
     }
 
-    .loggedin-user {
-        background-color: $clr1;
-        padding: 2px 8px;
-        border-radius: 1em;
-        align-self: flex-end;
-        color: whitesmoke;
-        span {
-            background-color: $clr2;
-            padding: 4px;
-            margin: 10px;
-            border-radius: 50%;
+    .search-results {
+        & * {
+            font-size: 0.875rem;
+
+            color: #172b4d !important;
         }
-        img {
-            width: 2em;
-            height: 2em;
-            border-radius: 50%;
+        position: fixed;
+        width: 780px;
+        top: 50px;
+        right: 117px;
+        z-index: 80;
+        background-color: white;
+        border-radius: 3px;
+        box-shadow: 0px 0px 1px 1px rgb(0 0 0 / 10%);
+
+        .search-result {
+            padding: 0.5rem;
+            width: 100%;
+            img {
+                object-fit: cover;
+                height: 14px;
+                width: 20px;
+                border-radius: 3px;
+            }
+
+            .title {
+                padding-block: 10px;
+                margin-block-start: 10px;
+                font-weight: bold;
+            }
+            &:hover {
+                cursor: pointer;
+                filter: brightness(95%);
+            }
         }
-    }
-
-    nav {
-        background-color: $clr4;
-        padding: 5px 0;
-    }
-
-    nav a:not(:first-child) {
-        border-top: 1px solid $clr1;
-        padding: 0 5px;
-        margin: 10px;
-    }
-
-    nav .active {
-        color: $clr1;
     }
 }
