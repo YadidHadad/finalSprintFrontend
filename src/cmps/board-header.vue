@@ -39,7 +39,7 @@ export default {
         },
     },
     created() {
-        this.debounceHandler = utilService.debounce(this.setBoardTitle, 500)
+        this.debounceHandler = utilService.debounce(this.setBoardTitle, 200)
     },
 
     data() {
@@ -58,6 +58,8 @@ export default {
             this.$emit("toggleBoardMenu");
         },
         setBoardTitle() {
+            if (this.board.title.length > 15) this.board.title = this.board.title.slice(0, 15) + '...'
+
             this.$store.dispatch({ type: "updateBoard", board: this.board });
         },
         setBoardStar() {
@@ -82,10 +84,15 @@ export default {
         titleLength() {
             if (!this.board.title) return;
             // return { width: `${(this.board.title.length)}` + "ch" };
-            return { width: `${(this.board.title.length + 3) * 8}` + "px" };
+            return { width: `${(this.board.title.length + 3) * 10}` + "px" };
         },
         board() {
-            return JSON.parse(JSON.stringify(this.$store.getters.board || {}))
+
+            const board = JSON.parse(JSON.stringify(this.$store.getters.board || {}))
+
+            if (board.title.length > 15) board.title = board.title.slice(0, 15)
+
+            return board
         },
         isStarred() {
             // return "fa-regular star-icon"

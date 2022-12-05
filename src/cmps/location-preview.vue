@@ -7,8 +7,9 @@
         <div class="map-container">
 
             <GoogleMap api-key="AIzaSyAV_zVjXKofPeV5nwAzfNKJ7Gt4VEMjHOw" style="width: 100%; height: 100%"
-                :center="location" :zoom="10">
+                :center="location" :zoom="14">
                 <Marker :options="{ position: location }" @click="center = location" />
+
             </GoogleMap>
         </div>
 
@@ -16,7 +17,7 @@
 </template>
 
 <script>
-import { GoogleMap, Marker } from 'vue3-google-map'
+import { GoogleMap, Marker, CustomMarker } from 'vue3-google-map'
 export default {
     props: {
         location: {
