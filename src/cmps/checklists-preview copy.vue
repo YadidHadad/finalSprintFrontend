@@ -3,7 +3,7 @@
         <div v-for="(checklist, index) in checklists" :key="checklist.id" class="checklist-container">
             <div class="flex align-center  justify-between">
                 <span class="trellicons checklist-icon large"></span>
-                <div v-if="checklistPicked !== checklists[index].id" class="task-cmp-title grow"
+                <div v-if="checklistIdTitlePicked !== checklists[index].id" class="task-cmp-title grow"
                     @click="pickChecklist(checklist)">
                     <div>{{ checklist.title }}</div>
                 </div>
@@ -14,18 +14,20 @@
                 <button v-if="!editedChecklist" class="btn-delete "
                     @click.stop="removeChecklist(checklist.id)">Remove</button>
             </div>
-            <div class="title-btns pad-40" v-if="checklistPicked === checklists[index].id">
+            <div class="title-btns pad-40" v-if="checklistIdTitlePicked === checklists[index].id">
                 <button class="btn-save" @click="save">Save</button>
                 <button class="close-btn" @click="close">Cancel</button>
             </div>
             <section class=" flex column">
 
-                <progress class="pad-40" :value="checklist.todos.filter(todo => todo.isDone).length"
-                    :max="checklist.todos.length"></progress>
-                <form class="todos-container flex column " @change="updateTodos(checklist)">
+                <section class="progress pad-40" v-if="checklist" :style="progressBarStyle[checklist.id]">
+                </section>
+
+
+                <form class="todos-container flex column " @change="debounceHandler(checklist)">
                     <div class="todo-container flex row w-100 align-start" v-for="(todo, i) in checklist.todos"
                         :key="i">
-                        <input type="checkbox" v-model="doneTodosIds" @change="toggleTodo" :value="todo.id">
+                        <input type="checkbox" v-model="doneTodosIds" @change="toggleTodo(todo.id)" :value="todo.id">
                         <span class="checkmark"></span>
                         <div class="todo-edit-container" @click="todoEditId = todo.id">
                             <div v-if="(todoEditId !== todo.id)" class="grow" :class="{ 'line-through': todo.isDone }">
@@ -45,7 +47,8 @@
                             </div>
                         </div>
 
-                        <button class="btn-delete margin-0" @click="removeTodo(index, checklist)">Remove</button>
+                        <button v-if="(todoEditId !== todo.id)" class="btn-delete margin-0"
+                            @click="removeTodo(index, checklist)">Remove</button>
                         <button v-if="(todoEditId !== todo.id)" class="btn-delete margin-0"
                             @click="isOpenOptions = !isOpenOptions">
                             <span class=" fa-solid elipsis-icon">
@@ -53,13 +56,15 @@
                         </button>
                     </div>
                 </form>
-                <button class="add-todo-btn pad-40" v-if="!isTodoPicked" @click="isTodoPicked = true">Add an
+
+                <button class="add-todo-btn pad-40" v-if="!checklistPicked"
+                    @click="(checklistPicked = checklist.id)">Add an
                     item</button>
-                <div v-else class="add-todo pad-40 flex column">
+                <div v-else-if="checklist.id === checklistPicked" class="add-todo pad-40 flex column">
                     <textarea placeholder="Add an item" v-model="todoTxt"></textarea>
                     <div>
                         <button class="btn-save" @click="saveTodo(checklist)">Save</button>
-                        <button class="close-btn" @click="isTodoPicked = false">Cancel</button>
+                        <button class="close-btn" @click="checklistPicked = false">Cancel</button>
                     </div>
                 </div>
             </section>
@@ -81,34 +86,38 @@ export default {
     },
     data() {
         return {
-            // editedChecklists: null,
+            editedChecklists: null,
+            checklistIdTitlePicked: '',
             checklistPicked: '',
             editedChecklist: null,
             todoTxt: '',
-            isTodoPicked: false,
             doneTodosIds: [],
             isOpenOptions: false,
-            todoEditId: ''
+            todoEditId: '',
+            progress: {},
+            progressBarStyle: {},
         }
     },
     created() {
-        this.debounceHandler = utilService.debounce(this.toggleTodo, 500)
-
-        // if (this.checklists) this.editedChecklists = JSON.parse(JSON.stringify(this.checklists))
+        this.editedChecklists = JSON.parse(JSON.stringify(this.checklists))
+        this.debounceHandler = utilService.debounce(this.updateTodos, 500)
+        this.updateProgressBarStyle()
         if (this.checklists) {
             this.checklists.forEach(checklist => {
                 checklist.todos.forEach(todo => {
-                    if (todo.isDone) this.doneTodosIds.push(todo.id)
+                    if (todo.isDone) {
+                        this.doneTodosIds.push(todo.id)
+                        this.progress[checklist.id] ? this.progress[checklist.id] += 1 : this.progress[checklist.id] = 1
+                    }
                 })
             })
         }
-        console.log(this.doneTodosIds, 'DONE TODOSSSSSSSSSS');
+
     },
     methods: {
         pickChecklist(checklist) {
             this.editedChecklist = JSON.parse(JSON.stringify(checklist))
-            this.checklistPicked = checklist.id
-            console.log(checklist);
+            this.checklistIdTitlePicked = checklist.id
         },
         save() {
             const checklistIdx = this.checklists.findIndex(checklist => checklist.id === this.editedChecklist.id)
@@ -117,17 +126,15 @@ export default {
             this.$emit('updateChecklists', updatedChecklists)
             this.editedChecklist = null
             setTimeout(() => {
-                this.checklistPicked = ''
+                this.checklistIdTitlePicked = ''
             }, 500)
         },
         editChecklistTitle(checklist, ev) {
-            console.log('hiiiiii');
             this.editedChecklist = JSON.parse(JSON.stringify(checklist))
             this.editedChecklist.title = ev.target.value
-            console.log(this.editedChecklist);
         },
         close() {
-            this.checklistPicked = ''
+            this.checklistIdTitlePicked = ''
         },
         removeChecklist(id) {
             const checklistIdx = this.checklists.findIndex(checklist => checklist.id === id)
@@ -146,7 +153,7 @@ export default {
             }
             newChecklist.todos.push(newTodo)
             this.updateChecklists(newChecklist, checklist)
-            this.isTodoPicked = false
+            this.checklistPicked = false
             this.todoTxt = ''
         },
         removeTodo(todoIdx, checklist) {
@@ -157,40 +164,76 @@ export default {
             this.updateChecklists(newChecklist, checklist)
         },
         updateChecklists(newChecklist, checklist) {
+            this.editedChecklists = JSON.parse(JSON.stringify(this.checklists))
             const checklistIdx = this.checklists.findIndex(cl => cl.id === checklist.id)
             const updatedChecklists = JSON.parse(JSON.stringify(this.checklists))
             updatedChecklists.splice(checklistIdx, 1, newChecklist)
             this.$emit('updateChecklists', updatedChecklists)
         },
-        toggleTodo(ev) {
-            console.log(this.doneTodosIds);
-        },
+
         updateTodos(checklist) {
-            // console.log(checklist);
+            this.progress[checklist.id] = 0
             const newChecklist = JSON.parse(JSON.stringify(checklist))
             newChecklist.todos.forEach(todo => {
                 if (this.doneTodosIds.includes(todo.id)) {
-                    console.log('hi');
                     todo.isDone = true
+                    this.progress[checklist.id] += 1
                 }
                 else {
                     todo.isDone = false
                 }
             })
-            console.log(newChecklist.todos);
 
-            // newChecklist.todos = updatedTodos
             this.updateChecklists(newChecklist, checklist)
         },
-        updateTodo(todo, checklist) {
-            // const todoIdx = checklist.todos.findIndex(currTodo => todo.id === currTodo.id)
-            // checklist.splice(todoIdx, 1, checklist.todos)
-            // console.log(todoIdx, '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+
+        toggleTodo(todoId) {
+            // const todoIdx = this.doneTodosIds.findIndex(id => id === todoId)
+            // if (todoIdx === -1) this.doneTodosIds.push(todoId)
+            // else this.doneTodosIds.splice(todoIdx, 1)
+            this.checklists.forEach(checklist => {
+                checklist.todos.forEach(todo => {
+                    if (todo.id === todoId) {
+                        todo.isDone = !todo.isDone
+                        if (todo.isDone) {
+                            // this.progress[checklist.id] += 1
+                            this.doneTodosIds.push(todoId)
+                        }
+                        else {
+                            const todoIdx = this.doneTodosIds.findIndex(id => id === todoId)
+                            // this.progress[checklist.id] = 1
+                            this.doneTodosIds.splice(todoIdx, 1)
+                        }
+                    }
+                })
+            })
         },
-
+        setProgress(checklist) {
+            const doneTodos = checklist.todos.length
+            const numOfTodos = checklist.todos.filter(todo => todo.isDone).length
+            this.progress = doneTodos / numOfTodos
+        },
+        updateProgressBarStyle() {
+            this.checklists.forEach(checklist => {
+                const total = checklist.todos.length
+                const done = checklist.todos.filter(todo => todo.isDone === true).length
+                const progress = ((done / total) * 100).toFixed(0)
+                console.log(progress)
+                if (+progress === 100) this.progressBarStyle[checklist.id] = { background: 'linear-gradient(to right, #61bd4f ' + (progress * 5.28) + 'px, #61bd4f 20px)' }
+                else if (+progress > 0) this.progressBarStyle[checklist.id] = { background: 'linear-gradient(to right, #5ba4cf ' + (progress * 5.28) + 'px, #e2e4e9 20px)' }
+                else this.progressBarStyle[checklist.id] = { background: 'linear-gradient(to right, #e2e4e9 ' + (progress * 5.28) + 'px, #e2e4e9 20px)' }
+            })
+        },
     },
-    computed: {
 
-    }
+    watch: {
+        checklists: {
+            handler: function (val, oldVal) {
+                this.updateProgressBarStyle(); // call it in the context of your component object
+                this.updateChecklists()
+            },
+            deep: true
+        }
+    },
 }
 </script>

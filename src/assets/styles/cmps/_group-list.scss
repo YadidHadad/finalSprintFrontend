@@ -3,26 +3,21 @@
         font-family: "opensans";
     }
     display: flex !important;
-    height: calc(100vh - 96px);
+    height: 100%;
     padding: 0.5rem;
     gap: 7px;
     overflow-y: hidden;
     overflow-x: scroll;
     // width: 100%;
 
-    .smooth-dnd-container {
-        display: flex !important;
-        gap: 10px;
+    // #group-details{
+    //     // height: fit-content; 
+    //     overflow-y: scroll;
+    //     border: 3px solid blue;
+    // }
 
-        // height: 500px;
-        .smooth-dnd-draggable-wrapper {
-            .group {
-                // overflow-y: scroll;
-                // overflow-x: visible;
-                // height: 500px;
-            }
-            // width: 272px;
-        }
+    & *:not(.fa-solid):not(.fa-regular):not(.trellicons) {
+        font-family: "opensans";
     }
 
     .add-new-list {
@@ -47,15 +42,7 @@
         background-color: $clr12;
         gap: rem(8px);
 
-        textarea {
-            padding-left: rem(8px);
-            height: rem(55px);
-            margin: 0;
-            width: 100%;
-            resize: none;
-            border: none;
-            border-radius: 3px;
-        }
+     
 
         .add-list-btns {
             margin: 0 !important;
@@ -84,6 +71,7 @@
 .group-list-form {
     padding: rem(10px) !important;
     border-radius: 3px;
+    width: rem(272px);
 
     input {
         padding: rem(8px) rem(12px);
@@ -92,6 +80,7 @@
         resize: none;
         border: none;
         border-radius: 3px;
+        outline-color: $clr2;
     }
 
     button {
