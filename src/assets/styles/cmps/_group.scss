@@ -9,8 +9,9 @@
     font-size: rem(14px) !important;
     // padding: rem(8px);
     gap: rem(8px);
+
     // overflow-y: scroll;
-    .smooth-dnd-container.vertical > .smooth-dnd-draggable-wrapper{
+    .smooth-dnd-container.vertical>.smooth-dnd-draggable-wrapper {
         overflow: unset;
     }
 
@@ -28,6 +29,7 @@
 
     .main-title {
         padding: rem(12px) rem(5px) rem(2px) rem(12px);
+
         // margin:  0 rem(4px);
         input {
             // height: 30px;
@@ -41,10 +43,11 @@
             padding-top: rem(3px);
             padding-bottom: rem(3px);
             height: fit-content;
+
             &:focus-visible {
-                outline-color:$clr2;
+                outline-color: $clr2;
                 background-color: #ffff;
-                
+
             }
         }
 
@@ -65,14 +68,14 @@
     //     height: fit-content;
     // }
 
-    
+
 }
 
 .smooth-dnd-ghost {
     transform: rotate(5deg);
 }
 
-.add-card-container{
+.add-card-container {
     padding-bottom: rem(10px);
 }
 
@@ -104,7 +107,8 @@ button.add-card-btn {
     }
 }
 
-.add-card-form{
+.add-card-form {
+   justify-items: center;
     textarea {
         padding-left: rem(8px);
         height: rem(60px);
@@ -116,6 +120,14 @@ button.add-card-btn {
         border-radius: 3px;
         padding: 0 rem(4px);
         outline: unset;
+    }
+
+    .x-icon {
+        font-size: rem(16px);
+        color: $clr9;
+        &:hover{
+            color: $colorP10;
+        }
     }
 }
 
