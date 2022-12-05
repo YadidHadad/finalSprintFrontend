@@ -23,19 +23,13 @@
         gap: 10px;
 
         input {
-            // position: absolute;
-
             opacity: 0.5;
             cursor: pointer;
-            // height: 0;
-            // width: 0;
 
             &:checked {
                 opacity: 1;
             }
 
-            // margin-inline-start: -35px;
-            // margin-inline-end: 15px;
             border: $textLight;
         }
 
@@ -102,19 +96,12 @@
     progress {
         display: block;
         width: calc(100% - 40px);
-        // color: crimson;
-
-        // &::-webkit-progress-value {
-        //     background: red;
-        // }
     }
 
     .line-through {
         text-decoration: line-through;
     }
-    // progress::-webkit-progress-value {
-    //     background: red;
-    // }
+
     .margin-0 {
         margin: 0;
     }
