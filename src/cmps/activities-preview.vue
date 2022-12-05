@@ -57,7 +57,7 @@ export default {
                 // console.log('****************', activity)
                 if (!activity.task) return
                 return activity.task.id === this.taskId
-            }).splice(0, 5)
+            }).reverse().splice(0, 5)
         },
 
     },

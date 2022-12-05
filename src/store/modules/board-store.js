@@ -114,16 +114,13 @@ export const boardStore = {
         },
 
         addActivity(state, { activity }) {
-            // console.log('*************************', activity)
-
+            if (!activity) return
             activity.createdAt = Date.now()
             activity.id = utilService.makeId()
-
-            if (!activity) return
             if (!state.board?.activities) state.board.activities = []
-            state.board.activities.unshift(activity)
-            // console.log(`activity:`, activity)
+            state.board.activities.push(activity)
         },
+
         removeLastActivity(state) {
             state.board.activities.splice(0, 1)
         },
@@ -160,7 +157,7 @@ export const boardStore = {
             }
         },
         updateBoardLabels(state, { label }) {
-            if(label) state.board.labels.push(label)
+            if (label) state.board.labels.push(label)
             else state.board.labels.pop(label)
         }
     },
@@ -194,8 +191,8 @@ export const boardStore = {
                 context.commit({ type: 'updateBoardLabels', label })
                 const board = await boardService.save(context.state.board)
             }
-            catch(label) {
-                context.commit({ type: 'updateBoardLabels', label : null })
+            catch (label) {
+                context.commit({ type: 'updateBoardLabels', label: null })
                 console.log('couldnt add label')
                 throw label
             }
