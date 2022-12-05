@@ -122,10 +122,12 @@ export default {
     data() {
         return {
             show: false,
+
             pickedEditor: {
                 isOpen: false,
                 editorType: "",
             },
+
             groupId: this.$route.params.groupId,
             boardId: this.$route.params.boardId,
             task: null,
@@ -294,7 +296,7 @@ export default {
                     this.closeEditor();
                     break
                 case 'dates-preview':
-                    data ? txt = `marked ${this.task.title} as complete` : txt = `Unmarked ${this.task.title} as complete`
+                    data ? txt = `marked ${this.task.title} as complete` : txt = `unmarked ${this.task.title} as complete`
                     taskToUpdate.isComplete = data
                     // console.log(taskToUpdate);
                     break
@@ -433,5 +435,6 @@ export default {
             // return JSON.parse(JSON.stringify(this.$store.getters.getEditedTask)).title
         },
     },
+
 };
 </script>

@@ -11,9 +11,11 @@
 .task-preview {
     height: fit-content;
     width: 100%;
-.task-preview-cover{
-    margin-bottom: rem(5px);
-}
+
+    .task-preview-cover {
+        margin-bottom: rem(5px);
+    }
+
     h3 {
         font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
             "Open Sans", "Helvetica Neue", sans-serif !important;
@@ -23,15 +25,8 @@
         margin-bottom: rem(8px);
     }
 
-
     cursor: pointer;
     background-color: #ffffff;
-
-
-    // & > *:not(.task-preview-cover) {
-    //     padding: rem(6px) rem(8px) rem(2px);
-    // }
-
 
     border-radius: 3px;
 
@@ -49,13 +44,14 @@
     height: 100%;
     padding: rem(8px) rem(8px) rem(6px);
     // padding: rem(6px) rem(8px) rem(2px);
-    
+
 
     .labels-preview {
         width: 100%;
         display: flex;
         flex-wrap: wrap;
-        min-height: rem(25px);
+        min-height: rem(23px);
+        margin-bottom: rem(10px);
 
         ul {
             gap: 5px;
@@ -64,8 +60,11 @@
         }
 
         li {
+            display: flex;
+            justify-items: center;
             text-align: center;
             padding: 0;
+
             &:not(:first-child) {
                 padding-right: rem(5px);
             }
@@ -86,16 +85,30 @@
             }
 
             span {
-
+                font-family: "opensans-light";
+                padding-left: rem(2px);
+                padding-right: rem(4px);
                 font-size: rem(10px);
-                font-weight: 200;
+                font-weight: 100;
+                color: black;
                 transition: all 0.5s
+            }
+
+            .color-circle {
+                align-self: center;
+                display: inline-block;
+                border-radius: 50%;
+                height: 0.5rem;
+                width: 0.5rem;
+                margin-right: 0.2rem;
+                margin-left: 0.2rem;
+                filter: brightness(0.7)
             }
         }
 
     }
 
-    .task-title{
+    .task-title {
         padding-bottom: rem(10px);
     }
 
@@ -138,11 +151,6 @@
             bottom: 0;
 
         }
-    }
-
-
-    .task-preview-cover{
-
     }
 }
 

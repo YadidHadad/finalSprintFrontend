@@ -2,6 +2,7 @@
     & *:not(.fa-solid):not(.fa-regular):not(.trellicons) {
         font-family: "opensans";
     }
+
     display: flex !important;
     height: 100%;
     padding: 0.5rem;
@@ -23,6 +24,15 @@
     .add-new-list {
         width: 272px;
 
+        .x-icon {
+            font-size: rem(16px);
+            color: $clr9;
+
+            &:hover {
+                color: $colorP10;
+            }
+        }
+
         .open-add-list {
             background-color: $clr14;
             min-width: 272px;
@@ -42,7 +52,7 @@
         background-color: $clr12;
         gap: rem(8px);
 
-     
+
 
         .add-list-btns {
             margin: 0 !important;
@@ -63,6 +73,10 @@
                 color: $clr12;
                 background-color: $clr3;
                 padding: rem(6px) rem(12px);
+
+                &:hover {
+                  filter: brightness(0.8);
+                }
             }
         }
     }

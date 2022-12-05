@@ -5,8 +5,10 @@
         <section v-if="task.labelIds" class="labels-preview">
             <ul class="clean-list flex">
                 <li :title="(label.title)" @click.stop="togglePreviewLabels" v-for="label in labels" :key="label.id"
-                    :style="{ backgroundColor: label.color, height: isPreviewLabelsOpen ? '17px' : '', transition: isPreviewLabelsOpen ? 'all 0.5s' : '', filter: !isPreviewLabelsOpen ? 'saturate(10)' : 'saturate(3)' }">
+                    :style="{ backgroundColor: label.color, height: isPreviewLabelsOpen ? '17px' : '', transition: isPreviewLabelsOpen ? 'all 0.5s' : 'all 0.5s', filter: !isPreviewLabelsOpen ? 'saturate(10)' : 'saturate(3)' }">
+                    <div v-if="isPreviewLabelsOpen" :style="{ backgroundColor: label.color }" class="color-circle"></div>
                     <span v-if="isPreviewLabelsOpen">{{ label.title }}</span>
+                    
                 </li>
             </ul>
         </section>
@@ -19,6 +21,21 @@
                 <span class="trellicons checklist-icon"></span>
                 <span>{{ taskDoneTodos }}/{{ taskTodosLength }}</span>
             </div>
+
+            <!-- <section v-if="dueDateStr" class="dates-preview">
+                <h4>Due date</h4>
+                <div class="flex row">
+                    <input type="checkbox" @change="toggleIsComplete" v-model="isComplete">
+                    <button class="btn-date">{{ dueDateStr }}
+
+                        <span v-if="isComplete" class="time-tag" :style="{ backgroundColor: '#61bd4f' }">complete</span>
+                        <span v-else-if="dueDateMs < Date.now()" class="time-tag"
+                            :style="{ backgroundColor: '#ec9488' }">overdue</span>
+
+                    </button>
+                </div>
+            </section> -->
+
             <members-preview v-if="task.memberIds" :memberIds="task.memberIds" :isTaskDetails="false"
                 class="task-members-preview" />
         </section>
@@ -52,12 +69,15 @@ export default {
     data() {
         return {
             taskLabelsIds: null,
-            isLabelsOpen: false
+            isLabelsOpen: false,
+            isComplete: false
         }
     },
 
     created() {
         this.taskLabelsIds = this.task.labelIds
+        // this.getIsComplete ? this.isComplete = true : this.isComplete = false
+        // console.log(this.isComplete);
 
     },
 

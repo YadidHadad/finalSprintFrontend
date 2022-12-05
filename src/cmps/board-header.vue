@@ -68,6 +68,7 @@ export default {
             this.board.isStarred = !this.board.isStarred
             this.$store.dispatch({ type: "updateBoard", board: this.board });
         },
+
     },
 
     computed: {

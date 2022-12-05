@@ -1,5 +1,6 @@
 <template>
-    <section v-if="boardMembers" class="members-preview flex column">
+    <section v-if="boardMembers" class=" flex column"
+        :class="[isTaskDetails ? 'members-preview' : 'members-task-preview']">
         <h4 v-if="isTaskDetails" class="title">Members</h4>
         <section class="members-container flex row align-center">
             <div v-for="member in taskMembers">
@@ -39,11 +40,11 @@ export default {
         memberImage(imgUrl) {
             return { backgroundImage: `url(${imgUrl})` };
         },
-        openMembersEditor() {
-            this.$emit('openMembersEditor')
-        },
         getInitials(fullname) {
             return utilService.getInitials(fullname)
+        },
+        openMembersEditor() {
+            this.$emit('openMembersEditor')
         },
 
     },
@@ -54,8 +55,11 @@ export default {
                 return this.memberIds.includes(member._id)
             })
 
-            return members
+            return this.isTaskDetails ? members : members.slice(0, 4)
         },
+        class() {
+            return this.isTaskDetails ? 'members-preview' : 'task-preview'
+        }
     },
 }
 </script>
