@@ -49,8 +49,8 @@
             </section>
         </section>
         <!-- @updateChecklists="updateTask('checklist-preview', $event)" /> -->
-        <section class="task-main">
-            <section class="task-tags flex row pad-40">
+        <section class="task-main flex column gap20">
+            <section class="task-tags flex row pad-40 wrap gap20">
                 <members-preview v-if="task.memberIds" :memberIds="task.memberIds"
                     @openMembersEditor="openMembersEditor" :isTaskDetails="true" />
                 <labels-preview v-if="task.labelIds" />
