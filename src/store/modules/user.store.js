@@ -12,7 +12,10 @@ export const userStore = {
     },
     getters: {
         users({ users }) { return users },
-        loggedinUser({ loggedinUser }) { return loggedinUser || { _id: 'fsdfds', fullname: 'Guest', username: 'puki', password: '123', isAdmin: false, imgUrl: 'src/assets/img/user1.jpg' } },
+        loggedinUser({ loggedinUser }) {
+            return loggedinUser ||
+                { _id: 'fsdfds', fullname: 'Guest guest', username: 'guest', password: '123', isAdmin: true, imgUrl: 'src/assets/img/user1.jpg' }
+        },
         watchedUser({ watchedUser }) { return watchedUser }
     },
     mutations: {

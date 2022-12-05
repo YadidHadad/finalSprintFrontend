@@ -1,11 +1,34 @@
 .login-main-layout {
     display: grid;
     grid-template-columns: auto 400px auto;
+    height: 92vh;
+    position: relative;
 
     >* {
         grid-column: 2;
     }
 }
+
+.bottom-right-img,
+.bottom-left-img {
+    position: absolute;
+    width: 400px;
+    bottom: 0;
+    z-index: -999;
+    max-width: 30%;
+    height: 400px;
+}
+
+.bottom-right-img {
+    right: 0;
+    background-image: url("https://aid-frontend.prod.atl-paas.net/atlassian-id/front-end/5.0.385/static/media/trello-right.16b9c9bb.svg");
+    background-size: cover;
+}
+
+.bottom-left-img {
+    left: 0;
+}
+
 
 .login-container {
     display: flex;

@@ -27,6 +27,8 @@
         </form>
       </div>
     </section>
+    <div class="bottom-right-img"></div>
+    <div class="bottom-left-img"></div>
     <!-- <hr />
       <details>
         <summary>
