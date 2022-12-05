@@ -295,7 +295,7 @@ export default {
                     this.closeEditor();
                     break
                 case 'dates-preview':
-                    data ? txt = `marked ${this.task.title} as complete` : txt = `Unmarked ${this.task.title} as complete`
+                    data ? txt = `marked ${this.task.title} as complete` : txt = `unmarked ${this.task.title} as complete`
                     taskToUpdate.isComplete = data
                     // console.log(taskToUpdate);
                     break
