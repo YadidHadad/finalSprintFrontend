@@ -9,6 +9,7 @@
         width: calc(100vw - 270px);
         margin-block-end: 8px;
         padding: 0 0 8px 16px;
+        height: calc(100vh - 44px);
         @include scroll-bar;
 
         // overflow-x: auto;
