@@ -38,6 +38,7 @@ async function query(filterBy = { title: '' }) {
 async function save(board) {
     var savedBoard
     if (board._id) {
+        console.log(board._id)
         savedBoard = await httpService.put(`${BOARD_URL}${board._id}`, board)
     } else {
         // Later, owner is set by the backend

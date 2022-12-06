@@ -9,10 +9,10 @@
         <div v-if="isActShown" v-for="activity in activities" :key="activity.id"
             class="activity flex row align-start grow">
             <div class="activity-user flex row align-center">
-                <span class="btn flex row align-baseline align-center justify-center">
-                    {{
-                            getInitials(activity.byMember.fullname)
-                    }}
+                <div v-if="activity.byMember.imgUrl" class="member-image"
+                    :style="memberImage(activity.byMember.imgUrl)"> </div>
+                <span v-else class="member-initials">
+                    {{ getInitials(activity.byMember.fullname) }}
                 </span>
             </div>
             <div class=" flex column justify-start grow">
@@ -39,6 +39,9 @@ export default {
         }
     },
     methods: {
+        memberImage(imgUrl) {
+            return { backgroundImage: `url(${imgUrl})` };
+        },
         getInitials(fullname) {
             return utilService.getInitials(fullname)
         },

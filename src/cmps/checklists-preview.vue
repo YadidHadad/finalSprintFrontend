@@ -36,7 +36,7 @@
                                 }}</div>
                             <div class="todo-edit" v-else>
                                 <textarea class="checklist-title-input todo-title-input task-cmp-title grow"
-                                   v-model="todo.title">
+                                    v-model="todo.title">
                                 </textarea>
                                 <div class="todo-edit-btns">
                                     <button class="btn-save" @click.stop="updateTodo">Save</button>
@@ -103,7 +103,7 @@ export default {
     },
     created() {
         // getting data stringified from cimputed
-        this.editedChecklists = JSON.parse(JSON.stringify(this.checklists))
+        this.editedChecklists = JSON.parse(JSON.stringify(this.checklists || {}))
 
         this.debounceHandler = utilService.debounce(this.updateTodos, 500)
         //render progress styles
@@ -123,7 +123,7 @@ export default {
     },
     methods: {
         pickChecklist(checklist) {
-            this.editedChecklist = JSON.parse(JSON.stringify(checklist))
+            this.editedChecklist = JSON.parse(JSON.stringify(checklist || {}))
             this.checklistIdTitlePicked = checklist.id
         },
         save() {
@@ -146,7 +146,7 @@ export default {
         },
         removeChecklist(id) {
             const checklistIdx = this.editedChecklists.findIndex(checklist => checklist.id === id)
-            const updatedChecklists = JSON.parse(JSON.stringify(this.editedChecklists))
+            const updatedChecklists = JSON.parse(JSON.stringify(this.editedChecklists || {}))
             updatedChecklists.splice(checklistIdx, 1)
             this.$emit('updateChecklists', updatedChecklists)
         },
@@ -166,7 +166,7 @@ export default {
         },
         removeTodo(todoIdx, checklist) {
             console.log(todoIdx, checklist);
-            const newChecklist = JSON.parse(JSON.stringify(checklist))
+            const newChecklist = JSON.parse(JSON.stringify(checklist || {}))
             checklist.todos.splice(todoIdx, 1)
 
             this.updateChecklists(newChecklist, checklist)
@@ -253,7 +253,7 @@ export default {
         checklists: {
             handler: function (val, oldVal) {
                 // this.updateProgressBarStyle(); // call it in the context of your component object
-                this.editedChecklists = JSON.parse(JSON.stringify(this.checklists))
+                this.editedChecklists = JSON.parse(JSON.stringify(this.checklists || {}))
             },
             deep: true
         }

@@ -70,7 +70,9 @@ function getBCG(colors, gap, opacity) {
 }
 
 function getInitials(fullname) {
-    return `${fullname.split(' ')[0].charAt(0)}${fullname.split(' ')[1].charAt(0)}`
+
+    if (fullname.split(' ').length > 1) return `${fullname.split(' ')[0].charAt(0)}${fullname.split(' ')[1].charAt(0)}`
+    else return fullname.charAt(0)
 }
 
 function timeAgo(input) {

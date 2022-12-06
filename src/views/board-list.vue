@@ -76,6 +76,7 @@ export default {
     }
   },
   async created() {
+    console.log(this.boards)
     try {
       // await this.$store.dispatch({ type: 'loadBoards' })
     } catch (err) {

@@ -169,6 +169,8 @@ export const boardStore = {
             try {
                 //SEND FILTER
                 const boards = await boardService.query()
+                console.log('*******************************', boards)
+
                 context.commit({ type: 'setBoards', boards })
                 return boards
             } catch (err) {

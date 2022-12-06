@@ -146,6 +146,7 @@ export default {
             this.isMenuOpen = !this.isMenuOpen;
         },
         addTask() {
+            console.log('******************************', this.user)
             if (!this.currTask.title) return
             const activity = {
                 id: '',
