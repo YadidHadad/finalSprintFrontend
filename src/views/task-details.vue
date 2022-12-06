@@ -71,12 +71,12 @@
             <activities-preview :taskId="task.id" />
         </section>
 
-        <component :is="pickedEditor.editorType" @closeEdit="closeEditor" v-click-outside="closeEditor"
-            @updateTask="updateTask(pickedEditor.editorType, $event)" @addChecklist="addChecklist"
-            @updateLabel="updateLabel" @updateMembers="updateTask" @copyTask="copyTask"
-            @updateBoardLabels="updateBoardLabels">
-        </component>
     </section>
+    <component :is="pickedEditor.editorType" @closeEdit="closeEditor" v-click-outside="closeEditor"
+        @updateTask="updateTask(pickedEditor.editorType, $event)" @addChecklist="addChecklist"
+        @updateLabel="updateLabel" @updateMembers="updateTask" @copyTask="copyTask"
+        @updateBoardLabels="updateBoardLabels" class="z-index-100">
+    </component>
 </template>
 
 <script>

@@ -1,12 +1,12 @@
 <template>
     <section v-if="board" class="board-details flex row" :style="boardBGC">
-        <board-nav :rgb="rgb" :boards="boards"></board-nav>
         <section class="main flex column grow">
             <board-header :board="board" :class="{ isDark: rgb.isDark, menuIsShown: !menuIsHidden }" :rgb="rgb"
                 @toggleBoardMenu="toggleBoardMenu" />
             <group-list @addTask="addNewTask" @addGroup="addNewGroup" @removeGroup="removeGroup" :groups="board.groups"
                 :boardId="board._id" :rgb="rgb" />
         </section>
+        <board-nav :rgb="rgb" :boards="boards"></board-nav>
         <board-menu :menuIsHidden="menuIsHidden" :activities="board.activities" @toggleBoardMenu="toggleBoardMenu" />
         <!-- <router-view class="task-details-view"></router-view> -->
     </section>
@@ -59,12 +59,13 @@ export default {
 
     methods: {
         async setBoardId() {
+            if (!this.$route.params.id) return
             const { id } = this.$route.params
             this.$store.commit({ type: 'setBoard', boardId: id })
             try {
                 if (this.board.style.bgColor) {
                     this.rgb.value = this.hexToRgbA(this.board.style.bgColor)
-                    console.log(this.rgb.value)
+                    // console.log(this.rgb.value)
                     this.rgb.isDark = true
                 } else {
 
@@ -81,11 +82,11 @@ export default {
         },
         async avgColor() {
 
-            console.log(this.board)
+            // console.log(this.board)
             const url = this.board.style.backgroundImage
             try {
                 const color = await fac.getColorAsync(url)
-                console.log(color)
+                // console.log(color)
                 return color
             } catch (err) {
                 console.log(`err:`, err)
@@ -133,7 +134,7 @@ export default {
             }
             c = '0x' + c.join('');
             const color = [(c >> 16) & 255, (c >> 8) & 255, c & 255, 255]
-            console.log(color)
+            // console.log(color)
             return color
         },
 

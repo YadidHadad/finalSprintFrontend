@@ -1,21 +1,22 @@
 .group-list {
+    display: flex !important;
+    height: 100%;
+    padding: 0.5rem 0;
+    gap: 7px;
+    overflow-y: hidden;
+    overflow-x: scroll;
+
     & *:not(.fa-solid):not(.fa-regular):not(.trellicons) {
         font-family: "segoe-regular";
     }
     color: $textDark;
 
-    &.isDark {
-        * {
-            color: $textLight;
-        }
-    }
+    // &.isDark {
 
-    display: flex !important;
-    height: 100%;
-    padding: 0.5rem;
-    gap: 7px;
-    overflow-y: hidden;
-    overflow-x: scroll;
+    //         color: $textLight;
+
+    // }
+
     // width: 100%;
 
     // #group-details{
@@ -25,7 +26,7 @@
     // }
 
     & *:not(.fa-solid):not(.fa-regular):not(.trellicons) {
-        font-family: "opensans";
+        font-family: "segoe-regular";
     }
 
     .add-new-list {
@@ -44,13 +45,16 @@
             background-color: $clr14;
             min-width: 272px;
             padding: rem(10px) rem(8px);
-            color: $clr12;
+            color: $textDark;
             text-align: left;
             border-radius: 3px;
             margin: 0 8px 0 4px;
 
             &:hover {
                 background-color: rgba(78, 78, 78, 0.856);
+            }
+            &.isDark {
+                color: $textLight;
             }
         }
     }
