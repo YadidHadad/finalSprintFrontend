@@ -9,6 +9,7 @@
 }
 
 .task-preview {
+    box-shadow: 0px 2px 0px 0px rgb(0 0 0 / 10%);
     height: fit-content;
     width: 100%;
 
@@ -114,13 +115,13 @@
     }
 
     .task-preview-icons {
-        display: grid;
-        grid-template-columns: repeat(3, auto);
+        // display: grid;
+        // grid-template-columns: repeat(3, auto);
         // grid-auto-flow: row dense;
         // justify-items:stretch;
         // justify-content:space-evenly;
         // flex-wrap: wrap;
-        gap: rem(10px);
+        // gap: rem(10px);
         width: 100%;
         // position: relative;
         // justify-content: space-between;

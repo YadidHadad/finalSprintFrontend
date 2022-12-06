@@ -8,6 +8,7 @@
     margin-left: 0px;
     opacity: 1;
     transition: all 0.3s ease-out;
+
     & * {
         font-size: 0.875rem;
     }
@@ -35,6 +36,9 @@
 
     .btn {
         &-nav {
+            &:first-of-type {
+                margin-block-start: 1rem;
+            }
             @include btn($type: "board-nav");
             font-family: "segoe-regular-light";
             border-radius: 0;

@@ -55,6 +55,8 @@
 }
 
 .members-task-preview {
+    position: relative;
+    right: 0;
     color: $textDark;
 
     // margin-inline-end: 0.5rem;
@@ -69,11 +71,11 @@
     }
 
     .members-container {
-        display: flex;
-        flex-wrap: wrap;
+        // display: flex;
+        // flex-wrap: wrap;
 
-        // margin-block-start: 0.5rem;
-        justify-content: end;
+        // // margin-block-start: 0.5rem;
+        // justify-content: end;
     }
 
     .member-image {

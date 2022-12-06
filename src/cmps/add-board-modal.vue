@@ -1,79 +1,99 @@
 <template>
-    <section class="add-board-modal" @click.stop="">
-        <div class="created-board-header">
-            <button class="btn-close" @click.stop="closeEdit">
-                <span class="trellicons x-icon"></span>
-            </button>
-            <div class="title">Create board</div>
+    <section class="task-editor add-board-modal flex column gap5" @click.stop="">
+        <button class="btn-close" @click.stop="closeEdit">
+            <span class="trellicons x-icon"></span>
+        </button>
+        <div class="title">
+            <div class="">Create board</div>
         </div>
 
-        <input type="text" v-model="title" v-focus>
-        <div class="mini-title">Background</div>
+        <h4 class="mini-title">Background photo from Unsplash</h4>
         <div class="photos-container flex">
-            <img v-for="index in 4" :key="index" :src="imgUrls[index]" @click="updateCover(imgUrls[index])">
+            <img v-for="index in 3" :key="index" :src="imgUrls[index]" @click="updateCover(imgUrls[index])" />
         </div>
-        <div class="colors-pallet flex">
-            <div v-for=" color in colorsPallet" :key="color" :style="{ backgroundColor: color }" class="color-sample"
+        <input type="text" placeholder="Search Photos..." @input="debounceHandler" v-model="searchTxt" />
+        <h4 class="mini-title">Background color</h4>
+        <div class="colors-pallet flex wrap row gap5 justify-between">
+            <div v-for="color in colors" :key="color" :style="{ backgroundColor: color }" class="color-sample"
                 @click="updateCover(color)">
-
             </div>
-            <div class="color-sample">...</div>
+            <!-- <div class="color-sample">...</div> -->
         </div>
-        <input type="text" placeholder="Search Photos..." @input="debounceHandler" v-model="searchTxt">
-
-        <button @click="addBoard">Create</button>
+        <h4 class="mini-title">Board title</h4>
+        <input class="" ref="title" type="text" v-model="title" v-focus :class="{ required: !title }" @input="print"
+            placeholder="Enter title" />
+        <button class="btn-add" @click="addBoard" :class="{ required: !title }" :disabled="title === ''">Create</button>
     </section>
 </template>
 
 <script>
-import axios from 'axios'
-import { utilService } from '../services/util.service';
-import imgUploader from '../cmps/img-uploader.vue'
+import axios from "axios";
+import { utilService } from "../services/util.service";
+import imgUploader from "../cmps/img-uploader.vue";
 export default {
-    name: 'add-board-moadl',
+    name: "add-board-moadl",
     data() {
         return {
-            imageDownloadUrl: '',
-            clientId: 'wONkEH1Be08ksV3ijwHHpfu8tfvmD6SnhsRpvZBWVgg',
-            searchTxt: '',
+            imageDownloadUrl: "",
+            clientId: "wONkEH1Be08ksV3ijwHHpfu8tfvmD6SnhsRpvZBWVgg",
+            searchTxt: "",
             imgUrls: [],
-            colorsPallet: ['#7bc86c', '#f5dd29', '#ffaf3f', '#ef7564', '#cd8de5'],
+            colors: [
+                "#0079bf",
+                "#d29034",
+                "#519839",
+                "#b04632",
+                "#89609e",
+                "#cd5a91",
+                "#4bbf6b",
+                "#00aecc",
+                "#838c91",
+            ],
             title: '',
-            bcg: 'src/assets/img/bgc-img-5.jpg'
-        }
+            bcg: "src/assets/img/bgc-img-5.jpg",
+        };
     },
     components: {
-        imgUploader
+        imgUploader,
     },
     created() {
-        this.debounceHandler = utilService.debounce(this.getPhotos, 600)
-        this.debounceHandler()
+        this.debounceHandler = utilService.debounce(this.getPhotos, 600);
+        this.debounceHandler();
+
     },
     methods: {
+        print() {
+            console.log(this.$refs.title.value)
+            this.title = this.$refs.title.value
+        },
         getPhotos() {
-            const key = 'unsplashDB'
+            const key = "unsplashDB";
 
-            if (!localStorage.getItem(key))
-                console.log(this.searchTxt);
-            let apiUrl = `https://api.unsplash.com/search/photos?query=${this.searchTxt ? this.searchTxt : 'pretty'}&orientation=landscape&per_page=1200&client_id=${this.clientId}`
+            if (!localStorage.getItem(key)) console.log(this.searchTxt);
+            let apiUrl = `https://api.unsplash.com/search/photos?query=${this.searchTxt ? this.searchTxt : "pretty"
+                }&orientation=landscape&per_page=1200&client_id=${this.clientId}`;
             axios(apiUrl).then(({ data }) => {
-                this.imgUrls = data.results.map(res => res.urls.full).slice(0, 12)
+                this.imgUrls = data.results.map((res) => res.urls.full).slice(0, 4);
                 // console.log(this.imgUrls);
-            })
+            });
         },
         updateCover(background) {
-            this.bcg = background
+            this.bcg = background;
         },
 
         closeEdit() {
-            this.$emit('closeEdit')
+            this.$emit("closeEdit");
         },
         addBoard() {
-            this.$emit('addBoard', { title: this.title, bcg: this.bcg })
-        }
+            this.$emit("addBoard", { title: this.title, bcg: this.bcg });
+        },
     },
     computed: {
-
-    }
-}
+        // isTitle() {
+        //     console.log(this.$refs.title)
+        //     // if (!this.$refs.title.value) return true
+        //     // else return false
+        // }
+    },
+};
 </script>

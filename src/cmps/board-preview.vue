@@ -1,6 +1,8 @@
 <template>
     <section class="board-preview">
-        <img :src="getBoardBc">
+        <!-- <img :src="getBoardBc"> -->
+        <div v-if="board.style.backgroundImage" class="board-icon" :style="boardBGC(board.style)"></div>
+        <div v-else class="board-icon" :style="boardBGC(board.style)"></div>
         <span class="trellicons star" @click.stop="toggleStar"></span>
         <div class="board-title">{{ board.title }}</div>
         <!-- <group-list :group="board.groups"/> -->
@@ -8,11 +10,18 @@
 </template>
 
 <script>
-import boardList from './board-list.vue';
+// import boardList from '../views/board-list.vue';
 export default {
     name: 'board-preview',
     props: {
         board: Object,
+    },
+    methods: {
+        boardBGC(style) {
+            console.log()
+            if (style.bgColor) return { backgroundColor: style.bgColor }
+            return { backgroundImage: `url(${style.backgroundImage})` }
+        },
     },
     computed: {
         getBoardBc() {
@@ -30,7 +39,7 @@ export default {
             this.$emit('toggleStar')
         }
     },
-    components: { boardList },
+    components: {},
     // created() {
     //     console.log(this.board)
     // },

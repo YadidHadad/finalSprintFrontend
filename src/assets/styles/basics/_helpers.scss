@@ -81,7 +81,13 @@
     }
 
     &.jusitfy-start {
-        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+    &.jusitfy-end {
+        justify-content: flex-end;
+    }
+    &.shrink {
+        flex-shrink: 1;
     }
 
     &.gap5 {

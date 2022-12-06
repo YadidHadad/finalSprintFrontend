@@ -1,7 +1,7 @@
 <template>
     <div v-if="getBackground" class="task-preview-cover" @click="goTo" :class="getCoverType"
         :style="{ backgroundColor: getBackground, backgroundImage: `url(${getBackground})` }"></div>
-    <section class="task-preview-details flex column" @click="goTo">
+    <section class="task-preview-details flex column " @click="goTo">
         <section v-if="task.labelIds" class="labels-preview">
             <ul class="clean-list flex">
                 <li :title="(label.title)" @click.stop="togglePreviewLabels" v-for="label in labels" :key="label.id"
@@ -16,16 +16,18 @@
         <div class="task-title">
             <h3>{{ task.title }}</h3>
         </div>
-        <section class="task-preview-icons flex">
-            <div v-if="task.dueDate" class="task-date-preview flex">
-                <span class="trellicons icon-clock"></span>
-                <span class="date-str">{{ getDueDateStr }}</span>
-            </div>
-            <span v-if="task.description" class="trellicons desc-icon"></span>
-            <div v-if="taskTodosLength" class="task-todos flex"
-                :style="{ backgroundColor: allTodosDone, color: allTodosDone ? '#fdfefd' : '' }">
-                <span class="trellicons checklist-icon"></span>
-                <span>{{ taskDoneTodos }}/{{ taskTodosLength }}</span>
+        <section class="task-preview-icons flex wrap justify-between gap2">
+            <div class="flex row gap">
+                <div v-if="task.dueDate" class="task-date-preview flex">
+                    <span class="trellicons icon-clock"></span>
+                    <span class="date-str">{{ getDueDateStr }}</span>
+                </div>
+                <span v-if="task.description" class="trellicons desc-icon"></span>
+                <div v-if="taskTodosLength" class="task-todos flex"
+                    :style="{ backgroundColor: allTodosDone, color: allTodosDone ? '#fdfefd' : '' }">
+                    <span class="trellicons checklist-icon"></span>
+                    <span>{{ taskDoneTodos }}/{{ taskTodosLength }}</span>
+                </div>
             </div>
 
             <!-- <section v-if="dueDateStr" class="dates-preview">
@@ -41,9 +43,13 @@
                     </button>
                 </div>
             </section> -->
+            <div class="flex row shrink justify-between grow">
+                <div class=""></div>
 
-            <members-preview v-if="task.memberIds" :memberIds="task.memberIds" :isTaskDetails="false"
-                class="members-task-preview flex" />
+                <members-preview v-if="task.memberIds" :memberIds="task.memberIds" :isTaskDetails="false"
+                    class="members-task-preview justify-end" />
+
+            </div>
         </section>
     </section>
 </template>

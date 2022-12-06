@@ -164,9 +164,10 @@
 
   @if $type == "save" {
     background-color: #0079bf;
-    color: $clr1;
+    color: $textLight;
   }
   @if $type == "cancel" {
+    color: $textDark;
     background-color: #eaecf0;
   }
   &:hover {
