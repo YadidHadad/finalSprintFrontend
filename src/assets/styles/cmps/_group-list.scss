@@ -11,11 +11,11 @@
     }
     color: $textDark;
 
-    &.isDark {
-        * {
-            color: $textLight;
-        }
-    }
+    // &.isDark {
+
+    //         color: $textLight;
+
+    // }
 
     // width: 100%;
 
@@ -45,13 +45,16 @@
             background-color: $clr14;
             min-width: 272px;
             padding: rem(10px) rem(8px);
-            color: $clr12;
+            color: $textDark;
             text-align: left;
             border-radius: 3px;
             margin: 0 8px 0 4px;
 
             &:hover {
                 background-color: rgba(78, 78, 78, 0.856);
+            }
+            &.isDark {
+                color: $textLight;
             }
         }
     }

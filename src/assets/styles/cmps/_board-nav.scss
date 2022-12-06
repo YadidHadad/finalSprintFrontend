@@ -91,9 +91,8 @@
             left: 30px;
             top: 0;
             border-radius: 50% !important;
-            // background-image: linear-gradient(to left, lighten($textDark, 40) 60%, rgba(255, 255, 255, 1));
-            background-image: linear-gradient(to left, rgba($textDark, 0.8) 60%, rgba(255, 255, 255, 1));
-            backdrop-filter: blur(80%);
+            // background-color: rgba($textDark, 0.3);
+            backdrop-filter: blur(200px);
             border: 1px solid $textDark;
             display: flex;
             justify-content: center;
@@ -107,8 +106,9 @@
             }
 
             &.isDark {
+                // background-color: rgba($textLight, 0.3);
+
                 border: 1px solid $textLight;
-                background-image: linear-gradient(to left, lighten($textDark, 50) 60%, rgba(255, 255, 255, 1));
 
                 color: white;
             }
