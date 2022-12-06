@@ -1,4 +1,5 @@
-import { boardService } from '../../services/board.service.local'
+// import { boardService } from '../../services/board.service.local'
+import { boardService } from '../../services/board.service'
 import { utilService } from '../../services/util.service'
 import { store } from '../store'
 
