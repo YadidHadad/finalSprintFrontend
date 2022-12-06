@@ -5,8 +5,8 @@
         </button>
         <div class="title">Cover</div>
         <button class="remove-cover-btn" @click="removeCover">Remove cover</button>
-        <div class="mini-title">Colors</div>
-        <div class="colors-pallet flex row wrap justify-center align-center">
+        <h4 class="mini-title">Colors</h4>
+        <div class="colors-pallet flex row wrap justify-between align-center">
             <div v-for=" color in colorsPallet" :key="color" :style="{ backgroundColor: color }" class="color-sample"
                 @click="updateCover(color)">
 
@@ -16,9 +16,10 @@
         <!-- <button class="btn-upload" @click="">Upload a cover image </button> -->
         <img-uploader @uploaded="updateCover"></img-uploader>
 
-        <div class="mini-title">Photos from Unsplash</div>
+        <h4 class="mini-title">Photos from Unsplash</h4>
         <div class="photos-container flex justify-between  wrap">
-            <img v-for="index in 12" :key="index" :src="imgUrls[index]" @click="updateCover(imgUrls[index])">
+            <img v-if="!imgUrls" src="../assets/svg/loader.svg" alt="" class="loader">
+            <img v-else v-for="index in 12" :key="index" :src="imgUrls[index]" @click="updateCover(imgUrls[index])">
         </div>
 
         <input type="text" placeholder="Search Photos..." @input="debounceHandler" v-model="searchTxt">
@@ -36,7 +37,7 @@ export default {
             imageDownloadUrl: '',
             clientId: 'wONkEH1Be08ksV3ijwHHpfu8tfvmD6SnhsRpvZBWVgg',
             searchTxt: '',
-            imgUrls: [],
+            imgUrls: '',
             colorsPallet: ['#7bc86c', '#f5dd29', '#ffaf3f', '#ef7564', '#cd8de5', '#5ba4cf', '#29cce5', '#6deca9', '#ff8ed4', '#172b4d'],
         }
     },
@@ -53,12 +54,13 @@ export default {
         },
         getPhotos() {
             const key = 'unsplashDB'
+            this.imgUrls = ''
 
             if (!localStorage.getItem(key))
                 console.log(this.searchTxt);
             let apiUrl = `https://api.unsplash.com/search/photos?query=${this.searchTxt ? this.searchTxt : 'pretty'}&orientation=landscape&per_page=1200&client_id=${this.clientId}`
             axios(apiUrl).then(({ data }) => {
-                this.imgUrls = data.results.map(res => res.urls.full).slice(0, 12)
+                this.imgUrls = data.results.map(res => res.urls.full).slice(0, 13)
                 // console.log(this.imgUrls);
             })
                 .catch((err) => {

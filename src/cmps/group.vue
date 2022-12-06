@@ -1,14 +1,32 @@
 <template>
     <div class="group flex column">
-        <div class="main-title flex justify-between">
-            <input v-model="newGroupTitle" @input="updateGroup(this.newGroupTitle)" />
-            <button @click="toggleMenu"><span class="fa-solid elipsis-icon"></span></button>
-            <div v-if="isMenuOpen" class="group-menu">
-                <section class="title flex">
-                    <span class="main-title">List actions</span>
-                    <button @click="toggleMenu" class="btn"><span class="fa-solid x-icon"></span></button>
+        <div class="main-title flex column justify-between">
+            <div class="flex row align-center justify-between w-100">
+                <input v-model="newGroupTitle" @input="updateGroup(this.newGroupTitle)" />
+                <button class="btn-menu" @click="toggleMenu">
+                    <span class="fa-solid elipsis-icon"></span>
+                </button>
+            </div>
+            <span>{{ group.tasks.length }} cards</span>
+
+            <div v-if="isMenuOpen" class=" task-editor" v-click-outside="() => isMenuOpen = false">
+                <section class=" title flex row justify-center">
+                    <span>List actions</span>
+                    <button @click="toggleMenu" class="btn-close">
+                        <span class="trellicons x-icon"></span>
+                    </button>
                 </section>
-                <div @click="removeGroup" class="remove btn"><span> Remove list</span></div>
+                <div class="flex column">
+                    <button @click="removeGroup" class="remove btn">
+                        <span> Move list</span>
+                    </button>
+                    <button @click="removeGroup" class="remove btn">
+                        <span> Copy list</span>
+                    </button>
+                    <button @click="removeGroup" class="remove btn">
+                        <span> Remove list</span>
+                    </button>
+                </div>
             </div>
         </div>
 

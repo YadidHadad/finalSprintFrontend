@@ -230,6 +230,10 @@
         &::after {
             background-color: black;
         }
+        &:focus-visible {
+            outline-color: $clr2;
+            background-color: #ffff;
+        }
     }
 
     .close-task {

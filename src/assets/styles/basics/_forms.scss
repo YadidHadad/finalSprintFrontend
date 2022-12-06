@@ -37,7 +37,7 @@ form > * {
     }
     .mini-title {
         // padding-block: 10px;
-        // margin-block-start: 10px;
+        // margin-block-end: 10px;
         // font-weight: bold;
         font-weight: bold;
         font-size: 0.75rem;
@@ -73,6 +73,7 @@ form > * {
     input[type="file"],
     input[type="text"] {
         width: 100%;
+        margin-block-start: 0.5rem;
     }
 
     .no-results {
