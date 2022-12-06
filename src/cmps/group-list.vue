@@ -3,20 +3,23 @@
     <Container class="group-list flex scroll" orientation="horizontal" @drop="onDrop" group-name="group-lists"
         :get-child-payload="getChildPayload" :drag-class="dragClass" :drop-class="dragClass">
         <Draggable id="group-details" v-for="(group, i) in groups" :key="group.id">
-            <group  @addTask="addTask" @updateGroup="updateGroup"
-                @removeGroup="$emit('removeGroup', $event)" :group="group" :boardId="boardId" />
+            <group @addTask="addTask" @updateGroup="updateGroup" @removeGroup="$emit('removeGroup', $event)"
+                :group="group" :boardId="boardId" />
         </Draggable>
         <section class="add-new-list">
             <transition name="open">
-                <button class="open-add-list" v-if="!isFormOpen" @click="toggleForm"><span
-                        class="fa-regular plus-icon"></span> Add a list</button>
+                <button class="open-add-list" v-if="!isFormOpen" @click="toggleForm" :class="{ isDark: !rgb.isDark }"
+                    :style="buttonBackground">
+                    <span class="fa-regular plus-icon">
+                    </span> Add a list</button>
             </transition>
 
             <transition name="close">
                 <form v-if="isFormOpen" @submit.prevent="addGroup" class="flex group-list-form">
                     <input v-model="group.title" type="text" name="add-list" placeholder="Enter list title..." v-focus>
                     <div class="add-list-btns flex">
-                        <button class="add-list-btn">Add list</button>
+                        <button class="add-list-btn">Add
+                            list</button>
                         <button type="button" @click="toggleForm"><span class="fa-solid x-icon"></span></button>
                     </div>
                 </form>
@@ -39,6 +42,9 @@ export default {
         },
         boardId: {
             type: String
+        },
+        rgb: {
+            type: Object
         }
     },
 
@@ -136,7 +142,13 @@ export default {
         },
         dragClass() {
             return 'on-drag'
-        }
+        },
+        buttonBackground() {
+            // if (!this.rgb) return;
+            return this.rgb.isDark
+                ? utilService.getBCG(this.rgb.value, 30, 0.5)
+                : utilService.getBCG(this.rgb.value, 60, 0.5);
+        },
     },
 
     components: {

@@ -1,12 +1,12 @@
 .board-header {
     padding: 8px 4px 4px 32px;
     width: 100%;
-    color: $textDark;
     transition: all 0.3s ease-out;
 
     & * {
         color: $textDark;
     }
+    color: $textDark;
 
     &.isDark {
         * {

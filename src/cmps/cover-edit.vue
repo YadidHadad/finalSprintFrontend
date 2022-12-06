@@ -54,7 +54,7 @@ export default {
 
             if (!localStorage.getItem(key))
                 console.log(this.searchTxt);
-            let apiUrl = `https://api.unsplash.com/search/photos?query=${this.searchTxt ? this.searchTxt : 'pretty'}&per_page=1200&client_id=${this.clientId}`
+            let apiUrl = `https://api.unsplash.com/search/photos?query=${this.searchTxt ? this.searchTxt : 'pretty'}&orientation=landscape&per_page=1200&client_id=${this.clientId}`
             axios(apiUrl).then(({ data }) => {
                 this.imgUrls = data.results.map(res => res.urls.full).slice(0, 12)
                 // console.log(this.imgUrls);
