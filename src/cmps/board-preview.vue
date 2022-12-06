@@ -17,10 +17,10 @@ export default {
     computed: {
         getBoardBc() {
             const style = { ...this.board.style }
-            console.log(style);
+            // console.log(style);
             if (style.backgroundImage)
-            return style.backgroundImage
-                // return { backgroundImage: `url(${style.backgroundImage})` }
+                return style.backgroundImage
+            // return { backgroundImage: `url(${style.backgroundImage})` }
             else {
                 style.backgroundColor
                 // return { backgroundColor: style.backgroundColor }
