@@ -3,7 +3,7 @@
         :class="{ isDark: isDark }, { navIsHidden: navIsHidden }">
         <div class="nav-title flex row align-center justify-between" :class="{ isDark: isDark }">
             <span>Workspace</span>
-            <button class="btn-regular btn-toggle" @click="toggleBoardNav"> <span
+            <button class="btn-regular btn-toggle" @click="toggleBoardNav" :class="{ isDark: isDark }"> <span
                     class="fa-solid arrow-icon"></span></button>
         </div>
 

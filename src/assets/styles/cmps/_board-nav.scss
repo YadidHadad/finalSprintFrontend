@@ -12,37 +12,13 @@
         font-size: 0.875rem;
     }
 
-    &.navIsHidden {
-        margin-left: -235px;
-        opacity: 0.6;
-
-        .btn-toggle {
-            position: relative;
-            left: 30px;
-            top: 0;
-            border-radius: 50% !important;
-            background-image: linear-gradient(to left, $textDark 60%, rgba(255, 255, 255, 0.6));
-            border: 1px solid $textDark;
-            font-size: 0.6rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-            span::before {
-                content: "\f054";
-            }
-        }
-    }
-
     div:first-of-type {
         // box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.33);
 
         &.isDark {
             box-shadow: inset 0px -1px 0px rgba(255, 255, 255, 0.33);
 
-            * {
-                color: $textLight;
-            }
+            color: $textLight;
         }
     }
     & * {
@@ -60,7 +36,7 @@
     .btn {
         &-nav {
             @include btn($type: "board-nav");
-            font-family: "opensans-light";
+            font-family: "segoe-regular-light";
             border-radius: 0;
             padding-inline-start: 1rem;
 
@@ -104,5 +80,38 @@
     }
     .isClicked {
         background-color: rgba($textLight, 0.3);
+    }
+
+    &.navIsHidden {
+        margin-left: -245px;
+        opacity: 0.6;
+
+        .btn-toggle {
+            position: relative;
+            left: 30px;
+            top: 0;
+            border-radius: 50% !important;
+            // background-image: linear-gradient(to left, lighten($textDark, 40) 60%, rgba(255, 255, 255, 1));
+            background-image: linear-gradient(to left, rgba($textDark, 0.8) 60%, rgba(255, 255, 255, 1));
+            backdrop-filter: blur(80%);
+            border: 1px solid $textDark;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 1.5rem;
+            width: 1.5rem;
+
+            span::before {
+                font-size: 0.6rem;
+                content: "\f054";
+            }
+
+            &.isDark {
+                border: 1px solid $textLight;
+                background-image: linear-gradient(to left, lighten($textDark, 50) 60%, rgba(255, 255, 255, 1));
+
+                color: white;
+            }
+        }
     }
 }

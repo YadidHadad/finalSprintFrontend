@@ -1,4 +1,8 @@
 @font-face {
+    font-family: "oleg";
+    src: url(/src/assets/fonts/oleg/OleoScript-Regular.ttf);
+}
+@font-face {
     font-family: "fa-regular";
     src: url(/src/assets/fonts/fa/fa-regular-400.ttf);
 }
@@ -42,12 +46,12 @@
 }
 
 @font-face {
-    font-family: "opensans";
-    src: url(/src/assets/fonts/opensans/OpenSans-Regular.ttf);
+    font-family: "segoe-regular";
+    src: url(/src/assets/fonts/segoe-regular/OpenSans-Regular.ttf);
 }
 @font-face {
-    font-family: "opensans-light";
-    src: url(/src/assets/fonts/opensans/OpenSans-Light.ttf);
+    font-family: "segoe-regular-light";
+    src: url(/src/assets/fonts/segoe-regular/OpenSans-Light.ttf);
 }
 
 @font-face {

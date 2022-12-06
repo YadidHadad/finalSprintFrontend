@@ -4,12 +4,12 @@
             <router-link :to="'/board'">
                 <button class="header-btn">
                     <span class="fa-brands trello-icon "></span>
-                    <span class="logo">Kanban</span>
+                    <span class="logo">Kannban</span>
                 </button>
             </router-link>
-            <button class="create-btn" :style="buttonBackground">
+            <!-- <button class="create-btn" :style="buttonBackground">
                 Create
-            </button>
+            </button> -->
         </section>
         <section class="user-buttons flex row align-center gap">
             <div class="search-boards flex row align-center gap justify-around"
