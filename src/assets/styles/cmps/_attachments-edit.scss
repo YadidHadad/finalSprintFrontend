@@ -12,6 +12,18 @@
     flex-direction: column;
     padding: 0 12px 12px;
 
+    .attachment-options {
+        position: relative;
+        input[type="file"] {
+            position: absolute;
+            top: 0;
+        }
+
+        .btn-remove {
+            margin: 0;
+        }
+    }
+
     .attachment-edit-header {
         border-bottom: 1px solid var(--ds-border, #091e4221);
         line-height: 40px;
@@ -70,15 +82,16 @@
         // align-items: flex-start;
         button {
             // font-size: 23px;
-            height: 32px;
-            line-height: 32px;
-            width: 100%;
-            text-align: start;
+            // height: 32px;
+            // line-height: 32px;
+            // width: 100%;
+            // text-align: start;
             background-color: #fafbfc;
             color: var(--ds-text-subtle, #5e6c84);
 
             &:hover {
-                filter: brightness(98%);
+                background-color: rgba($textDark, 0.1);
+                // border-radius: 0;
             }
         }
 
@@ -90,9 +103,11 @@
             position: absolute;
             top: 40px;
             opacity: 0;
+            cursor: pointer;
 
             &:hover {
-                filter: brightness(98%);
+                background-color: rgba($textDark, 0.1);
+                // border-radius: 0;
             }
         }
     }

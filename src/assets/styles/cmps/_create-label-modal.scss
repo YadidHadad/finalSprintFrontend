@@ -1,18 +1,5 @@
 .create-label-modal {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    background-color: white;
-    right: 0;
-    top: -115px;
-    width: 300px;
-    min-height: 600px;
-
-    .create-label-main {
-        padding: 12px;
-        display: flex;
-        flex-direction: column;
-    }
+    right: 455px;
 
     .create-label-header {
         display: grid;
@@ -33,19 +20,14 @@
         padding: 0 12px;
         display: flex;
         align-items: center;
-    }
-
-    .colors-container {
-        display: grid;
-        grid-template-columns: 50px 50px 50px 50px 50px;
-        grid-template-rows: 30px 30px 30px 30px;
-        gap: 3px;
+        background-color: rgba(grey, 0.2);
     }
 
     .label-color {
         width: 48px;
         height: 28px;
         border-radius: 3px;
+        flex-grow: 1;
 
         &:hover {
             cursor: pointer;

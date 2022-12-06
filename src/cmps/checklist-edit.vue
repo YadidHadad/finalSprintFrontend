@@ -9,7 +9,7 @@
         <div class="flex column">
             <label class="mini-title" for="checklist-input">Title</label>
             <input type="text" v-model="checklist.title" id="checklist-input">
-            <button class="btn-add" @click="addChecklist">Add</button>
+            <button class="btn-save" @click="addChecklist">Add</button>
         </div>
     </section>
 </template>

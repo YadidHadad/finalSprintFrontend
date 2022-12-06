@@ -1,6 +1,7 @@
 .checklist-preview {
     .btn-save {
         @include btn-add-save($type: "save");
+        width: 60px;
     }
 
     .btn-delete,
@@ -115,6 +116,7 @@
 }
 
 .progress {
+    position: relative;
     border-radius: 0.5rem;
     height: 10px;
     width: calc(100% - 40px);
@@ -125,4 +127,12 @@
     align-items: center;
     background-color: #e2e4e9;
     // color: var(--clr1);
+
+    .inner-progress {
+        border-radius: 0.5rem;
+        position: absolute;
+        left: 0;
+        height: 100%;
+        transition: all ease-in-out 2s;
+    }
 }

@@ -1,20 +1,24 @@
 <template>
-    <section class="location-edit" @click.stop="">
+    <section class="location-edit task-editor" @click.stop="">
         <div class="location-edit-header">
             <button class="btn-close">
                 <span class="trellicons location-icon" @click.stop="closeEdit"></span>
             </button>
-            <div class="title flex justify-between">
-                <span>Add location</span>
+            <div class="title ">
+                Add location
             </div>
 
             <input type="search" list="locations" id="location" placeholder="Search Google Maps" v-model="locTxt"
-                @input="debounceHandler" @change="updateLocation">
-
-            <datalist id="locations">
-                <option v-for="locCords in locsCords" :value="locCords.name"></option>
-            </datalist>
+                @input="debounceHandler">
+            <div class="btn-remove" v-for="locCords in locsCords" :value="locCords.name"
+                @click="updateLocation(locCords)">
+                {{ locCords.name }}
+            </div>
         </div>
+
+        <!-- <datalist id="locations">
+                <option v-for="locCords in locsCords" :value="locCords.name"></option>
+            </datalist> -->
     </section>
 </template>
 
@@ -36,15 +40,26 @@ export default {
     },
 
     methods: {
-        updateLocation(ev) {
-            console.log(ev.target.value);
+        // updateLocation(ev) {
+        //     console.log(ev.target.value);
+        //     const chosenLoc = this.locsCords.find(loc => {
+        //         console.log(loc.name)
+        //         console.log(ev.target.value)
+        //         return loc.name === ev.target.value
+        //     })
+        //     console.log('chosen loc', chosenLoc);
+        //     this.$emit('updateTask', chosenLoc.cords)
+        // },
+        updateLocation(locCords) {
+            console.log('dddddddddddddddddddddd', locCords);
             const chosenLoc = this.locsCords.find(loc => {
                 console.log(loc.name)
-                console.log(ev.target.value)
-                return loc.name === ev.target.value
+                console.log(locCords)
+                return loc.name === locCords.name
             })
-            console.log('chosen loc', chosenLoc);
-            this.$emit('updateTask', chosenLoc.cords)
+            console.log('****************chosen loc', chosenLoc);
+            this.$emit('updateTask', chosenLoc)
+            // this.$emit('updateTask', chosenLoc.cords)
         },
         getLocationByName() {
             if (!this.locTxt.trim()) return

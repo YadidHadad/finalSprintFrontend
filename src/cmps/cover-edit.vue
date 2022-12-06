@@ -4,7 +4,7 @@
             <span class="trellicons x-icon"></span>
         </button>
         <div class="title">Cover</div>
-        <button class="remove-cover-btn" @click="removeCover">Remove cover</button>
+        <button class="btn-remove" @click="removeCover">Remove cover</button>
         <h4 class="mini-title">Colors</h4>
         <div class="colors-pallet flex row wrap justify-between align-center">
             <div v-for=" color in colorsPallet" :key="color" :style="{ backgroundColor: color }" class="color-sample"
