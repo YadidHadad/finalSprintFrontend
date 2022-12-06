@@ -91,14 +91,28 @@
                     <span class="fa-solid x-icon"></span>
                 </button>
             </section>
-
             <section class=" flex row align-center wrap gap justify-between">
                 <div v-for="color in colors" :key="color" class="color-sample" :style="{ backgroundColor: color }"
                     @click="setBoardStyle(color)">
                 </div>
-
             </section>
+        </section>
 
+        <section v-if="(page === 'bgImg')" class="board-menu-page  flex column">
+            <section class="title flex justify-center row">
+                <button class="btn-back" @click="this.page = 'background'">
+                    <span class="fa-solid arrow-icon"></span>
+                </button>
+                <span>Photos by Unsplash</span>
+                <button class="btn-close" @click="toggleBoardMenu">
+                    <span class="fa-solid x-icon"></span>
+                </button>
+            </section>
+            <input type="text" placeholder="Search Photos..." @input="debounceHandler" v-model="searchTxt">
+            <section class="images flex row align-center wrap gap justify-between">
+                <img v-for="imgUrl in imgUrls" :key="imgUrl" :src="imgUrl" class="color-sample"
+                    @click="setBoardStyle(imgUrl)">
+            </section>
         </section>
 
 
@@ -117,7 +131,7 @@
     </section>
 </template>
 <script>
-
+import axios from 'axios'
 import { utilService } from '../services/util.service';
 
 export default {
@@ -126,17 +140,36 @@ export default {
     props: ['menuIsHidden', 'activities'],
     components: {},
     created() {
+        this.debounceHandler = utilService.debounce(this.getPhotos, 600)
+        this.debounceHandler()
     },
     data() {
         return {
-
-            showBGCMenu: false,
             page: 'main',
+            imageDownloadUrl: '',
+            imgUrls: [],
+            showBGCMenu: false,
+            searchTxt: '',
             colors: ['#0079bf', '#d29034', '#519839', '#b04632', '#89609e', '#cd5a91', '#4bbf6b', '#00aecc', '#838c91'],
+            clientId: 'wONkEH1Be08ksV3ijwHHpfu8tfvmD6SnhsRpvZBWVgg',
 
         };
     },
     methods: {
+        getPhotos() {
+            const key = 'unsplashDB'
+
+            if (!localStorage.getItem(key))
+                console.log(this.searchTxt);
+            let apiUrl = `https://api.unsplash.com/search/photos?query=${this.searchTxt ? this.searchTxt : 'pretty'}&orientation=landscape&per_page=20&client_id=${this.clientId}`
+            axios(apiUrl).then(({ data }) => {
+                this.imgUrls = data.results.map(res => res.urls.full).slice(0, 14)
+                // console.log(this.imgUrls);
+            })
+                .catch((err) => {
+                    console.log('Cant load imgs', err);
+                })
+        },
         getInitials(fullname) {
 
             return utilService.getInitials(fullname)

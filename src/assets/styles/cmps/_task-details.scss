@@ -5,7 +5,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    // overflow-y: scroll;
+    z-index: 50;
 }
 
 .task-details-container {
@@ -13,6 +13,7 @@
 }
 
 .task-details {
+    z-index: 60;
     max-width: 768px;
     min-width: 768px;
     backdrop-filter: brightness(0.8);
