@@ -28,8 +28,7 @@
 
     .attachment-link,
     .link-name {
-
-        >:first-child {
+        > :first-child {
             color: var(--ds-text-subtle, #5e6c84);
             display: block;
             font-size: 12px;
@@ -66,7 +65,6 @@
     }
 
     .attachment-options {
-
         // display: flex;
         // justify-content: start;
         // align-items: flex-start;
@@ -82,7 +80,6 @@
             &:hover {
                 filter: brightness(98%);
             }
-
         }
 
         input {
@@ -101,6 +98,5 @@
     }
 
     .link-name {
-        
     }
 }
