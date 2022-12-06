@@ -1,12 +1,12 @@
 <template>
     <section v-if="board" class="board-details flex row" :style="boardBGC">
-        <board-nav :rgb="rgb" :boards="boards"></board-nav>
         <section class="main flex column grow">
             <board-header :board="board" :class="{ isDark: rgb.isDark, menuIsShown: !menuIsHidden }" :rgb="rgb"
                 @toggleBoardMenu="toggleBoardMenu" />
             <group-list @addTask="addNewTask" @addGroup="addNewGroup" @removeGroup="removeGroup" :groups="board.groups"
                 :boardId="board._id" :rgb="rgb" />
         </section>
+        <board-nav :rgb="rgb" :boards="boards"></board-nav>
         <board-menu :menuIsHidden="menuIsHidden" :activities="board.activities" @toggleBoardMenu="toggleBoardMenu" />
         <!-- <router-view class="task-details-view"></router-view> -->
     </section>

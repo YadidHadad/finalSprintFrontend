@@ -102,6 +102,9 @@
     }
 }
 
+.order-back {
+    order: -1;
+}
 .self-end {
     .flex-item {
         align-self: flex-end;

@@ -44,7 +44,8 @@
           <input type="text" v-model="boardToAdd.title" />
           <button>Save</button>
         </form> -->
-      <add-board-modal v-if="isAddBoard" @addBoard="addBoard" v-click-outside="() => isAddBoard = false" />
+      <add-board-modal v-if="isAddBoard" @addBoard="addBoard" v-click-outside="() => isAddBoard = false"
+        @closeEdit="(isAddBoard = false)" />
     </section>
   </section>
 </template>

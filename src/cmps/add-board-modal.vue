@@ -8,8 +8,9 @@
         </div>
 
         <h4 class="mini-title">Background photo from Unsplash</h4>
-        <div class="photos-container flex">
-            <img v-for="index in 3" :key="index" :src="imgUrls[index]" @click="updateCover(imgUrls[index])" />
+        <div class="photos-container flex align-center justify-center">
+            <img v-if="!imgUrls" src="../assets/svg/loader.svg" alt="">
+            <img v-else v-for="index in 3" :key="index" :src="imgUrls[index]" @click="updateCover(imgUrls[index])" />
         </div>
         <input type="text" placeholder="Search Photos..." @input="debounceHandler" v-model="searchTxt" />
         <h4 class="mini-title">Background color</h4>
@@ -37,7 +38,7 @@ export default {
             imageDownloadUrl: "",
             clientId: "wONkEH1Be08ksV3ijwHHpfu8tfvmD6SnhsRpvZBWVgg",
             searchTxt: "",
-            imgUrls: [],
+            imgUrls: '',
             colors: [
                 "#0079bf",
                 "#d29034",
@@ -74,7 +75,8 @@ export default {
                 }&orientation=landscape&per_page=1200&client_id=${this.clientId}`;
             axios(apiUrl).then(({ data }) => {
                 this.imgUrls = data.results.map((res) => res.urls.full).slice(0, 4);
-                // console.log(this.imgUrls);
+
+                console.log(this.imgUrls);
             });
         },
         updateCover(background) {
@@ -87,6 +89,7 @@ export default {
         addBoard() {
             this.$emit("addBoard", { title: this.title, bcg: this.bcg });
         },
+
     },
     computed: {
         // isTitle() {

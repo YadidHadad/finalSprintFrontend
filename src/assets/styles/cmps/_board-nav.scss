@@ -8,6 +8,7 @@
     margin-left: 0px;
     opacity: 1;
     transition: all 0.3s ease-out;
+    order: -1;
 
     & * {
         font-size: 0.875rem;
@@ -117,5 +118,13 @@
                 color: white;
             }
         }
+    }
+}
+
+.add-board-in-board-nav {
+    & > section {
+        position: fixed;
+        top: 500px;
+        left: 265px;
     }
 }

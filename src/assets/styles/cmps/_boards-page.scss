@@ -1,11 +1,10 @@
 .boards-page-container {
     display: grid;
     grid-template-columns: auto 1100px auto;
+    font-family: "segoe-bold";
 
     > * {
         grid-column: 2;
-
-        font-family: "segoe-bold";
     }
 
     .boards-page {
@@ -42,8 +41,8 @@
         justify-content: flex-start;
         padding: 0 0 20px;
 
+        font-family: "segoe-regular";
         & * {
-            font-family: "segoe-regular";
         }
 
         li {
