@@ -3,7 +3,7 @@
         :class="{ isDark: isDark }, { navIsHidden: navIsHidden }">
         <div class="nav-title flex row align-center justify-between" :class="{ isDark: isDark }">
             <span>Workspace</span>
-            <button class="btn-regular btn-toggle" @click="toggleBoardNav"> <span
+            <button class="btn-regular btn-toggle" @click="toggleBoardNav" :class="{ isDark: isDark }"> <span
                     class="fa-solid arrow-icon"></span></button>
         </div>
 
@@ -13,7 +13,7 @@
         </button>
         <div class="nav-title flex row align-center justify-between " :class="{ isDark: isDark }">
             <span>Your Boards</span>
-            <button class="btn-regular"> <span class="fa-regular plus-icon"></span></button>
+            <button class="btn-regular" @click="isAddBoard = true"> <span class="fa-regular plus-icon"></span></button>
         </div>
         <button v-for="board in boards" :key="board._id" class="btn-nav"
             :class="{ isDark: isDark, isClicked: this.$route.params.id === board._id }" @click="goToBoard(board._id)">
@@ -22,20 +22,29 @@
             <span>{{ board.title }}</span>
         </button>
     </section>
+    <div class="add-board-in-board-nav">
+        <add-board-modal v-if="isAddBoard" @addBoard="addBoard" v-click-outside="() => isAddBoard = false"
+            @closeEdit="(isAddBoard = false)" />
+    </div>
 </template>
 
 <script>
 import { utilService } from '../services/util.service'
+import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
+import { boardService } from '../services/board.service.local'
+import addBoardModal from '../cmps/add-board-modal.vue'
 
 export default {
     name: 'board-nav',
     props: ['rgb', 'boards'],
-    components: {},
+    components: { addBoardModal },
     created() {
 
     },
     data() {
         return {
+            boardToAdd: boardService.getEmptyBoard(),
+            isAddBoard: false,
             navIsHidden: true,
             isClicked: false,
             btns: [
@@ -65,6 +74,23 @@ export default {
             console.log()
             if (style.bgColor) return { backgroundColor: style.bgColor }
             return { backgroundImage: `url(${style.backgroundImage})` }
+        },
+        async addBoard({ bcg, title }) {
+            if (bcg.startsWith('#')) {
+                this.boardToAdd.style = { bgColor: bcg }
+            } else {
+                this.boardToAdd.style = { backgroundImage: bcg }
+            }
+            this.boardToAdd.title = title
+            this.isAddBoard = false
+            try {
+                await this.$store.dispatch({ type: 'addBoard', board: this.boardToAdd })
+                showSuccessMsg('Board added')
+                this.boardToAdd = boardService.getEmptyBoard()
+            } catch (err) {
+                console.log(err)
+                showErrorMsg('Cannot add board')
+            }
         },
     },
     computed: {

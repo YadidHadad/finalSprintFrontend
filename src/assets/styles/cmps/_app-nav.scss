@@ -2,10 +2,15 @@
     position: sticky;
     top: 0px;
 
+    font-family: "segoe-bold";
+    & * {
+        font-size: 0.875rem;
+    }
+
     .btn {
         text-align: start;
         padding: 6px 8px 6px 0;
-        background-color: $clr1;
+        // background-color: $clr1;
         font-weight: 900;
         border-radius: 4px;
         color: #253858;
@@ -13,6 +18,10 @@
         font-size: 16px;
         line-height: 20px;
 
+        &:first-of-type {
+            background-color: #e4f0f6;
+            color: #0079bf;
+        }
         :first-child {
             font-size: 16px;
             height: 20px;
@@ -21,11 +30,10 @@
             padding-inline: 10px;
         }
 
-
-
         &:hover {
             cursor: pointer;
-            filter: brightness(95%);
+            // filter: brightness(95%);
+            background-color: rgba($textDark, 0.1);
         }
     }
 
@@ -33,12 +41,5 @@
         max-height: 90vh;
         padding: 0 16px;
         width: 240px;
-
-        .boards-container {
-            display: flex;
-            flex-direction: column;
-            border-bottom: 1px solid var(--ds-surface, rgba(0, 0, 0, 0.1));
-        }
-
     }
 }

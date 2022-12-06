@@ -1,26 +1,26 @@
 [
     {
         "fullname": "Puki Norma",
-        "username": "puki",
+        "email": "puki",
         "password": "123",
         "score": 10000,
         "isAdmin": false
     },
     {
         "fullname": "Amir Gombo",
-        "username": "amir",
+        "email": "amir",
         "password": "123",
         "isAdmin": true
     },
     {
         "fullname": "Gal Lankri",
-        "username": "gal",
+        "email": "gal",
         "password": "123",
         "isAdmin": true
     },
     {
         "fullname": "Yadid Hadad",
-        "username": "yadid",
+        "email": "yadid",
         "password": "123",
         "isAdmin": false
     }

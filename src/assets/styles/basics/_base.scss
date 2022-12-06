@@ -4,7 +4,6 @@
 
 * {
     box-sizing: border-box;
-    font-family: "segoe-regular";
 }
 
 ::selection {
@@ -28,7 +27,7 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: caveat;
+    font-family: "segoe-bold";
     margin: 0;
     line-height: 1;
     font-size: 1rem;
@@ -46,9 +45,9 @@ p {
 a {
     text-decoration: none;
 }
-a:hover {
-    text-decoration: underline;
-}
+// a:hover {
+//     text-decoration: underline;
+// }
 
 button {
     margin: 0;

@@ -8,7 +8,7 @@
         </Draggable>
         <section class="add-new-list">
             <transition name="open">
-                <button class="open-add-list" v-if="!isFormOpen" @click="toggleForm" :class="{ isDark: !rgb.isDark }"
+                <button class="open-add-list" v-if="!isFormOpen" @click="toggleForm" :class="{ isDark: rgb.isDark }"
                     :style="buttonBackground">
                     <span class="fa-regular plus-icon">
                     </span> Add a list</button>

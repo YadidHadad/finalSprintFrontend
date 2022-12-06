@@ -140,7 +140,7 @@ const board = {
                     "dueDate": 16156215211,
                     "byMember": {
                         "_id": "u101",
-                        "username": "Tal",
+                        "email": "Tal",
                         "fullname": "Tal Tarablus",
                         "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
                     },
@@ -172,7 +172,7 @@ const board = {
 const user = {
     "_id": "u101",
     "fullname": "Abi Abambi",
-    "username": "abi@ababmi.com",
+    "email": "abi@ababmi.com",
     "password": "aBambi123",
     "imgUrl": "http://some-img.jpg",
     "mentions": [{ //optional

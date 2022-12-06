@@ -1,19 +1,21 @@
 <template>
     <section class="app-nav-container">
         <nav>
-            <div class="boards-container">
-                <button class="btn boards-btn ">
+            <div class="boards-container flex column gap">
+                <router-link class="btn home-btn flex align-center gap20" :to="'/board'">
                     <span class="trellicons icon-board"></span>
                     <span>Boards</span>
-                </button>
-                <button class="btn templates-btn">
+                </router-link>
+                <router-link class="btn home-btn flex align-center gap20" :to="'/'">
                     <span class="trellicons icon-template-board"></span>
                     <span>Templates</span>
-                </button>
-                <button class="btn home-btn">
+                </router-link>
+                <router-link class="btn home-btn flex align-center gap20" :to="'/'">
                     <span class="trellicons icon-home"></span>
                     <span>Home</span>
-                </button>
+                </router-link>
+                <!-- <button >
+                </button> -->
             </div>
 
             <div class="workspaces-container">
@@ -24,7 +26,8 @@
 </template>
 
 <script>
-    export default {
-        
-    }
+export default {
+
+
+}
 </script>

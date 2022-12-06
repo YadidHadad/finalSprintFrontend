@@ -1,4 +1,8 @@
 @font-face {
+    font-family: "oleg";
+    src: url(/src/assets/fonts/oleg/OleoScript-Regular.ttf);
+}
+@font-face {
     font-family: "fa-regular";
     src: url(/src/assets/fonts/fa/fa-regular-400.ttf);
 }
@@ -24,31 +28,36 @@
 }
 
 @font-face {
-    font-family: "segoe-regular";
-    src: url(/src/assets/fonts/segoe/Segoe\ UI.ttf);
+    font-family: "segoe-regular-light";
+    src: url(/src/assets/fonts/segoe/Segoe-UI.ttf);
 }
 @font-face {
+    font-family: "segoe-regular";
+    src: url(/src/assets/fonts/segoe/SEGOEUI.TTF);
+}
+
+@font-face {
     font-family: "segoe-bold";
-    src: url(/src/assets/fonts/segoe/SEGOEUIB.TTF);
+    src: url(/src/assets/fonts/segoe/Segoe-bold.ttf);
 }
 
 @font-face {
     font-family: "segoe-italic";
-    src: url(/src/assets/fonts/segoe/SEGOEUI.TTF);
+    src: url(/src/assets/fonts/segoe/Segoe-U-Italic.ttf);
 }
 @font-face {
     font-family: "segoe-semi-bold";
     src: url(/src/assets/fonts/segoe/seguisb.ttf);
 }
 
-@font-face {
-    font-family: "opensans";
-    src: url(/src/assets/fonts/opensans/OpenSans-Regular.ttf);
-}
-@font-face {
-    font-family: "opensans-light";
-    src: url(/src/assets/fonts/opensans/OpenSans-Light.ttf);
-}
+// @font-face {
+//     font-family: "segoe-regular";
+//     src: url(/src/assets/fonts/segoe-regular/OpenSans-Regular.ttf);
+// }
+// @font-face {
+//     font-family: "segoe-regular-light";
+//     src: url(/src/assets/fonts/segoe-regular/OpenSans-Light.ttf);
+// }
 
 @font-face {
     font-family: "icomoon";
@@ -65,6 +74,10 @@
 
     &.tick-icon::before {
         content: "\e916";
+    }
+
+    &.external-link-icon::before {
+        content: "\e92c";
     }
 
     &.desc-icon::before {
@@ -169,6 +182,10 @@
     &.icon-home:before {
         content: "\e938";
     }
+    &.icon-starred-full::before {
+        content: "\e966";
+        color: #f2d600;
+    }
 
     &.icon-starred:before {
         content: "\e967";
@@ -200,6 +217,9 @@
 
     &.dates-icon::before {
         content: "\f017";
+    }
+    &.attachment-icon::before {
+        content: "\e908";
     }
 
     &.boards-icon::before {
@@ -236,6 +256,9 @@
 
     &.grid-icon::before {
         content: "\f58e";
+    }
+    &.attachment-icon::before {
+        content: "\f0c6";
     }
 
     &.fa-circle::before {

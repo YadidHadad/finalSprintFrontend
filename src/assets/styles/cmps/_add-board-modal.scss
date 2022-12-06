@@ -1,28 +1,27 @@
 .created-board-header {
-    display: flex;
-    align-items: center;
+    // display: flex;
+    // align-items: center;
 }
 
 .add-board-modal {
-    background-color: white;
-    width: 304px;
+    // background-color: white;
+    // width: 304px;
     padding: 0 12px 12px 12px;
-    display: flex;
+    // display: flex;
     flex-direction: column;
-    gap: 5px;
+    // gap: 5px;
 
     .colors-pallet {
         width: 100%;
-        gap: 10px;
 
-        >*:not(:last-child) {
+        > *:not(:last-child) {
             &:hover {
                 cursor: pointer;
                 filter: brightness(95%);
             }
         }
 
-        >:last-child {
+        > :last-child {
             display: flex;
             text-align: center;
             background-color: white;
@@ -35,8 +34,8 @@
         }
 
         .color-sample {
-            height: 32px;
-            width: 40px;
+            height: 54px;
+            width: 86px;
 
             border-radius: 3px;
         }
@@ -46,6 +45,14 @@
         @include btn-add-save($type: "cancel");
         width: 100%;
     }
+    .btn-add {
+        @include btn-add-save($type: "save");
+        width: 100%;
+
+        &.required {
+            opacity: 0.3;
+        }
+    }
 
     .photos-container {
         display: flex;
@@ -54,8 +61,8 @@
 
         img {
             object-fit: cover;
-            height: 40px;
-            width: 64px;
+            height: 54px;
+            width: 86px;
             // width: 33%;
             border-radius: 5px;
 
@@ -67,6 +74,13 @@
     }
 
     input {
-        margin-block-start: 1rem;
+        border: none;
+
+        &.required {
+            border: 1px solid red;
+            &::placeholder {
+                color: red;
+            }
+        }
     }
 }
