@@ -8,7 +8,7 @@ import './assets/styles/main.scss'
 import rootCmp from './root-cmp.vue'
 
 import VueGeolocation from "vue3-geolocation";
-import GMaps from "vuejs3-google-maps";
+// import GMaps from "vuejs3-google-maps";
 
 import {
     focusDirective,
@@ -26,11 +26,11 @@ app.directive('click-outside', clickOutsideDirective)
 app.directive('focus', focusDirective)
 
 app.use(VueGeolocation);
-app.use(GMaps, {
-    load: {
-        apiKey: "AIzaSyAV_zVjXKofPeV5nwAzfNKJ7Gt4VEMjHOw",
-        libraries: ["places"],
-    },
-});
+// app.use(GMaps, {
+//     load: {
+//         apiKey: "AIzaSyAV_zVjXKofPeV5nwAzfNKJ7Gt4VEMjHOw",
+//         libraries: ["places"],
+//     },
+// });
 
 app.mount('#app')

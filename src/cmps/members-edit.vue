@@ -3,7 +3,7 @@
         <button class="btn-close">
             <span class="trellicons x-icon" @click.stop="closeEdit"></span>
         </button>
-        <div class="title flex justify-between">
+        <div class="title flex justify-center">
             <span>Members</span>
         </div>
         <input type="search" placeholder="Search members" v-model="filterByName" @input="debounceHandler" />
