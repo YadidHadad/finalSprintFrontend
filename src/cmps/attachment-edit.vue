@@ -1,5 +1,5 @@
 <template>
-    <section class="attachment-edit">
+    <section class="task-editor attachment-edit" @click.stop="">
         <div class="attachment-edit-header">
             <div>Attach from…</div>
             <button class="btn-close" @click.stop="closeEdit">
@@ -60,7 +60,7 @@ export default {
             this.$emit('updateTask', attachment)
 
             this.name = ''
-            this.url= ''
+            this.url = ''
         }
     },
 
