@@ -1,5 +1,5 @@
 <template>
-    <section class="location-edit">
+    <section class="location-edit" @click.stop="">
         <div class="location-edit-header">
             <button class="btn-close">
                 <span class="trellicons location-icon" @click.stop="closeEdit"></span>

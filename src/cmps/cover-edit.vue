@@ -4,6 +4,7 @@
             <span class="trellicons x-icon"></span>
         </button>
         <div class="title">Cover</div>
+        <button class="remove-cover-btn" @click="removeCover">Remove cover</button>
         <div class="mini-title">Colors</div>
         <div class="colors-pallet flex row wrap justify-center align-center">
             <div v-for=" color in colorsPallet" :key="color" :style="{ backgroundColor: color }" class="color-sample"
@@ -47,8 +48,9 @@ export default {
         this.debounceHandler()
     },
     methods: {
-
-
+        removeCover() {
+            this.$emit('updateTask', '')
+        },
         getPhotos() {
             const key = 'unsplashDB'
 

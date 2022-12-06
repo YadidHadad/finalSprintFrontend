@@ -36,10 +36,10 @@
                                 }}</div>
                             <div class="todo-edit" v-else>
                                 <textarea class="checklist-title-input todo-title-input task-cmp-title grow"
-                                    @focus="pickChecklist(checklist)" :value="todo.title">
+                                   v-model="todo.title">
                                 </textarea>
                                 <div class="todo-edit-btns">
-                                    <button class="btn-save" @click.stop="updateTodo(todo, checklist)">Save</button>
+                                    <button class="btn-save" @click.stop="updateTodo">Save</button>
                                     <button class="close-btn" @click.stop="todoEditId = ''">
                                         <span class="trellicons x-icon"></span>
                                     </button>
@@ -167,12 +167,12 @@ export default {
         removeTodo(todoIdx, checklist) {
             console.log(todoIdx, checklist);
             const newChecklist = JSON.parse(JSON.stringify(checklist))
-            newChecklist.todos.splice(todoIdx, 1)
+            checklist.todos.splice(todoIdx, 1)
 
             this.updateChecklists(newChecklist, checklist)
         },
 
-        updateChecklists(checklist) {
+        updateChecklists() {
             // const checklistIdx = this.editedChecklists.findIndex(currChecklist => currChecklist.id === checklist.id)
             // this.editedChecklists.splice(checklistIdx, 1, newChecklist)
             this.$emit('updateChecklists', this.editedChecklists)
@@ -197,11 +197,10 @@ export default {
             this.updateChecklists(checklist)
         },
 
-        // updateTodo(todo, checklist) {
-        //     const todoIdx = checklist.todos.findIndex(currTodo => currTodo.id === todo.id)
-        //     checklist.todos.splice(todoIdx, 1, todo)
-        //     this.updateTodos(checklist)
-        // },
+        updateTodo() {
+            this.todoEditId = ''
+            this.updateChecklists()
+        },
 
         toggleTodo(todoId) {
             // const todoIdx = this.doneTodosIds.findIndex(id => id === todoId)

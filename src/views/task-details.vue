@@ -60,7 +60,7 @@
                 :isComplete="this.task.isComplete" />
             <description-preview :description="task.description"
                 @updateDescription="updateTask('description', $event)" />
-            <location-preview v-if="task.location" :location="task.location" />
+            <location-preview v-if="task.location" :location="task.location" @removeLocation="updateTask('location-edit','')"/>
             <attachment-preview :attachments="task.attachments" v-if="task.attachments?.length"
             @updateCover="updateTask('cover-edit', $event)" @updateAttachments="updateTask('attachment-preview', $event)"/>
             <!-- <checklists-preview v-if="task.checklists" :checklists="task.checklists"

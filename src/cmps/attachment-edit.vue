@@ -61,6 +61,9 @@ export default {
 
             this.name = ''
             this.url = ''
+        },
+        closeEdit() {
+            this.$emit('closeEdit')
         }
     },
 

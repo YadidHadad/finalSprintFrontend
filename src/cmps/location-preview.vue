@@ -11,12 +11,21 @@
                 <Marker :options="{ position: location }" @click="center = location" />
 
             </GoogleMap>
+            <div class="location-preview-footer">
+                <div class="actions">
+                    <span class="trellicons external-link-icon"></span>
+                    <span class="fa-solid elipsis-icon" @click="isOpenOptions = true"></span>
+                    <button v-if="isOpenOptions" v-click-outside="() => isOpenOptions = false"
+                        @click="remove">Delete</button>
+                </div>
+            </div>
         </div>
 
     </section>
 </template>
 
 <script>
+import { remove } from '@vue/shared'
 import { GoogleMap, Marker, CustomMarker } from 'vue3-google-map'
 export default {
     name: 'location-preview',
@@ -32,6 +41,7 @@ export default {
             center: {},
             markers: [
             ],
+            isOpenOptions: false,
         }
     },
     created() {
@@ -44,6 +54,11 @@ export default {
 
         }
         this.markers.push(marker)
+    },
+    methods: {
+        remove() {
+            this.$emit('removeLocation')
+        }
     },
 }
 </script>
