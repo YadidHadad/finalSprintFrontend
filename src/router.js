@@ -1,10 +1,11 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 
-import homePage from './views/home-page.vue'
+import home from './views/home.vue'
 // import chat from './views/chat.vue'
 // import reviewApp from './views/review-app.vue'
 import loginSignup from './views/login-signup.vue'
 import userDetails from './views/user-details.vue'
+import boardList from './views/board-list.vue'
 import boardDetails from './views/board-details.vue'
 import taskDetails from './views/task-details.vue'
 
@@ -12,14 +13,14 @@ import taskDetails from './views/task-details.vue'
 const routes = [
   {
     path: '/',
-    name: 'home-page',
-    component: homePage
+    name: 'home',
+    component: home
   },
-  // {
-  //   path: '/review',
-  //   name: 'review',
-  //   component: reviewApp
-  // },
+  {
+    path: '/board',
+    name: 'board',
+    component: boardList
+  },
   // {
   //   path: '/chat',
   //   name: 'chat',
