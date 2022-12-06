@@ -13,8 +13,8 @@ export const userStore = {
     getters: {
         users({ users }) { return users },
         loggedinUser({ loggedinUser }) {
-            return loggedinUser ||
-                { _id: 'fsdfds', fullname: 'Guest guest', username: 'guest', password: '123', isAdmin: true, imgUrl: 'src/assets/img/user1.jpg' }
+            return loggedinUser
+            // || { _id: 'fsdfds', fullname: 'Guest guest', email: 'guest', password: '123', isAdmin: true, imgUrl: 'src/assets/img/user1.jpg' }
         },
         watchedUser({ watchedUser }) { return watchedUser }
     },
@@ -45,6 +45,19 @@ export const userStore = {
                 commit({ type: 'setLoggedinUser', user })
                 return user
             } catch (err) {
+                console.log('userStore: Error in login', err)
+                throw err
+            }
+        },
+        async loginWithGoogle({ context }, { email }) {
+            const userCred = { email, password: '' }
+            try {
+                const user = await userService.login(userCred)
+                if (!user) return
+                commit({ type: 'setLoggedinUser', userCred })
+                return user
+            }
+            catch (err) {
                 console.log('userStore: Error in login', err)
                 throw err
             }

@@ -11,7 +11,7 @@
                 Create
             </button>
         </section>
-        <section class="user-buttons flex row align-center gap">
+        <section class="user-buttons flex row align-center gap" v-if="user">
             <div class="search-boards flex row align-center gap justify-around"
                 :class="{ 'whiteBackground': isInputInFocus, isDark: isDark }">
                 <svg v-if="isDark" class="icon" xmlns:xlink="http://www.w3.org/1999/xlink"

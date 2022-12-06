@@ -10,28 +10,49 @@
           <button @click="doLogout">Logout</button>
         </h3>
       </div>
-      <div class="login-container">
-        <h2 v-if="!isSignUp">Log in to Kanban</h2>
-        <h2 v-else>Sign up to Kanban</h2>
-        <form @submit.prevent="doLogin">
-          <input type="text" placeholder="Enter email" v-model="loginCred.username">
-          <input type="text" placeholder="Enter password" v-model="loginCred.password">
-          <button class="btn login-btn">Log in</button>
+      <div v-else class="login-signup-container">
+        <!-- <h1 v-else>Sign up to Kanban</h1> -->
+        <form v-if="!isSignUp" @submit.prevent="doLogin">
+          <h1>Log in to Kanban</h1>
+          <div class="login-container">
+            <input type="text" placeholder="Enter email" v-model="loginCred.email">
+            <input type="text" placeholder="Enter password" v-model="loginCred.password">
+            <button class="btn login-btn">Log in</button>
+          </div>
           <div>OR</div>
+        </form>
+
+        <form v-else @submit.prevent="doSignup">
+          <h1>Sign up for your account</h1>
+          <div class="signup-container">
+            <input type="text" placeholder="Enter full name" v-model="signupCred.fullname">
+            <input type="text" placeholder="Enter email" v-model="signupCred.email">
+            <input type="text" placeholder="Enter password" v-model="signupCred.password">
+            <!-- <img-uploader @uploaded="onUploaded"></img-uploader> -->
+            <button class="btn login-btn">Sign up</button>
+          </div>
+          <div>OR</div>
+        </form>
+
+        <GoogleLogin :callback="loginWithGoogle">
           <button class="btn google-btn">
             <span class="icon"></span>
             Continue with Google
           </button>
-          <GoogleLogin :callback="callback"/>
+        </GoogleLogin>
 
 
-          <hr class="bottom-form-separator">
-        </form>
+        <hr class="bottom-form-separator">
 
-        <div class="login-footer">
+        <div v-if="!isSignUp" class="login-footer">
           <span href="">Can't log in?</span>
           <span class="fa-solid fa-circle"></span>
-          <span href="" @click.prevent="(isSignUp=true)">Sign up for an account
+          <span href="" @click.prevent="(isSignUp = true)">Sign up for an account
+          </span>
+        </div>
+        <div v-else class="signup-footer">
+          <span href="" @click.prevent="(isSignUp = false)">
+            Already have an account? Log In
           </span>
         </div>
       </div>
@@ -54,16 +75,16 @@
 </template>
 
 <script>
-
 import imgUploader from '../cmps/img-uploader.vue'
-
+import { decodeCredential } from 'vue3-google-login'
+// import { googleTokenLogin } from "vue3-google-login"
 export default {
   name: 'login-signup',
   data() {
     return {
       msg: '',
-      loginCred: { username: 'user1', password: '123' },
-      signupCred: { username: '', password: '', fullname: '', imgUrl: '' },
+      loginCred: { email: '', password: '' },
+      signupCred: { email: '', password: '', fullname: '', imgUrl: '' },
       isSignUp: false
     }
   },
@@ -79,12 +100,35 @@ export default {
     this.loadUsers()
   },
   methods: {
-    callback(res) {
-      console.log('login'
-       , res)
+    async loginWithGoogle(res) {
+      const userData = decodeCredential(res.credential)
+      console.log("Handle the userData", userData)
+      // console.log(res.email);
+      try {
+        const user = await this.$store.dispatch({ type: "loginWithGoogle", email: userData.email })
+        if (user) this.$router.push('/')
+        else {
+          this.isSignUp = true
+          this.signupCred.email = userData.email
+          this.signupCred.imgUrl = userData.picture
+        }
+      }
+      catch (err) {
+        console.log(err)
+        this.msg = 'Failed to login'
+      }
+    },
+    // googleLoginPopup() {
+    //   googleTokenLogin().then((response) => {
+    //     console.log("Handle the response", response)
+    //     this.loginWithGoogle(response)
+    //   })
+    // },
+    setUserImg(imgUrl) {
+      console.log(imgUrl);
     },
     async doLogin() {
-      if (!this.loginCred.username || !this.loginCred.password) {
+      if (!this.loginCred.email || !this.loginCred.password) {
         this.msg = 'Please enter email/password'
         return
       }
@@ -102,7 +146,7 @@ export default {
       this.$store.dispatch({ type: 'logout' })
     },
     async doSignup() {
-      if (!this.signupCred.fullname || !this.signupCred.password || !this.signupCred.username) {
+      if (!this.signupCred.fullname || !this.signupCred.password || !this.signupCred.email) {
         this.msg = 'Please fill up the form'
         return
       }
@@ -124,10 +168,12 @@ export default {
     onUploaded(imgUrl) {
       this.signupCred.imgUrl = imgUrl
     }
+  },
+  computed: {
 
   },
   components: {
-    imgUploader
+    imgUploader,
   }
 }
 </script>

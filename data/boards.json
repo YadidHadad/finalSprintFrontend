@@ -243,7 +243,7 @@
                         "dueDate": 1671130740000,
                         "byMember": {
                             "_id": "u101",
-                            "username": "Tal",
+                            "email": "Tal",
                             "fullname": "Tal Tarablus",
                             "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
                         },
@@ -298,7 +298,7 @@
                         "dueDate": 1671782400000,
                         "byMember": {
                             "_id": "u101",
-                            "username": "Tal",
+                            "email": "Tal",
                             "fullname": "Tal Tarablus",
                             "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
                         },
@@ -4143,7 +4143,7 @@
                         "dueDate": 16156215211,
                         "byMember": {
                             "_id": "u101",
-                            "username": "Tal",
+                            "email": "Tal",
                             "fullname": "Tal Tarablus",
                             "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
                         },
@@ -4269,7 +4269,7 @@
                         "dueDate": 16156215211,
                         "byMember": {
                             "_id": "u101",
-                            "username": "Tal",
+                            "email": "Tal",
                             "fullname": "Tal Tarablus",
                             "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
                         },
@@ -4423,7 +4423,7 @@
                         "dueDate": 16156215211,
                         "byMember": {
                             "_id": "u101",
-                            "username": "Tal",
+                            "email": "Tal",
                             "fullname": "Tal Tarablus",
                             "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
                         },

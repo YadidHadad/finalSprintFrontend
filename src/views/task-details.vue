@@ -61,6 +61,8 @@
             <description-preview :description="task.description"
                 @updateDescription="updateTask('description', $event)" />
             <location-preview v-if="task.location" :location="task.location" />
+            <attachment-preview :attachments="task.attachments" v-if="task.attachments?.length"
+            @updateCover="updateTask('cover-edit', $event)" @updateAttachments="updateTask('attachment-preview', $event)"/>
             <!-- <checklists-preview v-if="task.checklists" :checklists="task.checklists"
                 @updateChecklists="updateTask('checklist-preview', $event)" /> -->
             <!-- <checklists-preview v-if="task.checklists" :checklists="task.checklists" -->
@@ -93,6 +95,8 @@ import coverEdit from "../cmps/cover-edit.vue";
 import coverPreview from "../cmps/cover-preview.vue";
 import locationEdit from "../cmps/location-edit.vue";
 import locationPreview from "../cmps/location-preview.vue";
+import attachmentEdit from "../cmps/attachment-edit.vue";
+import attachmentPreview from "../cmps/attachment-preview.vue";
 
 
 import { utilService } from "../services/util.service";
@@ -116,6 +120,8 @@ export default {
         coverPreview,
         locationEdit,
         locationPreview,
+        attachmentEdit,
+        attachmentPreview
 
     },
 
@@ -140,8 +146,10 @@ export default {
                 { arg: 'labels-edit', icon: 'trellicons labels-icon', title: 'Labels' },
                 { arg: 'checklist-edit', icon: 'trellicons checklist-icon', title: 'Checklist' },
                 { arg: 'dates-edit', icon: 'fa-regular date-icon', title: 'Dates' },
+                { arg: 'attachment-edit', icon: 'fa-solid attachment-icon', title: 'Attachment' },
                 { arg: 'location-edit', icon: 'trellicons location-icon', title: 'Location' },
                 { arg: 'cover-edit', icon: 'trellicons cover-icon', title: 'Cover' },
+
             ],
             isCreateLabel: false
 
@@ -301,7 +309,7 @@ export default {
                     // console.log(taskToUpdate);
                     break
                 case 'cover-edit':
-                    // console.log(data)
+                    console.log(data)
                     txt = `updated  ${this.task.title} cover`;
                     if (data.startsWith('#')) {
                         taskToUpdate.style = {
@@ -316,6 +324,19 @@ export default {
                     taskToUpdate.location = data
                     this.closeEditor();
                     break
+                case 'attachment-edit':
+                    taskToUpdate.style = {
+                        'imgUrl': data.url
+                    }
+                    if (!taskToUpdate.attachments) taskToUpdate.attachments = []
+                    taskToUpdate.attachments.unshift(data)
+                    console.log(data);
+                    this.closeEditor();
+                    break
+                case 'attachment-preview':
+                    taskToUpdate.attachments = data
+                    break
+
             }
             try {
                 console.log('hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii', this.task);

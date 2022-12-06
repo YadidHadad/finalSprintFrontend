@@ -61,9 +61,8 @@ async function update(user) {
 async function login(userCred) {
     console.log(userCred);
     const users = await storageService.query('user')
-    console.log(users);
-    const user = users.find(user => user.username === userCred.username && user.password === userCred.password)
-    console.log(user , '.......................');
+    const user = users.find(user => user.email === userCred.email)
+    console.log(user, '.......................');
     // const user = await httpService.post('auth/login', userCred)
     if (user) {
         // socketService.login(user._id)
@@ -102,14 +101,14 @@ function saveLocalUser(user) {
 
 function getLoggedinUser() {
     return JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER))
-    // return { _id: 'fsdfds', fullname: 'Puki Norma', username: 'puki', password: '123', isAdmin: false, imgUrl: 'src/assets/img/user1.jpg' }
+    // return { _id: 'fsdfds', fullname: 'Puki Norma', email: 'puki', password: '123', isAdmin: false, imgUrl: 'src/assets/img/user1.jpg' }
 }
 
 
 // ; (async () => {
-//     await userService.signup({ fullname: 'Amir Gombo', username: 'amir', password: '123', isAdmin: true })
-//     await userService.signup({ fullname: 'Gal Lankri', username: 'gal', password: '123', isAdmin: true })
-//     await userService.signup({ fullname: 'Yadid Hadad', username: 'yadid', password: '123', isAdmin: true })
+//     await userService.signup({ fullname: 'Amir Gombo', email: 'amir', password: '123', isAdmin: true })
+//     await userService.signup({ fullname: 'Gal Lankri', email: 'gal', password: '123', isAdmin: true })
+//     await userService.signup({ fullname: 'Yadid Hadad', email: 'yadid', password: '123', isAdmin: true })
 // })()
 
 

@@ -36,5 +36,4 @@ app.use(GMaps, {
 app.use(vue3GoogleLogin, {
     clientId: '1026456709194-stf9r3fts802im0jhpnst7qntrpq49of.apps.googleusercontent.com'
 })
-
 app.mount('#app')

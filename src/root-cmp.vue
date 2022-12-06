@@ -4,7 +4,7 @@
     <main v-if="boards" class="app-main">
       <router-view @setRGB="setRGB" />
     </main>
-    <app-header :rgb="getRGB" />
+    <app-header :rgb="getRGB" @logout="logout"/>
   </section>
 </template>
 
@@ -52,6 +52,7 @@ export default {
       this.isDark = rgb.isDark
     },
     async logout() {
+      console.log('hiiiiiiiiiiii');
       try {
         await this.$store.dispatch({ type: 'logout' })
         this.$router.push('/login')

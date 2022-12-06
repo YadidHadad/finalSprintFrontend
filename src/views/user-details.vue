@@ -1,7 +1,7 @@
 <template>
   <section v-if="user">
     <h1>User Details - {{ user.fullname }}</h1>
-    <h3>{{ user.username }} score: {{ user.score }}</h3>
+    <h3>{{ user.email }} score: {{ user.score }}</h3>
     <img style="max-width: 200px;" :src="user.imgUrl" />
     <ul>
       <li v-for="review in user.givenReviews" :key="review._id">
