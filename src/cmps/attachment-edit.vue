@@ -1,5 +1,5 @@
 <template>
-    <section class="attachment-edit">
+    <section class="attachment-edit" @click.stop="">
         <div class="attachment-edit-header">
             <div>Attach from…</div>
             <button class="btn-close" @click.stop="closeEdit">
@@ -16,7 +16,7 @@
                 <div>Attach a link</div>
                 <input type="text" placeholder="Paste any link here" v-model="url">
 
-                <div v-if="name" class="link-name">
+                <div v-if="url" class="link-name">
                     <div>Link name (optional)</div>
                     <input type="text" v-model="name">
                 </div>

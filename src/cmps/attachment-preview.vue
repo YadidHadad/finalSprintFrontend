@@ -81,6 +81,7 @@ export default {
             this.attachmentEditedId = ''
         },
         remove(id) {
+            this.attachmentsCopy = this.attachmentsForDisplay
             const attachmentIdx = this.attachmentsCopy.findIndex(attachment => attachment.id === id)
             this.attachmentsCopy.splice(attachmentIdx, 1)
             this.$emit('updateAttachments', this.attachmentsCopy)
