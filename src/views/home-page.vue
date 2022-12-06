@@ -10,9 +10,9 @@
             <h3>Starred boards</h3>
           </div>
           <ul v-if="boards" class="starred-board-list">
-            <li v-for="board in boards.filter(b=> b.isStarred)" :key="board._id">
+            <li v-for="board in boards.filter(b => b.isStarred)" :key="board._id">
               <board-preview class="starred" :board="board" @click="goToBoard(board._id)"
-              @toggleStar="toggleStar(false , board)"/>
+                @toggleStar="toggleStar(false, board)" />
             </li>
           </ul>
         </div>
@@ -26,7 +26,7 @@
             <li v-for="board in boards" :key="board._id">
               <!-- <pre>{{ board }}</pre> -->
               <!-- <div class="board-title">{{ board.title }}</div> -->
-              <board-preview :board="board" @click="goToBoard(board._id)" @toggleStar="toggleStar(true , board)">
+              <board-preview :board="board" @click="goToBoard(board._id)" @toggleStar="toggleStar(true, board)">
               </board-preview>
               <!-- <button @click="removeBoard(board._id)">x</button>
                 <button @click="updateBoard(board)">Update</button> -->
@@ -44,7 +44,7 @@
           <input type="text" v-model="boardToAdd.title" />
           <button>Save</button>
         </form> -->
-      <add-board-modal v-if="isAddBoard" @addBoard="addBoard" v-click-outside="() =>isAddBoard=false"/>
+      <add-board-modal v-if="isAddBoard" @addBoard="addBoard" v-click-outside="() => isAddBoard = false" />
     </section>
   </section>
 </template>
@@ -85,7 +85,7 @@ export default {
   methods: {
     async addBoard({ bcg, title }) {
       if (bcg.startsWith('#')) {
-        this.boardToAdd.style = { backgroundColor: bcg }
+        this.boardToAdd.style = { bgColor: bcg }
       } else {
         this.boardToAdd.style = { backgroundImage: bcg }
       }
@@ -136,7 +136,7 @@ export default {
     goToBoard(id) {
       this.$router.push(`/board/${id}`)
     },
-    toggleStar(isStarred , board) {
+    toggleStar(isStarred, board) {
       const newBoard = JSON.parse(JSON.stringify(board))
       newBoard.isStarred = isStarred
       this.updateBoard(newBoard)

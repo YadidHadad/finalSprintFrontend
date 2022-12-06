@@ -68,6 +68,7 @@ export const boardStore = {
         },
 
         addBoard(state, { board }) {
+            console.log(board)
             state.boards.push(board)
         },
 
