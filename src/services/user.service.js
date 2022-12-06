@@ -106,11 +106,11 @@ function getLoggedinUser() {
 }
 
 
-// ; (async () => {
-//     await userService.signup({ fullname: 'Amir Gombo', username: 'amir', password: '123', isAdmin: true })
-//     await userService.signup({ fullname: 'Gal Lankri', username: 'gal', password: '123', isAdmin: true })
-//     await userService.signup({ fullname: 'Yadid Hadad', username: 'yadid', password: '123', isAdmin: true })
-// })()
+; (async () => {
+    await userService.signup({ fullname: 'Amir Gombo', username: 'amir', password: '123', isAdmin: true })
+    await userService.signup({ fullname: 'Gal Lankri', username: 'gal', password: '123', isAdmin: true })
+    await userService.signup({ fullname: 'Yadid Hadad', username: 'yadid', password: '123', isAdmin: true })
+})()
 
 
 

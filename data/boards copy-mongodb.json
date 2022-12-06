@@ -1,12 +1,11 @@
 [
     {
-        
-        "title": "dgdsgdgs",
+        "title": "Amazing",
         "isStarred": true,
         "createdBy": {
-            
-            "fullname": "Abi Abambi",
-            "imgUrl": ""
+            "_id": "638f30e436d0392801708bd5",
+            "fullname": "Phoebe Bouffe",
+            "imgUrl": "https://res.cloudinary.com/boards/image/upload/v1670327433/user2_twpngh.jpg"
         },
         "style": {
             "backgroundImage": "https://images.unsplash.com/photo-1507166763745-bfe008fbb831?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
@@ -50,34 +49,34 @@
         ],
         "members": [
             {
-                
-                "fullname": "Rachel Greem",
-                "imgUrl": "src/assets/img/user1.jpg"
+                "_id": "638f30e436d0392801708bd4",
+                "fullname": "Oshra Coding Academy",
+                "imgUrl": "https://res.cloudinary.com/boards/image/upload/v1670327432/T03PU4YR4NS-U040WFENJTF-85655de729d3-512_irlgh1.jpg"
             },
             {
-                
+                "_id": "638f30e436d0392801708bd5",
                 "fullname": "Phoebe Bouffe",
-                "imgUrl": "src/assets/img/user3.jpg"
+                "imgUrl": "https://res.cloudinary.com/boards/image/upload/v1670327433/user2_twpngh.jpg"
             },
             {
-                
+                "_id": "638f30e436d0392801708bd6",
                 "fullname": "Chandler Bing",
-                "imgUrl": "src/assets/img/user4.jpg"
+                "imgUrl": "https://res.cloudinary.com/boards/image/upload/v1670327433/user1_dkeea1.webp"
             },
             {
-                
+                "_id": "638f30e436d0392801708bd7",
                 "fullname": "Amir Gombo",
-                "imgUrl": "src/assets/img/amir-gombo.jpg"
+                "imgUrl": "https://res.cloudinary.com/boards/image/upload/v1670327433/amir-gombo_blmvlx.jpg"
             },
             {
-                
+                "_id": "638f30e436d0392801708bd8",
                 "fullname": "Gal Lankri",
-                "imgUrl": "src/assets/img/gal-lankri.jpg"
+                "imgUrl": "https://res.cloudinary.com/boards/image/upload/v1670327433/gal-lankri_elzl2s.jpg"
             },
             {
-                
+                "_id": "638f30e436d0392801708bd9",
                 "fullname": "Yadid Hadad",
-                "imgUrl": "src/assets/img/yadid-hadad.jpeg"
+                "imgUrl": "https://res.cloudinary.com/boards/image/upload/v1670327433/yadid-hadad_suvqhh.jpg"
             }
         ],
         "groups": [
@@ -102,7 +101,11 @@
                         "style": {
                             "imgUrl": "https://res.cloudinary.com/dnznyz6om/image/upload/v1670108894/xelclijmejfxrdl0aznl.webp"
                         },
-                        "memberIds": [],
+                        "memberIds": [
+                            "638f30e436d0392801708bd9",
+                            "638f30e436d0392801708bd8",
+                            "638f30e436d0392801708bd7"
+                        ],
                         "labelIds": [
                             "l102",
                             "l101",
@@ -128,9 +131,8 @@
                                 "txt": "also @yaronb please CR this",
                                 "createdAt": 1590999817436,
                                 "byMember": {
-                                    
-                                    "fullname": "Tal Tarablus",
-                                    "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
+                                    "fullname": "Chandler Bing",
+                                    "imgUrl": "https://res.cloudinary.com/boards/image/upload/v1670327433/user1_dkeea1.webp"
                                 }
                             }
                         ],
@@ -173,7 +175,11 @@
                                 ]
                             }
                         ],
-                        "memberIds": [],
+                        "memberIds": [
+                            "638f30e436d0392801708bd4",
+                            "638f30e436d0392801708bd5",
+                            "638f30e436d0392801708bd6"
+                        ],
                         "labelIds": [
                             "l102",
                             "l104",
@@ -182,10 +188,10 @@
                         ],
                         "dueDate": 1671130740000,
                         "byMember": {
-                            "_id": "u101",
-                            "username": "Tal",
-                            "fullname": "Tal Tarablus",
-                            "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
+                            "_id": "638f30e436d0392801708bd6",
+                            "username": "chandler",
+                            "fullname": "Chandler Bing",
+                            "imgUrl": "https://res.cloudinary.com/boards/image/upload/v1670327433/user1_dkeea1.webp"
                         },
                         "style": {
                             "imgUrl": "https://images.unsplash.com/photo-1614481327033-68e5df399653?crop=entropy&cs=tinysrgb&fm=jpg&ixid=MnwzODYyOTJ8MHwxfHNlYXJjaHwyfHxwcmV0dHl8ZW58MHx8fHwxNjcwMDY0OTAx&ixlib=rb-4.0.3&q=80"
@@ -202,9 +208,9 @@
                                 "txt": "also @yaronb please CR this",
                                 "createdAt": 1590999817436,
                                 "byMember": {
-                                    "_id": "u101",
-                                    "fullname": "Tal Tarablus",
-                                    "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
+                                    "_id": "638f30e436d0392801708bd7",
+                                    "fullname": "Amir Gombo",
+                                    "imgUrl": "https://res.cloudinary.com/boards/image/upload/v1670327433/amir-gombo_blmvlx.jpg"
                                 }
                             }
                         ],
@@ -226,17 +232,20 @@
                                 ]
                             }
                         ],
-                        "memberIds": [],
+                        "memberIds": [
+                            "638f30e436d0392801708bd5",
+                            "638f30e436d0392801708bd6",
+                            "638f30e436d0392801708bd7"
+                        ],
                         "labelIds": [
                             "l101",
                             "l102"
                         ],
                         "dueDate": 1671782400000,
                         "byMember": {
-                            
-                            "username": "Tal",
-                            "fullname": "Tal Tarablus",
-                            "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
+                            "username": "gal",
+                            "fullname": "Gal Lankri",
+                            "imgUrl": "https://res.cloudinary.com/boards/image/upload/v1670327433/gal-lankri_elzl2s.jpg"
                         },
                         "style": {
                             "imgUrl": "https://images.unsplash.com/photo-1506477331477-33d5d8b3dc85?crop=entropy&cs=tinysrgb&fm=jpg&ixid=MnwzODYyOTJ8MHwxfHNlYXJjaHw3fHxzZWF8ZW58MHx8fHwxNjcwMTA2NDY2&ixlib=rb-4.0.3&q=80"
@@ -249,8 +258,7 @@
                         "style": {
                             "imgUrl": "https://images.unsplash.com/photo-1593555330172-1ac07da0e291?crop=entropy&cs=tinysrgb&fm=jpg&ixid=MnwzODYyOTJ8MHwxfHNlYXJjaHwyMnx8cHJldHR5fGVufDB8fHx8MTY3MDA2NDkwMQ&ixlib=rb-4.0.3&q=80"
                         },
-                        "memberIds": [
-                        ],
+                        "memberIds": [],
                         "dueDate": 1671177600000,
                         "location": {
                             "lat": 32.0852999,
@@ -261,10 +269,10 @@
                         "id": "c102",
                         "title": "Add Samples",
                         "memberIds": [
-                            "u102",
-                            "u101",
-                            "u103",
-                            "u104"
+                            "638f30e436d0392801708bd9",
+                            "638f30e436d0392801708bd8",
+                            "638f30e436d0392801708bd7",
+                            "638f30e436d0392801708bd4"
                         ],
                         "labelIds": [
                             "l102",
@@ -294,9 +302,7 @@
                     {
                         "id": "bAKeKx",
                         "title": "Puki!",
-                        "memberIds": [
-
-                        ],
+                        "memberIds": [],
                         "labelIds": [
                             "l102",
                             "l104"
@@ -337,14 +343,13 @@
         "isPreviewLabelsOpen": false
     },
     {
-        
         "title": "In the Jungle!",
         "isStarred": false,
         "archivedAt": 1589983468418,
         "createdBy": {
-            "_id": "u101",
-            "fullname": "Abi Abambi",
-            "imgUrl": "http://some-img"
+            "_id": "638f30e436d0392801708bd5",
+            "fullname": "Phoebe Bouffe",
+            "imgUrl": "https://res.cloudinary.com/boards/image/upload/v1670327433/user2_twpngh.jpg"
         },
         "style": {
             "backgroundImage": "src/assets/img/bgc-img-2.jpg"
@@ -363,7 +368,6 @@
         ],
         "members": [
             {
-                
                 "fullname": "Tal Tarablus",
                 "imgUrl": "https://www.google.com"
             }
@@ -439,7 +443,8 @@
                         },
                         "style": {
                             "bgColor": "#26de81"
-                        }
+                        },
+                        "isComplete": true
                     }
                 ],
                 "style": {}
@@ -460,8 +465,9 @@
                     "title": "Replace Logo"
                 }
             }
-        ]
-    },
+        ],
+        "isPreviewLabelsOpen": false
+    }]
     {
         "_id": "b103",
         "title": "Big city life!",
@@ -489,7 +495,7 @@
         ],
         "members": [
             {
-                "_id": "u101",
+                "_id": "u3003",
                 "fullname": "Tal Tarablus",
                 "imgUrl": "https://www.google.com"
             }
@@ -530,7 +536,7 @@
                                 "txt": "also @yaronb please CR this",
                                 "createdAt": 1590999817436,
                                 "byMember": {
-                                    "_id": "u101",
+                                    "_id": "u3000",
                                     "fullname": "Tal Tarablus",
                                     "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
                                 }
@@ -550,7 +556,7 @@
                             }
                         ],
                         "memberIds": [
-                            "u101"
+                            "u3004"
                         ],
                         "labelIds": [
                             "l101",
@@ -558,7 +564,7 @@
                         ],
                         "dueDate": 16156215211,
                         "byMember": {
-                            "_id": "u101",
+                            "_id": "u3002",
                             "username": "Tal",
                             "fullname": "Tal Tarablus",
                             "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
@@ -571,22 +577,8 @@
                 "style": {}
             }
         ],
-        "activities": [
-            {
-                "id": "a101",
-                "txt": "Changed Color",
-                "createdAt": 154514,
-                "byMember": {
-                    "_id": "u101",
-                    "fullname": "Abi Abambi",
-                    "imgUrl": "http://some-img"
-                },
-                "task": {
-                    "id": "c101",
-                    "title": "Replace Logo"
-                }
-            }
-        ]
+        "activities": [ ],
+
     },
     {
         "_id": "b10143d111",
@@ -635,9 +627,9 @@
         ],
         "members": [
             {
-                "_id": "asd214f",
-                "fullname": "Tal Tarablus",
-                "imgUrl": "https://www.google.com"
+                "_id": "638f30e436d0392801708bd9",
+                "fullname": "Yadid Hadad",
+                "imgUrl": "https://res.cloudinary.com/boards/image/upload/v1670327433/yadid-hadad_suvqhh.jpg"
             }
         ],
         "groups": [
