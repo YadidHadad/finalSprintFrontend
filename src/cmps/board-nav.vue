@@ -11,13 +11,14 @@
             <span :class="btn.icon"></span>
             <span>{{ btn.txt }}</span>
         </button>
-        <div class="nav-title flex row align-center justify-between ">
+        <div class="nav-title flex row align-center justify-between " :class="{ isDark: isDark }">
             <span>Your Boards</span>
             <button class="btn-regular"> <span class="fa-regular plus-icon"></span></button>
         </div>
         <button v-for="board in boards" :key="board._id" class="btn-nav"
             :class="{ isDark: isDark, isClicked: this.$route.params.id === board._id }" @click="goToBoard(board._id)">
-            <div class="board-icon" :style="boardBGC(board.style)"></div>
+            <div v-if="board.style.backgroundImage" class="board-icon" :style="boardBGC(board.style)"></div>
+            <div v-else class="board-icon" :style="boardBGC(board.style)"></div>
             <span>{{ board.title }}</span>
         </button>
     </section>
@@ -62,17 +63,22 @@ export default {
         },
         boardBGC(style) {
             console.log()
+            if (style.bgColor) return { backgroundColor: style.bgColor }
             return { backgroundImage: `url(${style.backgroundImage})` }
         },
     },
     computed: {
         style() {
             if (!this.rgb) return false
-            return this.rgb.isDark ? utilService.getBCG(this.rgb.value, 0, 0.8) : utilService.getBCG(this.rgb.value, -0, 0.8)
+            if (this.board.style.bgColor) return utilService.getBCG(this.rgb.value, -20, 0.9)
+            return this.rgb.isDark ? utilService.getBCG(this.rgb.value, 0, 0.9) : utilService.getBCG(this.rgb.value, -0, 0.8)
         },
         isDark() {
             if (!this.rgb) return false
             return this.rgb.isDark
+        },
+        board() {
+            return this.$store.getters.board
         },
 
     },

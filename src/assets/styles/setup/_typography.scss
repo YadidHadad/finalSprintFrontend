@@ -238,6 +238,10 @@
         content: "\f58e";
     }
 
+    &.fa-circle::before {
+        content: "\f111";
+    }
+
     &.settings-icon::before {
         content: "\f013";
     }

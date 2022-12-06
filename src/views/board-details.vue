@@ -5,7 +5,7 @@
             <board-header :board="board" :class="{ isDark: rgb.isDark, menuIsShown: !menuIsHidden }" :rgb="rgb"
                 @toggleBoardMenu="toggleBoardMenu" />
             <group-list @addTask="addNewTask" @addGroup="addNewGroup" @removeGroup="removeGroup" :groups="board.groups"
-                :boardId="board._id" />
+                :boardId="board._id" :rgb="rgb" />
         </section>
         <board-menu :menuIsHidden="menuIsHidden" :activities="board.activities" @toggleBoardMenu="toggleBoardMenu" />
         <!-- <router-view class="task-details-view"></router-view> -->
@@ -25,6 +25,7 @@ import groupList from '../cmps/group-list.vue'
 import boardNav from '../cmps/board-nav.vue'
 import boardMenu from '../cmps/board-menu.vue'
 import taskDetails from '../views/task-details.vue'
+
 
 const fac = new FastAverageColor();
 
@@ -61,11 +62,19 @@ export default {
             const { id } = this.$route.params
             this.$store.commit({ type: 'setBoard', boardId: id })
             try {
+                if (this.board.style.bgColor) {
+                    this.rgb.value = this.hexToRgbA(this.board.style.bgColor)
+                    console.log(this.rgb.value)
+                    this.rgb.isDark = true
+                } else {
 
-                const avgColor = await this.avgColor()
-                this.rgb.value = avgColor.value
-                this.rgb.isDark = avgColor.isDark
+                    const avgColor = await this.avgColor()
+                    this.rgb.value = avgColor.value
+                    this.rgb.isDark = avgColor.isDark
+
+                }
                 this.$emit('setRGB', this.rgb)
+
             } catch (err) {
                 console.log(err)
             }
@@ -76,6 +85,7 @@ export default {
             const url = this.board.style.backgroundImage
             try {
                 const color = await fac.getColorAsync(url)
+                console.log(color)
                 return color
             } catch (err) {
                 console.log(`err:`, err)
@@ -114,16 +124,18 @@ export default {
             }
         },
 
-        // pacimict
-        // let boardToSave = structuredClone(this.board)
-        // boardToSave.groups.push(group)
-        // try {
-
-        //     var board = this.$store.dispatch({ type: 'addBoard', board: boardToSave })
-        //     this.board = board
-        // } catch (err) {
-
-        // }
+        hexToRgbA(hex) {
+            // console.log(hex)
+            var c;
+            c = hex.substring(1).split('');
+            if (c.length == 3) {
+                c = [c[0], c[0], c[1], c[1], c[2], c[2]];
+            }
+            c = '0x' + c.join('');
+            const color = [(c >> 16) & 255, (c >> 8) & 255, c & 255, 255]
+            console.log(color)
+            return color
+        },
 
         toggleBoardMenu() {
             this.menuIsHidden = !this.menuIsHidden
@@ -133,7 +145,8 @@ export default {
 
     computed: {
         boardBGC() {
-            console.log()
+            if (this.board.style.bgColor) return { backgroundColor: this.board.style.bgColor }
+
             return { backgroundImage: `url(${this.board.style.backgroundImage})` }
         },
         color() {
@@ -145,10 +158,16 @@ export default {
         boards() {
             return this.$store.getters.boards
         },
+        style() {
+            return this.$store.getters.board?.style
+        }
     },
 
     watch: {
         $route(to, from) {
+            this.setBoardId()
+        },
+        style(to, from) {
             this.setBoardId()
         }
 

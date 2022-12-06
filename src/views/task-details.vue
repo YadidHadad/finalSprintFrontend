@@ -53,7 +53,8 @@
             <section class="task-tags flex row pad-40 wrap gap20">
                 <members-preview v-if="task.memberIds" :memberIds="task.memberIds"
                     @openMembersEditor="openMembersEditor" :isTaskDetails="true" />
-                <labels-preview v-if="task.labelIds" />
+                <labels-preview v-if="task.labelIds"
+                    @openLabelsDetails="pickedEditor = { isOpen: true, editorType: 'labels-edit' }" />
             </section>
             <dates-preview class="pad-40" @markComplete="updateTask('dates-preview', $event)"
                 :isComplete="this.task.isComplete" />

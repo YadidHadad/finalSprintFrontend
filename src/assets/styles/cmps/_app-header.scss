@@ -8,6 +8,7 @@ header {
     transition: all 0.5s ease-out;
     position: fixed;
     width: 100%;
+    // position: relative;
 
     .header-btn {
         height: 32px;
@@ -28,6 +29,7 @@ header {
 
     & * {
         color: $textDark;
+        font-family: "segoe-regular";
     }
 
     &.isDark {
@@ -54,7 +56,6 @@ header {
         margin: 0;
         height: 2rem;
         width: 2rem;
-        box-shadow: inset 0px -1px 0px rgb(0 0 0 / 33%);
         background-color: aquamarine;
 
         &:hover {
@@ -65,9 +66,9 @@ header {
     .search-boards {
         min-width: 200px;
         height: 2rem;
-        border-radius: 3px;
-        background-color: rgba(255, 255, 255, 0.2);
-        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 5px;
+        background-color: rgba($textDark, 0.2);
+        border: 1px solid rgba($textDark, 0.3);
         padding: 0 0.5rem;
         input {
             background-color: transparent;
@@ -75,34 +76,83 @@ header {
             box-shadow: none !important;
             min-width: 158px;
             height: 2rem;
-            color: white;
+            // color: white;
             border: none;
             &:focus {
-                width: 780px;
+                width: 735px;
             }
 
             &::placeholder {
-                color: white;
+                color: $textDark;
+            }
+        }
+        &.isDark {
+            background-color: rgba($textLight, 0.2);
+            border: 1px solid rgba($textLight, 0.3);
+            * {
+                color: $textLight;
+            }
+
+            input {
+                color: $textLight;
+                &::placeholder {
+                    color: $textLight;
+                }
+            }
+        }
+        &.whiteBackground {
+            background-color: white !important;
+            color: $textDark !important;
+            * {
+                color: $textDark;
+            }
+
+            input {
+                color: $textDark;
+                &::placeholder {
+                    color: $textDark;
+                }
             }
         }
     }
 
-    .loggedin-user {
-        background-color: $clr1;
-        padding: 2px 8px;
-        border-radius: 1em;
-        align-self: flex-end;
-        color: whitesmoke;
-        span {
-            background-color: $clr2;
-            padding: 4px;
-            margin: 10px;
-            border-radius: 50%;
+    .search-results {
+        & * {
+            font-size: 0.75rem;
+            color: #172b4d !important;
         }
-        img {
-            width: 2em;
-            height: 2em;
-            border-radius: 50%;
+        box-shadow: 3px 3px 1px 1px rgb(0 0 0 / 33%);
+        position: fixed;
+        width: 780px;
+        top: 45px;
+        right: 117px;
+        background-color: white;
+        border-radius: 3px;
+        .title {
+            padding-block: 10px;
+            // margin-block-start: 10px;
+            font-weight: bold;
+            padding: 0.5rem;
+        }
+        .search-result {
+            padding: 0 0.5rem;
+            height: 2rem;
+
+            img {
+                height: 14px;
+                width: 20px;
+                border-radius: 3px;
+            }
+
+            span:last-of-type {
+                font-size: 0.7rem;
+                position: absolute;
+                right: 250px;
+            }
+
+            &:hover {
+                background-color: rgba($textDark, 0.1);
+            }
         }
     }
 
@@ -119,5 +169,23 @@ header {
 
     nav .active {
         color: $clr1;
+    }
+}
+
+.user-buttons {
+    .profile-btn {
+        height: 32px;
+        width: 32px;
+        background-color: #de350b;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 14px;
+        font-weight: bold;
+
+        &:hover {
+            cursor: pointer;
+        }
     }
 }

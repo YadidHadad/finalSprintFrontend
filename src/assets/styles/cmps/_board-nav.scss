@@ -84,6 +84,13 @@
         padding-block: 1rem;
         padding-inline-start: 1rem;
         box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.33);
+        &.isDark {
+            box-shadow: inset 0px -1px 0px rgba(255, 255, 255, 0.33);
+
+            * {
+                color: $textLight;
+            }
+        }
     }
 
     .board-icon {
@@ -96,6 +103,6 @@
         border-radius: 3px;
     }
     .isClicked {
-        background-color: rgba($textDark, 0.3);
+        background-color: rgba($textLight, 0.3);
     }
 }

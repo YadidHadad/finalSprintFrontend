@@ -12,17 +12,20 @@ export const userStore = {
     },
     getters: {
         users({ users }) { return users },
-        loggedinUser({ loggedinUser }) { return loggedinUser },
+        loggedinUser({ loggedinUser }) {
+            return loggedinUser ||
+                { _id: 'fsdfds', fullname: 'Guest guest', username: 'guest', password: '123', isAdmin: true, imgUrl: 'src/assets/img/user1.jpg' }
+        },
         watchedUser({ watchedUser }) { return watchedUser }
     },
     mutations: {
         setLoggedinUser(state, { user }) {
             // Yaron: needed this workaround as for score not reactive from birth
-            state.loggedinUser = (user)? {...user} : null
+            state.loggedinUser = (user) ? { ...user } : null
         },
         setWatchedUser(state, { user }) {
             state.watchedUser = user
-        },       
+        },
         setUsers(state, { users }) {
             state.users = users
         },
@@ -36,7 +39,9 @@ export const userStore = {
     actions: {
         async login({ commit }, { userCred }) {
             try {
+                console.log(userCred);
                 const user = await userService.login(userCred)
+                if (!user) return
                 commit({ type: 'setLoggedinUser', user })
                 return user
             } catch (err) {
@@ -73,12 +78,12 @@ export const userStore = {
                 console.log('userStore: Error in loadUsers', err)
                 throw err
             }
-        },        
+        },
         async loadAndWatchUser({ commit }, { userId }) {
             try {
                 const user = await userService.getById(userId)
                 commit({ type: 'setWatchedUser', user })
-                
+
             } catch (err) {
                 console.log('userStore: Error in loadAndWatchUser', err)
                 throw err
@@ -113,9 +118,9 @@ export const userStore = {
         //     }
         // },
         // Keep this action for compatability with a common user.service ReactJS/VueJS
-        setWatchedUser({commit}, payload) {
+        setWatchedUser({ commit }, payload) {
             commit(payload)
-        },       
+        },
 
     }
 }

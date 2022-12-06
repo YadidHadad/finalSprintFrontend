@@ -9,6 +9,7 @@ import rootCmp from './root-cmp.vue'
 
 import VueGeolocation from "vue3-geolocation";
 import GMaps from "vuejs3-google-maps";
+import vue3GoogleLogin from 'vue3-google-login'
 
 import {
     focusDirective,
@@ -32,5 +33,8 @@ app.use(GMaps, {
         libraries: ["places"],
     },
 });
+app.use(vue3GoogleLogin, {
+    clientId: '1026456709194-stf9r3fts802im0jhpnst7qntrpq49of.apps.googleusercontent.com'
+})
 
 app.mount('#app')
