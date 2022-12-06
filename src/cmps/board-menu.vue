@@ -29,9 +29,11 @@
                         <div v-for="activity in activitiesReverse" :key="activity.id"
                             class="activity flex row align-start">
                             <div class="activity">
-                                <span class="btn flex row align-baseline align-center justify-center">{{
-                                        getInitials(activity.byMember.fullname)
-                                }}</span>
+                                <div v-if="activity.byMember.imgUrl" class="member-image"
+                                    :style="memberImage(activity.byMember.imgUrl)"> </div>
+                                <span v-else class="member-initials">
+                                    {{ getInitials(activity.byMember.fullname) }}
+                                </span>
                             </div>
                             <div class=" flex column justify-start">
                                 <div>
@@ -170,12 +172,13 @@ export default {
                     console.log('Cant load imgs', err);
                 })
         },
+        memberImage(imgUrl) {
+            return { backgroundImage: `url(${imgUrl})` };
+        },
         getInitials(fullname) {
-
             return utilService.getInitials(fullname)
         },
         getTimeAgo(timestamp) {
-
             return utilService.timeAgo(timestamp)
         },
         toggleMenuPage(page) {
