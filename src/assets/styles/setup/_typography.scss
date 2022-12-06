@@ -173,6 +173,10 @@
     &.icon-starred:before {
         content: "\e967";
     }
+    &.icon-clock:before {
+        font-size: 1rem;
+        content: "\e91b";
+    }
 }
 
 .fa-regular {
