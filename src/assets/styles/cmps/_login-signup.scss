@@ -1,7 +1,7 @@
 .login-main-layout {
     display: grid;
     grid-template-columns: auto 400px auto;
-    height: 92vh;
+    // height: 92vh;
     position: relative;
 
     >* {
@@ -16,18 +16,21 @@
     bottom: 0;
     z-index: -999;
     max-width: 30%;
-    height: 400px;
+    height: 50%;
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 
 .bottom-right-img {
     right: 0;
     background-image: url("https://aid-frontend.prod.atl-paas.net/atlassian-id/front-end/5.0.385/static/media/trello-right.16b9c9bb.svg");
-    background-size: cover;
 }
 
 .bottom-left-img {
     left: 0;
+    background-image: url("https://aid-frontend.prod.atl-paas.net/atlassian-id/front-end/5.0.385/static/media/trello-left.7317ad1f.svg");
 }
+
 
 
 .login-container {
@@ -91,4 +94,27 @@
     border-top: 1px solid hsl(0, 0%, 80%);
     margin: 1em 0;
     padding: 0;
+}
+
+.login-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    a {
+        font-family: "segoe-italic";
+        text-decoration: none;
+        color: #0052cc;
+        font-size: 14px;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    .fa-circle {
+        font-size: 3px;
+        color: #06377f;
+        margin-inline: 8px;
+    }
 }

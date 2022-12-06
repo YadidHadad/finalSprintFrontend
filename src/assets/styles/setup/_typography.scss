@@ -173,6 +173,10 @@
     &.icon-starred:before {
         content: "\e967";
     }
+    &.icon-clock:before {
+        font-size: 1rem;
+        content: "\e91b";
+    }
 }
 
 .fa-regular {
@@ -232,6 +236,10 @@
 
     &.grid-icon::before {
         content: "\f58e";
+    }
+
+    &.fa-circle::before {
+        content: "\f111";
     }
 
     &.settings-icon::before {

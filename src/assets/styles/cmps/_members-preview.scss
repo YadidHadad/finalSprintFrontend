@@ -1,6 +1,7 @@
 .members-preview {
     color: $textDark;
     margin-inline-end: 0.5rem;
+
     & * {
         font-size: 0.8rem;
     }
@@ -55,7 +56,8 @@
 
 .members-task-preview {
     color: $textDark;
-    margin-inline-end: 0.5rem;
+
+    // margin-inline-end: 0.5rem;
     & * {
         font-size: 0.8rem;
     }
@@ -67,7 +69,11 @@
     }
 
     .members-container {
-        margin-block-start: 0.5rem;
+        display: flex;
+        flex-wrap: wrap;
+
+        // margin-block-start: 0.5rem;
+        justify-content: end;
     }
 
     .member-image {
@@ -76,6 +82,7 @@
         background-position: center;
         border-radius: 50%;
         margin-inline-end: 0.3rem;
+        margin-top: rem(5px);
         height: 1.75rem;
         aspect-ratio: 1/1;
         box-shadow: inset 0px -1px 0px rgb(0 0 0 / 33%);

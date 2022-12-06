@@ -11,7 +11,8 @@
         </h3>
       </div>
       <div class="login-container">
-        <h2>Log in to Kanban</h2>
+        <h2 v-if="!isSignUp">Log in to Kanban</h2>
+        <h2 v-else>Sign up to Kanban</h2>
         <form @submit.prevent="doLogin">
           <input type="text" placeholder="Enter email" v-model="loginCred.username">
           <input type="text" placeholder="Enter password" v-model="loginCred.password">
@@ -21,10 +22,18 @@
             <span class="icon"></span>
             Continue with Google
           </button>
+          <GoogleLogin :callback="callback"/>
 
 
           <hr class="bottom-form-separator">
         </form>
+
+        <div class="login-footer">
+          <span href="">Can't log in?</span>
+          <span class="fa-solid fa-circle"></span>
+          <span href="" @click.prevent="(isSignUp=true)">Sign up for an account
+          </span>
+        </div>
       </div>
     </section>
     <div class="bottom-right-img"></div>
@@ -55,6 +64,7 @@ export default {
       msg: '',
       loginCred: { username: 'user1', password: '123' },
       signupCred: { username: '', password: '', fullname: '', imgUrl: '' },
+      isSignUp: false
     }
   },
   computed: {
@@ -69,6 +79,10 @@ export default {
     this.loadUsers()
   },
   methods: {
+    callback(res) {
+      console.log('login'
+       , res)
+    },
     async doLogin() {
       if (!this.loginCred.username || !this.loginCred.password) {
         this.msg = 'Please enter email/password'
@@ -77,7 +91,7 @@ export default {
       try {
         const user = await this.$store.dispatch({ type: "login", userCred: this.loginCred })
         console.log(user);
-        if(user) this.$router.push('/')
+        if (user) this.$router.push('/')
         else console.log('User name and password dont match');
       } catch (err) {
         console.log(err)

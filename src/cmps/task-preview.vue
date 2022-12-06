@@ -5,10 +5,11 @@
         <section v-if="task.labelIds" class="labels-preview">
             <ul class="clean-list flex">
                 <li :title="(label.title)" @click.stop="togglePreviewLabels" v-for="label in labels" :key="label.id"
-                    :style="{ backgroundColor: label.color, height: isPreviewLabelsOpen ? '17px' : '', transition: isPreviewLabelsOpen ? 'all 0.5s' : 'all 0.5s', filter: !isPreviewLabelsOpen ? 'saturate(10)' : 'saturate(3)' }">
-                    <div v-if="isPreviewLabelsOpen" :style="{ backgroundColor: label.color }" class="color-circle"></div>
+                    :style="{ backgroundColor: label.color, height: isPreviewLabelsOpen ? '17px' : '', transition: isPreviewLabelsOpen ? 'all 0.7s' : 'all 0.7s', filter: !isPreviewLabelsOpen ? 'saturate(10)' : 'saturate(3)' }">
+                    <div v-if="isPreviewLabelsOpen" :style="{ backgroundColor: label.color }" class="color-circle">
+                    </div>
                     <span v-if="isPreviewLabelsOpen">{{ label.title }}</span>
-                    
+
                 </li>
             </ul>
         </section>
@@ -16,6 +17,11 @@
             <h3>{{ task.title }}</h3>
         </div>
         <section class="task-preview-icons flex">
+            <div v-if="task.dueDate" class="task-date-preview flex">
+                <span class="trellicons icon-clock"></span>
+                <span class="date-str">{{ getDueDateStr }}</span>
+            </div>
+            <span v-if="task.description" class="trellicons desc-icon"></span>
             <div v-if="taskTodosLength" class="task-todos flex"
                 :style="{ backgroundColor: allTodosDone, color: allTodosDone ? '#fdfefd' : '' }">
                 <span class="trellicons checklist-icon"></span>
@@ -37,7 +43,7 @@
             </section> -->
 
             <members-preview v-if="task.memberIds" :memberIds="task.memberIds" :isTaskDetails="false"
-                class="task-members-preview" />
+                class="members-task-preview flex" />
         </section>
     </section>
 </template>
@@ -148,6 +154,9 @@ export default {
                 return 'background-img'
             }
         },
+        getDueDateStr() {
+            return new Date(this.task.dueDate).toDateString().slice(4, 10)
+        }
 
     }
 }
