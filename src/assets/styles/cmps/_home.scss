@@ -1,5 +1,20 @@
 .home-page {
+    position: relative;
+    margin-top: -44px;
+    width: 100%;
+    // background-image: linear-gradient(60deg, rgb(82, 67, 170), rgb(237, 80, 180));
+    min-height: 100vh;
+    // background-color: #253858;
+
+    border: 1px solid gold;
+
     header {
+        border: 1px solid gold;
+        z-index: 100;
+        position: absolute;
+        top: 0;
+        height: 60px;
+        background-color: #fafbfc;
         .logo {
             font-family: "kanit-regular";
             font-weight: bold;
@@ -11,5 +26,25 @@
                 color: #253858;
             }
         }
+    }
+
+    section:nth-of-type(1) {
+        .wave {
+            position: absolute;
+            bottom: 0;
+        }
+
+        .demo-invite {
+            z-index: 100;
+            margin-top: 6rem;
+            .img1 {
+                width: 580px;
+            }
+        }
+        border: 1px solid gold;
+        position: relative;
+        top: 60px;
+        height: 645px;
+        background-image: linear-gradient(60deg, rgb(82, 67, 170), rgb(237, 80, 180));
     }
 }

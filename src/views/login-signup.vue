@@ -5,14 +5,20 @@
       <span class="fa-brands trello-icon "></span>
       <span class="">Kannban</span>
     </section>
-    <section class="login-main-layout">
-      <div v-if="loggedinUser">
+
+
+    <section class="login-main-layout ">
+      <div v-if="loggedinUser" class="user-loggedin flex column justify-center align-center gap20">
         <h3>
-          Loggedin User:
           {{ loggedinUser.fullname }}
-          <button @click="doLogout">Logout</button>
         </h3>
+        <h3>
+          {{ loggedinUser.email }}
+        </h3>
+        <button class="btn login-btn" @click="doLogout">Logout</button>
       </div>
+
+
       <div v-else class="login-signup-container">
         <!-- <h1 v-else>Sign up to Kanban</h1> -->
         <form v-if="!isSignUp" @submit.prevent="doLogin">
@@ -58,8 +64,14 @@
         </div>
       </div>
     </section>
-    <div class="bottom-right-img"></div>
-    <div class="bottom-left-img"></div>
+    <img class="bottom-right-img"
+      src="https://aid-frontend.prod.atl-paas.net/atlassian-id/front-end/5.0.385/static/media/trello-right.16b9c9bb.svg"
+      alt="">
+    <img class="bottom-left-img"
+      src="https://aid-frontend.prod.atl-paas.net/atlassian-id/front-end/5.0.385/static/media/trello-left.7317ad1f.svg"
+      alt="">
+    <!-- <div class="bottom-right-img"></div>
+    <div class="bottom-left-img"></div> -->
     <!-- <hr />
       <details>
         <summary>
@@ -153,36 +165,37 @@ export default {
       } catch (err) {
         console.log('userStore: Error in logout', err)
       }
-    }
-  },
-  async doSignup() {
-    if (!this.signupCred.fullname || !this.signupCred.password || !this.signupCred.email) {
-      this.msg = 'Please fill up the form'
-      return
-    }
-    await this.$store.dispatch({ type: 'signup', userCred: this.signupCred })
-    this.$router.push('/board')
+    },
 
-  },
+    async doSignup() {
+      if (!this.signupCred.fullname || !this.signupCred.password || !this.signupCred.email) {
+        this.msg = 'Please fill up the form'
+        return
+      }
+      await this.$store.dispatch({ type: 'signup', userCred: this.signupCred })
+      this.$router.push('/board')
 
-  async loadUsers() {
-    try {
-      await this.$store.dispatch({ type: "loadUsers" })
-    } catch (err) {
-      console.log('userStore: Error in loadUsers', err)
+    },
 
+    async loadUsers() {
+      try {
+        await this.$store.dispatch({ type: "loadUsers" })
+      } catch (err) {
+        console.log('userStore: Error in loadUsers', err)
+
+      }
+    },
+    async removeUser(userId) {
+      try {
+        await this.$store.dispatch({ type: "removeUser", userId })
+        this.msg = 'User removed'
+      } catch (err) {
+        this.msg = 'Failed to remove user'
+      }
+    },
+    onUploaded(imgUrl) {
+      this.signupCred.imgUrl = imgUrl
     }
-  },
-  async removeUser(userId) {
-    try {
-      await this.$store.dispatch({ type: "removeUser", userId })
-      this.msg = 'User removed'
-    } catch (err) {
-      this.msg = 'Failed to remove user'
-    }
-  },
-  onUploaded(imgUrl) {
-    this.signupCred.imgUrl = imgUrl
   }
 }
 </script>
