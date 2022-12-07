@@ -11,9 +11,9 @@
         </div>
         <div class="btns-container flex align-center row  ">
             <button class="btn" :class="{ isDark: !isDark }" :style="buttonBackground" @click="filterTasks">
-                <span class="location filter-icon"></span>
+                <span class="trello-home filter-icon"></span>
                 <span class="txt">Filter</span>
-            </button> -->
+            </button>
             <div v-for="member in board.members" :key="member._id">
                 <div v-if="member.imgUrl" class="member-image" :style="memberImage(member.imgUrl)"> </div>
                 <span v-else class="member-initials">
