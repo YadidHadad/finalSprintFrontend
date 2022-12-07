@@ -112,16 +112,10 @@ export default {
             return this.$store.getters.loggedinUser
         },
         boards() {
-
             const boards = this.$store.getters.boards
-
-            if (!this.filterByTitle) return boards
-
+            if (!this.filterByTitle) return boards.slice(0, 5)
             const regex = new RegExp(this.filterByTitle, 'i');
-
-            return boards.filter(board => regex.test(board.title))
-
-
+            return boards.filter(board => regex.test(board.title)).slice(0, 5)
         },
         isDefaultBGC() {
             console.log(this.$route.params)

@@ -1,28 +1,29 @@
 <template>
   <div class="login-signup">
     <p>{{ msg }}</p>
-
-
     <div class="logo gap flex row align-center justify-center">
       <span class="fa-brands trello-icon "></span>
       <span class="">Kannban</span>
     </div>
     <section class="login-main-layout ">
-
-
-
-
       <div v-if="loggedinUser" class="user-loggedin flex column justify-center align-center gap20">
+        <div class="flex align-center member-cover ">
+          <div v-if="loggedinUser.imgUrl" class="member-image" :style="memberImage(loggedinUser.imgUrl)"> </div>
+          <span v-else class="member-initials">
+            {{ getInitials(loggedinUser.fullname) }}
+          </span>
+        </div>
         <h3>
           {{ loggedinUser.fullname }}
         </h3>
         <h2>
           {{ loggedinUser.email }}
         </h2>
-        <button class="btn login-btn" @click="doLogout">Logout</button>
+        <div class="flex gap5 column w-100">
+          <button class="btn login-btn" @click="doLogout">Back to Kannban</button>
+          <button class="btn login-btn" @click="doLogout">Logout</button>
+        </div>
       </div>
-
-
       <div v-else class="login-signup-container">
         <!-- <h1 v-else>Sign up to Kanban</h1> -->
         <form v-if="!isSignUp" @submit.prevent="doLogin">
@@ -36,7 +37,6 @@
           </div>
           <div>OR</div>
         </form>
-
         <form v-else @submit.prevent="doSignup">
           <h1>Sign up for your account</h1>
           <div class="signup-container">
@@ -51,12 +51,10 @@
           </div>
           <div>OR</div>
         </form>
-
         <button class="btn google-btn">
           <span class="icon"></span>
           Continue with Google
         </button>
-
         <GoogleLogin :callback="loginWithGoogle" />
         <hr class="bottom-form-separator">
 
@@ -79,24 +77,12 @@
     <img class="bottom-left-img"
       src="https://aid-frontend.prod.atl-paas.net/atlassian-id/front-end/5.0.385/static/media/trello-left.7317ad1f.svg"
       alt="">
-    <!-- <div class="bottom-right-img"></div>
-    <div class="bottom-left-img"></div> -->
-    <!-- <hr />
-      <details>
-        <summary>
-          Admin Section
-        </summary>
-        <ul>
-          <li v-for="user in users" :key="user._id">
-            <pre>{{ user }}</pre>
-            <button @click="removeUser(user._id)">x</button>
-          </li>
-        </ul>
-      </details> -->
   </div>
 </template>
 
 <script>
+import { utilService } from "../services/util.service";
+
 import imgUploader from '../cmps/img-uploader.vue'
 import { decodeCredential } from 'vue3-google-login'
 // import { googleTokenLogin } from "vue3-google-login"
@@ -122,6 +108,12 @@ export default {
     this.loadUsers
   },
   methods: {
+    getInitials(fullname) {
+      return utilService.getInitials(fullname);
+    },
+    memberImage(imgUrl) {
+      return { backgroundImage: `url(${imgUrl})` };
+    },
     async loginWithGoogle(res) {
       console.log(res);
       const userData = decodeCredential(res.credential)
@@ -173,20 +165,25 @@ export default {
       }
     },
 
-  },
-  loadUsers() {
-    this.$store.dispatch({ type: "loadUsers" })
-  },
-  async removeUser(userId) {
-    try {
-      await this.$store.dispatch({ type: "removeUser", userId })
-      this.msg = 'User removed'
-    } catch (err) {
-      this.msg = 'Failed to remove user'
+    loadUsers() {
+      this.$store.dispatch({ type: "loadUsers" })
+    },
+    async removeUser(userId) {
+      try {
+        await this.$store.dispatch({ type: "removeUser", userId })
+        this.msg = 'User removed'
+      } catch (err) {
+        this.msg = 'Failed to remove user'
+      }
+    },
+    onUploaded(imgUrl) {
+      this.signupCred.imgUrl = imgUrl
     }
   },
-  onUploaded(imgUrl) {
-    this.signupCred.imgUrl = imgUrl
-  }
+  watch: {
+    getLoggedInUser() {
+      console.log(this.getLoggedInUser)
+    }
+  },
 }
 </script>

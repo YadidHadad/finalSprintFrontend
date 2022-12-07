@@ -10,7 +10,8 @@
                 <span v-if="btn.txt" class="txt">{{ btn.txt }}</span>
             </button>
         </div>
-        <div class="btns-container flex align-center row  ">
+        <div class="btns-container w-100 flex align-center row wrap  ">
+            <span class="grow "></span>
             <button class="btn" :class="{ isDark: !isDark }" :style="buttonBackground" @click="filterTasks">
                 <span class="trello-home filter-icon"></span>
                 <span class="txt">Filter</span>

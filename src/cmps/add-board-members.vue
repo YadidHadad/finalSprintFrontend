@@ -1,5 +1,7 @@
 <template>
-    <section class="add-board-members">
+    <div class="screen"></div>
+
+    <section class="add-board-members" v-click-outside="close">
         <div class="add-board-members-header">
             <div>Share board</div>
             <button class="btn-close">
@@ -11,7 +13,7 @@
             <input type="text" placeholder="Email address or name" v-model="filterByName" @input="setSearchedMembers">
             <button>Share</button>
 
-            <div class="search-results">
+            <div v-if="searchedMembers" class="search-results">
                 <div class="searched-member" v-for="member in searchedMembers" @click="addMember(member)">
                     <div class="flex align-center grow">
                         <div v-if="member.imgUrl" class="member-image" :style="memberImage(member.imgUrl)"> </div>
@@ -48,6 +50,7 @@ export default {
     props: [],
     components: {},
     created() {
+
         this.debounceHandler = utilService.debounce(this.getBoardMembers, 500)
 
         // console.log(this.boardMembers)
@@ -56,7 +59,7 @@ export default {
         return {
             filterByName: '',
             searchedMembers: [],
-            membersToAdd: []
+            membersToAdd: [],
         };
     },
     methods: {
@@ -66,22 +69,7 @@ export default {
         memberImage(imgUrl) {
             return { backgroundImage: `url(${imgUrl})` };
         },
-        toggleMember(clickedMemberId) {
-            // this.$emit('toggleMember', clickedMemberId)
-            // var action
-            // const memberIdx = this.taskMembersIds.findIndex(id => {
-            //     return clickedMember._id === id
-            // })
-            // if (memberIdx < 0) {
-            //     this.taskMembersIds.push(clickedMember._id)
-            //     action = 'added'
-            // } else {
-            //     this.taskMembersIds.splice(memberIdx, 1)
-            //     action = 'removed'
-            // }
-            // this.$emit('updateMembers', 'members-edit', { memberIds: this.taskMembersIds, fullname: clickedMember.fullname, action })
 
-        },
         addMember(member) {
             this.searchedMembers = []
             this.membersToAdd.push(member)
@@ -123,7 +111,8 @@ export default {
     computed: {
 
         boardMembers() {
-            return this.$store.getters.board.members
+            const boardMembers = JSON.parse(JSON.stringify(this.$store.getters.board.members)).reverse()
+            return boardMembers.slice(0, 5)
 
         },
         users() {
