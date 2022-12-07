@@ -49,11 +49,11 @@ export const userStore = {
                 throw err
             }
         },
-        async loginWithGoogle({ context }, { email }) {
+        async loginWithGoogle({ commit }, { email }) {
             const userCred = { email, password: '' }
             try {
                 const user = await userService.login(userCred)
-                if (!user) return
+                console.log(user)
                 commit({ type: 'setLoggedinUser', userCred })
                 return user
             }

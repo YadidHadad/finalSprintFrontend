@@ -34,14 +34,12 @@
           <div>OR</div>
         </form>
 
-        <GoogleLogin :callback="loginWithGoogle">
-          <button class="btn google-btn">
-            <span class="icon"></span>
-            Continue with Google
-          </button>
-        </GoogleLogin>
+        <button class="btn google-btn">
+          <span class="icon"></span>
+          Continue with Google
+        </button>
 
-
+        <GoogleLogin :callback="loginWithGoogle"/> 
         <hr class="bottom-form-separator">
 
         <div v-if="!isSignUp" class="login-footer">
@@ -101,11 +99,12 @@ export default {
   },
   methods: {
     async loginWithGoogle(res) {
+      console.log(res);
       const userData = decodeCredential(res.credential)
       console.log("Handle the userData", userData)
-      // console.log(res.email);
       try {
         const user = await this.$store.dispatch({ type: "loginWithGoogle", email: userData.email })
+        // console.log(user);
         if (user) this.$router.push('/')
         else {
           this.isSignUp = true

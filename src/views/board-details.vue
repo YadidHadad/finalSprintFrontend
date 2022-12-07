@@ -2,7 +2,9 @@
     <section v-if="board" class="board-details flex row" :style="boardBGC">
         <section class="main flex column grow">
             <board-header :board="board" :class="{ isDark: rgb.isDark, menuIsShown: !menuIsHidden }" :rgb="rgb"
-                @toggleBoardMenu="toggleBoardMenu" />
+                @toggleBoardMenu="toggleBoardMenu" @filterTasks="filterTasks" />
+            <filter-tasks-modal v-if="showFilter" @closeFilter="(showFilter = false)"  @doFilter="doFilter"/>
+
             <group-list @addTask="addNewTask" @addGroup="addNewGroup" @removeGroup="removeGroup" :groups="board.groups"
                 :boardId="board._id" :rgb="rgb" />
         </section>
@@ -25,6 +27,7 @@ import groupList from '../cmps/group-list.vue'
 import boardNav from '../cmps/board-nav.vue'
 import boardMenu from '../cmps/board-menu.vue'
 import taskDetails from '../views/task-details.vue'
+import filterTasksModal from '../cmps/filter-tasks-modal.vue'
 
 
 const fac = new FastAverageColor();
@@ -41,6 +44,7 @@ export default {
                 value: '',
                 isDark: false,
             },
+            showFilter: false,
         }
     },
 
@@ -50,6 +54,7 @@ export default {
         groupList,
         boardMenu,
         taskDetails,
+        filterTasksModal
     },
 
     created() {
@@ -142,6 +147,13 @@ export default {
             this.menuIsHidden = !this.menuIsHidden
         },
 
+        filterTasks() {
+            this.showFilter = true
+        },
+
+        doFilter(filterBy) {
+            console.log(filterBy)
+        }
     },
 
     computed: {

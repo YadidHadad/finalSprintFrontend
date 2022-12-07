@@ -24,7 +24,7 @@
                     </div>
                     <div>
                         <span class="trellicons cover-icon"></span>
-                        <span @click.stop="updateCover(attachment.url)">Make cover</span>
+                        <span @click.stop="updateCover(attachment.url)" v-if="(attachment.type === 'image')">Make cover</span>
                     </div>
                     <attachment-actions-modal v-if="(attachment.id === attachmentEditedId)" :attachment="attachment"
                         @updateAttachment="updateAttachment" @closeModal="closeModal" />

@@ -10,7 +10,7 @@
             </button>
         </div>
         <div class="btns-container flex align-center row  ">
-            <button class="btn" :class="{ isDark: !isDark }" :style="buttonBackground">
+            <button class="btn" :class="{ isDark: !isDark }" :style="buttonBackground" @click="filterTasks">
                 <span class="location filter-icon"></span>
                 <span class="txt">Filter</span>
             </button>
@@ -68,6 +68,9 @@ export default {
             this.board.isStarred = !this.board.isStarred
             this.$store.dispatch({ type: "updateBoard", board: this.board });
         },
+        filterTasks() {
+            this.$emit('filterTasks')
+        }
 
     },
 
