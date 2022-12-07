@@ -59,7 +59,6 @@ export default {
 
     created() {
         this.setBoardId()
-
     },
 
     methods: {
@@ -178,11 +177,16 @@ export default {
 
     watch: {
         $route(to, from) {
+            console.log(to, from , '.................................');
             this.setBoardId()
         },
         style(to, from) {
             this.setBoardId()
-        }
+        },
+        board(to, from) {
+            console.log(this.$store.getters.board, 'BOASBOASHSDKLHASLKDHASJHDJSAHJKHSAJKD')
+        },
+
 
     }
 

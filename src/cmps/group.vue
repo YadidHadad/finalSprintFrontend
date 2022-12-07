@@ -7,7 +7,7 @@
                     <span class="fa-solid elipsis-icon"></span>
                 </button>
             </div>
-            <span>{{ group.tasks.length }} cards</span>
+            <span v-if=" group.tasks">{{ group.tasks.length }} cards</span>
 
             <div v-if="isMenuOpen" class=" task-editor" v-click-outside="() => isMenuOpen = false">
                 <section class=" title flex row justify-center">
@@ -100,6 +100,7 @@ export default {
             try {
                 this.tasksCopy = JSON.parse(JSON.stringify(this.group.tasks || []))
                 this.tasksCopy = this.applyDrag(this.tasksCopy, dropResult);
+                console.log(this.tasksCopy);
                 const tasks = await this.$store.dispatch({ type: 'updateTasks', payload: { tasks: this.tasksCopy, groupId: this.group.id } })
                 this.tasksCopy = JSON.parse(JSON.stringify(this.group.tasks || []))
             }

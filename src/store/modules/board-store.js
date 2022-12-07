@@ -63,7 +63,9 @@ export const boardStore = {
         },
 
         setBoard(state, { boardId }) {
+            console.log(boardId , '00000000000000000');
             const currBoard = state.boards.find(b => b._id === boardId)
+            console.log(currBoard);
             state.board = currBoard
             // console.log(currBoard);
         },
@@ -131,7 +133,7 @@ export const boardStore = {
         },
         updateGroups(state, { groups }) {
             state.board.groups = groups
-            console.log(groups);
+            // console.log(groups , '00000000000000000000000000000000000000000000000000');
             return groups
         },
         updateTasks(state, { payload }) {
@@ -204,9 +206,11 @@ export const boardStore = {
 
         async updateGroups(context, { groups }) {
             const prevGroups = context.state.board.groups
-            const newGroups = context.commit({ type: 'updateGroups', groups })
+            context.commit({ type: 'updateGroups', groups })
             try {
+                console.log(context.state.board._id , '&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
                 const board = await boardService.save(context.state.board)
+                console.log(board);
                 context.commit({ type: 'updateBoard', board })
                 context.commit({ type: 'setBoard', boardId: board._id })
                 return context.state.board.groups

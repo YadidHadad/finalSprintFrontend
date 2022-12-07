@@ -54,9 +54,9 @@ export default {
             group: {
                 id: '',
                 title: '',
-                groupsCopy: [],
                 isDrag: false
             },
+            groupsCopy: []
 
         }
     },
