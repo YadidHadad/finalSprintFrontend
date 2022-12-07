@@ -14,7 +14,7 @@
     </section>
 
     <section>
-      <img class="wave" src="src/assets/img/home-page/white-wave-bg.svg" alt="">
+      <img class="wave" src="/src/assets/img/home-page/white-wave-bg.svg" alt="">
       <div class="demo-invite flex row align-start w-100 justify-around wrap">
         <div>
           <h1>Kannban brings all your tasks, teammates, and tools together</h1>
@@ -34,7 +34,7 @@
           </div>
         </div>
 
-        <img class="img1" src="src/assets/img/home-page/home1.jpeg" alt="">
+        <img class="img1" src="/src/assets/img/home-page/home1.jpeg" alt="">
 
       </div>
     </section>
