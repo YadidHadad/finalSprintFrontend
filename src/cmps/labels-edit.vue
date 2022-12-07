@@ -7,7 +7,7 @@
         <div class="flex column">
             <input type="text" placeholder="Search labels...">
             <div class="mini-title">Labels</div>
-            <ul class="label-color-list">
+            <ul class="label-color-list flex column gap5 justify-between">
                 <li v-for="(label, index) in labels" :key="index" class="flex row align-center">
                     <input class="check-box" type="checkbox" @change="updateLabels()" v-model="labelIds"
                         :value="label.id">
@@ -29,9 +29,9 @@
                     <button @click.stop="save">Save</button>
                 </div>
             </ul>
-            <button class="create-label-btn" @click="openCreateLabel">Create a new label</button>
+            <button class="btn-remove" @click="openCreateLabel">Create a new label</button>
         </div>
-        <create-label-modal v-if="isOpenModal" @createdLabel="createdLabel" />
+        <create-label-modal v-if="isOpenModal" @createdLabel="createdLabel" @closeEdit="() => isOpenModal = false" />
     </section>
 </template>
 

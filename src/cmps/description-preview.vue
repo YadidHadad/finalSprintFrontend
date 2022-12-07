@@ -1,5 +1,5 @@
 <template>
-    <section class="desc-container">
+    <section class="desc-container" v-click-outside="descClosed">
         <div class="flex row align-center">
             <span class="trellicons desc-icon large"></span>
             <div class="task-cmp-title grow">Description</div>
@@ -32,7 +32,7 @@ export default {
     },
     methods: {
         descClosed() {
-            // console.log('outside')
+            console.log('outside********************')
             this.isDescOpen = false
         },
         updateDescription() {

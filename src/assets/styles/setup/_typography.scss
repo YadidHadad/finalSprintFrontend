@@ -68,6 +68,81 @@
     font-family: "trellicons";
     src: url(/src/assets/fonts/trellicons/trellicons.ttf);
 }
+@font-face {
+    font-family: "trello-home";
+    src: url(/src/assets/fonts/trello-home/trello-home.ttf);
+}
+
+.trello-home {
+    font-family: "trello-home";
+
+    &.board-icon::before {
+        content: "\e90f";
+    }
+    &.nav-icon::before {
+        content: "\e900";
+    }
+    &.arrow-down::before {
+        content: "\e901";
+    }
+    &.glass-icon::before {
+        content: "\e902";
+    }
+    &.bell-icon::before {
+        content: "\e903";
+    }
+    &.question-icon::before {
+        content: "\e904";
+    }
+    &.trello-icon::before {
+        content: "\e905";
+    }
+    &.member-icon::before {
+        content: "\e906";
+    }
+    &.plus-icon::before {
+        content: "\e907";
+    }
+    &.settings-icon::before {
+        content: "\e908";
+    }
+    &.elipsis-icon::before {
+        content: "\e90a";
+    }
+    &.table-icon::before {
+        content: "\e910";
+    }
+    &.calender-icon::before {
+        content: "\e911";
+    }
+    &.dashboard-icon::before {
+        content: "\e912";
+    }
+    &.timeline-icon::before {
+        content: "\e913";
+    }
+    &.location-icon::before {
+        content: "\e914";
+    }
+    &.space-icon::before {
+        content: "\e915";
+    }
+    &.filter-icon::before {
+        content: "\e916";
+    }
+    &.x-icon::before {
+        content: "\e917";
+    }
+    &.join-icon::before {
+        content: "\e918";
+    }
+    &.archive-icon::before {
+        content: "\e919";
+    }
+    &.arrow-nav::before {
+        content: "\e91a";
+    }
+}
 
 .trellicons {
     font-family: "trellicons";

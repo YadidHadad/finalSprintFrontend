@@ -6,7 +6,7 @@
         <div class="title">Copy task</div>
 
         <form class="copy-edit-main">
-            <label for="copy-input">Title</label>
+            <label class="mini-title" for="copy-input">Title</label>
             <textarea type="text" v-model="task.title" id="copy-input"></textarea>
 
             <select class="board-select" v-model="toBoardId" @change="setBoard">

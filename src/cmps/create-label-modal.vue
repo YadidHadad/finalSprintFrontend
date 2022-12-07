@@ -1,21 +1,24 @@
 <template>
-    <section class="create-label-modal">
-        <div class="create-label-header">
-            <div class="title">Edit Label</div>
-            <button class="close-btn">X</button>
+    <section class="create-label-modal task-editor">
+        <div class="create-label-header w-100">
+            <div class="title w-100">Edit Label</div>
+            <button class="btn-close" @click.stop="closeEdit">
+                <span class="trellicons x-icon"></span>
+            </button>
         </div>
         <div class="create-label-main">
             <div class="picked-color" :style="{ backgroundColor: getPickedColor }"><span>{{ title }}</span></div>
-            <p>Title</p>
+            <h4 class="mini-title">Title</h4>
             <input type="text" v-model="title">
-            <p>Select a color</p>
-            <div class="colors-container">
+
+            <h4 class="mini-title">Select a color</h4>
+            <div class="colors-container flex row wrap gap5 justify-between">
                 <div class="label-color" v-for="color in colorPallet" :style="{ backgroundColor: color }"
                     @click="(pickedColor = color)"></div>
             </div>
-            <button>x Remove color</button>
-            <button @click="save">Save</button>
-            <button>Delete</button>
+            <button class="btn-remove">Remove color</button>
+            <button class="btn-save" @click="save">Save</button>
+            <button class="btn-remove">Delete</button>
         </div>
     </section>
 </template>
@@ -36,7 +39,10 @@ export default {
     methods: {
         save() {
             this.$emit('createdLabel', { color: this.pickedColor, title: this.title })
-        }
+        },
+        closeEdit() {
+            this.$emit('closeEdit')
+        },
     },
     computed: {
         getPickedColor() {

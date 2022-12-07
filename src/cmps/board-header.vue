@@ -10,10 +10,10 @@
             </button>
         </div>
         <div class="btns-container flex align-center row  ">
-            <button class="btn" :class="{ isDark: !isDark }" :style="buttonBackground">
+            <button class="btn" :class="{ isDark: !isDark }" :style="buttonBackground" @click="filterTasks">
                 <span class="location filter-icon"></span>
                 <span class="txt">Filter</span>
-            </button>
+            </button> -->
             <div v-for="member in board.members" :key="member._id">
                 <div v-if="member.imgUrl" class="member-image" :style="memberImage(member.imgUrl)"> </div>
                 <span v-else class="member-initials">
@@ -68,6 +68,9 @@ export default {
             this.board.isStarred = !this.board.isStarred
             this.$store.dispatch({ type: "updateBoard", board: this.board });
         },
+        filterTasks() {
+            this.$emit('filterTasks')
+        }
 
     },
 
@@ -109,10 +112,16 @@ export default {
                 },
                 {
                     txt: "Board",
-                    icon: "fa-solid board-icon",
+                    icon: "trello-home board-icon",
                     function: 'setBoardStar()'
 
                 },
+                // {
+                //     txt: "Board",
+                //     icon: "fa-solid board-icon",
+                //     function: 'setBoardStar()'
+
+                // },
                 {
                     txt: "Table",
                     icon: "fa-solid table-icon",
