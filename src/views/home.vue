@@ -7,8 +7,9 @@
         <span class="">Kannban</span>
       </div>
 
-      <router-link class="login-btn" :to="'/login'">
-        Login
+
+      <router-link class="login-btn flex justify-center align-center" :to="'/login'">
+        Continue as Demo
       </router-link>
 
     </section>
@@ -26,11 +27,11 @@
                 Sign up -it's free!
               </router-link>
             </button>
-            <button class="btn-signup">
+            <!-- <button class="btn-signup">
               <router-link :to="'/board'">
                 or continue as demo
               </router-link>
-            </button>
+            </button> -->
           </div>
         </div>
 

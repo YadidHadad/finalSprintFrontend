@@ -1,9 +1,12 @@
 <template>
-  <div class="container about">
+  <div class="login-signup">
     <p>{{ msg }}</p>
 
 
-
+    <div class="logo gap flex row align-center justify-center">
+      <span class="fa-brands trello-icon "></span>
+      <span class="">Kannban</span>
+    </div>
     <section class="login-main-layout ">
 
 
