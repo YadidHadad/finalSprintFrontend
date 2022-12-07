@@ -58,7 +58,7 @@ export default {
     data() {
         return {
             filterByName: '',
-            searchedMembers: [],
+            searchedMembers: '',
             membersToAdd: [],
         };
     },
