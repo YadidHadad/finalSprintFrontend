@@ -1,7 +1,10 @@
 <template>
-  <div class="container about">
+  <div class="login-signup">
     <p>{{ msg }}</p>
-
+    <section class="logo gap flex row align-center justify-center">
+      <span class="fa-brands trello-icon "></span>
+      <span class="">Kannban</span>
+    </section>
     <section class="login-main-layout">
       <div v-if="loggedinUser">
         <h3>

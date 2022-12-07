@@ -21,11 +21,6 @@ const routes = [
     name: 'board',
     component: boardList
   },
-  // {
-  //   path: '/chat',
-  //   name: 'chat',
-  //   component: chat
-  // },
   {
     path: '/login',
     name: 'loginSignup',
@@ -36,11 +31,6 @@ const routes = [
     name: 'user-details',
     component: userDetails
   },
-  // {
-  //   path: '/task',
-  //   name: 'task-details-test',
-  //   component: taskDetailsTest
-  // },
   {
     path: '/board/:id',
     name: 'board-details',

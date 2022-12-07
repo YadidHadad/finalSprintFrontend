@@ -18,6 +18,18 @@ header {
         min-width: 32px;
         padding: 0 0.5rem;
         font-size: 20px;
+        border-radius: 3px;
+
+        span {
+            padding: none;
+        }
+        &:hover {
+            background-color: rgba($textDark, 0.2);
+
+            &.isDark {
+                background-color: rgba($textLight, 0.2);
+            }
+        }
     }
 
     .create-btn {
@@ -25,7 +37,6 @@ header {
     }
 
     .logo {
-        padding: 0 0.5rem;
         font-family: "kanit-regular";
         font-weight: bold;
     }

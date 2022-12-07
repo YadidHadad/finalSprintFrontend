@@ -7,6 +7,12 @@
     height: 100vh;
     margin: 0;
     width: 100%;
+
+    // overflow: hidden;
+}
+
+#app {
+    // overflow: hidden;
 }
 
 .app-header {
@@ -15,6 +21,7 @@
 }
 
 .app-main {
+    // overflow: hidden;
     grid-area: appMain;
 }
 
