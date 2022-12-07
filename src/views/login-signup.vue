@@ -20,7 +20,7 @@
           {{ loggedinUser.email }}
         </h2>
         <div class="flex gap5 column w-100">
-          <button class="btn login-btn" @click="doLogout">Back to Kannban</button>
+          <button class="btn login-btn" @click="$router.push('/board')">Back to Kannban</button>
           <button class="btn login-btn" @click="doLogout">Logout</button>
         </div>
       </div>
@@ -127,7 +127,7 @@ export default {
       try {
         const user = await this.$store.dispatch({ type: "login", userCred: googleUserCred })
         console.log(user);
-        if (user) this.$router.push('/')
+        if (user) this.$router.push('/board')
         // else {
         //   this.isSignUp = true
         //   this.signupCred.email = userData.email

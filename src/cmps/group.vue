@@ -34,7 +34,7 @@
         <Container class="task-preview-container flex column" orientation="vertical" @drop="onDrop"
             group-name="group-tasks" :get-child-payload="getChildPayload" :drag-class="dragClass"
             :drop-class="dragClass">
-            <Draggable class="task-preview" v-for="task in group.tasks" :key="task.id">
+            <Draggable class="task-preview" v-for="task in tasksToShow" :key="task.id">
                 <task-preview :task="task" :groupId="this.group.id" :boardId="boardId" />
             </Draggable>
 
@@ -73,6 +73,9 @@ export default {
         boardId: {
             type: String,
         },
+        filterBy: {
+            type: Object,
+        },
     },
     data() {
         return {
@@ -84,6 +87,7 @@ export default {
             isMenuOpen: false,
             newGroupTitle: JSON.parse(JSON.stringify(this.group.title)),
             tasksCopy: [],
+            tasksToShow: []
 
         }
     },
@@ -91,6 +95,8 @@ export default {
     async created() {
         console.log(this.group, '************************')
         this.tasksCopy = JSON.parse(JSON.stringify(this.group.tasks))
+        this.tasksToShow = this.group.tasks
+        
         try {
             this.debounceHandler = utilService.debounce(this.updateGroup, 500)
 
@@ -213,6 +219,16 @@ export default {
             this.$emit('removeGroup', this.group.id, JSON.parse(JSON.stringify(activity)))
         }
 
+    },
+    watch: {
+        filterBy: {
+            handler: function (val, oldVal) {
+                const regex = new RegExp(val.title, 'i');
+                this.tasksToShow = this.group.tasks.filter(task => regex.test(task.title))
+                console.log(this.tasksToShow);
+            },
+            deep: true
+        }
     },
 
     computed: {

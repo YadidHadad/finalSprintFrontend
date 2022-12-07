@@ -4,7 +4,7 @@
         :get-child-payload="getChildPayload" :drag-class="dragClass" :drop-class="dragClass">
         <Draggable id="group-details" v-for="(group, i) in groups" :key="group.id">
             <group @addTask="addTask" @updateGroup="updateGroup" @removeGroup="$emit('removeGroup', $event)"
-                :group="group" :boardId="boardId" />
+                :group="group" :boardId="boardId" :filterBy="filterBy" />
         </Draggable>
         <section class="add-new-list">
             <transition name="open">
@@ -45,6 +45,9 @@ export default {
             type: String
         },
         rgb: {
+            type: Object
+        },
+        filterBy: {
             type: Object
         }
     },

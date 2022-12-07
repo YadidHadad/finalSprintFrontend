@@ -165,7 +165,7 @@ export default {
         }
     },
     async created() {
-        this.debounceHandler = utilService.debounce(this.updateTask, 200)
+        this.debounceHandler = utilService.debounce(this.updateTask, 500)
         const { id, taskId, groupId } = this.$route.params;
         // console.log(taskId);
         try {

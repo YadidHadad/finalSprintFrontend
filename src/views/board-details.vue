@@ -6,7 +6,7 @@
             <filter-tasks-modal v-if="showFilter" @closeFilter="(showFilter = false)" @doFilter="doFilter" />
 
             <group-list @addTask="addNewTask" @addGroup="addNewGroup" @removeGroup="removeGroup" :groups="board.groups"
-                :boardId="board._id" :rgb="rgb" />
+                :boardId="board._id" :rgb="rgb" :filterBy="filterBy" />
         </section>
         <board-nav :rgb="rgb" :boards="boards" @showAddMembers="isAddBoardMembers = true"></board-nav>
         <board-menu :menuIsHidden="menuIsHidden" :activities="board.activities" @toggleBoardMenu="toggleBoardMenu" />
@@ -47,6 +47,8 @@ export default {
             },
             showFilter: false,
             isAddBoardMembers: false,
+            tasksToShow: [],
+            filterBy: {},
         }
     },
 
@@ -166,7 +168,8 @@ export default {
         },
 
         doFilter(filterBy) {
-            console.log(filterBy)
+            this.filterBy = filterBy
+            // console.log(filterBy)
         },
         toggleMember(memberId) {
             console.log(memberId);
