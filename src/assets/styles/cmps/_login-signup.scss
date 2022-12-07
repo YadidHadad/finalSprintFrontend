@@ -25,15 +25,29 @@
     transform: translateX(-50%);
     background-color: $textLight;
     position: relative;
-    // border-radius: 3px;
-    // // height: 92vh;
-    // position: relative;
-    // overflow: hidden;
-    // top: 0;
 
-    // > * {
-    //     grid-column: 2;
-    // }
+    .member-cover {
+        // background-color: #0079bf;
+        // height: 500px;
+        .member-image {
+            background-size: cover;
+            background-position: center;
+            border-radius: 50%;
+            margin-inline-end: 0.5rem;
+            height: 5rem;
+            width: 5rem;
+            aspect-ratio: 1/1;
+            box-shadow: inset 0px -1px 0px rgb(0 0 0 / 33%);
+        }
+
+        .member-initials {
+            @include btn($type: "initials");
+            height: 5rem;
+            aspect-ratio: 1/1;
+            margin-inline-end: 0.5rem;
+            box-shadow: inset 0px -1px 0px rgb(0 0 0 / 33%);
+        }
+    }
 }
 
 .user-loggedin {
@@ -57,6 +71,10 @@
         border-radius: 3px;
         padding: 0.5rem;
         width: 100%;
+
+        &:last-of-type {
+            background-color: #bbbbbb;
+        }
     }
 }
 
