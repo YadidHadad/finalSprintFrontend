@@ -81,6 +81,9 @@ import { decodeCredential } from 'vue3-google-login'
 // import { googleTokenLogin } from "vue3-google-login"
 export default {
   name: 'login-signup',
+  components: {
+    imgUploader
+  },
   data() {
     return {
       msg: '',
@@ -181,11 +184,5 @@ export default {
   onUploaded(imgUrl) {
     this.signupCred.imgUrl = imgUrl
   }
-},
-
-components: {
-  imgUploader,
-  
-  }
-
+}
 </script>
