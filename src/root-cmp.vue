@@ -4,7 +4,7 @@
     <main v-if="boards" class="app-main">
       <router-view @setRGB="setRGB" />
     </main>
-    <app-header :rgb="getRGB" @logout="logout"/>
+    <app-header v-if="isLoggedin" :rgb="getRGB" @logout="logout" />
   </section>
 </template>
 
@@ -21,6 +21,7 @@ import { userService } from './services/user.service'
 
 export default {
   async created() {
+    console.log(this.$route)
     console.log('Vue App created')
     const user = userService.getLoggedinUser()
     console.log(`user:`, user)
@@ -69,6 +70,10 @@ export default {
     },
     boards() {
       return this.$store.getters.boards
+    },
+    isLoggedin() {
+      return this.$route.path !== '/login'
+
     }
 
   },
