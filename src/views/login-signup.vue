@@ -45,7 +45,7 @@
           Continue with Google
         </button>
 
-        <GoogleLogin :callback="loginWithGoogle"/> 
+        <GoogleLogin :callback="loginWithGoogle" />
         <hr class="bottom-form-separator">
 
         <div v-if="!isSignUp" class="login-footer">
@@ -107,7 +107,7 @@ export default {
     },
   },
   created() {
-    this.loadUsers()
+    this.loadUsers
   },
   methods: {
     async loginWithGoogle(res) {
@@ -170,14 +170,8 @@ export default {
     this.$router.push('/board')
 
   },
-
-  async loadUsers() {
-    try {
-      await this.$store.dispatch({ type: "loadUsers" })
-    } catch (err) {
-      console.log('userStore: Error in loadUsers', err)
-
-    }
+  loadUsers() {
+    this.$store.dispatch({ type: "loadUsers" })
   },
   async removeUser(userId) {
     try {

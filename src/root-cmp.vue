@@ -18,8 +18,6 @@ import userMsg from './cmps/user-msg.vue'
 
 import { userService } from './services/user.service'
 
-
-
 export default {
   async created() {
     console.log(this.$route)
@@ -27,9 +25,7 @@ export default {
     const user = userService.getLoggedinUser()
     console.log(`user:`, user)
     if (user) store.commit({ type: 'setLoggedinUser', user })
-    // socketService.on('something-changed',)
-
-
+  
     try {
       await this.$store.dispatch({ type: 'loadBoards' })
       // console.log(this.boards)
@@ -45,10 +41,12 @@ export default {
       isDark: false
     }
   },
+
   components: {
     appHeader,
     userMsg
   },
+  
   methods: {
     setRGB(rgb) {
       this.rgb = rgb

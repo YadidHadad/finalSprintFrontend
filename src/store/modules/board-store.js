@@ -86,10 +86,13 @@ export const boardStore = {
         },
 
         updateTask(state, { payload }) {
-            console.log(payload, 'PAYLLOADDDDD');
+            console.log(payload.task, 'PAYLLOADDDDD');
             state.editedTask = payload.task
             const group = state.board.groups.find(g => g.id === payload.groupId)
+            console.log(group.tasks);
+            
             const taskIdx = group.tasks.findIndex(task => task.id === payload.task.id)
+            console.log(taskIdx);
             group.tasks.splice(taskIdx, 1, payload.task)
             // return payload.task
         },
@@ -314,6 +317,7 @@ export const boardStore = {
         },
 
         async addTask(context, { boardId, groupId, task, activity }) {
+            console.log('task.id',task.id )
             // console.log(boardId, groupId, task, activity);
             const prevBoard = JSON.parse(JSON.stringify(context.state.boards.find(board => board._id === boardId)))
 

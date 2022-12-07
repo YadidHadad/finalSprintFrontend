@@ -126,7 +126,7 @@
         width: 100%;
         // position: relative;
         // justify-content: space-between;
-        align-items: center;
+        align-content: center;
         // height: rem(35px);
         height: fit-content;
 
@@ -141,10 +141,16 @@
             }
         }
 
+        .desc-icon{
+            height: fit-content;
+        }
+
         .task-todos {
             align-items: center;
             border-radius: 3px;
             width: fit-content;
+            padding: 0 rem(3px);
+            height: fit-content;
 
             :not(:first-of-type) {
                 font-size: rem(12px);

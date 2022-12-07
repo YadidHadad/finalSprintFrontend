@@ -5,7 +5,7 @@
         <section v-if="task.labelIds" class="labels-preview">
             <ul class="clean-list flex">
                 <li :title="(label.title)" @click.stop="togglePreviewLabels" v-for="label in labels" :key="label.id"
-                    :style="{ backgroundColor: label.color, height: isPreviewLabelsOpen ? '17px' : '', transition: isPreviewLabelsOpen ? 'all 0.7s' : 'all 0.7s', filter: !isPreviewLabelsOpen ? 'saturate(10)' : 'saturate(3)' }">
+                    :style="{ backgroundColor: label.color, height: isPreviewLabelsOpen ? '17px' : '', transition: isPreviewLabelsOpen ? 'all 0.7s' : 'all 0.7s', filter: !isPreviewLabelsOpen ? 'saturate(5)' : 'saturate(3)' }">
                     <div v-if="isPreviewLabelsOpen" :style="{ backgroundColor: label.color }" class="color-circle">
                     </div>
                     <span v-if="isPreviewLabelsOpen">{{ label.title }}</span>
@@ -17,14 +17,14 @@
             <h3>{{ task.title }}</h3>
         </div>
         <section class="task-preview-icons flex wrap justify-between gap2">
-            <div class="flex row gap">
+            <div class="flex row gap align-center">
                 <div v-if="task.dueDate" class="task-date-preview flex">
                     <span class="trellicons icon-clock"></span>
                     <span class="date-str">{{ getDueDateStr }}</span>
                 </div>
-                <span v-if="task.description" class="trellicons desc-icon"></span>
+                <span v-if="task.description" class="trellicons desc-icon" title="This card has a description"></span>
                 <div v-if="taskTodosLength" class="task-todos flex"
-                    :style="{ backgroundColor: allTodosDone, color: allTodosDone ? '#fdfefd' : '' }">
+                    :style="{ backgroundColor: allTodosDone, color: allTodosDone ? '#fdfefd' : '' }" title="Checklist items">
                     <span class="trellicons checklist-icon"></span>
                     <span>{{ taskDoneTodos }}/{{ taskTodosLength }}</span>
                 </div>
