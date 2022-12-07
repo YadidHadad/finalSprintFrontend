@@ -1,6 +1,6 @@
 <template>
     <section v-if="board" class="board-header flex row align-center justify-between wrap">
-        <div class="flex align-center justify-start wrap">
+        <div class="flex align-center  wrap">
             <input type="text" v-model="board.title" :style="titleLength" @input="debounceHandler"
                 @keyup.enter="($event) => $event.target.blur()" />
 
@@ -10,7 +10,7 @@
                 <span v-if="btn.txt" class="txt">{{ btn.txt }}</span>
             </button>
         </div>
-        <div class="btns-container w-100 flex align-center row wrap  ">
+        <div class="btns-container shrink  flex align-center row wrap justify-end  ">
             <span class="grow "></span>
             <button class="btn" :class="{ isDark: !isDark }" :style="buttonBackground" @click="filterTasks">
                 <span class="trello-home filter-icon"></span>
