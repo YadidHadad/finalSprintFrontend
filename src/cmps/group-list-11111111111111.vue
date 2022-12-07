@@ -1,6 +1,7 @@
 <template>
     <section class="group-list flex">
-        <group @addTask="addTask" @removeGroup="$emit('removeGroup', $event)" v-for="group in groups" :group="group" :boardId="boardId" :key="group.id" />
+        <group @addTask="addTask" @removeGroup="$emit('removeGroup', $event)" v-for="group in groups" :group="group"
+            :boardId="boardId" :key="group.id" />
         <section class="add-new-list">
             <transition name="slide-in">
                 <button class="open-add-list" v-if="!isFormOpen" @click="toggleForm"><span
@@ -8,7 +9,8 @@
             </transition>
             <transition name="slide-out">
                 <form v-if="isFormOpen" @submit.prevent="addGroup" class="flex group-list-form">
-                    <input v-model="group.title" type="text" name="add-list" placeholder="Enter list title..." v-focus>
+                    <input v-model="group.title" type="text" name="add-list" placeholder="Enter list title..." v-focus
+                        @keyup.enter="($event) => $event.target.blur()">
                     <div class="add-list-btns flex">
                         <button class="add-list-btn">Add list</button>
                         <button type="button" @click="toggleForm"><span class="fa-solid x-icon"></span></button>

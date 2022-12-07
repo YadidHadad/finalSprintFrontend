@@ -9,7 +9,7 @@
             </div>
 
             <input type="search" list="locations" id="location" placeholder="Search Google Maps" v-model="locTxt"
-                @input="debounceHandler">
+                @input="debounceHandler" @keyup.enter="($event) => $event.target.blur()">
             <div class="btn-remove" v-for="locCords in locsCords" :value="locCords.name"
                 @click="updateLocation(locCords)">
                 {{ locCords.name }}

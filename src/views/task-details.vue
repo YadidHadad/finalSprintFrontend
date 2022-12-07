@@ -13,7 +13,8 @@
         <section class="task-header task-cmp flex column align-start">
             <div class="flex row align-center">
                 <span class="trellicons card-icon large"></span>
-                <input v-model="title" @input="debounceHandler('title', title)" />
+                <input v-model="title" @input="debounceHandler('title', title)"
+                    @keyup.enter="($event) => $event.target.blur()" />
             </div>
             <div class="flex column pad-40">
                 <span class="small">In list <span class="underline">{{ getGroupName }}</span></span>

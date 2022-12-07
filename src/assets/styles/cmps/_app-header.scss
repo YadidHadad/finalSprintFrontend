@@ -20,6 +20,9 @@ header {
         font-size: 20px;
         border-radius: 3px;
 
+        &:last-of-type {
+            margin-inline-start: -9px;
+        }
         span {
             padding: none;
         }
@@ -34,11 +37,6 @@ header {
 
     .create-btn {
         @include btn($type: regular);
-    }
-
-    .logo {
-        font-family: "charlie-regular";
-        font-weight: bold;
     }
 
     & * {
@@ -152,6 +150,7 @@ header {
             padding: 0 0.5rem;
             height: 2rem;
 
+            div,
             img {
                 height: 14px;
                 width: 20px;

@@ -6,7 +6,7 @@
         </div>
         <div class="modal-main">
             <div>Link name</div>
-            <input type="text" v-model="name">
+            <input type="text" v-model="name" @keyup.enter="($event) => $event.target.blur()">
 
             <button @click="updateAttachment">Update</button>
         </div>
