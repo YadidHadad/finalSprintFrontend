@@ -14,6 +14,38 @@
             </div>
             <div class="members-filter">
                 <p>Members</p>
+                <label for="no-members">
+                    <input id="no-members" type="checkbox" @change="toggleIsNoMembers">
+                    <div>
+                        <span>
+
+                        </span>
+                        No members
+                    </div>
+                </label>
+                <label for="self-assign">
+                    <input id="self-assign" type="checkbox"  @change="toggleIsAssignToMe">
+                    <div>
+                        <span>
+
+                        </span>
+                        Cards assigned to me
+                    </div>
+                </label>
+                <!-- <label for="task-members">
+                    <input id="task-members" type="checkbox"> -->
+                <div @click="isShowMembers = !isShowMembers">
+                    Select members
+                    <span>
+                        >
+                    </span>
+
+                    <div class="board-members" v-for="member in members" v-if="isShowMembers"
+                        @click="toggleMember(member._id)">
+                        {{ member.fullname }}
+                    </div>
+                </div>
+                <!-- </label> -->
             </div>
         </div>
     </section>
@@ -24,17 +56,39 @@ export default {
     data() {
         return {
             filterBy: {
-                title: ''
-            }
+                title: '',
+                membersIds: [],
+                isNoMembers: false,
+                isAssignToMe: false
+            },
+            isShowMembers: false,
         }
     },
     methods: {
         doFilter() {
             this.$emit('doFilter', this.filterBy)
         },
+        toggleIsNoMembers() {
+            this.filterBy.isNoMembers = !this.filterBy.isNoMembers
+            // console.log(this.filterBy.isNoMembers)
+            this.$emit('doFilter', this.filterBy)
+        },
+        toggleIsAssignToMe() {
+            this.filterBy.isAssignToMe = !this.filterBy.isAssignToMe
+            this.$emit('doFilter', this.filterBy)
+        },
         close() {
             this.$emit('closeFilter')
+        },
+        toggleMember(id) {
+            const memberIdx = this.membersIds.findIndex(memberId => memberId === id)
+            memberIdx === -1 ? this.membersIds.push(id) : this.membersIds.splice(memberIdx, 1)
         }
     },
+    computed: {
+        members() {
+            return this.$store.getters.board.members
+        }
+    }
 }
 </script>

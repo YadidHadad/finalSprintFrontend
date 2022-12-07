@@ -222,9 +222,13 @@ export default {
     },
     watch: {
         filterBy: {
-            handler: function (val, oldVal) {
-                const regex = new RegExp(val.title, 'i');
+            handler: function (filterBy, oldVal) {
+                const regex = new RegExp(filterBy.title, 'i');
                 this.tasksToShow = this.group.tasks.filter(task => regex.test(task.title))
+                if(filterBy.isNoMembers) 
+                    this.tasksToShow = this.tasksToShow.filter(task => !task.memberIds?.length)
+                if(filterBy.isAssignToMe)
+                    this.tasksToShow = this.tasksToShow.filter(task => task.memberIds?.includes(this.user._id))
                 console.log(this.tasksToShow);
             },
             deep: true
