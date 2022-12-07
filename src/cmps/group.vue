@@ -33,7 +33,7 @@
         <Container class="task-preview-container flex column" orientation="vertical" @drop="onDrop"
             group-name="group-tasks" :get-child-payload="getChildPayload" :drag-class="dragClass"
             :drop-class="dragClass">
-            <Draggable v-if="group.tasks.length !== 0" class="task-preview" v-for="task in group.tasks" :key="task.id">
+            <Draggable class="task-preview" v-for="task in group.tasks" :key="task.id">
                 <task-preview :task="task" :groupId="this.group.id" :boardId="boardId" />
             </Draggable>
 
@@ -80,14 +80,15 @@ export default {
                 title: '',
             },
             isMenuOpen: false,
-            newGroupTitle: JSON.parse(JSON.stringify(this.group.title))
+            newGroupTitle: JSON.parse(JSON.stringify(this.group.title)),
+            tasksCopy: [],
 
         }
     },
 
     async created() {
         console.log(this.group, '************************')
-        this.tasksCopy = JSON.parse(JSON.stringify(this.group.tasks || []))
+        this.tasksCopy = JSON.parse(JSON.stringify(this.group.tasks))
         try {
             this.debounceHandler = utilService.debounce(this.updateGroup, 200)
 
@@ -98,11 +99,13 @@ export default {
 
     methods: {
         async onDrop(dropResult) {
+            console.log(dropResult)
             try {
                 this.tasksCopy = JSON.parse(JSON.stringify(this.group.tasks || []))
-                this.tasksCopy = this.applyDrag(this.tasksCopy, dropResult);
-                console.log(this.tasksCopy);
+                this.tasksCopy = this.applyDrag(this.tasksCopy, dropResult)
+                console.log('Tasks Copy', this.tasksCopy)
                 const tasks = await this.$store.dispatch({ type: 'updateTasks', payload: { tasks: this.tasksCopy, groupId: this.group.id } })
+                console.log('*****************', tasks)
                 this.tasksCopy = JSON.parse(JSON.stringify(this.group.tasks || []))
             }
             catch (prevGroups) {
@@ -110,15 +113,18 @@ export default {
             }
         },
         applyDrag(arr, dragResult) {
-            const { removedIndex, addedIndex, payload } = dragResult;
+            const { removedIndex, addedIndex, payload } = dragResult
+            console.log('PAYLOAD', payload)
 
             if (removedIndex === null && addedIndex === null) return arr;
             const result = [...arr];
             // console.log(result);
             let itemToAdd = payload;
+            if (payload === null) return
 
             if (removedIndex !== null) {
                 itemToAdd = result.splice(removedIndex, 1)[0];
+                console.log('ITEM-TO-ADD', itemToAdd)
             }
             if (addedIndex !== null && removedIndex !== null) {
                 // console.log(itemToAdd);
@@ -128,6 +134,7 @@ export default {
                 // console.log(this.tasksCopy);
             }
             else if (addedIndex !== null) result.splice(addedIndex, 0, itemToAdd.itemToMove);
+            console.log('RESULT', result)
             return result;
         },
         getShouldAcceptDrop(index, sourceContainerOptions, payload) {
@@ -135,7 +142,12 @@ export default {
         },
 
         getChildPayload(index) {
-            console.log(this.tasksCopy);
+            console.log('get child copy', index)
+
+            this.tasksCopy = JSON.parse(JSON.stringify(this.group.tasks))
+
+            console.log('get child copy', this.tasksCopy);
+
             return {
                 itemToMove: this.tasksCopy[index]
             }
@@ -166,7 +178,7 @@ export default {
             this.isMenuOpen = !this.isMenuOpen;
         },
         addTask() {
-            console.log('******************************', this.user)
+            // console.log('******************************', this.user)
             if (!this.currTask.title) return
             const activity = {
                 id: '',
@@ -178,6 +190,9 @@ export default {
                 },
                 task: this.currTask
             }
+
+            this.currTask.id = utilService.makeId()
+            console.log('******************************', this.currTask)
             this.$emit('addTask', this.group.id, { ...this.currTask }, JSON.parse(JSON.stringify(activity)))
             this.currTask.title = ''
         },

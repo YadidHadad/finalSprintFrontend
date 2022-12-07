@@ -5,13 +5,17 @@
 
 
     <section class="login-main-layout ">
+
+
+
+
       <div v-if="loggedinUser" class="user-loggedin flex column justify-center align-center gap20">
         <h3>
           {{ loggedinUser.fullname }}
         </h3>
-        <h3>
+        <h2>
           {{ loggedinUser.email }}
-        </h3>
+        </h2>
         <button class="btn login-btn" @click="doLogout">Logout</button>
       </div>
 
@@ -159,15 +163,7 @@ export default {
       } catch (err) {
         console.log('userStore: Error in logout', err)
       }
-    }
-  },
-  async doSignup() {
-    if (!this.signupCred.fullname || !this.signupCred.password || !this.signupCred.email) {
-      this.msg = 'Please fill up the form'
-      return
-    }
-    await this.$store.dispatch({ type: 'signup', userCred: this.signupCred })
-    this.$router.push('/board')
+    },
 
   },
   loadUsers() {

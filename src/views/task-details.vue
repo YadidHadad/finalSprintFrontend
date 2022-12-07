@@ -22,7 +22,7 @@
 
         <section class="task-details-aside ">
             <section class="flex column">
-                <button class="btn btn-join" @click="pickEditor(btn.arg)">
+                <button v-if="!isUserOnTask" class="btn btn-join" @click.stop="toggleMember()">
                     <span class="trello-home  join-icon"></span>
                     <span>Join</span>
                 </button>
@@ -428,7 +428,29 @@ export default {
                 //     taskId: this.task.id,
                 // },
             })
-        }
+        },
+        toggleMember() {
+            const user = this.user
+            const memberIds = JSON.parse(JSON.stringify(this.getTask.memberIds || []))
+            console.log(user)
+            console.log(memberIds)
+            console.log('********************')
+            var action
+            const memberIdx = memberIds.findIndex(id => {
+                return user._id === id
+            })
+            if (memberIdx < 0) {
+                memberIds.push(user._id)
+                action = 'added'
+            } else {
+                memberIds.splice(memberIdx, 1)
+                action = 'removed'
+            }
+
+            this.updateTask('members-edit', { memberIds: memberIds, fullname: user.fullname, action })
+            // this.$emit('updateMembers', 'members-edit', { memberIds: memberIds, fullname: user.fullname, action })
+
+        },
     },
     computed: {
         getLabels() {
@@ -462,6 +484,14 @@ export default {
 
             // return JSON.parse(JSON.stringify(this.$store.getters.getEditedTask)).title
         },
+        isUserOnTask() {
+            const memberIds = JSON.parse(JSON.stringify(this.getTask.memberIds || []))
+
+            const idx = memberIds.findIndex(id => id === this.user._id)
+            return idx === -1 ? false : true
+
+
+        }
     },
 
 };
