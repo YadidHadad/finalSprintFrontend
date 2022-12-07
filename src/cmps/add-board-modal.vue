@@ -71,7 +71,7 @@ export default {
             const key = "unsplashDB";
 
             if (!localStorage.getItem(key)) console.log(this.searchTxt);
-            let apiUrl = `https://api.unsplash.com/search/photos?query=${this.searchTxt ? this.searchTxt : "pretty"
+            let apiUrl = `https://api.unsplash.com/search/photos?query=${this.searchTxt ? this.searchTxt : "landscape"
                 }&orientation=landscape&per_page=1200&client_id=${this.clientId}`;
             axios(apiUrl).then(({ data }) => {
                 this.imgUrls = data.results.map((res) => res.urls.full).slice(0, 4);
