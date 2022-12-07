@@ -242,6 +242,12 @@ export const boardStore = {
             }
         },
 
+        async addMember(context , {member}) {
+            const newBoard = JSON.parse(JSON.stringify(context.state.board))
+            newBoard.members.push(member)
+            context.dispatch({ type: 'updateBoard', board: newBoard })
+        },
+
         async updateTasks(context, { payload }) {
             const { groupId, tasks } = payload
             // console.log(payload);

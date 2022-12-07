@@ -8,8 +8,20 @@
         </div>
 
         <div class="add-board-members-search">
-            <input type="text" placeholder="Email address or name">
+            <input type="text" placeholder="Email address or name" v-model="filterByName" @input="setSearchedMembers">
             <button>Share</button>
+
+            <div class="search-results">
+                <div class="searched-member" v-for="member in searchedMembers" @click="addMember(member)">
+                    <div class="flex align-center grow">
+                        <div v-if="member.imgUrl" class="member-image" :style="memberImage(member.imgUrl)"> </div>
+                        <span v-else class="member-initials">
+                            {{ getInitials(member.fullname) }}
+                        </span>
+                        <span class="fullname">{{ member.fullname + " " }}</span>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="board-members">
@@ -42,9 +54,9 @@ export default {
     },
     data() {
         return {
-            boardMembers: null,
-            taskMembersIds: this.$store.getters.getEditedTask.memberIds,
             filterByName: '',
+            searchedMembers: [],
+            membersToAdd: []
         };
     },
     methods: {
@@ -55,34 +67,53 @@ export default {
             return { backgroundImage: `url(${imgUrl})` };
         },
         toggleMember(clickedMemberId) {
-            this.$emit('toggleMember', clickedMemberId)
-            var action
-            const memberIdx = this.taskMembersIds.findIndex(id => {
-                return clickedMember._id === id
-            })
-            if (memberIdx < 0) {
-                this.taskMembersIds.push(clickedMember._id)
-                action = 'added'
-            } else {
-                this.taskMembersIds.splice(memberIdx, 1)
-                action = 'removed'
-            }
-            this.$emit('updateMembers', 'members-edit', { memberIds: this.taskMembersIds, fullname: clickedMember.fullname, action })
+            // this.$emit('toggleMember', clickedMemberId)
+            // var action
+            // const memberIdx = this.taskMembersIds.findIndex(id => {
+            //     return clickedMember._id === id
+            // })
+            // if (memberIdx < 0) {
+            //     this.taskMembersIds.push(clickedMember._id)
+            //     action = 'added'
+            // } else {
+            //     this.taskMembersIds.splice(memberIdx, 1)
+            //     action = 'removed'
+            // }
+            // this.$emit('updateMembers', 'members-edit', { memberIds: this.taskMembersIds, fullname: clickedMember.fullname, action })
 
         },
-        // isMemberInTask(memberId) {
-        //     if (!this.taskMembersIds) return
-        //     return this.taskMembersIds.includes(memberId)
-        // },
-        // getBoardMembers() {
-        //     // console.log('members')
-        //     const boardMembers = JSON.parse(JSON.stringify(this.$store.getters.members))
+        addMember(member) {
+            this.searchedMembers = []
+            this.membersToAdd.push(member)
+            this.$emit('addMember', member)
+        },
+        isMemberInBoard(memberId) {
+            console.log(this.boardMembers);
+            if (!this.boardMembers.length) return
+            const member = this.boardMembers.find(member => member._id === memberId)
+            return member !== -1
+        },
+        setSearchedMembers() {
+            console.log(this.filterByName);
+            if (!this.filterByName) {
+                this.searchedMembers = []
+                return
+            }
+            // console.log('members')
+            const boardMembers = JSON.parse(JSON.stringify(this.$store.getters.members))
 
-        //     const regex = new RegExp(this.filterByName, 'i');
+            const regex = new RegExp(this.filterByName, 'i');
 
-        //     this.boardMembers = boardMembers.filter(member => regex.test(member.fullname))
+            this.searchedMembers = this.users.filter(user => {
+                if (this.boardMembersIds.includes(user._id))
+                    return false
+                return regex.test(user.fullname)
+            })
+            console.log(this.searchedMembers);
+            console.log(this.users);
+            console.log(this.boardMembersIds);
 
-        // },
+        },
         close() {
             this.$emit('close')
         }
@@ -96,12 +127,16 @@ export default {
 
         },
         users() {
+            console.log(this.$store.getters.users);
             return this.$store.getters.users
         },
         noSearchResults() {
             return !this.boardMembers.length
 
         },
+        boardMembersIds() {
+            return this.$store.getters.board.members.map(member => member._id)
+        }
 
 
     },
