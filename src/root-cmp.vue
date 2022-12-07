@@ -25,6 +25,7 @@ export default {
     const user = userService.getLoggedinUser()
     console.log(`user:`, user)
     if (user) store.commit({ type: 'setLoggedinUser', user })
+    // socketService.on('something-changed',)
 
 
     try {
