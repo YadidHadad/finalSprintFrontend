@@ -70,6 +70,13 @@ export const boardStore = {
             // console.log(currBoard);
         },
 
+        setPushedBoard(state, { board }) {
+            console.log('IN STORE PUSH BOARD');
+            const boardIdx = state.boards.findIndex(b => b._id === board._id)
+            state.boards.splice(boardIdx, 1, board)
+            state.board = board
+        },
+
         addBoard(state, { board }) {
             console.log(board)
             state.boards.push(board)
@@ -149,7 +156,7 @@ export const boardStore = {
             return tasks
         },
         addTask(state, { payload }) {
-            const {task , groupId} = payload
+            const { task, groupId } = payload
             const groupIdx = state.board.groups.findIndex((group) => group.id === groupId)
             // console.log(groupIdx, '>>>>>>>>>>>>>>');
             if (!state.board.groups[groupIdx].tasks) state.board.groups[groupIdx].tasks = []
@@ -324,7 +331,7 @@ export const boardStore = {
             try {
                 context.commit({ type: 'addTask', payload: { task, groupId } })
                 context.commit({ type: 'addActivity', activity })
-                const updatedBoard = await context.dispatch({ type: 'updateBoard', board : context.state.board })
+                const updatedBoard = await context.dispatch({ type: 'updateBoard', board: context.state.board })
                 return updatedBoard
             } catch (err) {
                 context.commit({ type: 'updateBoard', prevBoard })

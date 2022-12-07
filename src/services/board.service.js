@@ -42,6 +42,7 @@ async function save(board) {
     if (board._id) {
         console.log(board._id)
         savedBoard = await httpService.put(`${BOARD_URL}${board._id}`, board)
+        socketService.emit('board updated', board)
     } else {
         // Later, owner is set by the backend
         board.createdBy = userService.getLoggedinUser()
@@ -128,19 +129,19 @@ async function addBoardActivity(boardId, txt) {
 }
 
 
-;(() => {
+// ;(() => {
 
-    setTimeout(()=>{
-      socketService.on(SOCKET_EVENT_ACTIVITY_ADDED, (activity) => {
-        console.log('GOT from socket', activity)
-        store.commit({type: 'addActivity', activity})
-      })
-    //   socketService.on(SOCKET_EVENT_REVIEW_ABOUT_YOU, (review) => {
-    //     showSuccessMsg(`New review about me ${review.txt}`)
-    //   })
-    }, 0)
+//     setTimeout(()=>{
+//       socketService.on(SOCKET_EVENT_ACTIVITY_ADDED, (activity) => {
+//         console.log('GOT from socket', activity)
+//         store.commit({type: 'addActivity', activity})
+//       })
+//     //   socketService.on(SOCKET_EVENT_REVIEW_ABOUT_YOU, (review) => {
+//     //     showSuccessMsg(`New review about me ${review.txt}`)
+//     //   })
+//     }, 0)
   
-  })()
+//   })()
 
 
 

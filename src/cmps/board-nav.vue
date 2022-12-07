@@ -7,7 +7,7 @@
                     class="fa-solid arrow-icon"></span></button>
         </div>
 
-        <button v-for="(btn, i) in btns" class="btn-nav flex align-center" :class="{ isDark: isDark }">
+        <button v-for="(btn, i) in btns" class="btn-nav flex align-center" :class="{ isDark: isDark }" @click="openView(btn.txt)">
             <span :class="btn.icon"></span>
             <span>{{ btn.txt }}</span>
         </button>
@@ -64,6 +64,16 @@ export default {
         }
     },
     methods: {
+        openView(view) {
+            switch (view) {
+                case 'Boards':
+                    this.$router.push('/board')
+                    break
+                case 'Members':
+                    this.$emit('showAddMembers')
+                    break
+            }
+        },
         toggleBoardNav() {
             this.navIsHidden = !this.navIsHidden
         },

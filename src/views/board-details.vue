@@ -3,7 +3,7 @@
         <section class="main flex column grow">
             <board-header :board="board" :class="{ isDark: rgb.isDark, menuIsShown: !menuIsHidden }" :rgb="rgb"
                 @toggleBoardMenu="toggleBoardMenu" @filterTasks="filterTasks" />
-            <filter-tasks-modal v-if="showFilter" @closeFilter="(showFilter = false)"  @doFilter="doFilter"/>
+            <filter-tasks-modal v-if="showFilter" @closeFilter="(showFilter = false)" @doFilter="doFilter" />
 
             <group-list @addTask="addNewTask" @addGroup="addNewGroup" @removeGroup="removeGroup" :groups="board.groups"
                 :boardId="board._id" :rgb="rgb" />
@@ -12,7 +12,7 @@
         <board-menu :menuIsHidden="menuIsHidden" :activities="board.activities" @toggleBoardMenu="toggleBoardMenu" />
         <!-- <router-view class="task-details-view"></router-view> -->
     </section>
-
+    <!-- <add-board-members v-if="isAddBoardMembers" @close="(isAddBoardMembers=false)" @toggleMember="toggleMember"/> -->
     <task-details v-if="this.$route.params.taskId" />
 </template>
 
@@ -21,6 +21,7 @@
 import { boardService } from '../services/board.service.local'
 import { boardStore } from '../store/modules/board-store'
 import { FastAverageColor } from 'fast-average-color'
+import { socketService } from '../services/socket.service'
 
 import boardHeader from '.././cmps/board-header.vue'
 import groupList from '../cmps/group-list.vue'
@@ -28,7 +29,7 @@ import boardNav from '../cmps/board-nav.vue'
 import boardMenu from '../cmps/board-menu.vue'
 import taskDetails from '../views/task-details.vue'
 import filterTasksModal from '../cmps/filter-tasks-modal.vue'
-
+import addBoardMembers from '../cmps/add-board-members.vue'
 
 const fac = new FastAverageColor();
 
@@ -45,6 +46,7 @@ export default {
                 isDark: false,
             },
             showFilter: false,
+            isAddBoardMembers: false,
         }
     },
 
@@ -54,11 +56,14 @@ export default {
         groupList,
         boardMenu,
         taskDetails,
-        filterTasksModal
+        filterTasksModal,
+        addBoardMembers
     },
 
     created() {
         this.setBoardId()
+        socketService.emit('new board enter', this.board._id)
+        socketService.on('board pushed', this.pushedBoard)
     },
 
     methods: {
@@ -83,6 +88,10 @@ export default {
             } catch (err) {
                 console.log(err)
             }
+        },
+        pushedBoard(board) {
+            console.log('hiiiiii board details');
+            this.$store.commit({ type: 'setPushedBoard', board })
         },
         async avgColor() {
 
@@ -152,6 +161,9 @@ export default {
 
         doFilter(filterBy) {
             console.log(filterBy)
+        },
+        toggleMember(memberId) {
+            console.log(memberId);
         }
     },
 
@@ -174,17 +186,14 @@ export default {
             return this.$store.getters.board?.style
         }
     },
-
     watch: {
         $route(to, from) {
-            console.log(to, from , '.................................');
+            console.log(to, from, '.................................');
             this.setBoardId()
+            socketService.emit('New board enter', this.board._id)
         },
         style(to, from) {
             this.setBoardId()
-        },
-        board(to, from) {
-            console.log(this.$store.getters.board, 'BOASBOASHSDKLHASLKDHASJHDJSAHJKHSAJKD')
         },
 
 
