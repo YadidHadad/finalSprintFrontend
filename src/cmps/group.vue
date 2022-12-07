@@ -7,7 +7,7 @@
                     <span class="fa-solid elipsis-icon"></span>
                 </button>
             </div>
-            <span v-if=" group.tasks">{{ group.tasks.length }} cards</span>
+            <span v-if="group.tasks">{{ group.tasks.length }} cards</span>
 
             <div v-if="isMenuOpen" class=" task-editor" v-click-outside="() => isMenuOpen = false">
                 <section class=" title flex row justify-center">
@@ -33,7 +33,7 @@
         <Container class="task-preview-container flex column" orientation="vertical" @drop="onDrop"
             group-name="group-tasks" :get-child-payload="getChildPayload" :drag-class="dragClass"
             :drop-class="dragClass">
-            <Draggable class="task-preview" v-for="task in group.tasks" :key="task.id">
+            <Draggable v-if="group.tasks.length !== 0" class="task-preview" v-for="task in group.tasks" :key="task.id">
                 <task-preview :task="task" :groupId="this.group.id" :boardId="boardId" />
             </Draggable>
 
@@ -86,6 +86,7 @@ export default {
     },
 
     async created() {
+        console.log(this.group, '************************')
         this.tasksCopy = JSON.parse(JSON.stringify(this.group.tasks || []))
         try {
             this.debounceHandler = utilService.debounce(this.updateGroup, 200)

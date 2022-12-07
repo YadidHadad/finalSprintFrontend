@@ -22,6 +22,10 @@
 
         <section class="task-details-aside ">
             <section class="flex column">
+                <button class="btn btn-join" @click="pickEditor(btn.arg)">
+                    <span class="trello-home  join-icon"></span>
+                    <span>Join</span>
+                </button>
                 <h4>Add to card</h4>
                 <button v-for="btn in addBtns" :key="btn.arg" class="btn" @click="pickEditor(btn.arg)">
                     <span :class="btn.icon"></span>

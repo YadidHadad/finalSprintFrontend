@@ -40,7 +40,7 @@
     }
     border-radius: 3px;
     min-height: 600px;
-    & * :not(.trellicons):not(.fa-regular):not(.fa-solid) {
+    & * :not(.trellicons):not(.fa-regular):not(.fa-solid):not(.trello-home) {
         font-family: "segoe-regular";
     }
 
@@ -74,14 +74,16 @@
         }
         .btn {
             @include btn($type: "task-details");
-
+            .trello-home,
+            .fa-regular,
             .trellicons {
                 top: 0;
                 margin-inline-end: 1rem;
+                font-size: 1rem;
             }
-            .fa-regular {
-                top: 0;
-                margin-inline-end: 1rem;
+
+            &-join {
+                margin-block-end: 1rem;
             }
 
             &:hover {
