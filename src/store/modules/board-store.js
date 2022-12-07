@@ -157,6 +157,7 @@ export const boardStore = {
         },
         addTask(state, { payload }) {
             const { task, groupId } = payload
+            console.log('**********************', task)
             const groupIdx = state.board.groups.findIndex((group) => group.id === groupId)
             // console.log(groupIdx, '>>>>>>>>>>>>>>');
             if (!state.board.groups[groupIdx].tasks) state.board.groups[groupIdx].tasks = []
@@ -242,7 +243,7 @@ export const boardStore = {
             }
         },
 
-        async addMember(context , {member}) {
+        async addMember(context, { member }) {
             const newBoard = JSON.parse(JSON.stringify(context.state.board))
             newBoard.members.push(member)
             context.dispatch({ type: 'updateBoard', board: newBoard })

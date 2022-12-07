@@ -130,6 +130,7 @@ export default {
         async addNewTask(groupId, task, activity) {
             // var board = JSON.parse(JSON.stringify(this.board))
             const boardId = this.board._id
+            console.log('********************************', task)
             try {
                 await this.$store.dispatch({ type: 'addTask', boardId, groupId, task, activity })
             }

@@ -88,13 +88,13 @@ export default {
             this.$emit('addMember', member)
         },
         isMemberInBoard(memberId) {
-            console.log(this.boardMembers);
+            // console.log(this.boardMembers);
             if (!this.boardMembers.length) return
             const member = this.boardMembers.find(member => member._id === memberId)
             return member !== -1
         },
         setSearchedMembers() {
-            console.log(this.filterByName);
+            // console.log(this.filterByName);
             if (!this.filterByName) {
                 this.searchedMembers = []
                 return
@@ -109,9 +109,9 @@ export default {
                     return false
                 return regex.test(user.fullname)
             })
-            console.log(this.searchedMembers);
-            console.log(this.users);
-            console.log(this.boardMembersIds);
+            // console.log(this.searchedMembers);
+            // console.log(this.users);
+            // console.log(this.boardMembersIds);
 
         },
         close() {
@@ -127,7 +127,7 @@ export default {
 
         },
         users() {
-            console.log(this.$store.getters.users);
+            // console.log(this.$store.getters.users);
             return this.$store.getters.users
         },
         noSearchResults() {

@@ -64,7 +64,7 @@ export default {
     },
     methods: {
         print() {
-            console.log(this.$refs.title.value)
+            // console.log(this.$refs.title.value)
             this.title = this.$refs.title.value
         },
         getPhotos() {
@@ -76,7 +76,7 @@ export default {
             axios(apiUrl).then(({ data }) => {
                 this.imgUrls = data.results.map((res) => res.urls.full).slice(0, 4);
 
-                console.log(this.imgUrls);
+                // console.log(this.imgUrls);
             });
         },
         updateCover(background) {
@@ -87,16 +87,14 @@ export default {
             this.$emit("closeEdit");
         },
         addBoard() {
-            this.$emit("addBoard", { title: this.title, bcg: this.bcg });
+            this.$emit("addBoard", { title: this.title, bcg: this.bcg, members: [{ _id: this.user._id, fullname: this.user.fullname, imgUrl: this.user.imgUrl }] });
         },
 
     },
     computed: {
-        // isTitle() {
-        //     console.log(this.$refs.title)
-        //     // if (!this.$refs.title.value) return true
-        //     // else return false
-        // }
+        user() {
+            return this.$store.getters.loggedinUser;
+        },
     },
 };
 </script>

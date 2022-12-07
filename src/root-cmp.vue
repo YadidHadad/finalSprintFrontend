@@ -22,7 +22,7 @@ import { userService } from './services/user.service'
 
 export default {
   async created() {
-    console.log(this.$route)
+    // console.log(this.$route)
     console.log('Vue App created')
     const user = userService.getLoggedinUser()
     console.log(`user:`, user)
@@ -56,7 +56,7 @@ export default {
       this.isDark = rgb.isDark
     },
     async logout() {
-      console.log('hiiiiiiiiiiii');
+      // console.log('hiiiiiiiiiiii');
       try {
         await this.$store.dispatch({ type: 'logout' })
         this.$router.push('/login')

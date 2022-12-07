@@ -431,7 +431,7 @@ export default {
         },
         toggleMember() {
             const user = this.user
-            const memberIds = JSON.parse(JSON.stringify(this.getTask.memberIds))
+            const memberIds = JSON.parse(JSON.stringify(this.getTask.memberIds || []))
             console.log(user)
             console.log(memberIds)
             console.log('********************')
@@ -485,8 +485,9 @@ export default {
             // return JSON.parse(JSON.stringify(this.$store.getters.getEditedTask)).title
         },
         isUserOnTask() {
+            const memberIds = JSON.parse(JSON.stringify(this.getTask.memberIds || []))
 
-            const idx = this.getTask.memberIds.findIndex(id => id === this.user._id)
+            const idx = memberIds.findIndex(id => id === this.user._id)
             return idx === -1 ? false : true
 
 

@@ -54,7 +54,8 @@ export default {
             group: {
                 id: '',
                 title: '',
-                isDrag: false
+                isDrag: false,
+                tasks: [],
             },
             groupsCopy: []
 
@@ -125,6 +126,7 @@ export default {
             if (!this.group.title) return
             this.$emit('addGroup', { ...this.group }, activity)
             this.group.title = ''
+            // this.group.tasks = []
         },
         updateGroup(group, activity) {
             // console.log('fhgfhghgfgf');
@@ -133,6 +135,7 @@ export default {
             this.$store.dispatch({ type: 'updateGroup', group, activity })
         },
         addTask(groupId, task, activity) {
+            console.log('**************************', task)
             this.$emit('addTask', groupId, task, activity)
         }
     },

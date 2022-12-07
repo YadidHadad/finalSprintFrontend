@@ -6,7 +6,8 @@
                     class="fa-solid arrow-icon"></span></button>
         </div>
 
-        <button v-for="(btn, i) in btns" class="btn-nav flex align-center" :class="{ isDark: isDark }" @click="openView(btn.txt)">
+        <button v-for="(btn, i) in btns" class="btn-nav flex align-center" :class="{ isDark: isDark }"
+            @click="openView(btn.txt)">
             <span :class="btn.icon"></span>
             <span>{{ btn.txt }}</span>
         </button>
@@ -89,13 +90,14 @@ export default {
             if (style.bgColor) return { backgroundColor: style.bgColor }
             return { backgroundImage: `url(${style.backgroundImage})` }
         },
-        async addBoard({ bcg, title }) {
+        async addBoard({ bcg, title, members }) {
             if (bcg.startsWith('#')) {
                 this.boardToAdd.style = { bgColor: bcg }
             } else {
                 this.boardToAdd.style = { backgroundImage: bcg }
             }
             this.boardToAdd.title = title
+            this.boardToAdd.members = members
             this.isAddBoard = false
             try {
                 await this.$store.dispatch({ type: 'addBoard', board: this.boardToAdd })

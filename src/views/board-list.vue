@@ -85,13 +85,14 @@ export default {
     }
   },
   methods: {
-    async addBoard({ bcg, title }) {
+    async addBoard({ bcg, title, members }) {
       if (bcg.startsWith('#')) {
         this.boardToAdd.style = { bgColor: bcg }
       } else {
         this.boardToAdd.style = { backgroundImage: bcg }
       }
       this.boardToAdd.title = title
+      this.boardToAdd.members = members
       this.isAddBoard = false
       try {
         await this.$store.dispatch({ type: 'addBoard', board: this.boardToAdd })
