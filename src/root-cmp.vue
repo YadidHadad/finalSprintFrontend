@@ -55,7 +55,6 @@ export default {
     async logout() {
       // console.log('hiiiiiiiiiiii');
       try {
-        await this.$store.dispatch({ type: 'logout' })
         this.$router.push('/login')
       }
       catch (err) {
