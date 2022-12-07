@@ -109,10 +109,16 @@ export default {
                 },
                 {
                     txt: "Board",
-                    icon: "fa-solid board-icon",
+                    icon: "trello-home board-icon",
                     function: 'setBoardStar()'
 
                 },
+                // {
+                //     txt: "Board",
+                //     icon: "fa-solid board-icon",
+                //     function: 'setBoardStar()'
+
+                // },
                 {
                     txt: "Table",
                     icon: "fa-solid table-icon",
