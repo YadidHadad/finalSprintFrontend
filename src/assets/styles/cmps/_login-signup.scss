@@ -8,6 +8,8 @@
     >* {
         grid-column: 2;
     }
+
+    position:relative;
 }
 
 .bottom-right-img,
@@ -93,18 +95,16 @@
     }
 }
 
-// .g-btn-wrapper {
-//     display: flex;
-//     flex-direction: column;
-// }
+.g-btn-wrapper {
+    position: absolute;
+    right: 366px;
+    bottom: 120px;
+    opacity: 0;
+}
 
-// .nsm7Bb-HzV7m-LgbsSe {
-//     display: none;
-//     box-shadow: rgb(0 0 0 / 20%) 1px 1px 5px 0px !important;
-//     display: flex;
-//     align-items: center;
-//     justify-content: center;
-// }
+.g-btn {
+
+}
 
 .google-btn {
     box-shadow: rgb(0 0 0 / 20%) 1px 1px 5px 0px !important;

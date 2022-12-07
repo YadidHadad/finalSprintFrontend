@@ -10,6 +10,7 @@ import rootCmp from './root-cmp.vue'
 import VueGeolocation from "vue3-geolocation";
 import GMaps from "vuejs3-google-maps";
 import vue3GoogleLogin from 'vue3-google-login'
+import GAuth from 'vue3-google-oauth2'
 
 import {
     focusDirective,
@@ -36,4 +37,7 @@ app.use(GMaps, {
 app.use(vue3GoogleLogin, {
     clientId: '1026456709194-stf9r3fts802im0jhpnst7qntrpq49of.apps.googleusercontent.com'
 })
+const gAuthOptions = { clientId: '1026456709194-stf9r3fts802im0jhpnst7qntrpq49of.apps.googleusercontent.com', scope: 'email', prompt: 'consent', fetch_basic_profile: false }
+app.use(GAuth, gAuthOptions)
+
 app.mount('#app')
