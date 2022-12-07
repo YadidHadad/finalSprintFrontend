@@ -1,9 +1,12 @@
 <template>
-  <div class="container about">
+  <div class="login-signup">
     <p>{{ msg }}</p>
 
 
-
+    <div class="logo gap flex row align-center justify-center">
+      <span class="fa-brands trello-icon "></span>
+      <span class="">Kannban</span>
+    </div>
     <section class="login-main-layout ">
 
 
@@ -25,8 +28,10 @@
         <form v-if="!isSignUp" @submit.prevent="doLogin">
           <h1>Log in to Kanban</h1>
           <div class="login-container">
-            <input type="text" placeholder="Enter email" v-model="loginCred.email">
-            <input type="text" placeholder="Enter password" v-model="loginCred.password">
+            <input type="text" placeholder="Enter email" v-model="loginCred.email"
+              @keyup.enter="($event) => $event.target.blur()">
+            <input type="text" placeholder="Enter password" v-model="loginCred.password"
+              @keyup.enter="($event) => $event.target.blur()">
             <button class="btn login-btn">Log in</button>
           </div>
           <div>OR</div>
@@ -35,9 +40,12 @@
         <form v-else @submit.prevent="doSignup">
           <h1>Sign up for your account</h1>
           <div class="signup-container">
-            <input type="text" placeholder="Enter full name" v-model="signupCred.fullname">
-            <input type="text" placeholder="Enter email" v-model="signupCred.email">
-            <input type="text" placeholder="Enter password" v-model="signupCred.password">
+            <input type="text" placeholder="Enter full name" v-model="signupCred.fullname"
+              @keyup.enter="($event) => $event.target.blur()">
+            <input type="text" placeholder="Enter email" v-model="signupCred.email"
+              @keyup.enter="($event) => $event.target.blur()">
+            <input type="text" placeholder="Enter password" v-model="signupCred.password"
+              @keyup.enter="($event) => $event.target.blur()">
             <!-- <img-uploader @uploaded="onUploaded"></img-uploader> -->
             <button class="btn login-btn">Sign up</button>
           </div>

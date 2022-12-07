@@ -22,7 +22,8 @@
             <img v-else v-for="index in 12" :key="index" :src="imgUrls[index]" @click="updateCover(imgUrls[index])">
         </div>
 
-        <input type="text" placeholder="Search Photos..." @input="debounceHandler" v-model="searchTxt">
+        <input type="text" placeholder="Search Photos..." @input="debounceHandler" v-model="searchTxt"
+            @keyup.enter="($event) => $event.target.blur()">
     </section>
 </template>
 

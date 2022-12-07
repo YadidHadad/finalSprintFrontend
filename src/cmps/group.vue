@@ -2,7 +2,8 @@
     <div class="group flex column">
         <div class="main-title flex column justify-between">
             <div class="flex row align-center justify-between w-100">
-                <input v-model="newGroupTitle" @input="updateGroup(this.newGroupTitle)" />
+                <input v-model="newGroupTitle" @input="debounceHandler"
+                    @keyup.enter="($event) => $event.target.blur()" />
                 <button class="btn-menu" @click="toggleMenu">
                     <span class="fa-solid elipsis-icon"></span>
                 </button>
@@ -43,7 +44,8 @@
                 </button>
                 <form class="add-card-form flex" v-if="isCardOpen" @submit.prevent="addTask">
                     <textarea v-model="currTask.title" type="textarea" name="add-task" rows="4"
-                        placeholder="Enter a title for this card..." v-focus></textarea>
+                        placeholder="Enter a title for this card..." v-focus
+                        @keyup.enter="($event) => $event.target.blur()"></textarea>
                     <div class="add-list-btns flex">
                         <button class="add-list-btn">Add card</button>
                         <button type="button" @click.stop="toggleCard">
@@ -90,7 +92,7 @@ export default {
         console.log(this.group, '************************')
         this.tasksCopy = JSON.parse(JSON.stringify(this.group.tasks))
         try {
-            this.debounceHandler = utilService.debounce(this.updateGroup, 200)
+            this.debounceHandler = utilService.debounce(this.updateGroup, 500)
 
         } catch (err) {
             console.log(err);
@@ -153,6 +155,7 @@ export default {
             }
         },
         updateGroup() {
+            if (!this.newGroupTitle) return
             const activity = {
                 id: '',
                 txt: `Update Group: ${this.group.title}`,
@@ -163,10 +166,9 @@ export default {
                 },
                 // task: this.task
             }
-            if (!this.group.title) return
             const group = JSON.parse(JSON.stringify(this.group))
             group.title = this.newGroupTitle
-            console.log('hgfhgfhgfdgfdgfdgd');
+            console.log(group);
             this.$emit('updateGroup', group, activity)
         },
 

@@ -6,7 +6,8 @@
         <div class="title flex justify-center">
             <span>Members</span>
         </div>
-        <input type="search" placeholder="Search members" v-model="filterByName" @input="debounceHandler" />
+        <input type="search" placeholder="Search members" v-model="filterByName" @input="debounceHandler"
+            @keyup.enter="($event) => $event.target.blur()" />
         <span class="mini-title">Board members</span>
         <section class="members-container">
             <div v-for="member in boardMembers" :key="member._id" class="member">

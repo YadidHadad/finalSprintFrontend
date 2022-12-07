@@ -9,7 +9,7 @@
                 </div>
                 <textarea v-else class="checklist-title-input task-cmp-title grow" v-if="editedChecklists[index]"
                     @input="editChecklistTitle(checklist, $event)" @focus="pickChecklist(checklist)"
-                    :value="editedChecklist.title">
+                    :value="editedChecklist.title" @keyup.enter="($event) => $event.target.blur()">
                     </textarea>
                 <button v-if="!editedChecklist" class="btn-delete "
                     @click.stop="removeChecklist(checklist.id)">Remove</button>
@@ -30,7 +30,8 @@
                 <form class="todos-container flex column " @change="debounceHandler(checklist)">
                     <div class="todo-container flex row w-100 align-start" v-for="todo in checklist.todos"
                         :key="todo.id">
-                        <input type="checkbox" v-model="doneTodosIds" @change="toggleTodo(todo.id)" :value="todo.id">
+                        <input type="checkbox" v-model="doneTodosIds" @change="toggleTodo(todo.id)" :value="todo.id"
+                            @keyup.enter="($event) => $event.target.blur()">
                         <span class="checkmark"></span>
                         <div class="todo-edit-container" @click="todoEditId = todo.id">
                             <div v-if="(todoEditId !== todo.id)" class="grow" :class="{ 'line-through': todo.isDone }">
@@ -39,7 +40,7 @@
                                 }}</div>
                             <div class="todo-edit flex column gap2" v-else>
                                 <textarea class="checklist-title-input todo-title-input task-cmp-title grow"
-                                    v-model="todo.title">
+                                    v-model="todo.title" @keyup.enter="($event) => $event.target.blur()">
                                 </textarea>
                                 <div class="todo-edit-btns flex row gap5">
                                     <button class="btn-save" @click.stop="updateTodo">Save</button>
@@ -64,7 +65,8 @@
                     @click="(checklistPicked = checklist.id)">Add an
                     item</button>
                 <div v-else-if="checklist.id === checklistPicked" class="add-todo pad-40 flex column">
-                    <textarea placeholder="Add an item" v-model="todoTxt"></textarea>
+                    <textarea placeholder="Add an item" v-model="todoTxt"
+                        @keyup.enter="($event) => $event.target.blur()"></textarea>
                     <div>
                         <button class="btn-save" @click="saveTodo(checklist)">Save</button>
                         <button class="close-btn" @click="checklistPicked = false">Cancel</button>

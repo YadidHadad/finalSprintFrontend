@@ -5,7 +5,7 @@
         </button>
         <div class="title">Labels</div>
         <div class="flex column">
-            <input type="text" placeholder="Search labels...">
+            <input type="text" placeholder="Search labels..." @keyup.enter="($event) => $event.target.blur()">
             <div class="mini-title">Labels</div>
             <ul class="label-color-list flex column gap5 justify-between">
                 <li v-for="(label, index) in labels" :key="index" class="flex row align-center">
@@ -25,7 +25,8 @@
                         </svg></span>
                 </li>
                 <div v-if="isEditTitle" class="edit-title-container">
-                    <input type="text" placeholder="Enter title..." v-model="colorEdited.title">
+                    <input type="text" placeholder="Enter title..." v-model="colorEdited.title"
+                        @keyup.enter="($event) => $event.target.blur()">
                     <button @click.stop="save">Save</button>
                 </div>
             </ul>

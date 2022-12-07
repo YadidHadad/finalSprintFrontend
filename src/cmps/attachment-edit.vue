@@ -15,11 +15,12 @@
         </div>
         <div class="attachment-link">
             <h4 class="mini-title">Attach a link</h4>
-            <input type="text" placeholder="Paste any link here" v-model="url">
+            <input type="text" placeholder="Paste any link here" v-model="url"
+                @keyup.enter="($event) => $event.target.blur()">
 
             <div v-if="url" class="link-name">
                 <div>Link name (optional)</div>
-                <input type="text" v-model="name">
+                <input type="text" v-model="name" @keyup.enter="($event) => $event.target.blur()">
             </div>
 
             <button class="btn-remove" @click="attachLink">Attach</button>

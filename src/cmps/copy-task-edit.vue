@@ -7,7 +7,8 @@
 
         <form class="copy-edit-main">
             <label class="mini-title" for="copy-input">Title</label>
-            <textarea type="text" v-model="task.title" id="copy-input"></textarea>
+            <textarea type="text" v-model="task.title" id="copy-input"
+                @keyup.enter="($event) => $event.target.blur()"></textarea>
 
             <select class="board-select" v-model="toBoardId" @change="setBoard">
                 <option v-for="board in getBoards" :key="board._id" :value="board._id">{{ board.title }}</option>
