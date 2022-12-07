@@ -14,13 +14,13 @@
                 <span class="trello-home glass-icon"></span>
 
                 <input type="search" v-model="filterByTitle" placeholder="Search" @focus="(isInputInFocus = true)"
-                    v-click-outside="outOfFocus">
+                    v-click-outside="outOfFocus" @keyup.enter="outOfFocus">
                 <div v-if="isInputInFocus" class="search-results flex column">
                     <div class="title">RECENT BOARDS</div>
                     <router-link v-for="board in boards" :key="board._id" :to="('/board/' + board._id)"
                         class="search-result flex row align-center gap">
                         <img v-if="board.style.backgroundImage" class="" :src="board.style.backgroundImage" />
-                        <div v-else :src="board.style.bgColor"></div>
+                        <div v-else :style="{ backgroundColor: board.style.bgColor }"></div>
                         <span>{{ board.title }}</span>
                         <span>Trello workspace</span>
 

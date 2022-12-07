@@ -2,12 +2,14 @@
     height: calc(100vh - 44px);
 
     .logo {
-        font-family: "charlie-regular";
-        font-weight: bold;
-
+        margin-block-start: -2rem;
+        margin-block-end: 1rem;
         font-size: 3rem;
-        margin-bottom: 2rem;
 
+        font-family: "charlie-bold";
+        span {
+            color: #0079bf;
+        }
         span:last-of-type {
             color: #253858;
         }

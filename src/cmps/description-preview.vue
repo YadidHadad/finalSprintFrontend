@@ -6,7 +6,7 @@
         </div>
         <div class="pad-40 flex column">
             <textarea placeholder="Add a more detailed description..." v-model="description" @focus="isDescOpen = true"
-                :class="{ 'desc-open': isDescOpen }">
+                :class="{ 'desc-open': isDescOpen }" @keyup.enter="($event) => $event.target.blur()">
                         {{ description }}
                     </textarea>
             <div class="desc-btns" v-if="isDescOpen">

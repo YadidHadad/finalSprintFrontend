@@ -11,8 +11,11 @@
     position: relative;
     background-size: cover;
     position: relative;
-    filter: brightness(0.7);
-    box-shadow: inset 0px 0px 20px 0px black;
+    backdrop-filter: brightness(0.3);
+    // box-shadow: inset 0px 0px 20px 0px black;
+    .board-title {
+        z-index: 80px;
+    }
 
     & * :not(.trellicons) {
         font-family: "segoe-bold";

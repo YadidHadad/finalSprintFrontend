@@ -7,14 +7,15 @@
         <span class="">Kannban</span>
       </div>
 
-      <router-link class="login-btn" :to="'/login'">
-        Login
+
+      <router-link class="login-btn flex justify-center align-center" :to="'/login'">
+        Continue as Demo
       </router-link>
 
     </section>
 
     <section>
-      <img class="wave" src="src/assets/img/home-page/white-wave-bg.svg" alt="">
+      <img class="wave" src="/src/assets/img/home-page/white-wave-bg.svg" alt="">
       <div class="demo-invite flex row align-start w-100 justify-around wrap">
         <div>
           <h1>Kannban brings all your tasks, teammates, and tools together</h1>
@@ -26,15 +27,15 @@
                 Sign up -it's free!
               </router-link>
             </button>
-            <button class="btn-signup">
+            <!-- <button class="btn-signup">
               <router-link :to="'/board'">
                 or continue as demo
               </router-link>
-            </button>
+            </button> -->
           </div>
         </div>
 
-        <img class="img1" src="src/assets/img/home-page/home1.jpeg" alt="">
+        <img class="img1" src="/src/assets/img/home-page/home1.jpeg" alt="">
 
       </div>
     </section>
