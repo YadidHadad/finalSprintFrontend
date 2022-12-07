@@ -2,14 +2,20 @@
   <div class="container about">
     <p>{{ msg }}</p>
 
-    <section class="login-main-layout">
-      <div v-if="loggedinUser">
+
+
+    <section class="login-main-layout ">
+      <div v-if="loggedinUser" class="user-loggedin flex column justify-center align-center gap20">
         <h3>
-          Loggedin User:
           {{ loggedinUser.fullname }}
-          <button @click="doLogout">Logout</button>
         </h3>
+        <h3>
+          {{ loggedinUser.email }}
+        </h3>
+        <button class="btn login-btn" @click="doLogout">Logout</button>
       </div>
+
+
       <div v-else class="login-signup-container">
         <!-- <h1 v-else>Sign up to Kanban</h1> -->
         <form v-if="!isSignUp" @submit.prevent="doLogin">
@@ -55,8 +61,14 @@
         </div>
       </div>
     </section>
-    <div class="bottom-right-img"></div>
-    <div class="bottom-left-img"></div>
+    <img class="bottom-right-img"
+      src="https://aid-frontend.prod.atl-paas.net/atlassian-id/front-end/5.0.385/static/media/trello-right.16b9c9bb.svg"
+      alt="">
+    <img class="bottom-left-img"
+      src="https://aid-frontend.prod.atl-paas.net/atlassian-id/front-end/5.0.385/static/media/trello-left.7317ad1f.svg"
+      alt="">
+    <!-- <div class="bottom-right-img"></div>
+    <div class="bottom-left-img"></div> -->
     <!-- <hr />
       <details>
         <summary>
@@ -141,36 +153,42 @@ export default {
         this.msg = 'Failed to login'
       }
     },
-    doLogout() {
-      this.$store.dispatch({ type: 'logout' })
-    },
-    async doSignup() {
-      if (!this.signupCred.fullname || !this.signupCred.password || !this.signupCred.email) {
-        this.msg = 'Please fill up the form'
-        return
-      }
-      await this.$store.dispatch({ type: 'signup', userCred: this.signupCred })
-      this.$router.push('/board')
-
-    },
-    loadUsers() {
-      console.log('hiiiii');
-      this.$store.dispatch({ type: "loadUsers" })
-    },
-    async removeUser(userId) {
+    async doLogout() {
       try {
-        await this.$store.dispatch({ type: "removeUser", userId })
-        this.msg = 'User removed'
+        await this.$store.dispatch({ type: 'logout' })
       } catch (err) {
-        this.msg = 'Failed to remove user'
+        console.log('userStore: Error in logout', err)
       }
-    },
-    onUploaded(imgUrl) {
-      this.signupCred.imgUrl = imgUrl
     }
   },
-  components: {
-    imgUploader,
+  async doSignup() {
+    if (!this.signupCred.fullname || !this.signupCred.password || !this.signupCred.email) {
+      this.msg = 'Please fill up the form'
+      return
+    }
+    await this.$store.dispatch({ type: 'signup', userCred: this.signupCred })
+    this.$router.push('/board')
+
+  },
+
+  async loadUsers() {
+    try {
+      await this.$store.dispatch({ type: "loadUsers" })
+    } catch (err) {
+      console.log('userStore: Error in loadUsers', err)
+
+    }
+  },
+  async removeUser(userId) {
+    try {
+      await this.$store.dispatch({ type: "removeUser", userId })
+      this.msg = 'User removed'
+    } catch (err) {
+      this.msg = 'Failed to remove user'
+    }
+  },
+  onUploaded(imgUrl) {
+    this.signupCred.imgUrl = imgUrl
   }
 }
 </script>
