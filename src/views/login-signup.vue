@@ -117,28 +117,28 @@ export default {
     async loginWithGoogle(res) {
       console.log(res);
       const userData = decodeCredential(res.credential)
-      console.log("Handle the userData", userData)
+      const googleUserCred = {
+        email: userData.email,
+        fullname: userData.name,
+        imgUrl: userData.picture,
+        password: '',
+        isGoogleUser: true
+      }
       try {
-        const user = await this.$store.dispatch({ type: "loginWithGoogle", email: userData.email })
-        // console.log(user);
+        const user = await this.$store.dispatch({ type: "login", userCred: googleUserCred })
+        console.log(user);
         if (user) this.$router.push('/')
-        else {
-          this.isSignUp = true
-          this.signupCred.email = userData.email
-          this.signupCred.imgUrl = userData.picture
-        }
+        // else {
+        //   this.isSignUp = true
+        //   this.signupCred.email = userData.email
+        //   this.signupCred.imgUrl = userData.picture
+        // }
       }
       catch (err) {
         console.log(err)
         this.msg = 'Failed to login'
       }
     },
-    // googleLoginPopup() {
-    //   googleTokenLogin().then((response) => {
-    //     console.log("Handle the response", response)
-    //     this.loginWithGoogle(response)
-    //   })
-    // },
     setUserImg(imgUrl) {
       console.log(imgUrl);
     },

@@ -7,9 +7,11 @@
         font-size: 3rem;
 
         font-family: "charlie-bold";
+
         span {
             color: #0079bf;
         }
+
         span:last-of-type {
             color: #253858;
         }
@@ -53,10 +55,12 @@
 .user-loggedin {
     padding: 1rem;
     border-radius: 3px;
+
     h3 {
         font-size: 2rem;
         color: #5e6c84;
     }
+
     h2 {
         font-family: "charlie-light";
 
@@ -161,13 +165,12 @@
 
 .g-btn-wrapper {
     position: absolute;
-    right: 366px;
+    right: 93px;
     bottom: 120px;
     opacity: 0;
 }
 
-.g-btn {
-}
+.g-btn {}
 
 .google-btn {
     box-shadow: rgb(0 0 0 / 20%) 1px 1px 5px 0px !important;
