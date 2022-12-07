@@ -1,10 +1,7 @@
 <template>
-  <div class="login-signup">
+  <div class="container about">
     <p>{{ msg }}</p>
-    <section class="logo gap flex row align-center justify-center">
-      <span class="fa-brands trello-icon "></span>
-      <span class="">Kannban</span>
-    </section>
+
     <section class="login-main-layout">
       <div v-if="loggedinUser">
         <h3>
@@ -42,7 +39,7 @@
           Continue with Google
         </button>
 
-        <GoogleLogin :callback="loginWithGoogle" />
+        <GoogleLogin :callback="loginWithGoogle"/> 
         <hr class="bottom-form-separator">
 
         <div v-if="!isSignUp" class="login-footer">
@@ -81,9 +78,6 @@ import { decodeCredential } from 'vue3-google-login'
 // import { googleTokenLogin } from "vue3-google-login"
 export default {
   name: 'login-signup',
-  components: {
-    imgUploader
-  },
   data() {
     return {
       msg: '',
@@ -147,42 +141,36 @@ export default {
         this.msg = 'Failed to login'
       }
     },
-    async doLogout() {
-      try {
-        await this.$store.dispatch({ type: 'logout' })
-      } catch (err) {
-        console.log('userStore: Error in logout', err)
+    doLogout() {
+      this.$store.dispatch({ type: 'logout' })
+    },
+    async doSignup() {
+      if (!this.signupCred.fullname || !this.signupCred.password || !this.signupCred.email) {
+        this.msg = 'Please fill up the form'
+        return
       }
-    }
-  },
-  async doSignup() {
-    if (!this.signupCred.fullname || !this.signupCred.password || !this.signupCred.email) {
-      this.msg = 'Please fill up the form'
-      return
-    }
-    await this.$store.dispatch({ type: 'signup', userCred: this.signupCred })
-    this.$router.push('/board')
+      await this.$store.dispatch({ type: 'signup', userCred: this.signupCred })
+      this.$router.push('/board')
 
-  },
-
-  async loadUsers() {
-    try {
-      await this.$store.dispatch({ type: "loadUsers" })
-    } catch (err) {
-      console.log('userStore: Error in loadUsers', err)
-
+    },
+    loadUsers() {
+      console.log('hiiiii');
+      this.$store.dispatch({ type: "loadUsers" })
+    },
+    async removeUser(userId) {
+      try {
+        await this.$store.dispatch({ type: "removeUser", userId })
+        this.msg = 'User removed'
+      } catch (err) {
+        this.msg = 'Failed to remove user'
+      }
+    },
+    onUploaded(imgUrl) {
+      this.signupCred.imgUrl = imgUrl
     }
   },
-  async removeUser(userId) {
-    try {
-      await this.$store.dispatch({ type: "removeUser", userId })
-      this.msg = 'User removed'
-    } catch (err) {
-      this.msg = 'Failed to remove user'
-    }
-  },
-  onUploaded(imgUrl) {
-    this.signupCred.imgUrl = imgUrl
+  components: {
+    imgUploader,
   }
 }
 </script>
