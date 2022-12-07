@@ -1,6 +1,5 @@
 <template>
-    <section class="board-nav flex column wrap" :style="style"
-        :class="{ isDark: isDark }, { navIsHidden: navIsHidden }">
+    <section class="board-nav flex column " :style="style" :class="{ isDark: isDark }, { navIsHidden: navIsHidden }">
         <div class="nav-title flex row align-center justify-between" :class="{ isDark: isDark }">
             <span>Workspace</span>
             <button class="btn-regular btn-toggle" @click="toggleBoardNav" :class="{ isDark: isDark }"> <span
@@ -15,12 +14,17 @@
             <span>Your Boards</span>
             <button class="btn-regular" @click="isAddBoard = true"> <span class="fa-regular plus-icon"></span></button>
         </div>
-        <button v-for="board in boards" :key="board._id" class="btn-nav"
-            :class="{ isDark: isDark, isClicked: this.$route.params.id === board._id }" @click="goToBoard(board._id)">
-            <div v-if="board.style.backgroundImage" class="board-icon" :style="boardBGC(board.style)"></div>
-            <div v-else class="board-icon" :style="boardBGC(board.style)"></div>
-            <span>{{ board.title }}</span>
-        </button>
+        <div class="boards-container flex column ">
+
+
+            <button v-for="board in boards" :key="board._id" class="btn-nav"
+                :class="{ isDark: isDark, isClicked: this.$route.params.id === board._id }"
+                @click="goToBoard(board._id)">
+                <div v-if="board.style.backgroundImage" class="board-icon" :style="boardBGC(board.style)"></div>
+                <div v-else class="board-icon" :style="boardBGC(board.style)"></div>
+                <span>{{ board.title }}</span>
+            </button>
+        </div>
     </section>
     <div class="add-board-in-board-nav">
         <add-board-modal v-if="isAddBoard" @addBoard="addBoard" v-click-outside="() => isAddBoard = false"
