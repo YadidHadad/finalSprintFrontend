@@ -2,7 +2,7 @@
     <div class="group flex column">
         <div class="main-title flex column justify-between">
             <div class="flex row align-center justify-between w-100">
-                <input v-model="newGroupTitle" @input="updateGroup(this.newGroupTitle)" />
+                <input v-model="newGroupTitle" @input="debounceHandler" />
                 <button class="btn-menu" @click="toggleMenu">
                     <span class="fa-solid elipsis-icon"></span>
                 </button>
@@ -90,7 +90,7 @@ export default {
         console.log(this.group, '************************')
         this.tasksCopy = JSON.parse(JSON.stringify(this.group.tasks))
         try {
-            this.debounceHandler = utilService.debounce(this.updateGroup, 200)
+            this.debounceHandler = utilService.debounce(this.updateGroup, 500)
 
         } catch (err) {
             console.log(err);
@@ -153,6 +153,7 @@ export default {
             }
         },
         updateGroup() {
+            if (!this.newGroupTitle) return
             const activity = {
                 id: '',
                 txt: `Update Group: ${this.group.title}`,
@@ -163,10 +164,9 @@ export default {
                 },
                 // task: this.task
             }
-            if (!this.group.title) return
             const group = JSON.parse(JSON.stringify(this.group))
             group.title = this.newGroupTitle
-            console.log('hgfhgfhgfdgfdgfdgd');
+            console.log(group);
             this.$emit('updateGroup', group, activity)
         },
 
