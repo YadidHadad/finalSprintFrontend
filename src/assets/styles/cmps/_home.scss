@@ -6,22 +6,22 @@
     min-height: 100vh;
     // background-color: #253858;
 
-    border: 1px solid gold;
+    // border: 1px solid gold;
 
     header {
-        border: 1px solid gold;
+        // border: 1px solid gold;
         z-index: 100;
         position: absolute;
         top: 0;
         height: 60px;
         background-color: #fafbfc;
+
         .logo {
-            font-family: "kanit-regular";
-            font-weight: bold;
-
-            font-size: 3rem;
-            margin-bottom: 2rem;
-
+            font-size: 2rem;
+            font-family: "charlie-bold";
+            span {
+                color: #0079bf;
+            }
             span:last-of-type {
                 color: #253858;
             }
@@ -29,22 +29,95 @@
     }
 
     section:nth-of-type(1) {
-        .wave {
-            position: absolute;
-            bottom: 0;
-        }
-
-        .demo-invite {
-            z-index: 100;
-            margin-top: 6rem;
-            .img1 {
-                width: 580px;
-            }
-        }
-        border: 1px solid gold;
         position: relative;
         top: 60px;
         height: 645px;
         background-image: linear-gradient(60deg, rgb(82, 67, 170), rgb(237, 80, 180));
+
+        .wave {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            color: #fafbfc;
+        }
+
+        .demo-invite {
+            padding: 2rem;
+            z-index: 100;
+
+            color: $textLight;
+            .img1 {
+                margin-top: 5rem;
+                width: 580px;
+            }
+
+            h1 {
+                margin-top: 0rem;
+                font-family: "charlie-semibold";
+                font-size: 3rem;
+                line-height: 1.25;
+                width: 480px;
+            }
+
+            p {
+                font-size: 1.5rem;
+            }
+
+            button {
+                @include btn-add-save($type: "save");
+                font-family: "charlie-light";
+
+                padding: 0.5rem 1rem;
+                height: 50px;
+                font-size: 1rem;
+            }
+        }
+        // border: 1px solid gold;
+    }
+    section:nth-of-type(2) {
+        position: relative;
+        top: 60px;
+        height: 645px;
+        background-image: linear-gradient(60deg, rgb(82, 67, 170), rgb(237, 80, 180));
+
+        .wave {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            color: #fafbfc;
+        }
+
+        .demo-invite {
+            padding: 2rem;
+            z-index: 100;
+
+            color: $textLight;
+            .img1 {
+                margin-top: 5rem;
+                width: 580px;
+            }
+
+            h1 {
+                margin-top: 0rem;
+                font-family: "charlie-semibold";
+                font-size: 3rem;
+                line-height: 1.25;
+                width: 480px;
+            }
+
+            p {
+                font-size: 1.5rem;
+            }
+
+            button {
+                @include btn-add-save($type: "save");
+                font-family: "charlie-light";
+
+                padding: 0.5rem 1rem;
+                height: 50px;
+                font-size: 1rem;
+            }
+        }
+        // border: 1px solid gold;
     }
 }

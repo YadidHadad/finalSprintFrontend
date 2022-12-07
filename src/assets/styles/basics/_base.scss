@@ -20,8 +20,12 @@ html {
 body {
     margin: 0;
 
-    overflow-y: hidden;
+    // overflow-y: hidden;
     background-color: #fafbfc;
+}
+
+.logo {
+    font-family: "charlie-semibold";
 }
 
 h1,
