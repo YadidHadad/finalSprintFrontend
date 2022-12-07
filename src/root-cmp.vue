@@ -32,6 +32,7 @@ export default {
 
     try {
       await this.$store.dispatch({ type: 'loadBoards' })
+      await this.$store.dispatch({ type: 'loadUsers' })
       // console.log(this.boards)
     } catch (err) {
       console.log(err)
