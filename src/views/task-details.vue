@@ -102,6 +102,7 @@ import attachmentPreview from "../cmps/attachment-preview.vue";
 
 
 import { utilService } from "../services/util.service";
+import { socketService } from "../services/socket.service";
 
 export default {
     emits: ["setRGB"],

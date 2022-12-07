@@ -169,7 +169,7 @@ export default {
             if (!this.currTask.title) return
             const activity = {
                 id: '',
-                txt: "Add new task",
+                txt: `Added ${this.currTask.title} task to ${this.group.title}`,
                 byMember: {
                     _id: this.user._id,
                     fullname: this.user.fullname,

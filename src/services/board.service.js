@@ -1,8 +1,10 @@
 
-import { socketService } from './socket.service.js'
+import { socketService , SOCKET_EVENT_ACTIVITY_ADDED} from './socket.service.js'
 import { httpService } from './http.service.js'
 import { utilService } from './util.service.js'
 import { userService } from './user.service.js'
+
+import { store } from '../store/store'
 
 
 export const boardService = {
@@ -124,6 +126,21 @@ async function addBoardActivity(boardId, txt) {
 
     return act
 }
+
+
+;(() => {
+
+    setTimeout(()=>{
+      socketService.on(SOCKET_EVENT_ACTIVITY_ADDED, (activity) => {
+        console.log('GOT from socket', activity)
+        store.commit({type: 'addActivity', activity})
+      })
+    //   socketService.on(SOCKET_EVENT_REVIEW_ABOUT_YOU, (review) => {
+    //     showSuccessMsg(`New review about me ${review.txt}`)
+    //   })
+    }, 0)
+  
+  })()
 
 
 
