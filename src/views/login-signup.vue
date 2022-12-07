@@ -6,13 +6,13 @@
       <span class="">Kannban</span>
     </div>
     <section class="login-main-layout ">
-      <div class="flex align-center member-cover ">
-        <div v-if="loggedinUser.imgUrl" class="member-image" :style="memberImage(loggedinUser.imgUrl)"> </div>
-        <span v-else class="member-initials">
-          {{ getInitials(loggedinUser.fullname) }}
-        </span>
-      </div>
       <div v-if="loggedinUser" class="user-loggedin flex column justify-center align-center gap20">
+        <div class="flex align-center member-cover ">
+          <div v-if="loggedinUser.imgUrl" class="member-image" :style="memberImage(loggedinUser.imgUrl)"> </div>
+          <span v-else class="member-initials">
+            {{ getInitials(loggedinUser.fullname) }}
+          </span>
+        </div>
         <h3>
           {{ loggedinUser.fullname }}
         </h3>
@@ -165,20 +165,25 @@ export default {
       }
     },
 
-  },
-  loadUsers() {
-    this.$store.dispatch({ type: "loadUsers" })
-  },
-  async removeUser(userId) {
-    try {
-      await this.$store.dispatch({ type: "removeUser", userId })
-      this.msg = 'User removed'
-    } catch (err) {
-      this.msg = 'Failed to remove user'
+    loadUsers() {
+      this.$store.dispatch({ type: "loadUsers" })
+    },
+    async removeUser(userId) {
+      try {
+        await this.$store.dispatch({ type: "removeUser", userId })
+        this.msg = 'User removed'
+      } catch (err) {
+        this.msg = 'Failed to remove user'
+      }
+    },
+    onUploaded(imgUrl) {
+      this.signupCred.imgUrl = imgUrl
     }
   },
-  onUploaded(imgUrl) {
-    this.signupCred.imgUrl = imgUrl
-  }
+  watch: {
+    getLoggedInUser() {
+      console.log(this.getLoggedInUser)
+    }
+  },
 }
 </script>

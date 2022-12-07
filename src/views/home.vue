@@ -8,7 +8,7 @@
       </div>
 
 
-      <router-link class="login-btn flex justify-center align-center" :to="'/login'">
+      <router-link class="login-btn flex justify-center align-center" :to="'/board'">
         Continue as Demo
       </router-link>
 

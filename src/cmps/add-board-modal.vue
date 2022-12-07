@@ -52,7 +52,7 @@ export default {
                 "#838c91",
             ],
             title: '',
-            bcg: "src/assets/img/bgc-img-5.jpg",
+            bcg: "/src/assets/img/bgc-img-5.jpg",
         };
     },
     components: {
