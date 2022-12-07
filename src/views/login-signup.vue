@@ -39,7 +39,7 @@
           Continue with Google
         </button>
 
-        <GoogleLogin :callback="loginWithGoogle"/> 
+        <GoogleLogin :callback="loginWithGoogle" />
         <hr class="bottom-form-separator">
 
         <div v-if="!isSignUp" class="login-footer">
@@ -141,38 +141,48 @@ export default {
         this.msg = 'Failed to login'
       }
     },
-    doLogout() {
-      this.$store.dispatch({ type: 'logout' })
-    },
-    async doSignup() {
-      if (!this.signupCred.fullname || !this.signupCred.password || !this.signupCred.email) {
-        this.msg = 'Please fill up the form'
-        return
-      }
-      await this.$store.dispatch({ type: 'signup', userCred: this.signupCred })
-      this.$router.push('/board')
-
-    },
-    loadUsers() {
-      this.$store.dispatch({ type: "loadUsers" })
-    },
-    async removeUser(userId) {
+    async doLogout() {
       try {
-        await this.$store.dispatch({ type: "removeUser", userId })
-        this.msg = 'User removed'
+        await this.$store.dispatch({ type: 'logout' })
       } catch (err) {
-        this.msg = 'Failed to remove user'
+        console.log('userStore: Error in logout', err)
       }
-    },
-    onUploaded(imgUrl) {
-      this.signupCred.imgUrl = imgUrl
     }
   },
-  computed: {
+  async doSignup() {
+    if (!this.signupCred.fullname || !this.signupCred.password || !this.signupCred.email) {
+      this.msg = 'Please fill up the form'
+      return
+    }
+    await this.$store.dispatch({ type: 'signup', userCred: this.signupCred })
+    this.$router.push('/board')
 
   },
-  components: {
-    imgUploader,
+
+  async loadUsers() {
+    try {
+      await this.$store.dispatch({ type: "loadUsers" })
+    } catch (err) {
+      console.log('userStore: Error in loadUsers', err)
+
+    }
+  },
+  async removeUser(userId) {
+    try {
+      await this.$store.dispatch({ type: "removeUser", userId })
+      this.msg = 'User removed'
+    } catch (err) {
+      this.msg = 'Failed to remove user'
+    }
+  },
+  onUploaded(imgUrl) {
+    this.signupCred.imgUrl = imgUrl
   }
-}
+},
+
+components: {
+  imgUploader,
+  
+  }
+
 </script>
