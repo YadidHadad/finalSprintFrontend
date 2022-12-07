@@ -37,13 +37,13 @@ header {
     }
 
     .logo {
-        font-family: "kanit-regular";
+        font-family: "charlie-regular";
         font-weight: bold;
     }
 
     & * {
         color: $textDark;
-        font-family: "segoe-regular";
+        // font-family: "segoe-regular";
     }
 
     &.isDark {

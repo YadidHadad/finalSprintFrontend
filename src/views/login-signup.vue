@@ -1,18 +1,21 @@
 <template>
-  <div class="login-signup">
+  <div class="container about">
     <p>{{ msg }}</p>
-    <section class="logo gap flex row align-center justify-center">
-      <span class="fa-brands trello-icon "></span>
-      <span class="">Kannban</span>
-    </section>
-    <section class="login-main-layout">
-      <div v-if="loggedinUser">
+
+
+
+    <section class="login-main-layout ">
+      <div v-if="loggedinUser" class="user-loggedin flex column justify-center align-center gap20">
         <h3>
-          Loggedin User:
           {{ loggedinUser.fullname }}
-          <button @click="doLogout">Logout</button>
         </h3>
+        <h3>
+          {{ loggedinUser.email }}
+        </h3>
+        <button class="btn login-btn" @click="doLogout">Logout</button>
       </div>
+
+
       <div v-else class="login-signup-container">
         <!-- <h1 v-else>Sign up to Kanban</h1> -->
         <form v-if="!isSignUp" @submit.prevent="doLogin">
@@ -42,7 +45,7 @@
           Continue with Google
         </button>
 
-        <GoogleLogin :callback="loginWithGoogle" />
+        <GoogleLogin :callback="loginWithGoogle"/> 
         <hr class="bottom-form-separator">
 
         <div v-if="!isSignUp" class="login-footer">
@@ -58,8 +61,14 @@
         </div>
       </div>
     </section>
-    <div class="bottom-right-img"></div>
-    <div class="bottom-left-img"></div>
+    <img class="bottom-right-img"
+      src="https://aid-frontend.prod.atl-paas.net/atlassian-id/front-end/5.0.385/static/media/trello-right.16b9c9bb.svg"
+      alt="">
+    <img class="bottom-left-img"
+      src="https://aid-frontend.prod.atl-paas.net/atlassian-id/front-end/5.0.385/static/media/trello-left.7317ad1f.svg"
+      alt="">
+    <!-- <div class="bottom-right-img"></div>
+    <div class="bottom-left-img"></div> -->
     <!-- <hr />
       <details>
         <summary>
@@ -81,9 +90,6 @@ import { decodeCredential } from 'vue3-google-login'
 // import { googleTokenLogin } from "vue3-google-login"
 export default {
   name: 'login-signup',
-  components: {
-    imgUploader
-  },
   data() {
     return {
       msg: '',

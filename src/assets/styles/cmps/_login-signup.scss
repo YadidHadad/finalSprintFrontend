@@ -2,7 +2,7 @@
     height: calc(100vh - 44px);
 
     .logo {
-        font-family: "kanit-regular";
+        font-family: "charlie-regular";
         font-weight: bold;
 
         font-size: 3rem;
@@ -22,17 +22,34 @@
     left: 50%;
     transform: translateX(-50%);
     background-color: $textLight;
-    border-radius: 3px;
-    // height: 92vh;
     position: relative;
-    overflow: hidden;
-    top: 0;
+    // border-radius: 3px;
+    // // height: 92vh;
+    // position: relative;
+    // overflow: hidden;
+    // top: 0;
 
-    > * {
-        grid-column: 2;
+    // > * {
+    //     grid-column: 2;
+    // }
+}
+
+.user-loggedin {
+    padding: 1rem;
+    border-radius: 3px;
+    h3 {
+        font-size: 2rem;
+        color: #5e6c84;
     }
 
-    position: relative;
+    .login-btn {
+        background-color: #0052cc;
+        color: #f9fafc;
+        // height: 40px;
+        border-radius: 3px;
+        padding: 0.5rem;
+        width: 100%;
+    }
 }
 
 .bottom-right-img,
@@ -40,12 +57,12 @@
     position: absolute;
     width: 350px;
     bottom: 0;
-    margin-bottom: -155px;
-    // z-index: -999;
-    max-width: 30%;
-    height: 50%;
-    background-size: contain;
-    background-repeat: no-repeat;
+    // // margin-bottom: -155px;
+    // // z-index: -999;
+    // max-width: 30%;
+    // height: 50%;
+    // background-size: contain;
+    // background-repeat: no-repeat;
 }
 
 .bottom-right-img {

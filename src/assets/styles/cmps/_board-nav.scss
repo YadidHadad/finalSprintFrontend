@@ -2,6 +2,7 @@
     min-width: 260px;
     max-width: 260px;
     // overflow-x: hidden;
+    // overflow-y: scroll;
     height: 100%;
     backdrop-filter: blur(2px);
     box-shadow: inset -1px 0px 0px rgba(0, 0, 0, 0.33);
@@ -118,6 +119,10 @@
                 color: white;
             }
         }
+    }
+    @include scroll-bar;
+    .boards-container {
+        overflow-y: scroll;
     }
 }
 
