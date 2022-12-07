@@ -4,6 +4,7 @@
     <main v-if="boards" class="app-main">
       <router-view @setRGB="setRGB" />
     </main>
+
     <app-header v-if="isLoggedin" :rgb="getRGB" @logout="logout" />
   </section>
 </template>
@@ -72,7 +73,9 @@ export default {
       return this.$store.getters.boards
     },
     isLoggedin() {
-      return this.$route.path !== '/login'
+      const isLoggedIn = this.$route.path !== '/login' && this.$route.path !== '/'
+      console.log(isLoggedIn)
+      return isLoggedIn
 
     }
 

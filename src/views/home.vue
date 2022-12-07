@@ -1,13 +1,17 @@
 <template>
-  <section class="container home text-center">
-    <h1>Home Page</h1>
-    <h5 class="text-center">
-      Powered up Frontend 
-    </h5>
-    <img alt="Vue logo" src="../assets/logo.png">
+  <section class="home-page ">
+
+    <header>
+      <div class="logo gap flex row align-center justify-center">
+        <span class="fa-brands trello-icon "></span>
+        <span class="">Kannban</span>
+      </div>
+
+    </header>
+
   </section>
 
-  
+
 </template>
 
 <script>
@@ -23,6 +27,6 @@ export default {
   },
   methods: {
   }
-  
+
 }
 </script>

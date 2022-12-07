@@ -54,7 +54,7 @@ export default {
                 },
                 {
                     txt: 'Members',
-                    icon: 'trello-home members-icon'
+                    icon: 'trello-home join-icon'
                 },
                 {
                     txt: 'Settings',
