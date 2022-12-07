@@ -75,9 +75,13 @@
 
 .trello-home {
     font-family: "trello-home";
+    font-size: 1rem;
 
     &.board-icon::before {
         content: "\e90f";
+    }
+    &.arrow-small::before {
+        content: "\e90e";
     }
     &.nav-icon::before {
         content: "\e900";
@@ -97,7 +101,7 @@
     &.trello-icon::before {
         content: "\e905";
     }
-    &.member-icon::before {
+    &.members-icon::before {
         content: "\e906";
     }
     &.plus-icon::before {

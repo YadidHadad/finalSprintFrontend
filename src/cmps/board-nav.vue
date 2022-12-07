@@ -7,7 +7,7 @@
                     class="fa-solid arrow-icon"></span></button>
         </div>
 
-        <button v-for="(btn, i) in btns" class="btn-nav" :class="{ isDark: isDark }">
+        <button v-for="(btn, i) in btns" class="btn-nav flex align-center" :class="{ isDark: isDark }">
             <span :class="btn.icon"></span>
             <span>{{ btn.txt }}</span>
         </button>
@@ -50,15 +50,15 @@ export default {
             btns: [
                 {
                     txt: 'Boards',
-                    icon: 'fa-brands trello-icon'
+                    icon: 'trello-home trello-icon'
                 },
                 {
                     txt: 'Members',
-                    icon: 'trellicons members-icon'
+                    icon: 'trello-home members-icon'
                 },
                 {
                     txt: 'Settings',
-                    icon: 'trellicons settings-icon'
+                    icon: 'trello-home settings-icon'
                 },
             ]
         }

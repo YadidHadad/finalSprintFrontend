@@ -21,7 +21,7 @@
                 </span>
             </div>
             <button class="btn" :class="{ isDark: !isDark }" :style="buttonBackground" @click="toggleBoardMenu">
-                <span class="fa-solid elipsis-icon"></span>
+                <span class="trello-home elipsis-icon"></span>
             </button>
         </div>
     </section>
@@ -121,25 +121,25 @@ export default {
                 // },
                 {
                     txt: "Table",
-                    icon: "fa-solid table-icon",
+                    icon: "trello-home table-icon",
                     function: 'setBoardStar()'
 
                 },
                 {
                     txt: "Calender",
-                    icon: "fa-solid calender-icon",
+                    icon: "trello-home calender-icon",
                     function: 'setBoardStar()'
 
                 },
                 {
                     txt: "Dashboard",
-                    icon: "fa-solid dashboard-icon",
+                    icon: "trello-home dashboard-icon",
                     function: 'setBoardStar()'
 
                 },
                 {
                     txt: "Map",
-                    icon: "trellicons location-icon",
+                    icon: "trello-home location-icon",
                     function: 'setBoardStar()'
 
                 },
