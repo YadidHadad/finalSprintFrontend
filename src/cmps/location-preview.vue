@@ -7,16 +7,17 @@
         <div class="map-container">
 
             <GoogleMap api-key="AIzaSyAV_zVjXKofPeV5nwAzfNKJ7Gt4VEMjHOw" style="width: 100%; height: 100%"
-                :center="location" :zoom="14">
+                :center="location.cords" :zoom="14">
                 <Marker :options="{ position: location }" @click="center = location" />
 
             </GoogleMap>
-            <div class="location-preview-footer">
+            <div class="location-preview-footer flex justify-between row">
+                <span>{{ location.name || 'No name' }}</span>
                 <div class="actions">
                     <span class="trellicons external-link-icon"></span>
                     <span class="fa-solid elipsis-icon" @click="isOpenOptions = true"></span>
-                    <button v-if="isOpenOptions" v-click-outside="() => isOpenOptions = false"
-                        @click="remove">Delete</button>
+                    <button v-if="isOpenOptions" v-click-outside="() => isOpenOptions = false" @click="remove">Remove
+                        location</button>
                 </div>
             </div>
         </div>
@@ -48,12 +49,13 @@ export default {
         this.center = this.location
         // console.log(this.center, this.location, '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
         const marker = {
-            title: '',
+            title: this.location.name || 'no name',
             label: '',
-            position: this.location
+            position: this.location.cords
 
         }
         this.markers.push(marker)
+        console.log(this.location)
     },
     methods: {
         remove() {

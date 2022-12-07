@@ -14,13 +14,16 @@
                 <button v-if="!editedChecklist" class="btn-delete "
                     @click.stop="removeChecklist(checklist.id)">Remove</button>
             </div>
-            <div class="title-btns pad-40" v-if="checklistIdTitlePicked === editedChecklists[index].id">
+            <div class="title-btns pad-40 flex row gap5" v-if="checklistIdTitlePicked === editedChecklists[index].id">
                 <button class="btn-save" @click="save">Save</button>
                 <button class="close-btn" @click="close">Cancel</button>
             </div>
             <section class=" flex column">
 
-                <section class="progress pad-40" v-if="checklist" :style="progressBarStyle[checklist.id]">
+                <!-- <section class="progress pad-40" v-if="checklist" :style="progressBarStyle[checklist.id]">
+                </section> -->
+                <section class="progress pad-40 w-100" v-if="checklist">
+                    <div class="inner-progress" :style="progressBarStyle[checklist.id]"></div>
                 </section>
 
 
@@ -34,11 +37,11 @@
                                 {{
                                         todo.title
                                 }}</div>
-                            <div class="todo-edit" v-else>
+                            <div class="todo-edit flex column gap2" v-else>
                                 <textarea class="checklist-title-input todo-title-input task-cmp-title grow"
                                     v-model="todo.title">
                                 </textarea>
-                                <div class="todo-edit-btns">
+                                <div class="todo-edit-btns flex row gap5">
                                     <button class="btn-save" @click.stop="updateTodo">Save</button>
                                     <button class="close-btn" @click.stop="todoEditId = ''">
                                         <span class="trellicons x-icon"></span>
@@ -229,15 +232,26 @@ export default {
             const numOfTodos = checklist.todos.filter(todo => todo.isDone).length
             this.progress = doneTodos / numOfTodos
         },
+        // updateProgressBarStyle() {
+        //     this.editedChecklists.forEach(checklist => {
+        //         const total = checklist.todos.length
+        //         const done = checklist.todos.filter(todo => todo.isDone === true).length
+        //         const progress = ((done / total) * 100).toFixed(0)
+        //         console.log(progress)
+        //         if (+progress === 100) this.progressBarStyle[checklist.id] = { background: 'linear-gradient(to right, #61bd4f ' + (progress * 5.28) + 'px, #61bd4f 20px)' }
+        //         else if (+progress > 0) this.progressBarStyle[checklist.id] = { background: 'linear-gradient(to right, #5ba4cf ' + (progress * 5.28) + 'px, #e2e4e9 20px)' }
+        //         else this.progressBarStyle[checklist.id] = { background: 'linear-gradient(to right, #e2e4e9 ' + (progress * 5.28) + 'px, #e2e4e9 20px)' }
+        //     })
+        // },
         updateProgressBarStyle() {
             this.editedChecklists.forEach(checklist => {
                 const total = checklist.todos.length
                 const done = checklist.todos.filter(todo => todo.isDone === true).length
                 const progress = ((done / total) * 100).toFixed(0)
                 console.log(progress)
-                if (+progress === 100) this.progressBarStyle[checklist.id] = { background: 'linear-gradient(to right, #61bd4f ' + (progress * 5.28) + 'px, #61bd4f 20px)' }
-                else if (+progress > 0) this.progressBarStyle[checklist.id] = { background: 'linear-gradient(to right, #5ba4cf ' + (progress * 5.28) + 'px, #e2e4e9 20px)' }
-                else this.progressBarStyle[checklist.id] = { background: 'linear-gradient(to right, #e2e4e9 ' + (progress * 5.28) + 'px, #e2e4e9 20px)' }
+                if (+progress === 100) this.progressBarStyle[checklist.id] = { background: '#61bd4f', width: `${progress}%` }
+                else if (+progress > 0) this.progressBarStyle[checklist.id] = { background: '#5ba4cf', width: `${progress}%` }
+                else this.progressBarStyle[checklist.id] = { background: '#e2e4e9', width: `${progress}%` }
             })
         },
     },

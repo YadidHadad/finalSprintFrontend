@@ -1,28 +1,28 @@
 <template>
     <section class="task-editor attachment-edit" @click.stop="">
-        <div class="attachment-edit-header">
-            <div>Attach from…</div>
-            <button class="btn-close" @click.stop="closeEdit">
-                <span class="trellicons x-icon"></span>
+        <div class="title">Attach from…</div>
+        <button class="btn-close" @click.stop="closeEdit">
+            <span class="trellicons x-icon"></span>
+        </button>
+
+        <div class="attachment-options">
+            <button class="btn-remove">
+                <span>
+                    Computer
+                </span>
             </button>
+            <imgUploader @uploaded="attachImage" />
         </div>
+        <div class="attachment-link">
+            <h4 class="mini-title">Attach a link</h4>
+            <input type="text" placeholder="Paste any link here" v-model="url">
 
-        <div class="attachment-edit-main">
-            <div class="attachment-options">
-                <button>Computer</button>
-                <imgUploader @uploaded="attachImage" />
+            <div v-if="url" class="link-name">
+                <div>Link name (optional)</div>
+                <input type="text" v-model="name">
             </div>
-            <div class="attachment-link">
-                <div>Attach a link</div>
-                <input type="text" placeholder="Paste any link here" v-model="url">
 
-                <div v-if="url" class="link-name">
-                    <div>Link name (optional)</div>
-                    <input type="text" v-model="name">
-                </div>
-
-                <button @click="attachLink">Attach</button>
-            </div>
+            <button class="btn-remove" @click="attachLink">Attach</button>
         </div>
     </section>
 </template>

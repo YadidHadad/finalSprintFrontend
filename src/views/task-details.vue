@@ -42,9 +42,9 @@
                     <span class="trellicons archive"></span>
                     <span>Remove</span>
                 </button>
-                <button v-if="isShowDelete" class="delete-btn btn" @click="removeTask">
-                    <span>-</span>
-                    <span>Delete</span>
+                <button v-if="isShowDelete" class="delete-btn btn" @click="removeTask"
+                    v-click-outside="() => isShowDelete = false">
+                    <span class="grow">Confirm deletion </span>
                 </button>
             </section>
         </section>
@@ -60,9 +60,11 @@
                 :isComplete="this.task.isComplete" />
             <description-preview :description="task.description"
                 @updateDescription="updateTask('description', $event)" />
-            <location-preview v-if="task.location" :location="task.location" @removeLocation="updateTask('location-edit','')"/>
+            <location-preview v-if="task.location" :location="task.location"
+                @removeLocation="updateTask('location-edit', '')" />
             <attachment-preview :attachments="task.attachments" v-if="task.attachments?.length"
-            @updateCover="updateTask('cover-edit', $event)" @updateAttachments="updateTask('attachment-preview', $event)"/>
+                @updateCover="updateTask('cover-edit', $event)"
+                @updateAttachments="updateTask('attachment-preview', $event)" />
             <!-- <checklists-preview v-if="task.checklists" :checklists="task.checklists"
                 @updateChecklists="updateTask('checklist-preview', $event)" /> -->
             <!-- <checklists-preview v-if="task.checklists" :checklists="task.checklists" -->

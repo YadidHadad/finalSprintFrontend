@@ -29,9 +29,11 @@
                         <div v-for="activity in activitiesReverse" :key="activity.id"
                             class="activity flex row align-start">
                             <div class="activity">
-                                <span class="btn flex row align-baseline align-center justify-center">{{
-                                        getInitials(activity.byMember.fullname)
-                                }}</span>
+                                <div v-if="activity.byMember.imgUrl" class="member-image"
+                                    :style="memberImage(activity.byMember.imgUrl)"> </div>
+                                <span v-else class="member-initials">
+                                    {{ getInitials(activity.byMember.fullname) }}
+                                </span>
                             </div>
                             <div class=" flex column justify-start">
                                 <div>
@@ -110,24 +112,11 @@
             </section>
             <input type="text" placeholder="Search Photos..." @input="debounceHandler" v-model="searchTxt">
             <section class="images flex row align-center wrap gap justify-between">
-                <img v-for="imgUrl in imgUrls" :key="imgUrl" :src="imgUrl" class="color-sample"
+                <img v-if="!imgUrls" src="../assets/svg/loader.svg" alt="" class="loader">
+                <img v-else v-for="imgUrl in imgUrls" :key="imgUrl" :src="imgUrl" class="color-sample"
                     @click="setBoardStyle(imgUrl)">
             </section>
         </section>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     </section>
 </template>
 <script>
@@ -147,7 +136,7 @@ export default {
         return {
             page: 'main',
             imageDownloadUrl: '',
-            imgUrls: [],
+            imgUrls: '',
             showBGCMenu: false,
             searchTxt: '',
             colors: ['#0079bf', '#d29034', '#519839', '#b04632', '#89609e', '#cd5a91', '#4bbf6b', '#00aecc', '#838c91'],
@@ -158,7 +147,7 @@ export default {
     methods: {
         getPhotos() {
             const key = 'unsplashDB'
-
+            this.imgUrls = ''
             if (!localStorage.getItem(key))
                 console.log(this.searchTxt);
             let apiUrl = `https://api.unsplash.com/search/photos?query=${this.searchTxt ? this.searchTxt : 'pretty'}&orientation=landscape&per_page=20&client_id=${this.clientId}`
@@ -170,12 +159,13 @@ export default {
                     console.log('Cant load imgs', err);
                 })
         },
+        memberImage(imgUrl) {
+            return { backgroundImage: `url(${imgUrl})` };
+        },
         getInitials(fullname) {
-
             return utilService.getInitials(fullname)
         },
         getTimeAgo(timestamp) {
-
             return utilService.timeAgo(timestamp)
         },
         toggleMenuPage(page) {

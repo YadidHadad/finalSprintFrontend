@@ -2,7 +2,8 @@
     padding: 8px 4px 4px 32px;
     width: 100%;
     transition: all 0.3s ease-out;
-
+    // & * :not(.trellicons):not(.fa-regular):not(.fa-solid) {
+    // }
     & * {
         color: $textDark;
     }
@@ -33,7 +34,11 @@
 
     .btn {
         @include btn($type: regular);
-
+        font-family: "segoe-regular";
+        font-size: 0.875rem;
+        span {
+            flex-grow: 1;
+        }
         .txt {
             margin-inline-start: 0.5rem;
         }

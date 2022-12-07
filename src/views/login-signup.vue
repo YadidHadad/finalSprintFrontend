@@ -134,7 +134,7 @@ export default {
       try {
         const user = await this.$store.dispatch({ type: "login", userCred: this.loginCred })
         console.log(user);
-        if (user) this.$router.push('/')
+        if (user) this.$router.push('/board')
         else console.log('User name and password dont match');
       } catch (err) {
         console.log(err)
