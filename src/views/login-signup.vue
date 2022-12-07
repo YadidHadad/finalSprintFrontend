@@ -5,13 +5,17 @@
 
 
     <section class="login-main-layout ">
+
+
+
+
       <div v-if="loggedinUser" class="user-loggedin flex column justify-center align-center gap20">
         <h3>
           {{ loggedinUser.fullname }}
         </h3>
-        <h3>
+        <h2>
           {{ loggedinUser.email }}
-        </h3>
+        </h2>
         <button class="btn login-btn" @click="doLogout">Logout</button>
       </div>
 
@@ -45,7 +49,7 @@
           Continue with Google
         </button>
 
-        <GoogleLogin :callback="loginWithGoogle"/> 
+        <GoogleLogin :callback="loginWithGoogle" />
         <hr class="bottom-form-separator">
 
         <div v-if="!isSignUp" class="login-footer">
@@ -159,36 +163,37 @@ export default {
       } catch (err) {
         console.log('userStore: Error in logout', err)
       }
-    }
-  },
-  async doSignup() {
-    if (!this.signupCred.fullname || !this.signupCred.password || !this.signupCred.email) {
-      this.msg = 'Please fill up the form'
-      return
-    }
-    await this.$store.dispatch({ type: 'signup', userCred: this.signupCred })
-    this.$router.push('/board')
+    },
 
-  },
+    async doSignup() {
+      if (!this.signupCred.fullname || !this.signupCred.password || !this.signupCred.email) {
+        this.msg = 'Please fill up the form'
+        return
+      }
+      await this.$store.dispatch({ type: 'signup', userCred: this.signupCred })
+      this.$router.push('/board')
 
-  async loadUsers() {
-    try {
-      await this.$store.dispatch({ type: "loadUsers" })
-    } catch (err) {
-      console.log('userStore: Error in loadUsers', err)
+    },
 
+    async loadUsers() {
+      try {
+        await this.$store.dispatch({ type: "loadUsers" })
+      } catch (err) {
+        console.log('userStore: Error in loadUsers', err)
+
+      }
+    },
+    async removeUser(userId) {
+      try {
+        await this.$store.dispatch({ type: "removeUser", userId })
+        this.msg = 'User removed'
+      } catch (err) {
+        this.msg = 'Failed to remove user'
+      }
+    },
+    onUploaded(imgUrl) {
+      this.signupCred.imgUrl = imgUrl
     }
-  },
-  async removeUser(userId) {
-    try {
-      await this.$store.dispatch({ type: "removeUser", userId })
-      this.msg = 'User removed'
-    } catch (err) {
-      this.msg = 'Failed to remove user'
-    }
-  },
-  onUploaded(imgUrl) {
-    this.signupCred.imgUrl = imgUrl
   }
 }
 </script>
