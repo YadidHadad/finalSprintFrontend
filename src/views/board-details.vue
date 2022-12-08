@@ -12,7 +12,8 @@
         <board-menu :menuIsHidden="menuIsHidden" :activities="board.activities" @toggleBoardMenu="toggleBoardMenu" />
         <!-- <router-view class="task-details-view"></router-view> -->
     </section>
-    <add-board-members v-if="isAddBoardMembers" @close="(isAddBoardMembers = false)" @addMember="addMember" />
+    <add-board-members v-if="isAddBoardMembers" @close="(isAddBoardMembers = false)" @addMember="addMember"
+        @removeMember="removeMember" />
     <task-details v-if="this.$route.params.taskId" />
 </template>
 
@@ -94,6 +95,9 @@ export default {
         pushedBoard(board) {
             console.log('hiiiiii board details');
             this.$store.commit({ type: 'setPushedBoard', board })
+        },
+        removeMember(id) {
+            this.$store.dispatch({ type: 'addMember', memberId: id })
         },
         async avgColor() {
 

@@ -75,7 +75,7 @@ export const userStore = {
         async logout({ commit }) {
             try {
                 await userService.logout()
-                commit({ type: 'setLoggedinUser', user: userService.getLoggedinUser() })
+                commit({ type: 'setLoggedinUser', user: null })
             } catch (err) {
                 console.log('userStore: Error in logout', err)
                 throw err

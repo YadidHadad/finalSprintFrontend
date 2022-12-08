@@ -28,13 +28,17 @@
 
         <div class="board-members">
             <div v-for="member in boardMembers" :key="member._id" class="board-member">
-                <div class="member-user flex row align-center" @click.stop="toggleMember(member._id)">
+                <div class="member-user flex row align-center">
                     <div class="flex align-center grow">
                         <div v-if="member.imgUrl" class="member-image" :style="memberImage(member.imgUrl)"> </div>
                         <span v-else class="member-initials">
                             {{ getInitials(member.fullname) }}
                         </span>
                         <span class="fullname">{{ member.fullname + " " }}</span>
+
+                        <button @click="removeFromBoard(member._id)">
+                            <span class="trellicons x-icon"></span>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -65,6 +69,9 @@ export default {
     methods: {
         getInitials(fullname) {
             return utilService.getInitials(fullname);
+        },
+        removeFromBoard(memberId) {
+            this.$emit('removeMember', memberId)
         },
         memberImage(imgUrl) {
             return { backgroundImage: `url(${imgUrl})` };
