@@ -111,7 +111,7 @@ export default {
             const { removedIndex, addedIndex, payload, element } = dropResult;
             if (removedIndex === null && addedIndex === null) return
 
-            console.log('ON DROP! - group.vue', dropResult)
+            // console.log('ON DROP! - group.vue', dropResult)
             try {
                 this.tasksCopy = JSON.parse(JSON.stringify(this.group.tasks || []))
                 this.tasksCopy = this.applyDrag(this.tasksCopy, dropResult)
