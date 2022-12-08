@@ -149,8 +149,8 @@ export default {
             }
             // console.log('members')
             // const boardMembers = JSON.parse(JSON.stringify(this.$store.getters.members))
-            console.log(this.users)
-            console.log(this.boardMembersIds)
+            // console.log(this.users)
+            // console.log(this.boardMembersIds)
             const regex = new RegExp(this.filterByName, 'i');
             this.searchedMembers = this.users.filter(user => {
                 if (this.boardMembersIds.includes(user._id))

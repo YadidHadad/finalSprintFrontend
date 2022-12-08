@@ -63,22 +63,22 @@ export const boardStore = {
         },
 
         setBoard(state, { boardId }) {
-            console.log(boardId, '00000000000000000');
+            // console.log(boardId, '00000000000000000');
             const currBoard = state.boards.find(b => b._id === boardId)
-            console.log(currBoard);
+            // console.log(currBoard);
             state.board = currBoard
             // console.log(currBoard);
         },
 
         setPushedBoard(state, { board }) {
-            console.log('IN STORE PUSH BOARD', board);
+            // console.log('IN STORE PUSH BOARD', board);
             const boardIdx = state.boards.findIndex(b => b._id === board._id)
             state.boards.splice(boardIdx, 1, board)
             state.board = board
         },
 
         addBoard(state, { board }) {
-            console.log(board)
+            // console.log(board)
             state.boards.push(board)
         },
 
@@ -93,13 +93,13 @@ export const boardStore = {
         },
 
         updateTask(state, { payload }) {
-            console.log(payload.task, 'PAYLLOADDDDD');
+            // console.log(payload.task, 'PAYLLOADDDDD');
             state.editedTask = payload.task
             const group = state.board.groups.find(g => g.id === payload.groupId)
-            console.log(group.tasks);
+            // console.log(group.tasks);
 
             const taskIdx = group.tasks.findIndex(task => task.id === payload.task.id)
-            console.log(taskIdx);
+            // console.log(taskIdx);
             group.tasks.splice(taskIdx, 1, payload.task)
             // return payload.task
         },
@@ -160,7 +160,7 @@ export const boardStore = {
         },
         addTask(state, { payload }) {
             const { task, groupId } = payload
-            console.log('**********************', task)
+            // console.log('**********************', task)
             const groupIdx = state.board.groups.findIndex((group) => group.id === groupId)
             // console.log(groupIdx, '>>>>>>>>>>>>>>');
             if (!state.board.groups[groupIdx].tasks) state.board.groups[groupIdx].tasks = []
@@ -195,7 +195,7 @@ export const boardStore = {
             try {
                 //SEND FILTER
                 const boards = await boardService.query()
-                console.log('*******************************', boards)
+                // console.log('*******************************', boards)
 
                 context.commit({ type: 'setBoards', boards })
                 return boards
@@ -216,7 +216,7 @@ export const boardStore = {
         },
 
         async updateBoardLabels(context, { label }) {
-            console.log(label);
+            // console.log(label);
             try {
                 context.commit({ type: 'updateBoardLabels', label })
                 const board = await boardService.save(context.state.board)
@@ -232,15 +232,15 @@ export const boardStore = {
             const prevGroups = context.state.board.groups
             context.commit({ type: 'updateGroups', groups })
             try {
-                console.log(context.state.board._id, '&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
+                // console.log(context.state.board._id, '&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
                 const board = await boardService.save(context.state.board)
-                console.log(board);
+                // console.log(board);
                 context.commit({ type: 'updateBoard', board })
                 context.commit({ type: 'setBoard', boardId: board._id })
                 return context.state.board.groups
             }
             catch (prevGroups) {
-                console.log('boardStore: Error in updateGroups')
+                // console.log('boardStore: Error in updateGroups')
                 context.commit({ type: 'updateGroups', groups: prevGroups })
                 throw prevGroups
             }
@@ -258,7 +258,7 @@ export const boardStore = {
             newBoard.groups.forEach(group => {
                 group.tasks.forEach((task, index) => {
                     if (task.memberIds?.includes(memberId)) {
-                        console.log(task.memberIds, 'oooooooooooooooo');
+                        // console.log(task.memberIds, 'oooooooooooooooo');
                         task.memberIds.splice(index, 1)
                     }
                 })
@@ -267,6 +267,7 @@ export const boardStore = {
         },
 
         async updateTasks(context, { payload }) {
+            console.log('UPDATE TASKS - store')
             const { groupId, tasks } = payload
             // console.log(payload);
             const group = context.state.board.groups.find(group => groupId === group.id)
@@ -279,7 +280,7 @@ export const boardStore = {
                 return newTasks
             }
             catch (prevTasks) {
-                console.log('boardStore: Error in updateTasks')
+                // console.log('boardStore: Error in updateTasks')
                 context.commit({ type: 'updateGroups', payload: { tasks: prevTasks, groupId } })
                 throw prevTasks
             }
@@ -345,7 +346,7 @@ export const boardStore = {
         },
 
         async addTask(context, { boardId, groupId, task, activity }) {
-            console.log('task.id', task.id)
+            // console.log('task.id', task.id)
             // console.log(boardId, groupId, task, activity);
             const prevBoard = JSON.parse(JSON.stringify(context.state.boards.find(board => board._id === boardId)))
 
@@ -469,7 +470,7 @@ export const boardStore = {
         },
 
         async updateLabel(context, { payload }) {
-            console.log(payload);
+            // console.log(payload);
             const prevLabel = context.state.board.labels.find(l => l.id === payload.label.id)
 
             context.commit({ type: 'updateLabel', label: payload.label })

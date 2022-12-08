@@ -19,7 +19,7 @@ export default {
     },
     methods: {
         boardBGC(style) {
-            console.log()
+            // console.log()
             if (style.bgColor) return { backgroundColor: style.bgColor }
             return { backgroundImage: `url(${style.backgroundImage})` }
         },

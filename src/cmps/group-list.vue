@@ -1,7 +1,7 @@
 <template>
 
-    <Container class="group-list flex scroll" orientation="horizontal" @drop="onDrop" group-name="group-lists"
-        :get-child-payload="getChildPayload" :drag-class="dragClass" :drop-class="dragClass">
+    <Container class="group-list flex scroll" orientation="horizontal" @drop="onDropGroup" group-name="group-lists"
+        :get-child-payload="getChildPayload" :drop-class="dragClass">
         <Draggable id="group-details" v-for="(group, i) in groups" :key="group.id">
             <group @addTask="addTask" @updateGroup="updateGroup" @removeGroup="$emit('removeGroup', $event)"
                 :group="group" :boardId="boardId" :filterBy="filterBy" />
@@ -71,17 +71,18 @@ export default {
     },
 
     methods: {
-        async onDrop(dropResult) {
+        async onDropGroup(dropResult) {
+            console.log('ON DRAG groupList')
             try {
                 this.groupsCopy = JSON.parse(JSON.stringify(this.groups))
-                this.groupsCopy = this.applyDrag(this.groupsCopy, dropResult);
+                this.groupsCopy = this.applyDragGroup(this.groupsCopy, dropResult);
                 const newGroups = await this.$store.dispatch({ type: 'updateGroups', groups: this.groupsCopy })
             }
             catch (prevGroups) {
                 this.groupsCopy = JSON.parse(JSON.stringify(prevGroups))
             }
         },
-        applyDrag(arr, dragResult) {
+        applyDragGroup(arr, dragResult) {
             const { removedIndex, addedIndex, payload } = dragResult;
 
             if (removedIndex === null && addedIndex === null) return arr;

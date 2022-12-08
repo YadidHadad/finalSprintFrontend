@@ -55,7 +55,7 @@ export default {
 
         }
         this.markers.push(marker)
-        console.log(this.location)
+        // console.log(this.location)
     },
     methods: {
         remove() {

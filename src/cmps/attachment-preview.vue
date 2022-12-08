@@ -24,13 +24,14 @@
                     </div>
                     <div>
                         <span class="trellicons cover-icon"></span>
-                        <span @click.stop="updateCover(attachment.url)" v-if="(attachment.type === 'image')">Make cover</span>
+                        <span @click.stop="updateCover(attachment.url)" v-if="(attachment.type === 'image')">Make
+                            cover</span>
                     </div>
                     <attachment-actions-modal v-if="(attachment.id === attachmentEditedId)" :attachment="attachment"
                         @updateAttachment="updateAttachment" @closeModal="closeModal" />
                 </div>
             </div>
-            <div class="show-attachments" v-if="!isShowAll" @click="toggleShowAll">View all attachments 
+            <div class="show-attachments" v-if="!isShowAll" @click="toggleShowAll">View all attachments
                 ({{ (attachmentLength - attachmentsForDisplay.length) }} hidden)
             </div>
             <div class="show-attachments" v-else @click="toggleShowAll">Show fewer attachments</div>
@@ -61,7 +62,7 @@ export default {
     },
     methods: {
         updateCover(imgUrl) {
-            console.log(imgUrl);
+            // console.log(imgUrl);
             this.$emit('updateCover', imgUrl)
         },
         toggleShowAll() {

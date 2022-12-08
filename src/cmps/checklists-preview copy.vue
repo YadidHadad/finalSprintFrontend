@@ -161,7 +161,7 @@ export default {
             this.todoTxt = ''
         },
         removeTodo(todoIdx, checklist) {
-            console.log(todoIdx, checklist);
+            // console.log(todoIdx, checklist);
             const newChecklist = JSON.parse(JSON.stringify(checklist))
             newChecklist.todos.splice(todoIdx, 1)
 
@@ -222,7 +222,7 @@ export default {
                 const total = checklist.todos.length
                 const done = checklist.todos.filter(todo => todo.isDone === true).length
                 const progress = ((done / total) * 100).toFixed(0)
-                console.log(progress)
+                // console.log(progress)
                 if (+progress === 100) this.progressBarStyle[checklist.id] = { background: 'linear-gradient(to right, #61bd4f ' + (progress * 5.28) + 'px, #61bd4f 20px)' }
                 else if (+progress > 0) this.progressBarStyle[checklist.id] = { background: 'linear-gradient(to right, #5ba4cf ' + (progress * 5.28) + 'px, #e2e4e9 20px)' }
                 else this.progressBarStyle[checklist.id] = { background: 'linear-gradient(to right, #e2e4e9 ' + (progress * 5.28) + 'px, #e2e4e9 20px)' }

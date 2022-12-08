@@ -38,9 +38,10 @@ async function query(filterBy = { title: '' }) {
     // return boards
 }
 async function save(board) {
+    console.log('SAVE service frontend')
     var savedBoard
     if (board._id) {
-        console.log(board._id)
+        // console.log(board._id)
         savedBoard = await httpService.put(`${BOARD_URL}${board._id}`, board)
         socketService.emit('board updated', board)
     } else {
