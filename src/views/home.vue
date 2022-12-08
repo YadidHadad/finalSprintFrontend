@@ -8,9 +8,9 @@
       </div>
 
 
-      <router-link class="login-btn flex justify-center align-center" :to="'/board'">
+      <div class="login-btn flex justify-center align-center" @click="loginDemo">
         Continue as Demo
-      </router-link>
+      </div>
 
     </section>
 
@@ -56,6 +56,22 @@ export default {
   created() {
   },
   methods: {
+
+    async loginDemo() {
+      // if (!this.loginCred.email || !this.loginCred.password) {
+      //   this.msg = 'Please enter email/password'
+      //   return
+      // }
+      try {
+        const user = await this.$store.dispatch({ type: "login", userCred: { email: 'dima-demo@mystartup.org', password: '123', imgUrl: 'https://res.cloudinary.com/dnznyz6om/image/upload/v1670495585/htkfdnkkhbrxd3nddln7.webp' } })
+        console.log(user);
+        if (user) this.$router.push('/board')
+        else console.log('User name and password dont match');
+      } catch (err) {
+        console.log(err)
+        this.msg = 'Failed to login'
+      }
+    },
   }
 
 }
