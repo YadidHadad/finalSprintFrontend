@@ -61,7 +61,7 @@ export default {
         },
         setBoardTitle() {
 
-            if (this.board.title.length > 15) this.board.title = this.board.title.slice(0, 15) + '...'
+            // if (this.board.title.length > 15) this.board.title = this.board.title.slice(0, 15) + '...'
 
             this.$store.dispatch({ type: "updateBoard", board: this.board });
         },
@@ -97,7 +97,7 @@ export default {
 
             const board = JSON.parse(JSON.stringify(this.$store.getters.board || {}))
 
-            if (board.title.length > 15) board.title = board.title.slice(0, 15)
+            // if (board.title.length > 15) board.title = board.title.slice(0, 15)
 
             return board
         },
