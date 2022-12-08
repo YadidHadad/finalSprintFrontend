@@ -143,7 +143,6 @@ export default {
             return member !== -1
         },
         setSearchedMembers() {
-            // console.log(this.filterByName);
             if (!this.filterByName) {
                 this.searchedMembers = []
                 return
