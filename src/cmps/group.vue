@@ -113,22 +113,17 @@ export default {
             if (removedIndex === null && addedIndex === null) return
 
             // console.log('ON DROP! - group.vue', dropResult)
-            if (addedIndex !== null) {
-                this.tasksCopy = JSON.parse(JSON.stringify(this.group.tasks || []))
-                this.tasksCopy = this.applyDrag(this.tasksCopy, dropResult)
-                this.$store.commit({ type: 'updateTasks', payload: { tasks: this.tasksCopy, groupId: this.group.id } })
-                this.tasksCopy = JSON.parse(JSON.stringify(this.group.tasks || []))
-                return
-            }
+            // if(addedIndex !== null) this.$store.commit({type: 'updateTasks' ,payload: { tasks: this.tasksCopy, groupId: this.group.id } })
             try {
-                this.tasksCopy = JSON.parse(JSON.stringify(this.group.tasks || []))
-                this.tasksCopy = this.applyDrag(this.tasksCopy, dropResult)
-                // console.log('Tasks Copy', this.tasksCopy)
-                const tasks = await this.$store.dispatch({ type: 'updateTasks', payload: { tasks: this.tasksCopy, groupId: this.group.id } })
-                // console.log('*****************', tasks)
-                this.tasksCopy = JSON.parse(JSON.stringify(this.group.tasks || []))
+                    this.tasksCopy = JSON.parse(JSON.stringify(this.group.tasks || []))
+                    this.tasksCopy = this.applyDrag(this.tasksCopy, dropResult)
+                    // console.log('Tasks Copy', this.tasksCopy)
+                    const tasks = await this.$store.dispatch({ type: 'updateTasks', payload: { tasks: this.tasksCopy, groupId: this.group.id } })
+                    // console.log('*****************', tasks)
+                    this.tasksCopy = JSON.parse(JSON.stringify(this.group.tasks || []))
             }
             catch (prevTasks) {
+                console.log(prevTasks)
                 this.tasksCopy = JSON.parse(JSON.stringify(prevTasks))
             }
         },

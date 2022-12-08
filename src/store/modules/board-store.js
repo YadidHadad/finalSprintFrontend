@@ -276,12 +276,14 @@ export const boardStore = {
             try {
                 context.commit({ type: 'updateBoard', board: context.state.board })
                 context.commit({ type: 'setBoard', boardId: context.state.board._id })
-                // const board = await boardService.save(context.state.board)
+                const board = await boardService.save(context.state.board)
                 return newTasks
             }
-            catch (prevTasks) {
+            catch (prevBoard) {
                 // console.log('boardStore: Error in updateTasks')
-                context.commit({ type: 'updateGroups', payload: { tasks: prevTasks, groupId } })
+                // context.commit({ type: 'updateGroups', payload: { tasks: prevTasks, groupId } })
+                context.commit({ type: 'updateBoard', board: prevBoard })
+                context.commit({ type: 'setBoard', boardId: prevBoard._id })
                 throw prevTasks
             }
         },
