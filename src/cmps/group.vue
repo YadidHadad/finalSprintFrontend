@@ -2,7 +2,7 @@
     <div class="group flex column">
         <div class="main-title flex column justify-between">
             <div class="flex row align-center justify-between w-100">
-                <input v-model="newGroupTitle" @input="debounceHandler"
+                <input v-model="newGroupTitle" @input="updateGroup"
                     @keyup.enter="($event) => $event.target.blur()" />
                 <button class="btn-menu" @click="toggleMenu">
                     <span class="fa-solid elipsis-icon"></span>
@@ -97,13 +97,14 @@ export default {
         console.log(this.filterBy);
         this.tasksCopy = JSON.parse(JSON.stringify(this.group.tasks))
         this.tasksToShow = this.group.tasks
+        // this.dragDebounce = utilService.debounce(this.onDrop, 500)
+        
+        // try {
+        //     this.debounceHandler = utilService.debounce(this.updateGroup, 500)
 
-        try {
-            this.debounceHandler = utilService.debounce(this.updateGroup, 500)
-
-        } catch (err) {
-            console.log(err);
-        }
+        // } catch (err) {
+        //     console.log(err);
+        // }
     },
 
     methods: {
