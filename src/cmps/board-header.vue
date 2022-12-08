@@ -16,13 +16,18 @@
                 <span class="trello-home filter-icon"></span>
                 <span class="txt">Filter</span>
             </button>
-            <div v-for="member in board.members" :key="member._id" :title="member.fullname">
-                <div v-if="member.imgUrl" class="member-image" :style="memberImage(member.imgUrl)"> </div>
-                <span v-else class="member-initials">
+            <div v-for="member in board.members.slice(0, 5)" :key="member._id" :title="member.fullname">
+                <div v-if="member.imgUrl" class="member-image" :style="memberImage(member.imgUrl)"
+                    :title="member.fullname"> </div>
+                <span v-else class="member-initials" :title="member.fullname">
                     {{ getInitials(member.fullname) }}
                 </span>
             </div>
-            <button class="btn" :class="{ isDark: !isDark }" :style="buttonBackground" @click="toggleBoardMenu">
+            <div v-if="(board.members.length > 5)" class="btn member-plus"><span class="fa-regular plus-icon">{{
+                    (board.members.length - 5)
+            }}</span>
+            </div>
+            <button class="btn " :class="{ isDark: !isDark }" :style="buttonBackground" @click="toggleBoardMenu">
                 <span class="trello-home elipsis-icon"></span>
             </button>
         </div>
