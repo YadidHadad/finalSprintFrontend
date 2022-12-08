@@ -77,6 +77,9 @@
     font-family: "trello-home";
     font-size: 1rem;
 
+    &.clock-icon::before {
+        content: "\e91c";
+    }
     &.board-icon::before {
         content: "\e90f";
     }
@@ -351,8 +354,6 @@
         font-size: rem(14px);
         content: "\f0c8";
     }
-
-
 }
 
 .fa-brands {
@@ -424,7 +425,6 @@
     }
 
     & {
-
         // transform: rotate(180deg);
         &.board-icon::before {
             content: "\e473";

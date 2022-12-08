@@ -128,13 +128,13 @@ export const boardStore = {
         },
 
         addActivity(state, { activity }) {
-            if (!activity) return
-            activity.createdAt = Date.now()
-            activity.id = utilService.makeId()
-            if (!state.board?.activities) state.board.activities = []
-            state.board.activities.push(activity)
+            // if (!activity) return
+            // activity.createdAt = Date.now()
+            // activity.id = utilService.makeId()
+            // if (!state.board?.activities) state.board.activities = []
+            // state.board.activities.push(activity)
 
-            console.log('activityyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy', activity);
+            // console.log('activityyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy', activity);
         },
 
         removeActivity({ state }) {

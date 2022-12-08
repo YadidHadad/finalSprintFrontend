@@ -59,6 +59,7 @@
         height: 100%;
         .activities {
             @include scroll-bar;
+            padding-inline-end: 0 !important;
             .activities-container {
                 font-size: 0.8rem;
                 height: calc(100vh - 255px);
@@ -73,6 +74,7 @@
     .btn-back,
     .btn-close {
         top: 2px;
+        background-color: transparent;
         span {
             font-size: 1rem !important;
             margin: 0;
@@ -113,6 +115,11 @@
             aspect-ratio: 1/1;
             margin-inline-end: 1rem;
             box-shadow: inset 0px -1px 0px rgb(0 0 0 / 33%);
+        }
+
+        .activity-time {
+            font-size: 0.75rem !important;
+            color: rgba($textDark, 0.8) !important;
         }
     }
 

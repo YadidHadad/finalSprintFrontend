@@ -6,10 +6,10 @@
                     <span class="trellicons icon-board"></span>
                     <span>Boards</span>
                 </router-link>
-                <router-link class="btn home-btn flex align-center gap20" :to="'/'">
+                <!-- <router-link class="btn home-btn flex align-center gap20" :to="'/'">
                     <span class="trellicons icon-template-board"></span>
                     <span>Templates</span>
-                </router-link>
+                </router-link> -->
                 <router-link class="btn home-btn flex align-center gap20" :to="'/'">
                     <span class="trellicons icon-home"></span>
                     <span>Home</span>

@@ -8,7 +8,7 @@
                 <span class="logo">Kannban</span>
             </router-link>
         </section>
-        <section class="user-buttons flex row align-center gap">
+        <section class="user-buttons flex row align-center justify-center gap">
             <div class="search-boards flex row align-center gap justify-around"
                 :class="{ 'whiteBackground': isInputInFocus, isDark: isDark }">
                 <span class="trello-home glass-icon"></span>
