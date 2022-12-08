@@ -74,7 +74,6 @@ export default {
                 action = 'removed'
             }
             this.$emit('updateMembers', 'members-edit', { memberIds: this.taskMembersIds, fullname: clickedMember.fullname, action })
-
         },
         isMemberInTask(memberId) {
             if (!this.taskMembersIds) return

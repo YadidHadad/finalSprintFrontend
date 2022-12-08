@@ -30,9 +30,9 @@
             </div>
         </div>
 
-        <Container class="task-preview-container flex column" orientation="vertical" @drop="onDrop"
-            group-name="group-tasks" :get-child-payload="getChildPayload" :drag-class="dragClass"
-            :drop-class="dragClass" @drag-start="onDragStart" @drag-end="onDragEnd">
+        <Container class="task-preview-container flex column" orientation="vertical" group-name="group-tasks"
+            @drop="onDrop" :shouldAcceptDrop="(e, payload) => (e.groupName === 'group-tasks' && !payload.loading)"
+            :get-child-payload="getChildPayload" drop-class="" :drop-class="dragClass">
             <Draggable class="task-preview" v-for="task in tasksToShow" :key="task.id">
                 <task-preview :task="task" :groupId="this.group.id" :boardId="boardId" />
             </Draggable>
@@ -93,7 +93,7 @@ export default {
 
     async created() {
         // console.log(this.group, '************************')
-        //console.log(this.filterBy);
+        // console.log(this.filterBy);
         this.tasksCopy = JSON.parse(JSON.stringify(this.group.tasks))
         this.tasksToShow = this.group.tasks
         // this.dragDebounce = utilService.debounce(this.onDrop, 500)
@@ -109,14 +109,15 @@ export default {
     methods: {
         async onDrop(dropResult) {
             const { removedIndex, addedIndex, payload, element } = dropResult;
-            // console.log(removedIndex, addedIndex, payload, element);
-            if(removedIndex === null && addedIndex === null) return
+            if (removedIndex === null && addedIndex === null) return
+
+            console.log('ON DROP! - group.vue', dropResult)
             try {
                 this.tasksCopy = JSON.parse(JSON.stringify(this.group.tasks || []))
                 this.tasksCopy = this.applyDrag(this.tasksCopy, dropResult)
-                //console.log('Tasks Copy', this.tasksCopy)
+                // console.log('Tasks Copy', this.tasksCopy)
                 const tasks = await this.$store.dispatch({ type: 'updateTasks', payload: { tasks: this.tasksCopy, groupId: this.group.id } })
-                //console.log('*****************', tasks)
+                // console.log('*****************', tasks)
                 this.tasksCopy = JSON.parse(JSON.stringify(this.group.tasks || []))
             }
             catch (prevGroups) {
@@ -157,7 +158,7 @@ export default {
 
             this.tasksCopy = JSON.parse(JSON.stringify(this.group.tasks))
 
-            //console.log('get child copy', this.tasksCopy);
+            // console.log('get child copy', this.tasksCopy);
 
             return {
                 itemToMove: this.tasksCopy[index]
@@ -226,7 +227,7 @@ export default {
     watch: {
         filterBy: {
             handler: function (filterBy, oldVal) {
-                //console.log('hiiiiiiiiiiiiiiii');
+                // console.log('hiiiiiiiiiiiiiiii');
                 const regex = new RegExp(filterBy.title, 'i');
                 this.tasksToShow = this.group.tasks.filter(task => regex.test(task.title))
                 if (filterBy.isNoMembers)

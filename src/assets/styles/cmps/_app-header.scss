@@ -12,6 +12,7 @@ header {
 
     .trello-home {
         font-size: 1.2rem;
+        font-weight: lighter;
     }
     .header-btn {
         height: 32px;
@@ -22,7 +23,8 @@ header {
 
         &:last-of-type {
             margin-inline-start: -9px;
-            margin-block-start: -3px;
+            // margin-block-start: -3px;
+            margin-block-end: 0.06rem;
         }
         span {
             padding: none;
@@ -77,10 +79,10 @@ header {
     }
 
     .search-boards {
-        min-width: 200px;
+        width: 200px;
         height: 2rem;
         border-radius: 5px;
-        background-color: rgba($textDark, 0.2);
+        background-color: rgba($textLight, 0.2);
         border: 1px solid rgba($textDark, 0.3);
         padding: 0 0.5rem;
         input {
@@ -105,7 +107,6 @@ header {
             * {
                 color: $textLight;
             }
-
             input {
                 color: $textLight;
                 &::placeholder {
@@ -113,6 +114,7 @@ header {
                 }
             }
         }
+
         &.whiteBackground {
             background-color: white !important;
             color: $textDark !important;
@@ -184,22 +186,25 @@ header {
     nav .active {
         color: $clr1;
     }
-}
 
-.user-buttons {
-    .profile-btn {
-        height: 32px;
-        width: 32px;
-        background-color: #de350b;
-        border-radius: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 14px;
-        font-weight: bold;
+    .user-buttons {
+        span {
+            margin-block-end: -0.1rem;
+        }
+        .profile-btn {
+            height: 32px;
+            width: 32px;
+            background-color: #de350b;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 14px;
+            font-weight: bold;
 
-        &:hover {
-            cursor: pointer;
+            &:hover {
+                cursor: pointer;
+            }
         }
     }
 }

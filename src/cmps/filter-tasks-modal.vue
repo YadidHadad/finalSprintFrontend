@@ -34,7 +34,7 @@
                 </label>
                 <!-- <label for="task-members">
                     <input id="task-members" type="checkbox"> -->
-                <div @click="isShowMembers = !isShowMembers" class="board-members" >
+                <div @click="isShowMembers = !isShowMembers" class="board-members">
                     Select members
                     <span>
                         >
@@ -44,7 +44,7 @@
                         <label @click.stop="">
                             <input type="checkbox" v-model="filterBy.membersIds" :value="member._id"
                                 @change="filterByMember">
-                                <span class="user-icon">
+                            <span class="user-icon">
                                 {{ getInitials(member.fullname) }}
                             </span>
                             <span>{{ member.fullname }}</span>
@@ -91,7 +91,7 @@ export default {
             this.$emit('closeFilter')
         },
         filterByMember(id) {
-            console.log(this.filterBy.membersIds);
+            // console.log(this.filterBy.membersIds);
             this.$emit('doFilter', this.filterBy)
             // const memberIdx = this.membersIds.findIndex(memberId => memberId === id)
             // memberIdx === -1 ? this.membersIds.push(id) : this.membersIds.splice(memberIdx, 1)

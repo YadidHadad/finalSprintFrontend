@@ -72,7 +72,7 @@ export default {
             this.$store.dispatch({ type: "updateBoard", board: this.board });
         },
         setBoardStar() {
-            console.log('star')
+            // console.log('star')
             if (!this.board) return
             this.board.isStarred = !this.board.isStarred
             this.$store.dispatch({ type: "updateBoard", board: this.board });
@@ -97,7 +97,7 @@ export default {
         titleLength() {
             if (!this.board.title) return;
             // return { width: `${(this.board.title.length)}` + "ch" };
-            return { width: `${(this.board.title.length) * 10}` + "px" };
+            return { width: `${(this.board.title.length + 3) * 10}` + "px" };
         },
         board() {
 

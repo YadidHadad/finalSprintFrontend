@@ -28,17 +28,18 @@
             font-size: 2rem;
             font-family: "charlie-bold";
             span {
-                color: #0079bf;
+                color: #0065ff;
             }
             span:last-of-type {
                 color: #253858;
+                margin-top: 0.1rem;
             }
         }
 
         .login-btn {
             cursor: pointer;
             color: white;
-            background-color: #0079bf;
+            background-color: #0065ff;
             font-family: "charlie-regular";
             font-size: 1.2rem;
             height: 100%;
@@ -46,7 +47,10 @@
             width: 200px;
             text-align: center;
             &:hover {
-                filter: brightness(0.8);
+                &:hover {
+                    filter: none;
+                    background-color: rgb(7, 71, 166);
+                }
             }
         }
     }
@@ -87,11 +91,15 @@
 
             button {
                 @include btn-add-save($type: "save");
-                font-family: "charlie-light";
-
-                padding: 0.5rem 1rem;
-                height: 50px;
-                font-size: 1rem;
+                font-family: "charlie-semibold";
+                padding: 0.5rem 3rem;
+                box-shadow: outset 0px 0px 1px 1px rgb(0 0 0 / 10%);
+                font-size: 2rem;
+                background-color: #0065ff;
+                &:hover {
+                    filter: none;
+                    background-color: rgb(7, 71, 166);
+                }
             }
         }
         // border: 1px solid gold;

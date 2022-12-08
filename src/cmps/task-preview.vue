@@ -22,10 +22,10 @@
                     <!-- <input class="trellicons icon-clock" type="checkbox" 
                         v-model="isComplete" /> -->
                     <div class=" btn-date flex gap5" @click.stop="toggleIsComplete"
-                        :style="{ backgroundColor: isComplete ? '#61bd4f' : '', color: isComplete ? '#ffff' : '' }"> 
+                        :style="{ backgroundColor: isComplete ? '#61bd4f' : '', color: isComplete ? '#ffff' : '' }">
                         <span class="trellicons icon-clock"></span>
                         <span class="fa-regular square-icon"></span>
-                        <span :style="{color: isComplete ? '#ffff' : ''}"> {{ getDueDateStr}}</span>
+                        <span :style="{ color: isComplete ? '#ffff' : '' }"> {{ getDueDateStr }}</span>
                         <span v-if="getDueDateStr < Date.now()" class="time-tag"
                             :style="{ backgroundColor: '#ec9488' }"></span>
 
@@ -57,7 +57,7 @@
                 <div class=""></div>
 
                 <members-preview v-if="task.memberIds" :memberIds="task.memberIds" :isTaskDetails="false"
-                    class="members-task-preview justify-end"/>
+                    class="members-task-preview justify-end" />
 
             </div>
         </section>
@@ -99,7 +99,7 @@ export default {
     created() {
         this.taskLabelsIds = this.task.labelIds
         this.getIsComplete ? this.isComplete = true : this.isComplete = false
-        console.log(this.isComplete);
+        // console.log(this.isComplete);
 
     },
 
@@ -116,14 +116,14 @@ export default {
             this.updateTask(this.isComplete)
         },
         async updateTask(data) {
-            console.log(data)
+            // console.log(data)
             let taskToUpdate = JSON.parse(JSON.stringify(this.task))
             taskToUpdate.isComplete = data
             const txt = data ? `marked ${this.task.title} as complete` : `unmarked ${this.task.title} as complete`
             taskToUpdate.isComplete = data
 
             try {
-                console.log('hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii', this.task);
+                // console.log('hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii', this.task);
                 this.$store.commit({ type: 'updateTask', payload: { task: taskToUpdate, groupId: this.groupId } })
                 let updatedTask = await this.$store.dispatch({
                     type: "updateTask",
@@ -214,7 +214,7 @@ export default {
             }
         },
         getDueDateStr() {
-            console.log(this.task.dueDate);
+            // console.log(this.task.dueDate);
             return new Date(this.task.dueDate).toDateString().slice(4, 10)
         },
         getIsComplete() {
