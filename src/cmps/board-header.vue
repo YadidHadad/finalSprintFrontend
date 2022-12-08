@@ -91,7 +91,7 @@ export default {
         titleLength() {
             if (!this.board.title) return;
             // return { width: `${(this.board.title.length)}` + "ch" };
-            return { width: `${(this.board.title.length + 3) * 10}` + "px" };
+            return { width: `${(this.board.title.length) * 10}` + "px" };
         },
         board() {
 

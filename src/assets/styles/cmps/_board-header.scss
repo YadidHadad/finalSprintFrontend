@@ -1,6 +1,6 @@
 .board-header {
     // position: relative;
-    padding: 0px 4px 4px 32px;
+    padding: 0px 4px 4px 16px;
     width: 100%;
     transition: all 0.3s ease-out;
     // & * :not(.trellicons):not(.fa-regular):not(.fa-solid) {
@@ -29,16 +29,27 @@
         border: none;
         font-size: 20px;
         font-family: "charlie-regular";
-        // text-align: center;
+        text-align: center;
         font-weight: bold;
-        margin-inline-start: 0.5rem;
+        border-radius: 3px;
+        // margin-inline-start: 0.5rem;
         background-color: transparent;
         width: fit-content;
         // padding-inline: 1rem;
+        padding: 0.2rem;
 
         &:focus {
             background-color: white;
             color: $textDark;
+        }
+        &:hover {
+            background-color: rgba($textLight, 0.2);
+
+            &.isDark {
+                * {
+                    background-color: rgba($textDark, 0.2);
+                }
+            }
         }
     }
 
