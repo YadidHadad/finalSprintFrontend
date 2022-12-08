@@ -57,19 +57,19 @@
 
         <div class="board-members">
             <span>Recently joined</span>
-            <div v-for="member in boardMembers" :key="member._id" class="board-member">
-                <div class="member-user flex row align-center">
-                    <div class="flex align-center grow">
-                        <div v-if="member.imgUrl" class="member-image" :style="memberImage(member.imgUrl)"> </div>
-                        <span v-else class="member-initials">
-                            {{ getInitials(member.fullname) }}
-                        </span>
-                        <span class="fullname">{{ member.fullname + " " }}</span>
+            <div v-for="member in boardMembers" :key="member._id" class="board-member w-100">
+                <div class="member-user flex row align-center justify-center w-100">
+                    <!-- <div class="flex align-center grow"> -->
+                    <div v-if="member.imgUrl" class="member-image" :style="memberImage(member.imgUrl)"> </div>
+                    <span v-else class="member-initials">
+                        {{ getInitials(member.fullname) }}
+                    </span>
+                    <span class="fullname grow">{{ member.fullname + " " }}</span>
 
-                        <button @click="removeFromBoard(member._id)">
-                            <span class="trellicons x-icon"></span>
-                        </button>
-                    </div>
+                    <button @click="removeFromBoard(member._id)">
+                        <span class="trellicons x-icon"></span>
+                    </button>
+                    <!-- </div> -->
                 </div>
             </div>
         </div>
@@ -91,7 +91,7 @@ export default {
     data() {
         return {
             filterByName: '',
-            searchedMembers: '',
+            searchedMembers: [],
             // searchedMembersObjects: [],
             membersToAdd: [],
             value: [],
@@ -149,7 +149,9 @@ export default {
                 return
             }
             // console.log('members')
-            const boardMembers = JSON.parse(JSON.stringify(this.$store.getters.members))
+            // const boardMembers = JSON.parse(JSON.stringify(this.$store.getters.members))
+            console.log(this.users)
+            console.log(this.boardMembersIds)
             const regex = new RegExp(this.filterByName, 'i');
             this.searchedMembers = this.users.filter(user => {
                 if (this.boardMembersIds.includes(user._id))
