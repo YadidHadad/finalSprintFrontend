@@ -276,7 +276,7 @@ export const boardStore = {
             try {
                 context.commit({ type: 'updateBoard', board: context.state.board })
                 context.commit({ type: 'setBoard', boardId: context.state.board._id })
-                const board = await boardService.save(context.state.board)
+                // const board = await boardService.save(context.state.board)
                 return newTasks
             }
             catch (prevTasks) {
