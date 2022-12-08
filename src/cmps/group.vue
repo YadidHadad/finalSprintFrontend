@@ -94,6 +94,7 @@ export default {
 
     async created() {
         console.log(this.group, '************************')
+        console.log(this.filterBy);
         this.tasksCopy = JSON.parse(JSON.stringify(this.group.tasks))
         this.tasksToShow = this.group.tasks
 
@@ -223,6 +224,7 @@ export default {
     watch: {
         filterBy: {
             handler: function (filterBy, oldVal) {
+                console.log('hiiiiiiiiiiiiiiii');
                 const regex = new RegExp(filterBy.title, 'i');
                 this.tasksToShow = this.group.tasks.filter(task => regex.test(task.title))
                 if (filterBy.isNoMembers)
@@ -236,7 +238,13 @@ export default {
                         // task.memberIds?.includes(this.user._id)
                     })
                 }
-                console.log(this.tasksToShow);
+                // console.log(this.tasksToShow);
+            },
+            deep: true
+        },
+        group: {
+            handler: function (val, oldVal) {
+                this.tasksToShow = this.group.tasks
             },
             deep: true
         }
@@ -249,14 +257,6 @@ export default {
         },
         dragClass() {
             return 'on-drag'
-        }
-    },
-    watch: {
-        group: {
-            handler: function (val, oldVal) {
-                this.tasksToShow = this.group.tasks
-            },
-            deep: true
         }
     },
     components: { taskPreview, Container, Draggable, copyTaskEdit },

@@ -21,6 +21,7 @@ export const userStore = {
     mutations: {
         setLoggedinUser(state, { user }) {
             state.loggedinUser = (user) ? { ...user } : null
+            console.log(state.loggedinUser);
         },
         setWatchedUser(state, { user }) {
             state.watchedUser = user

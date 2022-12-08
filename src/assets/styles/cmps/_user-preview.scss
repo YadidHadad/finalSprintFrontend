@@ -15,9 +15,10 @@
     position: fixed;
     right: 0;
     top: 47px;
+    color: var(--ds-text-subtle, #5E6C84);
     z-index: 100;
     padding: 12px;
-    width: 304px;
+    width: 305px;
     box-shadow: var(--ds-shadow-overlay, 0 8px 16px -4px rgba(9, 30, 66, 0.25), 0 0 0 1px rgba(9, 30, 66, 0.08));
     border-radius: 3px;
     display: flex;
@@ -28,12 +29,20 @@
     .user-preview-header {
         font-family: "segoe-semi-bold";
         border-bottom: 1px solid var(--ds-border, rgba(9, 30, 66, 0.13));
+        padding-bottom: 8px;
 
         .header-links {
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 4px;
+            font-size: 14px;
+            line-height: 20px;
+            font-weight: 400;
+
+            span {
+                color: white;
+            }
         }
 
         .profile-btn {
@@ -80,11 +89,43 @@
             text-align: start;
             background-color: white;
             padding: 6px 0;
+        }
 
+        .links {
+            >*:not(:last-child) {
+                padding: 6px 0;
+                background: var(--ds-background-neutral-subtle, #FFFFFF);
+                font-size: 14px;
+                line-height: 20px;
+                font-weight: 400;
+
+                span {
+                    color: var(--ds-text-subtle, #5E6C84);
+                }
+
+                &:hover {
+                    cursor: pointer;
+                    filter: brightness(95%);
+                }
+            }
+
+            >:last-child {
+                &::after {
+                    background-color: var(--ds-border, rgba(9, 30, 66, 0.13));
+                    content: ' ';
+                    display: block;
+                    height: 1px;
+                    margin: 8px 10px;
+                }
+            }
+        }
+
+        button {
             &:hover {
                 filter: brightness(95%);
             }
         }
 
     }
+
 }

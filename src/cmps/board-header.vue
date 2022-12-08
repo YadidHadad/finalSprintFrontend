@@ -16,7 +16,7 @@
                 <span class="trello-home filter-icon"></span>
                 <span class="txt">Filter</span>
             </button>
-            <div v-for="member in board.members" :key="member._id">
+            <div v-for="member in board.members" :key="member._id" :title="member.fullname">
                 <div v-if="member.imgUrl" class="member-image" :style="memberImage(member.imgUrl)"> </div>
                 <span v-else class="member-initials">
                     {{ getInitials(member.fullname) }}
