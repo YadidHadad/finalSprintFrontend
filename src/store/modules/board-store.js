@@ -71,7 +71,7 @@ export const boardStore = {
         },
 
         setPushedBoard(state, { board }) {
-            console.log('IN STORE PUSH BOARD');
+            console.log('IN STORE PUSH BOARD', board);
             const boardIdx = state.boards.findIndex(b => b._id === board._id)
             state.boards.splice(boardIdx, 1, board)
             state.board = board
@@ -252,10 +252,18 @@ export const boardStore = {
             context.dispatch({ type: 'updateBoard', board: newBoard })
         },
         async removeMember(context, { memberId }) {
-            // const newBoard = JSON.parse(JSON.stringify(context.state.board))
-            // const memberIdx = newBoard.members.findIndex(member => member._id === memberId)
-            // if (memberIdx !== -1) newBoard.members.splice(memberIdx, 1)
-            // context.dispatch({ type: 'updateBoard', board: newBoard })
+            const newBoard = JSON.parse(JSON.stringify(context.state.board))
+            const memberIdx = newBoard.members.findIndex(member => member._id === memberId)
+            if (memberIdx !== -1) newBoard.members.splice(memberIdx, 1)
+            newBoard.groups.forEach(group => {
+                group.tasks.forEach((task, index) => {
+                    if (task.memberIds?.includes(memberId)) {
+                        console.log(task.memberIds, 'oooooooooooooooo');
+                        task.memberIds.splice(index, 1)
+                    }
+                })
+            })
+            context.dispatch({ type: 'updateBoard', board: newBoard })
         },
 
         async updateTasks(context, { payload }) {

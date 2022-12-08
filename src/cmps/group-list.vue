@@ -156,8 +156,8 @@ export default {
                 ? utilService.getBCG(this.rgb.value, 30, 0.5)
                 : utilService.getBCG(this.rgb.value, 60, 0.5);
         },
-    },
 
+    },
     components: {
         group,
         Container,

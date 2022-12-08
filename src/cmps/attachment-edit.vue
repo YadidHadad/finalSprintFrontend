@@ -46,7 +46,7 @@ export default {
                 name: 'Your attachment',
                 id: utilService.makeId(),
                 type: 'image',
-                createdAt: Date.now()
+                createdAt: Date.now(),
             }
             this.$emit('updateTask', attachment)
         },

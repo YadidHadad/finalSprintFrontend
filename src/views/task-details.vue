@@ -333,8 +333,10 @@ export default {
                     this.closeEditor();
                     break
                 case 'attachment-edit':
-                    taskToUpdate.style = {
-                        'imgUrl': data.url
+                    if (data.type === 'image') {
+                        taskToUpdate.style = {
+                            'imgUrl': data.url
+                        }
                     }
                     if (!taskToUpdate.attachments) taskToUpdate.attachments = []
                     taskToUpdate.attachments.unshift(data)
@@ -342,6 +344,8 @@ export default {
                     this.closeEditor();
                     break
                 case 'attachment-preview':
+                // if (taskToUpdate.style === data.url) 
+                    // console.log(data.url);
                     taskToUpdate.attachments = data
                     break
 

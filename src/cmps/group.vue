@@ -96,7 +96,7 @@ export default {
         console.log(this.group, '************************')
         this.tasksCopy = JSON.parse(JSON.stringify(this.group.tasks))
         this.tasksToShow = this.group.tasks
-        
+
         try {
             this.debounceHandler = utilService.debounce(this.updateGroup, 500)
 
@@ -225,10 +225,17 @@ export default {
             handler: function (filterBy, oldVal) {
                 const regex = new RegExp(filterBy.title, 'i');
                 this.tasksToShow = this.group.tasks.filter(task => regex.test(task.title))
-                if(filterBy.isNoMembers) 
+                if (filterBy.isNoMembers)
                     this.tasksToShow = this.tasksToShow.filter(task => !task.memberIds?.length)
-                if(filterBy.isAssignToMe)
+                if (filterBy.isAssignToMe)
                     this.tasksToShow = this.tasksToShow.filter(task => task.memberIds?.includes(this.user._id))
+                if (filterBy.membersIds.length) {
+                    this.tasksToShow = this.tasksToShow.filter(task => {
+                        if (!task.memberIds?.length) return false
+                        return task.memberIds.some(memberId => filterBy.membersIds.includes(memberId))
+                        // task.memberIds?.includes(this.user._id)
+                    })
+                }
                 console.log(this.tasksToShow);
             },
             deep: true
@@ -242,6 +249,14 @@ export default {
         },
         dragClass() {
             return 'on-drag'
+        }
+    },
+    watch: {
+        group: {
+            handler: function (val, oldVal) {
+                this.tasksToShow = this.group.tasks
+            },
+            deep: true
         }
     },
     components: { taskPreview, Container, Draggable, copyTaskEdit },

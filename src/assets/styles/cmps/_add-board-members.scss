@@ -38,6 +38,11 @@
     .board-member {
         display: flex;
         align-items: center;
+
+        button {
+            margin-inline-start: 0.5rem;
+            color: var(--ds-text, #172b4d);
+        }
     }
 
     .search-results {

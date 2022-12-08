@@ -41,8 +41,11 @@
                     </span>
 
                     <div class="board-members" v-for="member in members" v-if="isShowMembers"
-                        @click="toggleMember(member._id)">
-                        {{ member.fullname }}
+                        >
+                        <label @click.stop="">
+                            {{ member.fullname }}
+                            <input type="checkbox" v-model="filterBy.membersIds" :value="member._id" @change="filterByMember">
+                        </label>
                     </div>
                 </div>
                 <!-- </label> -->
@@ -80,9 +83,11 @@ export default {
         close() {
             this.$emit('closeFilter')
         },
-        toggleMember(id) {
-            const memberIdx = this.membersIds.findIndex(memberId => memberId === id)
-            memberIdx === -1 ? this.membersIds.push(id) : this.membersIds.splice(memberIdx, 1)
+        filterByMember(id) {
+            console.log(this.filterBy.membersIds);
+            this.$emit('doFilter', this.filterBy)
+            // const memberIdx = this.membersIds.findIndex(memberId => memberId === id)
+            // memberIdx === -1 ? this.membersIds.push(id) : this.membersIds.splice(memberIdx, 1)
         }
     },
     computed: {

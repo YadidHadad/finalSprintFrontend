@@ -95,9 +95,10 @@ export default {
         pushedBoard(board) {
             console.log('hiiiiii board details');
             this.$store.commit({ type: 'setPushedBoard', board })
+            console.log(this.board)
         },
         removeMember(id) {
-            this.$store.dispatch({ type: 'addMember', memberId: id })
+            this.$store.dispatch({ type: 'removeMember', memberId: id })
         },
         async avgColor() {
 
