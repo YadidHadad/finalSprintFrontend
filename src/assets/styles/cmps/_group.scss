@@ -89,7 +89,10 @@
 }
 
 .add-card-container {
+    position: sticky;
+    bottom: 0;
     padding-bottom: rem(10px);
+    background-color: $clr12;
 }
 
 button.add-card-btn {
