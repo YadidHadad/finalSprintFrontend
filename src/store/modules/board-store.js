@@ -62,7 +62,7 @@ export const boardStore = {
             state.boards = boards
         },
 
-        setBoard(state, { boardId }) {log
+        setBoard(state, { boardId }) {
             // console.log(boardId, '00000000000000000');
             const currBoard = state.boards.find(b => b._id === boardId)
             // console.log(currBoard);
@@ -276,7 +276,7 @@ export const boardStore = {
             try {
                 context.commit({ type: 'updateBoard', board: context.state.board })
                 context.commit({ type: 'setBoard', boardId: context.state.board._id })
-                // const board = await boardService.save(context.state.board)
+                const board = await boardService.save(context.state.board)
                 return newTasks
             }
             catch (prevTasks) {

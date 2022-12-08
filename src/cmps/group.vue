@@ -86,7 +86,8 @@ export default {
             isMenuOpen: false,
             newGroupTitle: JSON.parse(JSON.stringify(this.group.title)),
             tasksCopy: [],
-            tasksToShow: []
+            tasksToShow: [],
+            dropCounter: 0
 
         }
     },
@@ -96,7 +97,7 @@ export default {
         // console.log(this.filterBy);
         this.tasksCopy = JSON.parse(JSON.stringify(this.group.tasks))
         this.tasksToShow = this.group.tasks
-        // this.dragDebounce = utilService.debounce(this.onDrop, 500)
+        this.dropDebounce = utilService.debounce(this.onDrop, 500)
 
         // try {
         //     this.debounceHandler = utilService.debounce(this.updateGroup, 500)
@@ -112,6 +113,13 @@ export default {
             if (removedIndex === null && addedIndex === null) return
 
             // console.log('ON DROP! - group.vue', dropResult)
+            if (addedIndex !== null) {
+                this.tasksCopy = JSON.parse(JSON.stringify(this.group.tasks || []))
+                this.tasksCopy = this.applyDrag(this.tasksCopy, dropResult)
+                this.$store.commit({ type: 'updateTasks', payload: { tasks: this.tasksCopy, groupId: this.group.id } })
+                this.tasksCopy = JSON.parse(JSON.stringify(this.group.tasks || []))
+                return
+            }
             try {
                 this.tasksCopy = JSON.parse(JSON.stringify(this.group.tasks || []))
                 this.tasksCopy = this.applyDrag(this.tasksCopy, dropResult)
@@ -120,8 +128,8 @@ export default {
                 // console.log('*****************', tasks)
                 this.tasksCopy = JSON.parse(JSON.stringify(this.group.tasks || []))
             }
-            catch (prevGroups) {
-                this.tasksCopy = JSON.parse(JSON.stringify(prevGroups))
+            catch (prevTasks) {
+                this.tasksCopy = JSON.parse(JSON.stringify(prevTasks))
             }
         },
         applyDrag(arr, dragResult) {
