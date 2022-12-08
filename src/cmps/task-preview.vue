@@ -19,12 +19,23 @@
         <section class="task-preview-icons flex wrap justify-between gap2">
             <div class="flex row gap align-center">
                 <div v-if="task.dueDate" class="task-date-preview flex">
-                    <span class="trellicons icon-clock"></span>
-                    <span class="date-str">{{ getDueDateStr }}</span>
+                    <!-- <input class="trellicons icon-clock" type="checkbox" 
+                        v-model="isComplete" /> -->
+                    <div class=" btn-date flex gap5" @click.stop="toggleIsComplete"
+                        :style="{ backgroundColor: isComplete ? '#61bd4f' : '', color: isComplete ? '#ffff' : '' }"> 
+                        <span class="trellicons icon-clock"></span>
+                        <span class="fa-regular square-icon"></span>
+                        <span :style="{color: isComplete ? '#ffff' : ''}"> {{ getDueDateStr}}</span>
+                        <span v-if="getDueDateStr < Date.now()" class="time-tag"
+                            :style="{ backgroundColor: '#ec9488' }"></span>
+
+                    </div>
+                    <!-- <span class="date-str">{{ getDueDateStr }}</span> -->
                 </div>
                 <span v-if="task.description" class="trellicons desc-icon" title="This card has a description"></span>
                 <div v-if="taskTodosLength" class="task-todos flex"
-                    :style="{ backgroundColor: allTodosDone, color: allTodosDone ? '#fdfefd' : '' }" title="Checklist items">
+                    :style="{ backgroundColor: allTodosDone, color: allTodosDone ? '#fdfefd' : '' }"
+                    title="Checklist items">
                     <span class="trellicons checklist-icon"></span>
                     <span>{{ taskDoneTodos }}/{{ taskTodosLength }}</span>
                 </div>
@@ -32,7 +43,7 @@
             <!-- <section v-if="dueDateStr" class="dates-preview">
                 <h4>Due date</h4>
                 <div class="flex row">
-                    <input type="checkbox" @change="toggleIsComplete" v-model="isComplete">
+                    
                     <button class="btn-date">{{ dueDateStr }}
 
                         <span v-if="isComplete" class="time-tag" :style="{ backgroundColor: '#61bd4f' }">complete</span>
@@ -87,8 +98,8 @@ export default {
 
     created() {
         this.taskLabelsIds = this.task.labelIds
-        // this.getIsComplete ? this.isComplete = true : this.isComplete = false
-        // console.log(this.isComplete);
+        this.getIsComplete ? this.isComplete = true : this.isComplete = false
+        console.log(this.isComplete);
 
     },
 
@@ -100,7 +111,50 @@ export default {
             this.isLabelsOpen = !this.isLabelsOpen
             this.$store.commit({ type: 'togglePreviewLabels', isOpen: this.isLabelsOpen })
         },
+        toggleIsComplete() {
+            this.isComplete = !this.isComplete
+            this.updateTask(this.isComplete)
+        },
+        async updateTask(data) {
+            console.log(data)
+            let taskToUpdate = JSON.parse(JSON.stringify(this.task))
+            taskToUpdate.isComplete = data
+            const txt = data ? `marked ${this.task.title} as complete` : `unmarked ${this.task.title} as complete`
+            taskToUpdate.isComplete = data
 
+            try {
+                console.log('hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii', this.task);
+                this.$store.commit({ type: 'updateTask', payload: { task: taskToUpdate, groupId: this.groupId } })
+                let updatedTask = await this.$store.dispatch({
+                    type: "updateTask",
+                    payload: {
+                        task: taskToUpdate,
+                        groupId: this.groupId,
+                        activity: {
+                            txt,
+                            memberIds: this.task.memberIds,
+                            boardId: this.$route.params.id,
+                            groupId: this.groupId,
+                            taskId: this.task.id,
+                            task: {
+                                id: this.task.id,
+                                title: this.task.title
+                            },
+                            byMember: {
+                                _id: this.user._id,
+                                fullname: this.user.fullname,
+                                imgUrl: this.user.imgUrl || "",
+                            },
+                        },
+                    },
+                })
+            } catch (prevTask) {
+                this.$store.commit({ type: 'updateTask', payload: { task: prevTask, groupId: this.groupId } })
+                this.task = JSON.parse(JSON.stringify(this.getTask))
+                console.log("Failed in task update")
+            }
+
+        }
     },
 
     computed: {
@@ -160,9 +214,17 @@ export default {
             }
         },
         getDueDateStr() {
+            console.log(this.task.dueDate);
             return new Date(this.task.dueDate).toDateString().slice(4, 10)
+        },
+        getIsComplete() {
+            return this.task.isComplete
+        }, user() {
+            return this.$store.getters.loggedinUser;
         }
+
 
     }
 }
+
 </script>
