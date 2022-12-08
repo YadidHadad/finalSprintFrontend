@@ -11,6 +11,10 @@
     transition: all 0.3s ease-out;
     order: -1;
 
+    .boards-container {
+        height: 100%;
+    }
+
     & * {
         font-size: 0.875rem;
     }

@@ -38,6 +38,11 @@
     .board-member {
         display: flex;
         align-items: center;
+
+        button {
+            margin-inline-start: 0.5rem;
+            color: var(--ds-text, #172b4d);
+        }
     }
 
     .search-results {
@@ -108,4 +113,30 @@
         font-weight: 400;
         line-height: 20px;
     }
+}
+
+.multiselect-tag.is-user {
+    padding: 5px 8px;
+    border-radius: 22px;
+    background: #35495e;
+    margin: 3px 3px 8px;
+}
+
+.multiselect-tag.is-user img {
+    width: 18px;
+    border-radius: 50%;
+    height: 18px;
+    margin-right: 8px;
+    border: 2px solid #ffffffbf;
+}
+
+.multiselect-tag.is-user i:before {
+    color: #ffffff;
+    border-radius: 50%;
+}
+
+.user-image {
+    margin: 0 6px 0 0;
+    border-radius: 50%;
+    height: 22px;
 }

@@ -71,7 +71,7 @@ export const boardStore = {
         },
 
         setPushedBoard(state, { board }) {
-            console.log('IN STORE PUSH BOARD');
+            console.log('IN STORE PUSH BOARD', board);
             const boardIdx = state.boards.findIndex(b => b._id === board._id)
             state.boards.splice(boardIdx, 1, board)
             state.board = board
@@ -97,7 +97,7 @@ export const boardStore = {
             state.editedTask = payload.task
             const group = state.board.groups.find(g => g.id === payload.groupId)
             console.log(group.tasks);
-            
+
             const taskIdx = group.tasks.findIndex(task => task.id === payload.task.id)
             console.log(taskIdx);
             group.tasks.splice(taskIdx, 1, payload.task)
@@ -251,6 +251,20 @@ export const boardStore = {
             newBoard.members.push(member)
             context.dispatch({ type: 'updateBoard', board: newBoard })
         },
+        async removeMember(context, { memberId }) {
+            const newBoard = JSON.parse(JSON.stringify(context.state.board))
+            const memberIdx = newBoard.members.findIndex(member => member._id === memberId)
+            if (memberIdx !== -1) newBoard.members.splice(memberIdx, 1)
+            newBoard.groups.forEach(group => {
+                group.tasks.forEach((task, index) => {
+                    if (task.memberIds?.includes(memberId)) {
+                        console.log(task.memberIds, 'oooooooooooooooo');
+                        task.memberIds.splice(index, 1)
+                    }
+                })
+            })
+            context.dispatch({ type: 'updateBoard', board: newBoard })
+        },
 
         async updateTasks(context, { payload }) {
             const { groupId, tasks } = payload
@@ -331,7 +345,7 @@ export const boardStore = {
         },
 
         async addTask(context, { boardId, groupId, task, activity }) {
-            console.log('task.id',task.id )
+            console.log('task.id', task.id)
             // console.log(boardId, groupId, task, activity);
             const prevBoard = JSON.parse(JSON.stringify(context.state.boards.find(board => board._id === boardId)))
 

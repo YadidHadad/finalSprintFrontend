@@ -6,13 +6,14 @@
             <filter-tasks-modal v-if="showFilter" @closeFilter="(showFilter = false)" @doFilter="doFilter" />
 
             <group-list @addTask="addNewTask" @addGroup="addNewGroup" @removeGroup="removeGroup" :groups="board.groups"
-                :boardId="board._id" :rgb="rgb" />
+                :boardId="board._id" :rgb="rgb" :filterBy="filterBy" />
         </section>
         <board-nav :rgb="rgb" :boards="boards" @showAddMembers="isAddBoardMembers = true"></board-nav>
         <board-menu :menuIsHidden="menuIsHidden" :activities="board.activities" @toggleBoardMenu="toggleBoardMenu" />
         <!-- <router-view class="task-details-view"></router-view> -->
     </section>
-    <add-board-members v-if="isAddBoardMembers" @close="(isAddBoardMembers = false)" @addMember="addMember" />
+    <add-board-members v-if="isAddBoardMembers" @close="(isAddBoardMembers = false)" @addMember="addMember"
+        @removeMember="removeMember" />
     <task-details v-if="this.$route.params.taskId" />
 </template>
 
@@ -47,6 +48,8 @@ export default {
             },
             showFilter: false,
             isAddBoardMembers: false,
+            tasksToShow: [],
+            filterBy: {},
         }
     },
 
@@ -92,6 +95,10 @@ export default {
         pushedBoard(board) {
             console.log('hiiiiii board details');
             this.$store.commit({ type: 'setPushedBoard', board })
+            console.log(this.board)
+        },
+        removeMember(id) {
+            this.$store.dispatch({ type: 'removeMember', memberId: id })
         },
         async avgColor() {
 
@@ -166,7 +173,8 @@ export default {
         },
 
         doFilter(filterBy) {
-            console.log(filterBy)
+            this.filterBy = filterBy
+            console.log(this.filterBy);
         },
         toggleMember(memberId) {
             console.log(memberId);

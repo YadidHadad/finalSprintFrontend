@@ -21,6 +21,7 @@ export const userStore = {
     mutations: {
         setLoggedinUser(state, { user }) {
             state.loggedinUser = (user) ? { ...user } : null
+            console.log(state.loggedinUser);
         },
         setWatchedUser(state, { user }) {
             state.watchedUser = user
@@ -75,7 +76,7 @@ export const userStore = {
         async logout({ commit }) {
             try {
                 await userService.logout()
-                commit({ type: 'setLoggedinUser', user: userService.getLoggedinUser() })
+                commit({ type: 'setLoggedinUser', user: null })
             } catch (err) {
                 console.log('userStore: Error in logout', err)
                 throw err

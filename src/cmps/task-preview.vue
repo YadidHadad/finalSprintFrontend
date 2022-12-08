@@ -57,7 +57,7 @@
                 <div class=""></div>
 
                 <members-preview v-if="task.memberIds" :memberIds="task.memberIds" :isTaskDetails="false"
-                    class="members-task-preview justify-end" />
+                    class="members-task-preview justify-end"/>
 
             </div>
         </section>

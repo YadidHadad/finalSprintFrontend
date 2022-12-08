@@ -4,7 +4,7 @@
         :get-child-payload="getChildPayload" :drag-class="dragClass" :drop-class="dragClass">
         <Draggable id="group-details" v-for="(group, i) in groups" :key="group.id">
             <group @addTask="addTask" @updateGroup="updateGroup" @removeGroup="$emit('removeGroup', $event)"
-                :group="group" :boardId="boardId" />
+                :group="group" :boardId="boardId" :filterBy="filterBy" />
         </Draggable>
         <section class="add-new-list">
             <transition name="open">
@@ -46,6 +46,9 @@ export default {
         },
         rgb: {
             type: Object
+        },
+        filterBy: {
+            type: Object
         }
     },
 
@@ -64,6 +67,7 @@ export default {
     },
     created() {
         this.groupsCopy = JSON.parse(JSON.stringify(this.groups))
+        console.log(this.filterBy);
     },
 
     methods: {
@@ -153,8 +157,8 @@ export default {
                 ? utilService.getBCG(this.rgb.value, 30, 0.5)
                 : utilService.getBCG(this.rgb.value, 60, 0.5);
         },
-    },
 
+    },
     components: {
         group,
         Container,

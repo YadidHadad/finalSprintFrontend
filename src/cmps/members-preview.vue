@@ -3,9 +3,10 @@
         :class="[isTaskDetails ? 'members-preview' : 'members-task-preview']">
         <h4 v-if="isTaskDetails" class="title">Members</h4>
         <section class="members-container flex row align-center">
-            <div v-for="member in taskMembers">
-                <div v-if="member.imgUrl" class="member-image" :style="memberImage(member.imgUrl)"> </div>
-                <span v-else class="member-initials">
+            <div v-for="member in taskMembers" :title="member.fullname">
+                <div v-if="member.imgUrl" class="member-image" :style="memberImage(member.imgUrl)"
+                    :title="member.fullname"> </div>
+                <span v-else class="member-initials" :title="member.fullname">
                     {{ getInitials(member.fullname) }}
                 </span>
             </div>

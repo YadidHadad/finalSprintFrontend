@@ -23,7 +23,8 @@
                 @click="goToBoard(board._id)">
                 <div v-if="board.style.backgroundImage" class="board-icon" :style="boardBGC(board.style)"></div>
                 <div v-else class="board-icon" :style="boardBGC(board.style)"></div>
-                <span>{{ board.title }}</span>
+                <span v-if="(board.title.length > 40)">{{ board.title.slice(0, 40) }}...</span>
+                <span v-else>{{ board.title }}</span>
             </button>
         </div>
     </section>

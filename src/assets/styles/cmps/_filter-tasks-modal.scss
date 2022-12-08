@@ -8,7 +8,9 @@
     padding: 0px 12px 12px 12px;
     color: var(--ds-text-subtle, #5e6c84);
     z-index: 1000;
-
+    font-size: 14px;
+    width: 385px;
+    border-radius: 3px;
 
 
     .tasks-filter-header {
@@ -16,10 +18,14 @@
         display: flex;
         height: 40px;
         align-items: center;
+        color: var(--ds-text-subtle, #5e6c84);
+        font-weight: 400;
+
 
         h2 {
             width: 100%;
             text-align: center;
+            font-size: 14px;
         }
     }
 }
@@ -56,6 +62,56 @@
             line-height: 14px;
             margin-top: 8px;
             margin-bottom: 4px;
+        }
+    }
+}
+
+.members-filter {
+    p {
+        margin-top: 16px;
+        margin-bottom: 8px;
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 16px;
+    }
+
+    >*:not(:first-child) {
+        padding: 8px;
+        padding-right: 0;
+    }
+
+    .user-icon {
+        background-color: #de350b;
+        color: white;
+        border-radius: 100%;
+        height: 24px;
+        width: 24px;
+        line-height: 24px;
+        font-size: 12px;
+        padding: 3px;
+    }
+
+    label {
+        display: flex;
+        align-items: center;
+    }
+}
+
+.board-members {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    flex-direction: column;
+
+    .board-member {
+        label {
+            >* {
+                margin-inline-end: 5px;
+            }
+        }
+
+        .user-icon {
+            text-align: center;
         }
     }
 }

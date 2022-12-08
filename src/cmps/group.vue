@@ -34,7 +34,7 @@
         <Container class="task-preview-container flex column" orientation="vertical" @drop="onDrop"
             group-name="group-tasks" :get-child-payload="getChildPayload" :drag-class="dragClass"
             :drop-class="dragClass">
-            <Draggable class="task-preview" v-for="task in group.tasks" :key="task.id">
+            <Draggable class="task-preview" v-for="task in tasksToShow" :key="task.id">
                 <task-preview :task="task" :groupId="this.group.id" :boardId="boardId" />
             </Draggable>
 
@@ -73,6 +73,9 @@ export default {
         boardId: {
             type: String,
         },
+        filterBy: {
+            type: Object,
+        },
     },
     data() {
         return {
@@ -84,13 +87,17 @@ export default {
             isMenuOpen: false,
             newGroupTitle: JSON.parse(JSON.stringify(this.group.title)),
             tasksCopy: [],
+            tasksToShow: []
 
         }
     },
 
     async created() {
         console.log(this.group, '************************')
+        console.log(this.filterBy);
         this.tasksCopy = JSON.parse(JSON.stringify(this.group.tasks))
+        this.tasksToShow = this.group.tasks
+
         try {
             this.debounceHandler = utilService.debounce(this.updateGroup, 500)
 
@@ -213,6 +220,34 @@ export default {
             this.$emit('removeGroup', this.group.id, JSON.parse(JSON.stringify(activity)))
         }
 
+    },
+    watch: {
+        filterBy: {
+            handler: function (filterBy, oldVal) {
+                console.log('hiiiiiiiiiiiiiiii');
+                const regex = new RegExp(filterBy.title, 'i');
+                this.tasksToShow = this.group.tasks.filter(task => regex.test(task.title))
+                if (filterBy.isNoMembers)
+                    this.tasksToShow = this.tasksToShow.filter(task => !task.memberIds?.length)
+                if (filterBy.isAssignToMe)
+                    this.tasksToShow = this.tasksToShow.filter(task => task.memberIds?.includes(this.user._id))
+                if (filterBy.membersIds.length) {
+                    this.tasksToShow = this.tasksToShow.filter(task => {
+                        if (!task.memberIds?.length) return false
+                        return task.memberIds.some(memberId => filterBy.membersIds.includes(memberId))
+                        // task.memberIds?.includes(this.user._id)
+                    })
+                }
+                // console.log(this.tasksToShow);
+            },
+            deep: true
+        },
+        group: {
+            handler: function (val, oldVal) {
+                this.tasksToShow = this.group.tasks
+            },
+            deep: true
+        }
     },
 
     computed: {
