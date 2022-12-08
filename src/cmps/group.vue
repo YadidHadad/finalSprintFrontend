@@ -2,8 +2,7 @@
     <div class="group flex column">
         <div class="main-title flex column justify-between">
             <div class="flex row align-center justify-between w-100">
-                <input v-model="newGroupTitle" @input="updateGroup"
-                    @keyup.enter="($event) => $event.target.blur()" />
+                <input v-model="newGroupTitle" @input="updateGroup" @keyup.enter="($event) => $event.target.blur()" />
                 <button class="btn-menu" @click="toggleMenu">
                     <span class="fa-solid elipsis-icon"></span>
                 </button>
@@ -33,7 +32,7 @@
 
         <Container class="task-preview-container flex column" orientation="vertical" @drop="onDrop"
             group-name="group-tasks" :get-child-payload="getChildPayload" :drag-class="dragClass"
-            :drop-class="dragClass">
+            :drop-class="dragClass" @drag-start="onDragStart" @drag-end="onDragEnd">
             <Draggable class="task-preview" v-for="task in tasksToShow" :key="task.id">
                 <task-preview :task="task" :groupId="this.group.id" :boardId="boardId" />
             </Draggable>
@@ -93,12 +92,12 @@ export default {
     },
 
     async created() {
-        console.log(this.group, '************************')
-        console.log(this.filterBy);
+        // console.log(this.group, '************************')
+        //console.log(this.filterBy);
         this.tasksCopy = JSON.parse(JSON.stringify(this.group.tasks))
         this.tasksToShow = this.group.tasks
         // this.dragDebounce = utilService.debounce(this.onDrop, 500)
-        
+
         // try {
         //     this.debounceHandler = utilService.debounce(this.updateGroup, 500)
 
@@ -109,13 +108,15 @@ export default {
 
     methods: {
         async onDrop(dropResult) {
-            console.log(dropResult)
+            const { removedIndex, addedIndex, payload, element } = dropResult;
+            // console.log(removedIndex, addedIndex, payload, element);
+            if(removedIndex === null && addedIndex === null) return
             try {
                 this.tasksCopy = JSON.parse(JSON.stringify(this.group.tasks || []))
                 this.tasksCopy = this.applyDrag(this.tasksCopy, dropResult)
-                console.log('Tasks Copy', this.tasksCopy)
+                //console.log('Tasks Copy', this.tasksCopy)
                 const tasks = await this.$store.dispatch({ type: 'updateTasks', payload: { tasks: this.tasksCopy, groupId: this.group.id } })
-                console.log('*****************', tasks)
+                //console.log('*****************', tasks)
                 this.tasksCopy = JSON.parse(JSON.stringify(this.group.tasks || []))
             }
             catch (prevGroups) {
@@ -124,7 +125,7 @@ export default {
         },
         applyDrag(arr, dragResult) {
             const { removedIndex, addedIndex, payload } = dragResult
-            console.log('PAYLOAD', payload)
+            // console.log('PAYLOAD', payload)
 
             if (removedIndex === null && addedIndex === null) return arr;
             const result = [...arr];
@@ -134,7 +135,7 @@ export default {
 
             if (removedIndex !== null) {
                 itemToAdd = result.splice(removedIndex, 1)[0];
-                console.log('ITEM-TO-ADD', itemToAdd)
+                // console.log('ITEM-TO-ADD', itemToAdd)
             }
             if (addedIndex !== null && removedIndex !== null) {
                 // console.log(itemToAdd);
@@ -144,7 +145,7 @@ export default {
                 // console.log(this.tasksCopy);
             }
             else if (addedIndex !== null) result.splice(addedIndex, 0, itemToAdd.itemToMove);
-            console.log('RESULT', result)
+            // console.log('RESULT', result)
             return result;
         },
         getShouldAcceptDrop(index, sourceContainerOptions, payload) {
@@ -152,11 +153,11 @@ export default {
         },
 
         getChildPayload(index) {
-            console.log('get child copy', index)
+            // console.log('get child copy', index)
 
             this.tasksCopy = JSON.parse(JSON.stringify(this.group.tasks))
 
-            console.log('get child copy', this.tasksCopy);
+            //console.log('get child copy', this.tasksCopy);
 
             return {
                 itemToMove: this.tasksCopy[index]
@@ -176,7 +177,7 @@ export default {
             }
             const group = JSON.parse(JSON.stringify(this.group))
             group.title = this.newGroupTitle
-            console.log(group);
+            // console.log(group);
             this.$emit('updateGroup', group, activity)
         },
 
@@ -202,7 +203,7 @@ export default {
             }
 
             this.currTask.id = utilService.makeId()
-            console.log('******************************', this.currTask)
+            // console.log('******************************', this.currTask)
             this.$emit('addTask', this.group.id, { ...this.currTask }, JSON.parse(JSON.stringify(activity)))
             this.currTask.title = ''
         },
@@ -225,7 +226,7 @@ export default {
     watch: {
         filterBy: {
             handler: function (filterBy, oldVal) {
-                console.log('hiiiiiiiiiiiiiiii');
+                //console.log('hiiiiiiiiiiiiiiii');
                 const regex = new RegExp(filterBy.title, 'i');
                 this.tasksToShow = this.group.tasks.filter(task => regex.test(task.title))
                 if (filterBy.isNoMembers)
