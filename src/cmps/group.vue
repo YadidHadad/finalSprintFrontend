@@ -8,7 +8,7 @@
                     <span class="fa-solid elipsis-icon"></span>
                 </button>
             </div>
-            <span v-if="group.tasks">{{ group.tasks.length }} cards</span>
+            <!-- <span v-if="group.tasks">{{ group.tasks.length }} cards</span> -->
 
             <div v-if="isMenuOpen" class=" task-editor" v-click-outside="() => isMenuOpen = false">
                 <section class=" title flex row justify-center">
