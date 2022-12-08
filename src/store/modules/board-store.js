@@ -291,7 +291,7 @@ export const boardStore = {
             try {
                 context.commit({ type: 'updateBoard', board })
                 context.commit({ type: 'setBoard', boardId: board._id })
-                board = await boardService.save(board)
+                // board = await boardService.save(board)
                 return board
             } catch (err) {
                 context.commit({ type: 'updateBoard', board: prevBoard })
