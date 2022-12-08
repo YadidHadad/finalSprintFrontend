@@ -3,9 +3,9 @@
         <div class="flex align-center  wrap">
             <input type="text" v-model="board.title" :style="titleLength" @input="debounceHandler"
                 @keyup.enter="($event) => $event.target.blur()" />
-
-            <button v-if="board" v-for="(btn, i) in btns" class="btn" :class="{ isDark: !isDark }"
-                :style="buttonBackground" @click="btn.function">
+            <button v-if="board" v-for="(btn, i) in btns" class="btn"
+                :class="{ isDark: !isDark, isClicked: btnClicked === btn.isClicked }" :style="buttonBackground"
+                @click="btn.function(btn.isClicked)">
                 <span :class="btn.icon"></span>
                 <span v-if="btn.txt" class="txt">{{ btn.txt }}</span>
             </button>
@@ -51,6 +51,7 @@ export default {
 
     data() {
         return {
+            btnClicked: 'Board',
         }
     },
 
@@ -90,8 +91,8 @@ export default {
         buttonBackground() {
             if (!this.rgb) return;
             return this.rgb.isDark
-                ? utilService.getBCG(this.rgb.value, 30, 0.5)
-                : utilService.getBCG(this.rgb.value, 60, 0.5);
+                ? utilService.getBCG(this.rgb.value, -20, 0.5)
+                : utilService.getBCG(this.rgb.value, 20, 0.5);
         },
         titleLength() {
             if (!this.board.title) return;
@@ -121,37 +122,36 @@ export default {
                 {
                     txt: "Board",
                     icon: "trello-home board-icon",
-                    function: 'setBoardStar()'
+                    function: () => { this.btnClicked = 'Board' },
+                    isClicked: "Board",
 
                 },
-                // {
-                //     txt: "Board",
-                //     icon: "fa-solid board-icon",
-                //     function: 'setBoardStar()'
-
-                // },
                 {
                     txt: "Table",
                     icon: "trello-home table-icon",
-                    function: 'setBoardStar()'
+                    function: () => { this.btnClicked = 'Table' },
+                    isClicked: "Table",
 
                 },
                 {
                     txt: "Calender",
                     icon: "trello-home calender-icon",
-                    function: 'setBoardStar()'
+                    function: () => { this.btnClicked = 'Calender' },
+                    isClicked: "Calender",
 
                 },
                 {
                     txt: "Dashboard",
                     icon: "trello-home dashboard-icon",
-                    function: 'setBoardStar()'
+                    function: () => { this.btnClicked = 'Dashboard' },
+                    isClicked: "Dashboard",
 
                 },
                 {
                     txt: "Map",
                     icon: "trello-home location-icon",
-                    function: 'setBoardStar()'
+                    function: () => { this.btnClicked = 'Map' },
+                    isClicked: "Map",
 
                 },
             ]
