@@ -27,12 +27,23 @@
                     </template>
                 </Multiselect>
             </div> -->
+
+            <!-- <div class="m-4">
+                <p>use remote-show-suffix</p>
+                <el-select v-model="value" multiple filterable remote reserve-keyword
+                    placeholder="Please enter a keyword" remote-show-suffix :remote-method="remoteMethod"
+                    :loading="loading">
+                    <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
+                </el-select>
+            </div> -->
+
+
+
             <input type="text" placeholder="Email address or name" v-model="filterByName" @input="setSearchedMembers">
             <button>Share</button>
 
             <div v-if="(searchedMembers.length > 0)" class="search-results">
                 <div class="searched-member" v-for="member in searchedMembers.slice(0, 5)" @click="addMember(member)">
-                    <!-- <span >No results</span> -->
                     <div class="flex align-center grow">
                         <div v-if="member.imgUrl" class="member-image" :style="memberImage(member.imgUrl)"> </div>
                         <span v-else class="member-initials">
@@ -67,6 +78,7 @@
 <script>
 import { utilService } from "../services/util.service";
 import Multiselect from '@vueform/multiselect'
+import { ref } from 'vue'
 
 export default {
     name: "members-edit",
@@ -83,7 +95,30 @@ export default {
             // searchedMembersObjects: [],
             membersToAdd: [],
             value: [],
-        };
+            value1: ref([]),
+            options: [
+                // {
+                //     value: 'Option1',
+                //     label: 'Option1',
+                // },
+                // {
+                //     value: 'Option2',
+                //     label: 'Option2',
+                // },
+                // {
+                //     value: 'Option3',
+                //     label: 'Option3',
+                // },
+                // {
+                //     value: 'Option4',
+                //     label: 'Option4',
+                // },
+                // {
+                //     value: 'Option5',
+                //     label: 'Option5',
+                // },
+            ]
+        }
     },
     methods: {
         getInitials(fullname) {

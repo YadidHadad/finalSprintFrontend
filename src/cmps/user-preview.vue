@@ -1,7 +1,7 @@
 <template>
     <section class="user-preview" id="user-preview">
         <div class="user-preview-header">
-            <h2>Account</h2>
+            <p>Account</p>
             <div class="header-links">
                 <span class="btn flex row profile-btn" @click="(showUserPreview = true)">
                     {{ getInitials(user.fullname) }}

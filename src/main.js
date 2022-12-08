@@ -11,6 +11,8 @@ import VueGeolocation from "vue3-geolocation";
 import GMaps from "vuejs3-google-maps";
 import vue3GoogleLogin from 'vue3-google-login'
 import GAuth from 'vue3-google-oauth2'
+import ElementPlus from 'element-plus'
+import 'element-plus/dist/index.css'
 
 import {
     focusDirective,
@@ -39,5 +41,6 @@ app.use(vue3GoogleLogin, {
 })
 const gAuthOptions = { clientId: '1026456709194-stf9r3fts802im0jhpnst7qntrpq49of.apps.googleusercontent.com', scope: 'email', prompt: 'consent', fetch_basic_profile: false }
 app.use(GAuth, gAuthOptions)
+app.use(ElementPlus)
 
 app.mount('#app')

@@ -37,7 +37,7 @@
     border-radius: 3px;
 
     &:hover {
-        background-color: rgb(200, 218, 226);
+        background-color: #c8dae2;
     }
 }
 
@@ -131,17 +131,54 @@
         height: fit-content;
 
         .task-date-preview {
-            gap: rem(3px);
-            align-items: center;
-            justify-content: space-between;
-            width: fit-content;
+
+            // gap: rem(3px);
+            // align-items: center;
+            // justify-content: space-between;
+            // width: fit-content;
+            div {
+                position: relative;
+                border-radius: 3px;
+                width: fit-content;
+                padding: 0 rem(3px);
+                height: fit-content;
+                align-items: center;
+
+
+                span {
+                    &.square-icon {
+                        position: absolute;
+                        left: 6px;
+                        opacity: 0;
+                    }
+                    
+                }
+
+                &:hover {
+
+
+                    .square-icon {
+                        opacity: 1;
+
+                    }
+
+                    .icon-clock {
+
+                        opacity: 0;
+
+                    }
+                }
+
+
+
+            }
 
             .date-str {
                 width: fit-content;
             }
         }
 
-        .desc-icon{
+        .desc-icon {
             height: fit-content;
         }
 
