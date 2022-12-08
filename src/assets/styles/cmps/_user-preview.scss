@@ -15,6 +15,7 @@
     position: fixed;
     right: 0;
     top: 47px;
+    color: var(--ds-text-subtle, #5E6C84);
     z-index: 100;
     padding: 12px;
     width: 304px;
@@ -28,12 +29,17 @@
     .user-preview-header {
         font-family: "segoe-semi-bold";
         border-bottom: 1px solid var(--ds-border, rgba(9, 30, 66, 0.13));
+        padding-bottom: 8px;
 
         .header-links {
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 4px;
+
+            span {
+                color: white;
+            }
         }
 
         .profile-btn {

@@ -24,27 +24,30 @@
                     </div>
                 </label>
                 <label for="self-assign">
-                    <input id="self-assign" type="checkbox"  @change="toggleIsAssignToMe">
+                    <input id="self-assign" type="checkbox" @change="toggleIsAssignToMe">
                     <div>
-                        <span>
-
+                        <span class="user-icon">
+                            {{ getInitials(loggedinUser.fullname) }}
                         </span>
                         Cards assigned to me
                     </div>
                 </label>
                 <!-- <label for="task-members">
                     <input id="task-members" type="checkbox"> -->
-                <div @click="isShowMembers = !isShowMembers">
+                <div @click="isShowMembers = !isShowMembers" class="board-members" >
                     Select members
                     <span>
                         >
                     </span>
 
-                    <div class="board-members" v-for="member in members" v-if="isShowMembers"
-                        >
+                    <div v-for="member in members" v-if="isShowMembers" class="board-member">
                         <label @click.stop="">
-                            {{ member.fullname }}
-                            <input type="checkbox" v-model="filterBy.membersIds" :value="member._id" @change="filterByMember">
+                            <input type="checkbox" v-model="filterBy.membersIds" :value="member._id"
+                                @change="filterByMember">
+                                <span class="user-icon">
+                                {{ getInitials(member.fullname) }}
+                            </span>
+                            <span>{{ member.fullname }}</span>
                         </label>
                     </div>
                 </div>
@@ -55,6 +58,7 @@
 </template>
 
 <script>
+import { utilService } from '../services/util.service';
 export default {
     data() {
         return {
@@ -66,6 +70,9 @@ export default {
             },
             isShowMembers: false,
         }
+    },
+    created() {
+        console.log(this.loggedinUser);
     },
     methods: {
         doFilter() {
@@ -88,11 +95,17 @@ export default {
             this.$emit('doFilter', this.filterBy)
             // const memberIdx = this.membersIds.findIndex(memberId => memberId === id)
             // memberIdx === -1 ? this.membersIds.push(id) : this.membersIds.splice(memberIdx, 1)
-        }
+        },
+        getInitials(fullname) {
+            return utilService.getInitials(fullname)
+        },
     },
     computed: {
         members() {
             return this.$store.getters.board.members
+        },
+        loggedinUser() {
+            return this.$store.getters.loggedinUser
         }
     }
 }

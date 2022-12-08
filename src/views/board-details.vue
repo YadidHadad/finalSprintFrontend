@@ -174,7 +174,7 @@ export default {
 
         doFilter(filterBy) {
             this.filterBy = filterBy
-            // console.log(filterBy)
+            console.log(this.filterBy);
         },
         toggleMember(memberId) {
             console.log(memberId);

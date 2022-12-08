@@ -3,7 +3,7 @@
         :class="[isTaskDetails ? 'members-preview' : 'members-task-preview']">
         <h4 v-if="isTaskDetails" class="title">Members</h4>
         <section class="members-container flex row align-center">
-            <div v-for="member in taskMembers">
+            <div v-for="member in taskMembers"  :title="member.fullname">
                 <div v-if="member.imgUrl" class="member-image" :style="memberImage(member.imgUrl)"> </div>
                 <span v-else class="member-initials">
                     {{ getInitials(member.fullname) }}
