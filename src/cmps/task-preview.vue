@@ -1,6 +1,6 @@
 <template>
     <div v-if="getBackground" class="task-preview-cover" @click="goTo" :class="getCoverType"
-        :style="{ backgroundColor: getBackground, backgroundImage: `url(${getBackground})` }"></div>
+        :style="{backgroundColor: getBackground, backgroundImage: `url(${getBackground})`}"></div>
     <section class="task-preview-details flex column " @click="goTo">
         <section v-if="task.labelIds" class="labels-preview">
             <ul class="clean-list flex">
@@ -9,7 +9,6 @@
                     <div v-if="isPreviewLabelsOpen" :style="{ backgroundColor: label.color }" class="color-circle">
                     </div>
                     <span v-if="isPreviewLabelsOpen">{{ label.title }}</span>
-
                 </li>
             </ul>
         </section>
@@ -55,10 +54,8 @@
             </section> -->
             <div class="flex row shrink justify-between grow">
                 <div class=""></div>
-
                 <members-preview v-if="task.memberIds" :memberIds="task.memberIds" :isTaskDetails="false"
-                    class="members-task-preview justify-end" />
-
+                    class="members-task-preview justify-end"/>
             </div>
         </section>
     </section>
