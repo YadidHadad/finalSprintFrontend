@@ -409,7 +409,7 @@ export default {
                     },
                 })
             }
-            catch(err) {
+            catch (err) {
                 console.log(err);
             }
             // const labelIdx = taskToUpdate.labelIds.find(labelId => labelId === data)
