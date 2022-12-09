@@ -11,13 +11,13 @@
     font-size: 14px;
     width: 385px;
     border-radius: 3px;
-    overflow-y: auto;
+    overflow-y: scroll;
     overflow-x: hidden;
-    overflow : scroll;
+
+    max-height: calc(100vh - 95px);
 
     .board-labels {
-
-        >:first-child {
+        > :first-child {
             color: var(--ds-text-subtle, #5e6c84);
             font-size: 12px;
             font-weight: 600;
@@ -26,7 +26,7 @@
             margin-bottom: 8px;
         }
 
-        >*:not(:first-child) {
+        > *:not(:first-child) {
             padding-bottom: 8px;
         }
 
@@ -49,7 +49,6 @@
         }
     }
 
-
     .tasks-filter-header {
         border-bottom: 1px solid var(--ds-border, rgba(9, 30, 66, 0.13));
         display: flex;
@@ -57,7 +56,6 @@
         align-items: center;
         color: var(--ds-text-subtle, #5e6c84);
         font-weight: 400;
-
 
         h2 {
             width: 100%;
@@ -68,12 +66,11 @@
 }
 
 .tasks-filter-main {
-
     .text-filter {
         display: flex;
         flex-direction: column;
 
-        >:first-child {
+        > :first-child {
             font-size: 12px;
             font-weight: 600;
             line-height: 16px;
@@ -112,7 +109,7 @@
         line-height: 16px;
     }
 
-    >*:not(:first-child) {
+    > *:not(:first-child) {
         padding: 8px;
         padding-right: 0;
     }
@@ -151,13 +148,13 @@
     gap: 5px;
     flex-direction: column;
 
-    >:first-child {
+    > :first-child {
         align-self: flex-start;
     }
 
     .board-member {
         label {
-            >* {
+            > * {
                 margin-inline-end: 5px;
             }
         }
