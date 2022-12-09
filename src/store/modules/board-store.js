@@ -93,10 +93,8 @@ export const boardStore = {
         },
 
         updateTask(state, { payload }) {
-            // console.log(payload.task, 'PAYLLOADDDDD');
             state.editedTask = payload.task
             const group = state.board.groups.find(g => g.id === payload.groupId)
-            // console.log(group.tasks);
 
             const taskIdx = group.tasks.findIndex(task => task.id === payload.task.id)
             // console.log(taskIdx);
@@ -333,7 +331,7 @@ export const boardStore = {
             const taskId = payload.task.id
             const prevGroup = context.state.board.groups.find(g => g.id === groupId)
             const prevTask = prevGroup.tasks.find(t => t.id === taskId)
-            context.commit({ type: 'updateTask', payload })
+            // context.commit({ type: 'updateTask', payload })
             if (payload.activity) context.commit({ type: 'addActivity', activity: payload.activity })
             const board = context.state.board
             try {
@@ -343,14 +341,14 @@ export const boardStore = {
             catch (err) {
                 {
                     console.log('boardStore: Error in updateLabels', err)
-                    context.commit({
-                        type: 'updateTask', payload: {
-                            task: prevTask,
-                            groupId: payload.groupId
-                        }
-                    })
+                    // // context.commit({
+                    // //     type: 'updateTask', payload: {
+                    // //         task: prevTask,
+                    // //         groupId: payload.groupId
+                    // //     }
+                    // })
                     context.commit(({ type: 'removeActivity' }))
-                    throw prevTask
+                    throw err
                 }
             }
         },
