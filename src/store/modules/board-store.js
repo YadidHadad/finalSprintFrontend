@@ -187,6 +187,7 @@ export const boardStore = {
             }
         },
         updateBoardLabels(state, { label }) {
+            console.log(label);
             if (!label.id) {
                 label.id = utilService.makeId()
                 state.board.labels.push(label)

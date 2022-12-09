@@ -39,7 +39,8 @@
 
 
 
-            <input type="text" placeholder="Email address or name" v-model="filterByName" @input="setSearchedMembers" v-focus>
+            <input type="text" placeholder="Email address or name" v-model="filterByName" @input="setSearchedMembers"
+                v-focus>
             <button>Share</button>
 
             <div v-if="(searchedMembers.length > 0)" class="search-results">
@@ -66,7 +67,7 @@
                     </span>
                     <span class="fullname grow">{{ member.fullname + " " }}</span>
 
-                    <button @click="removeFromBoard(member._id)">
+                    <button @click="confirm(member._id)">
                         <span class="trellicons x-icon"></span>
                     </button>
                     <!-- </div> -->
@@ -74,16 +75,22 @@
             </div>
         </div>
     </section>
+
+
+    <confirm-modal :msg="'Are you sure?'" v-if="isConfirmModal" @remove="removeFromBoard"
+        @closeModal="() => { isConfirmModal = false }" v-click-outside="() => { isConfirmModal = false }" />
 </template>
 <script>
 import { utilService } from "../services/util.service";
 import Multiselect from '@vueform/multiselect'
 import { ref } from 'vue'
 
+import confirmModal from "./confirm-modal.vue";
+
 export default {
     name: "members-edit",
     props: [],
-    components: { Multiselect },
+    components: { Multiselect, confirmModal },
     created() {
         this.debounceHandler = utilService.debounce(this.getBoardMembers, 500)
         // console.log(this.boardMembers)
@@ -117,15 +124,23 @@ export default {
                 //     value: 'Option5',
                 //     label: 'Option5',
                 // },
-            ]
+            ],
+            isConfirmModal: false,
+            memberIdToRemove: ''
         }
     },
     methods: {
         getInitials(fullname) {
             return utilService.getInitials(fullname);
         },
-        removeFromBoard(memberId) {
-            this.$emit('removeMember', memberId)
+        removeFromBoard() {
+            this.$emit('removeMember', this.memberIdToRemove)
+            this.memberIdToRemove = ''
+            this.isConfirmModal = false
+        },
+        confirm(memberId) {
+            this.isConfirmModal = true
+            this.memberIdToRemove = memberId
         },
         memberImage(imgUrl) {
             return { backgroundImage: `url(${imgUrl})` };

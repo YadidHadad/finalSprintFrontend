@@ -85,6 +85,8 @@
         @updateBoardLabels="updateBoardLabels" class="z-index-100" @removeLabel="removeBoardLabel">
     </component>
 
+
+<!-- <confirm-modal :msg="'Are you sure?'" v-if="isConfirmModal"/> -->
 </template>
 
 <script>
@@ -105,6 +107,7 @@ import locationEdit from "../cmps/location-edit.vue";
 import locationPreview from "../cmps/location-preview.vue";
 import attachmentEdit from "../cmps/attachment-edit.vue";
 import attachmentPreview from "../cmps/attachment-preview.vue";
+import confirmModal from "../cmps/confirm-modal.vue";
 
 
 import { utilService } from "../services/util.service";
@@ -130,7 +133,8 @@ export default {
         locationEdit,
         locationPreview,
         attachmentEdit,
-        attachmentPreview
+        attachmentPreview,
+        confirmModal
 
     },
 
@@ -160,7 +164,8 @@ export default {
                 { arg: 'cover-edit', icon: 'trellicons cover-icon', title: 'Cover' },
 
             ],
-            isCreateLabel: false
+            isCreateLabel: false,
+            isConfirmModal: false,
 
             // labelIds: this.$store.getters.labelIds
         }
@@ -394,6 +399,9 @@ export default {
             // })
             this.$router.push(`/board/${this.$route.params.id}`)
         },
+        confirm() {
+            this.isConfirmModal = true
+        },
         async removeBoardLabel(label) {
             try {
                 this.$store.dispatch({
@@ -410,9 +418,9 @@ export default {
             catch (err) {
                 console.log(err);
             }
-            // const labelIdx = taskToUpdate.labelIds.find(labelId => labelId === data)
-            // taskToUpdate.labelIds.splice(labelIdx, 1)
-            // txt = "removed label";
+            const labelIdx = taskToUpdate.labelIds.find(labelId => labelId === data)
+            taskToUpdate.labelIds.splice(labelIdx, 1)
+            txt = "removed label";
         },
         async addChecklist(checklist) {
             await this.$store.dispatch({

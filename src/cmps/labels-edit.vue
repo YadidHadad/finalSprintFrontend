@@ -33,13 +33,19 @@
             <button class="btn-remove" @click="openCreateLabel">Create a new label</button>
         </div>
         <create-label-modal v-if="(isOpenModal || isEditLabel)" @createdLabel="createdLabel"
-            @closeEdit="() => isOpenModal = false" @removeLabel="removeLabel" :label="editedLabel" />
+            @closeEdit="() => isOpenModal = false" @removeLabel="confirm" :label="editedLabel" />
     </section>
+
+
+    <confirm-modal :msg="'Are you sure?'" v-if="isConfirmModal" @remove="removeLabel()"
+    @closeModal="() => { isConfirmModal = false }" v-click-outside="() => { isConfirmModal = false }"  />
 </template>
 
 <script>
 import createLabelModal from '../cmps/create-label-modal.vue';
 import { utilService } from '../services/util.service';
+
+import confirmModal from './confirm-modal.vue';
 export default {
     name: 'labels-edit',
     data() {
@@ -51,8 +57,9 @@ export default {
             colorEdited: '',
             isOpenModal: false,
             rgbaColors: {},
-            editedLabel: null
-
+            editedLabel: null,
+            isConfirmModal: false,
+            labelToRemove: null
         }
     },
     created() {
@@ -86,11 +93,18 @@ export default {
             this.colorEdited = ''
             this.title = ''
         },
-        removeLabel(label) {
-            this.$emit('removeLabel', label)
+        removeLabel() {
+            this.$emit('removeLabel', { ...this.labelToRemove })
+            // console.log(this.labelToRemove);
             this.isEditLabel = false
             this.colorEdited = ''
             this.title = ''
+            this.labelToRemove = null
+            this.isConfirmModal = false
+        },
+        confirm(label) {
+            this.isConfirmModal = true
+            this.labelToRemove = label
         },
         labelTitle(c) {
             const currLabel = this.labels.find(label => label.color === c)
@@ -141,7 +155,8 @@ export default {
 
     },
     components: {
-        createLabelModal
+        createLabelModal,
+        confirmModal
     }
 }
 </script>
