@@ -44,6 +44,7 @@ export default {
     created() { },
     methods: {
         addDate() {
+            console.log()
             const dateStr = this.$refs.inputRef.selectedDate
             const dateParsed = JSON.parse(JSON.stringify(dateStr))
             const chosenDateAndTime = dateParsed.slice(0, 11) + this.timeStr + dateParsed.slice(16, -1)
