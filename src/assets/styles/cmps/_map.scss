@@ -9,3 +9,14 @@
 
     transform: translate(-50%, -50%);
 }
+
+.gm-style-iw-c {
+    width: 200px;
+    columns: $textDark;
+    // line-height: 2rem;
+    text-align: center;
+
+    h1 {
+        margin-bottom: 0.5rem;
+    }
+}
