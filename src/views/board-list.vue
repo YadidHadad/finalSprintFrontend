@@ -77,15 +77,30 @@ export default {
     }
   },
   async created() {
-    console.log(this.boards)
-    try {
-      // await this.$store.dispatch({ type: 'loadBoards' })
-    } catch (err) {
-      console.log(err)
+    // console.log(this.boards)
+    // // socketService.on('board pushed', () => {
+    // if (this.loggedInUser) {
+    //   console.log('hi');
+    //   socketService.on('board pushed', this.updateUser)
+    //   // this.boards.forEach(board => {
+    //   //   const membersIds = board.members.map(member => member._id)
+    //   //   if (membersIds.includes(this.loggedInUser._id)) {
+    //   //     socketService.on('user notifications pushed', this.updateNotifications)
+    //   //   }
+    //   // })
+    // }
+    // })
+    // try {
+    //   // await this.$store.dispatch({ type: 'loadBoards' })
+    // } catch (err) {
+    //   console.log(err)
 
-    }
+    // }
   },
   methods: {
+    updateUser() {
+      console.log('ADD NOTIFICATOIN');
+    },
     async addBoard({ bcg, title, members }) {
       if (bcg.startsWith('#')) {
         this.boardToAdd.style = { bgColor: bcg }
@@ -145,6 +160,16 @@ export default {
       newBoard.isStarred = isStarred
       this.updateBoard(newBoard)
     }
+  },
+  watch: {
+    // boards: {
+    //   handler: function (val, oldVal) {
+    //     if(this.loggedInUser) {
+    //       if()
+    //     }
+    //   },
+    //   deep: true
+    // }
   },
   components: {
     boardPreview,
