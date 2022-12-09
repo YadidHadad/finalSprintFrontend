@@ -2,7 +2,7 @@
     <section class="app-nav-container">
         <nav>
             <div class="boards-container flex column gap">
-                <router-link class="btn home-btn flex align-center gap20" :to="'/board'">
+                <router-link class="btn home-btn flex align-center gap20" :to="'/boards'">
                     <span class="trellicons icon-board"></span>
                     <span>Boards</span>
                 </router-link>
