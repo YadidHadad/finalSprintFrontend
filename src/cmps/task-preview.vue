@@ -116,7 +116,7 @@ export default {
             // console.log(data)
             let taskToUpdate = JSON.parse(JSON.stringify(this.task))
             taskToUpdate.isComplete = data
-            const txt = data ? `marked ${this.task.title} as complete` : `unmarked ${this.task.title} as complete`
+            const txt = data ? `Marked ${this.task.title} as complete` : `Unmarked ${this.task.title} as complete`
             taskToUpdate.isComplete = data
 
             try {

@@ -121,7 +121,7 @@ export default {
         addGroup() {
             const activity = {
                 id: '',
-                txt: "Add new Group",
+                txt: "Added new Group",
                 byMember: {
                     _id: this.user._id,
                     fullname: this.user.fullname,

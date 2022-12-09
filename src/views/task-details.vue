@@ -59,7 +59,7 @@
                 <members-preview v-if="task.memberIds" :memberIds="task.memberIds"
                     @openMembersEditor="openMembersEditor" :isTaskDetails="true" />
                 <labels-preview v-if="task.labelIds"
-                    @openLabelsDetails="pickedEditor = { isOpen: true, editorType: 'labels-edit' }"/>
+                    @openLabelsDetails="pickedEditor = { isOpen: true, editorType: 'labels-edit' }" />
             </section>
             <dates-preview class="pad-40" @markComplete="updateTask('dates-preview', $event)"
                 :isComplete="this.task.isComplete" />
@@ -85,6 +85,8 @@
         @updateBoardLabels="updateBoardLabels" class="z-index-100" @removeLabel="removeBoardLabel">
     </component>
 
+
+    <!-- <confirm-modal :msg="'Are you sure?'" v-if="isConfirmModal"/> -->
 </template>
 
 <script>
@@ -105,6 +107,7 @@ import locationEdit from "../cmps/location-edit.vue";
 import locationPreview from "../cmps/location-preview.vue";
 import attachmentEdit from "../cmps/attachment-edit.vue";
 import attachmentPreview from "../cmps/attachment-preview.vue";
+import confirmModal from "../cmps/confirm-modal.vue";
 
 
 import { utilService } from "../services/util.service";
@@ -130,7 +133,8 @@ export default {
         locationEdit,
         locationPreview,
         attachmentEdit,
-        attachmentPreview
+        attachmentPreview,
+        confirmModal
 
     },
 
@@ -160,7 +164,8 @@ export default {
                 { arg: 'cover-edit', icon: 'trellicons cover-icon', title: 'Cover' },
 
             ],
-            isCreateLabel: false
+            isCreateLabel: false,
+            isConfirmModal: false,
 
             // labelIds: this.$store.getters.labelIds
         }
@@ -277,18 +282,18 @@ export default {
                 case "labels-edit":
                     if (!taskToUpdate?.labelIds) taskToUpdate.labelIds = [];
                     taskToUpdate.labelIds = data.labelIds;
-                    txt = "updated label";
+                    txt = "Updated label";
                     break;
                 case "description":
-                    txt = "updated description";
+                    txt = `Updated ${taskToUpdate.title} description`
                     taskToUpdate.description = data;
                     break;
                 case "title":
-                    txt = "updated title";
+                    txt = `Updated ${taskToUpdate.title} title to ${data}`;
                     taskToUpdate.title = data;
                     break;
                 case "checklist-edit":
-                    txt = "added checklist";
+                    txt = `Added checklist ${data.title} in ${taskToUpdate.title}`
                     if (!taskToUpdate?.checklists) taskToUpdate.checklists = [];
                     data.id = utilService.makeId();
                     taskToUpdate.checklists.push(data);
@@ -300,22 +305,22 @@ export default {
                     txt = `${data.action} ${data.fullname} ${data.action === 'added' ? 'to' : 'from'} ${this.task.title}`
                     break;
                 case "checklist-preview":
-                    txt = "edited checklist";
+                    txt = `Edited checklist ${data.title} in ${taskToUpdate.title}`;
                     taskToUpdate.checklists = data
                     break
                 case "dates-edit":
-                    txt = "edited due date";
+                    txt = `Added due date for ${taskToUpdate.title}`
                     taskToUpdate.dueDate = data
                     this.closeEditor();
                     break
                 case 'dates-preview':
-                    data ? txt = `marked ${this.task.title} as complete` : txt = `unmarked ${this.task.title} as complete`
+                    data ? txt = `Marked ${this.task.title} as complete` : txt = `Unmarked ${this.task.title} as complete`
                     taskToUpdate.isComplete = data
                     // console.log(taskToUpdate);
                     break
                 case 'cover-edit':
                     console.log(data)
-                    txt = `updated  ${this.task.title} cover`;
+                    txt = `Updated  ${this.task.title} cover`;
                     if (data.startsWith('#')) {
                         taskToUpdate.style = {
                             'bgColor': data
@@ -327,10 +332,13 @@ export default {
                     }
                     break
                 case 'location-edit':
+                    if (!data) txt = `Removed  ${this.task.title} location`
+                    else txt = `Updated  ${this.task.title} location to ${data.name}`
                     taskToUpdate.location = data
                     this.closeEditor();
                     break
                 case 'attachment-edit':
+                    txt = `Added  ${this.task.title} attachment`
                     if (data.type === 'image') {
                         taskToUpdate.style = {
                             'imgUrl': data.url
@@ -342,6 +350,7 @@ export default {
                     this.closeEditor();
                     break
                 case 'attachment-preview':
+                    txt = `Updated  ${this.task.title} attachments`
                     // if (taskToUpdate.style === data.url) 
                     // console.log(data.url);
                     taskToUpdate.attachments = data
@@ -394,6 +403,9 @@ export default {
             // })
             this.$router.push(`/board/${this.$route.params.id}`)
         },
+        confirm() {
+            this.isConfirmModal = true
+        },
         async removeBoardLabel(label) {
             try {
                 this.$store.dispatch({
@@ -410,9 +422,9 @@ export default {
             catch (err) {
                 console.log(err);
             }
-            // const labelIdx = taskToUpdate.labelIds.find(labelId => labelId === data)
-            // taskToUpdate.labelIds.splice(labelIdx, 1)
-            // txt = "removed label";
+            const labelIdx = taskToUpdate.labelIds.find(labelId => labelId === data)
+            taskToUpdate.labelIds.splice(labelIdx, 1)
+            txt = "removed label";
         },
         async addChecklist(checklist) {
             await this.$store.dispatch({

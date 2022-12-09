@@ -28,7 +28,6 @@ import { boardService } from '../services/board.service.local'
 import { boardStore } from '../store/modules/board-store'
 import { FastAverageColor } from 'fast-average-color'
 import { socketService } from '../services/socket.service'
-
 import boardHeader from '.././cmps/board-header.vue'
 import groupList from '../cmps/group-list.vue'
 import boardNav from '../cmps/board-nav.vue'
@@ -110,15 +109,32 @@ export default {
             }
         },
         pushedBoard(board) {
-            console.log('hiiiiii board details');
+            // console.log('hiiiiii board details');
             this.$store.commit({ type: 'setPushedBoard', board })
-            console.log(this.board)
+            const membersIds = board.members.map(member => member._id)
+            if (membersIds.includes(this.user._id)) {
+                // console.log(this.board.activities[this.board.activities.length - 1]);
+                const { txt, createdAt, byMember } = this.board.activities[this.board.activities.length - 1]
+                // console.log(txt, createdAt, byMember);
+                const notification = {
+                    txt: txt,
+                    byMember: {
+                        fullname: byMember.fullname,
+                        imgUrl: byMember.imgUrl
+                    },
+                    createdAt,
+                    isSeen: false
+                }
+                this.$store.dispatch({
+                    type: 'updateNotifications',
+                    notification
+                })
+            }
         },
         removeMember(id) {
             this.$store.dispatch({ type: 'removeMember', memberId: id })
         },
         async avgColor() {
-
             // console.log(this.board)
             const url = this.board.style.backgroundImage
             try {
@@ -215,6 +231,9 @@ export default {
         },
         style() {
             return this.$store.getters.board?.style
+        },
+        user() {
+            return this.$store.getters.loggedinUser
         }
     },
     watch: {

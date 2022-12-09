@@ -24,7 +24,7 @@ export default {
     console.log('Vue App created')
     const user = userService.getLoggedinUser()
     if (user) store.commit({ type: 'setLoggedinUser', user })
-  
+
     try {
       await this.$store.dispatch({ type: 'loadBoards' })
       await this.$store.dispatch({ type: 'loadUsers' })
@@ -46,7 +46,7 @@ export default {
     appHeader,
     userMsg
   },
-  
+
   methods: {
     setRGB(rgb) {
       this.rgb = rgb
@@ -60,6 +60,20 @@ export default {
       catch (err) {
         console.log('Fail to logout', err);
       }
+    },
+    loadPhotos() {
+      const key = 'unsplashDB'
+      this.imgUrls = ''
+      if (!localStorage.getItem(key))
+        console.log(this.searchTxt);
+      let apiUrl = `https://api.unsplash.com/search/photos?query=${this.searchTxt ? this.searchTxt : 'landscape'}&orientation=landscape&per_page=20&client_id=${this.clientId}`
+      axios(apiUrl).then(({ data }) => {
+        this.imgUrls = data.results.map(res => res.urls.full).slice(0, 14)
+        // console.log(this.imgUrls);
+      })
+        .catch((err) => {
+          console.log('Cant load imgs', err);
+        })
     }
   },
   computed: {

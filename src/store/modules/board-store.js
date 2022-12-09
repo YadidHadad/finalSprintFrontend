@@ -70,6 +70,10 @@ export const boardStore = {
             // console.log(currBoard);
         },
 
+        addMember(state, { member }) {
+            state.board.members.unshift(member)
+        },
+
         setPushedBoard(state, { board }) {
             // console.log('IN STORE PUSH BOARD', board);
             const boardIdx = state.boards.findIndex(b => b._id === board._id)
@@ -130,6 +134,7 @@ export const boardStore = {
             activity.createdAt = Date.now()
             activity.id = utilService.makeId()
             if (!state.board?.activities) state.board.activities = []
+            if (state.board.activities.length >= 100) state.board.activities.splice(0, 1)
             state.board.activities.push(activity)
         },
 
@@ -187,6 +192,7 @@ export const boardStore = {
             }
         },
         updateBoardLabels(state, { label }) {
+            console.log(label);
             if (!label.id) {
                 label.id = utilService.makeId()
                 state.board.labels.push(label)
@@ -262,9 +268,18 @@ export const boardStore = {
         },
 
         async addMember(context, { member }) {
-            const newBoard = JSON.parse(JSON.stringify(context.state.board))
-            newBoard.members.push(member)
-            context.dispatch({ type: 'updateBoard', board: newBoard })
+            const prevBoard = JSON.parse(JSON.stringify(context.state.board))
+            context.commit({ type: 'addMember', member })
+            // newBoard.members.push(member)
+            // context.commit({ type: 'updateBoard', board: newBoard })
+            // context.commit({ type: 'setBoard', boardId: newBoard._id })
+            try {
+                const board = await boardService.save(context.state.board)
+            }
+            catch (err) {
+                console.log('fail in add member', err);
+                context.commit({ type: 'updateBoard', board: prevBoard })
+            }
         },
         async removeMember(context, { memberId }) {
             const newBoard = JSON.parse(JSON.stringify(context.state.board))
