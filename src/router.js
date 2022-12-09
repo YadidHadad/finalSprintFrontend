@@ -42,7 +42,14 @@ const routes = [
       {
         path: '/board/:id',
         name: 'board',
-        component: groupList
+        component: groupList,
+        children: [
+          {
+            path: '/board/:id/:groupId/:taskId',
+            name: 'board',
+            component: groupList
+          }
+        ]
       },
       {
         path: '/board/:id/map',
@@ -56,11 +63,11 @@ const routes = [
       },
     ]
   },
-  {
-    path: '/board/:id/:groupId/:taskId',
-    name: 'task-details',
-    component: boardDetails
-  },
+  // {
+  //   path: '/board/:id/:groupId/:taskId',
+  //   name: 'task-details',
+  //   component: boardDetails
+  // },
 ]
 
 
