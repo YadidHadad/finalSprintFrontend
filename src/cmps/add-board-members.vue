@@ -91,6 +91,7 @@ export default {
     name: "members-edit",
     props: [],
     components: { Multiselect, confirmModal },
+    emits: ['removeMember', 'addMember', 'close'],
     created() {
         this.debounceHandler = utilService.debounce(this.getBoardMembers, 500)
         // console.log(this.boardMembers)
