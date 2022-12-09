@@ -18,7 +18,8 @@
     <task-details v-if="this.$route.params.taskId" />
 
 
-    <confirm-modal :msg="'Permanently delete board?'" v-if="isDelete" v-click-outside="() => {isDelete = false}" @remove="removeBoard"/>
+    <confirm-modal :msg="'Permanently delete board?'" v-if="isDelete" @closeModal="() => { isDelete = false }"
+        @remove="removeBoard" />
 </template>
 
 
@@ -100,11 +101,11 @@ export default {
             }
         },
         async removeBoard() {
-            try{             
+            try {
                 await this.$store.dispatch({ type: 'removeBoard', boardId: this.board._id })
                 this.$router.push('/board')
             }
-            catch(err) {
+            catch (err) {
                 console.log('fail in remove board');
             }
         },

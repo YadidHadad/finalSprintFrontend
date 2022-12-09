@@ -1,12 +1,17 @@
 <template>
-    <section class="confirm-modal">
+    <div class="screen"></div>
+
+    <section class="confirm-modal" v-click-outside="closeModal">
         <div class="confirm-modal-header">
-            <h2>{{msg}}</h2>
+            <h2>{{ msg }}</h2>
             <!-- <button class="btn-close" @click.stop="closeEdit">
                 <span class="trellicons x-icon"></span>
             </button> -->
         </div>
-        <button class="delete-btn" @click="remove">Delete</button>
+        <div class="flex gap">
+            <button class="btn-ok" @click="remove">OK</button>
+            <button class="btn-cancel" @click="closeModal">Cancel</button>
+        </div>
     </section>
 </template>
 
@@ -21,7 +26,11 @@ export default {
     methods: {
         remove() {
             this.$emit('remove')
-        }
+        },
+        closeModal() {
+            this.$emit('closeModal')
+
+        },
     },
 }
 </script>
