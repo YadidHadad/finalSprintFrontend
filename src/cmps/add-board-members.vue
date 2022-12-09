@@ -39,7 +39,8 @@
 
 
 
-            <input type="text" placeholder="Email address or name" v-model="filterByName" @input="setSearchedMembers" v-focus>
+            <input type="text" placeholder="Email address or name" v-model="filterByName" @input="setSearchedMembers"
+                v-focus>
             <button>Share</button>
 
             <div v-if="(searchedMembers.length > 0)" class="search-results">
@@ -83,6 +84,7 @@ import { ref } from 'vue'
 export default {
     name: "members-edit",
     props: [],
+    emits: ['removeMember', 'addMember', 'close'],
     components: { Multiselect },
     created() {
         this.debounceHandler = utilService.debounce(this.getBoardMembers, 500)
