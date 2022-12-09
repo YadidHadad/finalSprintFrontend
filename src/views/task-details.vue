@@ -21,7 +21,7 @@
             </div>
         </section>
 
-        <section class="task-details-aside ">
+        <section class="task-details-aside">
             <section class="flex column">
                 <button v-if="!isUserOnTask" class="btn btn-join" @click.stop="toggleMember()">
                     <span class="trello-home  join-icon"></span>
@@ -59,7 +59,7 @@
                 <members-preview v-if="task.memberIds" :memberIds="task.memberIds"
                     @openMembersEditor="openMembersEditor" :isTaskDetails="true" />
                 <labels-preview v-if="task.labelIds"
-                    @openLabelsDetails="pickedEditor = { isOpen: true, editorType: 'labels-edit' }" />
+                    @openLabelsDetails="pickedEditor = { isOpen: true, editorType: 'labels-edit' }"/>
             </section>
             <dates-preview class="pad-40" @markComplete="updateTask('dates-preview', $event)"
                 :isComplete="this.task.isComplete" />
@@ -78,11 +78,13 @@
         </section>
 
     </section>
+
     <component :is="pickedEditor.editorType" @closeEdit="closeEditor" v-click-outside="closeEditor"
         @updateTask="updateTask(pickedEditor.editorType, $event)" @addChecklist="addChecklist"
         @updateLabel="updateLabel" @updateMembers="updateTask" @copyTask="copyTask"
         @updateBoardLabels="updateBoardLabels" class="z-index-100" @removeLabel="removeBoardLabel">
     </component>
+
 </template>
 
 <script>
@@ -181,14 +183,12 @@ export default {
     },
     methods: {
         updateTitle(ev) {
-            // console.log(ev.data);
             if (typeof ev.data !== "string") return;
             this.task.title += ev.data;
         },
         pickEditor(type) {
             this.pickedEditor.editorType = type;
             this.pickedEditor.isOpen = true;
-            // console.log(this.pickedEditor);
         },
         closeEditor() {
             // await this.updateTask()
@@ -271,8 +271,6 @@ export default {
             // console.log(payload);
         },
         async updateTask(type, data) {
-            console.log('UPDATE TASKKKKKKK')
-            console.log(type, data)
             let taskToUpdate = JSON.parse(JSON.stringify(this.task))
             let txt
             switch (type) {
@@ -351,7 +349,7 @@ export default {
 
             }
             try {
-                console.log('hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii', this.task);
+                var prevTask = JSON.parse(JSON.stringify(this.task))
                 this.$store.commit({ type: 'updateTask', payload: { task: taskToUpdate, groupId: this.groupId } })
                 this.task = JSON.parse(JSON.stringify(this.getTask))
                 let updatedTask = await this.$store.dispatch({
@@ -378,7 +376,7 @@ export default {
                     },
                 });
                 this.task = updatedTask;
-            } catch (prevTask) {
+            } catch (err) {
                 this.$store.commit({ type: 'updateTask', payload: { task: prevTask, groupId: this.groupId } })
                 this.task = JSON.parse(JSON.stringify(this.getTask))
                 console.log("Failed in task update")
