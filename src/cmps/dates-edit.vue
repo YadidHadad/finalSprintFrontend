@@ -44,6 +44,7 @@ export default {
     created() { },
     methods: {
         addDate() {
+            console.log()
             const dateStr = this.$refs.inputRef.selectedDate
             if (!dateStr) return
             const dateParsed = JSON.parse(JSON.stringify(dateStr))

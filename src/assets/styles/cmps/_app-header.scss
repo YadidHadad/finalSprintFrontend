@@ -79,7 +79,7 @@ header {
     }
 
     .search-boards {
-        width: 200px;
+        min-width: 200px;
         height: 2rem;
         border-radius: 5px;
         background-color: rgba($textLight, 0.2);

@@ -114,6 +114,10 @@
     margin-inline: 0;
     margin-block-start: 0.5rem;
     padding: 0.5rem 1rem;
+    &:active {
+      color: #0079bf !important;
+      background-color: #e4f0f6 !important;
+    }
     &:hover {
       background-color: rgba($textDark, 0.1);
       // border-radius: 0;

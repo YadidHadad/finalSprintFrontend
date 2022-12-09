@@ -35,10 +35,10 @@
             </section>
             <section class="btns-actions flex column">
                 <h4>Actions</h4>
-                <button class="btn" @click="pickEditor('copy-task-edit')">
+                <!-- <button class="btn" @click="pickEditor('copy-task-edit')">
                     <span class="trellicons move"></span>
                     <span>Move</span>
-                </button>
+                </button> -->
                 <button class="btn" @click="pickEditor('copy-task-edit')">
                     <span class="trellicons copy"></span>
                     <span>Copy</span>
