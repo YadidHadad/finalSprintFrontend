@@ -18,7 +18,7 @@
     }
 
     .task-preview-cover {
-        margin-bottom: rem(5px);
+        // margin-bottom: rem(5px);
         border-radius: 3px 3px 0 0;
     }
 
@@ -28,7 +28,7 @@
         font-weight: 400;
         font-size: rem(14px) !important;
         padding: 0;
-        margin-bottom: rem(8px);
+        // margin-bottom: rem(8px);
     }
 
     cursor: pointer;
@@ -44,7 +44,7 @@
 .task-preview-details {
     flex-wrap: wrap;
     width: 100%;
-    // gap: 10px;
+    // gap: rem(8px);
     min-height: 5px;
     height: 100%;
     padding: rem(8px) rem(8px) rem(6px);
@@ -54,15 +54,18 @@
         width: 100%;
         display: flex;
         flex-wrap: wrap;
-        min-height: rem(17px);
-        margin-bottom: rem(6px);
-
+        max-height: fit-content;
+        // padding-bottom: rem(4px);
+        
+        
         ul {
             gap: 5px;
             width: 100%;
             flex-wrap: wrap;
+            min-height: rem(17px);
+            
         }
-
+        
         li {
             display: flex;
             justify-items: center;
@@ -112,7 +115,7 @@
     }
 
     .task-title {
-        padding-bottom: rem(10px);
+        // margin-bottom: rem(10px);
     }
 
     .task-preview-icons {
@@ -129,6 +132,7 @@
         align-content: center;
         // height: rem(35px);
         height: fit-content;
+        margin-top: rem(8px);
 
         .task-date-preview {
 
@@ -143,6 +147,7 @@
                 padding: 0 rem(3px);
                 height: fit-content;
                 align-items: center;
+                gap: rem(3px);
 
 
                 span {
@@ -151,7 +156,7 @@
                         left: 6px;
                         opacity: 0;
                     }
-                    
+
                 }
 
                 &:hover {
@@ -175,6 +180,7 @@
 
             .date-str {
                 width: fit-content;
+                font-size: rem(12px);
             }
         }
 
@@ -191,14 +197,16 @@
 
             :not(:first-of-type) {
                 font-size: rem(12px);
+                text-align: center;
             }
 
             :first-of-type {
+                text-align: center;
                 font-size: rem(16px);
             }
 
             span {
-                margin-right: rem(5px);
+                margin-right: rem(3px);
             }
         }
 
