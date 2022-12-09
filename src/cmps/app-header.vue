@@ -4,7 +4,7 @@
             <router-link class="header-btn" :to="'/'" :class="{ isDark: isDark }">
                 <span class="fa-brands trello-icon "></span>
             </router-link>
-            <router-link class="header-btn" :to="'/board'" :class="{ isDark: isDark }">
+            <router-link class="header-btn" :to="'/boards'" :class="{ isDark: isDark }">
                 <span class="logo">Kannban</span>
             </router-link>
         </section>

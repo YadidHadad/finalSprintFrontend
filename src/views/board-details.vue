@@ -103,7 +103,7 @@ export default {
         async removeBoard() {
             try {
                 await this.$store.dispatch({ type: 'removeBoard', boardId: this.board._id })
-                this.$router.push('/board')
+                this.$router.push('/boards')
             }
             catch (err) {
                 console.log('fail in remove board');

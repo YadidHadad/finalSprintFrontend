@@ -31,7 +31,8 @@
         </div>
 
         <Container class="task-preview-container flex column" orientation="vertical" group-name="group-tasks"
-            @drop="onDrop" :shouldAcceptDrop="(e, payload) => (e.groupName === 'group-tasks' && !payload.loading)"
+            ref="group" @drop="onDrop"
+            :shouldAcceptDrop="(e, payload) => (e.groupName === 'group-tasks' && !payload.loading)"
             :get-child-payload="getChildPayload" drop-class="" :drop-class="dragClass">
             <Draggable class="task-preview" v-for="task in tasksToShow" :key="task.id">
                 <task-preview :task="task" :groupId="this.group.id" :boardId="boardId" />
@@ -190,6 +191,9 @@ export default {
         toggleCard() {
             // console.log(this.isCardOpen);
             this.isCardOpen = !this.isCardOpen;
+            this.$refs.group.containerElement['smooth-dnd-container-instance'].element.scrollTop = this.$refs.group.containerElement['smooth-dnd-container-instance'].element.scrollHeight
+            console.log(this.$refs.group.containerElement['smooth-dnd-container-instance'])
+
         },
         toggleMenu() {
             this.isMenuOpen = !this.isMenuOpen;

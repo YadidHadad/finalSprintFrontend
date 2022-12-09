@@ -16,6 +16,22 @@
 
     max-height: calc(100vh - 95px);
 
+    label {
+        background-color: white;
+
+        &:hover {
+            cursor: pointer;
+            filter: brightness(97%);
+        }
+        >:first-child {
+            margin-inline-end: 8px;
+        }
+
+        >:last-child {
+            margin-inline-start: 5px;
+        }
+    }
+
     .board-labels {
         > :first-child {
             color: var(--ds-text-subtle, #5e6c84);
@@ -26,7 +42,7 @@
             margin-bottom: 8px;
         }
 
-        > *:not(:first-child) {
+        >*:not(:first-child) {
             padding-bottom: 8px;
         }
 
@@ -88,6 +104,13 @@
             width: 100%;
             border: none;
             color: var(--ds-text, #172b4d);
+            border-radius: 3px;
+
+            &:focus {
+                background-color: var(--ds-background-input, #ffffff);
+                box-shadow: inset 0 0 0 2px var(--ds-border-focused, #0079bf);
+                outline: none;
+            }
         }
 
         small {
@@ -109,7 +132,7 @@
         line-height: 16px;
     }
 
-    > *:not(:first-child) {
+    >*:not(:first-child) {
         padding: 8px;
         padding-right: 0;
     }
@@ -136,6 +159,33 @@
         padding: 3px;
     }
 
+    .member-icon,
+    .label-icon {
+        color: var(--ds-text-subtle, #5e6c84);
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px;
+        height: 24px;
+        width: 24px;
+        display: flex;
+        align-items: center;
+        background-color: var(--ds-background-neutral, #EBECF0);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .no-members {
+        display: flex;
+        align-items: center;
+
+        input {
+            // align-self: flex-end;
+            // margin: 0;
+        }
+    }
+
     label {
         display: flex;
         align-items: center;
@@ -148,13 +198,35 @@
     gap: 5px;
     flex-direction: column;
 
+    .header {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        background-color: var(--ds-background-neutral, #f4f5f7);
+        padding: 8px 12px 8px 0;
+        border-radius: 3px;
+
+        &span:first-of-type {
+            flex-grow: 1;
+        }
+
+        &:hover {
+            cursor: pointer;
+            filter: brightness(97%);
+        }
+
+        :first-child {
+            margin-inline-end: 17px;
+        }
+    }
+
     > :first-child {
         align-self: flex-start;
     }
 
     .board-member {
         label {
-            > * {
+            >* {
                 margin-inline-end: 5px;
             }
         }

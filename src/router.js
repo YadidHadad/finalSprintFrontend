@@ -20,8 +20,8 @@ const routes = [
     component: home
   },
   {
-    path: '/board',
-    name: 'board',
+    path: '/boards',
+    name: 'boards',
     component: boardList
   },
   {
@@ -63,11 +63,11 @@ const routes = [
       },
     ]
   },
-  // {
-  //   path: '/board/:id/:groupId/:taskId',
-  //   name: 'task-details',
-  //   component: boardDetails
-  // },
+  //   // {
+  //   //   path: '/board/:id/:groupId/:taskId',
+  //   //   name: 'task-details',
+  //   //   component: boardDetails
+  //   // },
 ]
 
 

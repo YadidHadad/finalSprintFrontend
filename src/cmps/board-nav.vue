@@ -6,10 +6,19 @@
                     class="fa-solid arrow-icon"></span></button>
         </div>
 
-        <button v-for="(btn, i) in btns" class="btn-nav flex align-center" :class="{ isDark: isDark }"
-            @click="openView(btn.txt)">
-            <span :class="btn.icon"></span>
-            <span>{{ btn.txt }}</span>
+        <button class="btn-nav flex align-center" :class="{ isDark: isDark }" @click="openView('Boards')">
+            <span class="trello-home trello-icon"></span>
+            <span> Boards</span>
+        </button>
+
+        <button class="btn-nav flex align-center" :class="{ isDark: isDark }" @click="openView('Members')">
+            <span class="trello-home join-icon"></span>
+            <span> Members</span>
+        </button>
+
+        <button class="btn-nav flex align-center" :class="{ isDark: isDark }" @click="openView('Boards')">
+            <span class="trello-home settings-icon"></span>
+            <span> Settings</span>
         </button>
         <div class="nav-title flex row align-center justify-between " :class="{ isDark: isDark }">
             <span>Your Boards</span>
@@ -28,10 +37,10 @@
             </button>
         </div>
     </section>
-    <div class="add-board-in-board-nav">
+    <!-- <div class="add-board-in-board-nav">
         <add-board-modal v-if="isAddBoard" @addBoard="addBoard" v-click-outside="() => isAddBoard = false"
             @closeEdit="(isAddBoard = false)" />
-    </div>
+    </div> -->
 </template>
 
 <script>
@@ -53,27 +62,27 @@ export default {
             isAddBoard: false,
             navIsHidden: false,
             isClicked: false,
-            btns: [
-                {
-                    txt: 'Boards',
-                    icon: 'trello-home trello-icon'
-                },
-                {
-                    txt: 'Members',
-                    icon: 'trello-home join-icon'
-                },
-                {
-                    txt: 'Settings',
-                    icon: 'trello-home settings-icon'
-                },
-            ]
+            // btns: [
+            //     {
+            //         txt: 'Boards',
+            //         icon: 'trello-home trello-icon'
+            //     },
+            //     {
+            //         txt: 'Members',
+            //         icon: 'trello-home join-icon'
+            //     },
+            //     {
+            //         txt: 'Settings',
+            //         icon: 'trello-home settings-icon'
+            //     },
+            // ]
         }
     },
     methods: {
         openView(view) {
             switch (view) {
                 case 'Boards':
-                    this.$router.push('/board')
+                    this.$router.push('/boards')
                     break
                 case 'Members':
                     this.$emit('showAddMembers')

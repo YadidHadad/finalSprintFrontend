@@ -1,6 +1,6 @@
 <template>
 
-  <h1>MAP</h1>
+  <h1>Map</h1>
 </template>
 <script>
 export default {
