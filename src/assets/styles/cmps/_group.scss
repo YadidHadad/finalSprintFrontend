@@ -3,13 +3,13 @@
     background-color: $clr12;
     border-radius: 3px;
     height: fit-content;
-    // max-height: 500px;
+    max-height: 100%;
     color: $clr13;
     min-width: 272px;
     max-width: 273px;
     font-size: rem(14px) !important;
     // padding: rem(8px);
-    gap: rem(8px);
+    // gap: rem(8px);
     // box-shadow: 0px 0px -1px -1px rgba(0, 0, 0, 0.33) inset;
     border: 1px solid rgba(grey, 0.2);
 
@@ -20,7 +20,7 @@
 
     .main-title {
         position: relative;
-        padding: rem(12px) rem(5px) rem(2px) rem(16px);
+        padding: rem(12px) rem(5px) rem(12px) rem(16px);
 
         // margin:  0 rem(4px);
         input {
@@ -92,15 +92,17 @@
 .add-card-container {
     position: sticky;
     bottom: 0;
-    padding-bottom: rem(10px);
+    padding: rem(4px) rem(15px) rem(8px) rem(8px) ;
+
     background-color: $clr12;
+    width: 100%;
 }
 
 button.add-card-btn {
     text-align: left;
     padding: rem(4px) rem(4px);
     margin: rem(2px) 0 0 0;
-    color: $clr9;
+    color: $clr13;
     border-radius: 3px;
     font-size: rem(14px);
     width: 100%;
@@ -111,21 +113,24 @@ button.add-card-btn {
     }
 
     span {
-        padding-left: rem(8px);
-        padding-right: rem(5px);
+        // padding-right: rem(3px);
     }
-
+    
     .add-card-txt {
         font-size: rem(14px);
     }
-
+    
     .plus-icon {
+        padding-left: rem(8px);
         font-size: rem(14px);
+        padding-right: rem(5px);
     }
 }
 
 .add-card-form {
+    height: fit-content;
     justify-items: center;
+  
     textarea {
         padding-left: rem(8px);
         height: rem(60px);

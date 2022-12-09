@@ -38,10 +38,8 @@
                 <task-preview :task="task" :groupId="this.group.id" :boardId="boardId" />
             </Draggable>
 
-            <div class="add-card-container">
-                <button class="add-card-btn" v-if="!isCardOpen" @click="toggleCard">
-                    <span class="fa-regular plus-icon"></span><span>Add a card</span>
-                </button>
+
+
                 <form class="add-card-form flex" v-if="isCardOpen" @submit.prevent="addTask">
                     <textarea v-model="currTask.title" type="textarea" name="add-task" rows="4"
                         placeholder="Enter a title for this card..." v-focus @keyup.enter="addTask"></textarea>
@@ -52,8 +50,13 @@
                         </button>
                     </div>
                 </form>
-            </div>
+
         </Container>
+        <div class="add-card-container">
+            <button class="add-card-btn" v-if="!isCardOpen" @click="toggleCard">
+                <span class="fa-regular plus-icon"></span><span>Add a card</span>
+            </button>
+        </div>
     </div>
 </template>
 
