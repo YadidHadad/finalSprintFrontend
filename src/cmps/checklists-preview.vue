@@ -40,7 +40,7 @@
                                 }}</div>
                             <div class="todo-edit flex column gap2" v-else>
                                 <textarea class="checklist-title-input todo-title-input task-cmp-title grow"
-                                    v-model="todo.title" @keydown.enter="($event) => $event.target.blur()">
+                                    v-model="todo.title" @keydown.enter.prevent="updateTodo">
                                 </textarea>
                                 <div class="todo-edit-btns flex row gap5">
                                     <button class="btn-save" @click.stop="updateTodo">Save</button>
@@ -67,7 +67,7 @@
                     item</button>
                 <div v-else-if="checklist.id === checklistPicked" class="add-todo pad-40 flex column">
                     <textarea placeholder="Add an item" v-model="todoTxt"
-                        @keydown.enter="($event) => $event.target.blur()"></textarea>
+                        @keydown.enter.prevent="saveTodo(checklist)"></textarea>
                     <div>
                         <button class="btn-save" @click="saveTodo(checklist)">Save</button>
                         <button class="close-btn" @click="checklistPicked = false">Cancel</button>

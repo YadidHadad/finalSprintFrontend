@@ -129,7 +129,7 @@ export default {
                 {
                     txt: "Board",
                     icon: "trello-home board-icon",
-                    function: () => { this.btnClicked = 'Board' },
+                    function: () => { this.btnClicked = 'Board'; this.$router.push(`/board/${this.$route.params.id}`) },
                     isClicked: "Board",
 
                 },
@@ -150,14 +150,14 @@ export default {
                 {
                     txt: "Dashboard",
                     icon: "trello-home dashboard-icon",
-                    function: () => { this.btnClicked = 'Dashboard' },
+                    function: () => { this.btnClicked = 'Dashboard'; this.$router.push(`/board/${this.$route.params.id}/dashboard`) },
                     isClicked: "Dashboard",
 
                 },
                 {
                     txt: "Map",
                     icon: "trello-home location-icon",
-                    function: () => { this.btnClicked = 'Map' },
+                    function: () => { this.btnClicked = 'Map'; this.$router.push(`/board/${this.$route.params.id}/map`) },
                     isClicked: "Map",
 
                 },

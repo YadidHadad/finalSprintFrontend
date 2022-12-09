@@ -8,6 +8,9 @@ import userDetails from './views/user-details.vue'
 import boardList from './views/board-list.vue'
 import boardDetails from './views/board-details.vue'
 import taskDetails from './views/task-details.vue'
+import groupList from './cmps/group-list.vue'
+import map from './cmps/map.vue'
+import dashboard from './cmps/dashboard.vue'
 
 
 const routes = [
@@ -17,8 +20,8 @@ const routes = [
     component: home
   },
   {
-    path: '/board',
-    name: 'board',
+    path: '/boards',
+    name: 'boards',
     component: boardList
   },
   {
@@ -35,19 +38,36 @@ const routes = [
     path: '/board/:id',
     name: 'board-details',
     component: boardDetails,
-    // children: [
-    //   {
-    //     path: '/board/:id/task/:taskId',
-    //     name: 'task-details',
-    //     component: taskDetails
-    //   },
-    // ]
+    children: [
+      {
+        path: '/board/:id',
+        name: 'board',
+        component: groupList,
+        children: [
+          {
+            path: '/board/:id/:groupId/:taskId',
+            name: 'board',
+            component: groupList
+          }
+        ]
+      },
+      {
+        path: '/board/:id/map',
+        name: 'map',
+        component: map
+      },
+      {
+        path: '/board/:id/dashboard',
+        name: 'dashboard',
+        component: dashboard
+      },
+    ]
   },
-  {
-    path: '/board/:id/:groupId/:taskId',
-    name: 'task-details',
-    component: boardDetails
-  },
+  //   // {
+  //   //   path: '/board/:id/:groupId/:taskId',
+  //   //   name: 'task-details',
+  //   //   component: boardDetails
+  //   // },
 ]
 
 

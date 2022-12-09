@@ -5,7 +5,7 @@
                 @toggleBoardMenu="toggleBoardMenu" @filterTasks="filterTasks" />
             <filter-tasks-modal v-if="showFilter" @closeFilter="(showFilter = false)" @doFilter="doFilter" />
 
-            <group-list @addTask="addNewTask" @addGroup="addNewGroup" @removeGroup="removeGroup" :groups="board.groups"
+            <router-view @addTask="addNewTask" @addGroup="addNewGroup" @removeGroup="removeGroup" :groups="board.groups"
                 :boardId="board._id" :rgb="rgb" :filterBy="filterBy" />
         </section>
         <board-nav :rgb="rgb" :boards="boards" @showAddMembers="isAddBoardMembers = true"></board-nav>
@@ -103,7 +103,7 @@ export default {
         async removeBoard() {
             try {
                 await this.$store.dispatch({ type: 'removeBoard', boardId: this.board._id })
-                this.$router.push('/board')
+                this.$router.push('/boards')
             }
             catch (err) {
                 console.log('fail in remove board');
