@@ -13,7 +13,7 @@
             <img v-else v-for="index in 3" :key="index" :src="imgUrls[index]" @click="updateCover(imgUrls[index])" />
         </div>
         <input type="text" placeholder="Search Photos..." @input="debounceHandler" v-model="searchTxt"
-            @keyup.enter="($event) => $event.target.blur()" />
+            @keyup.enter="debounceHandler" />
         <h4 class="mini-title">Background color</h4>
         <div class="colors-pallet flex wrap row gap5 justify-between">
             <div v-for="color in colors" :key="color" :style="{ backgroundColor: color }" class="color-sample"
@@ -23,7 +23,7 @@
         </div>
         <h4 class="mini-title">Board title</h4>
         <input class="" ref="title" type="text" v-model="title" v-focus :class="{ required: !title }" @input="print"
-            placeholder="Enter title" @keyup.enter="($event) => $event.target.blur()" />
+            placeholder="Enter title" @keyup.enter="addBoard" />
         <button class="btn-add" @click="addBoard" :class="{ required: !title }" :disabled="title === ''">Create</button>
     </section>
 </template>

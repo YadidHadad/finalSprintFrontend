@@ -9,7 +9,7 @@
             <div class="text-filter">
                 <p>Keyword</p>
                 <input type="text" placeholder="Enter a keyword..." v-model="filterBy.title" @input="doFilter"
-                    @keyup.enter="($event) => $event.target.blur()">
+                    @keyup.enter="doFilter">
                 <small>Search cards, members, labels, and more.</small>
             </div>
             <div class="members-filter">
@@ -25,12 +25,12 @@
                 </label>
                 <label for="self-assign">
                     <input id="self-assign" type="checkbox" @change="toggleIsAssignToMe">
-                        <div v-if="loggedinUser.imgUrl" class="member-image" :style="memberImage(loggedinUser.imgUrl)"
-                            :title="loggedinUser.fullname"> </div>
-                        <span v-else class="member-initials" :title="loggedinUser.fullname">
-                            {{ getInitials(loggedinUser.fullname) }}
-                        </span>
-                        <span>Cards assigned to me</span>
+                    <div v-if="loggedinUser.imgUrl" class="member-image" :style="memberImage(loggedinUser.imgUrl)"
+                        :title="loggedinUser.fullname"> </div>
+                    <span v-else class="member-initials" :title="loggedinUser.fullname">
+                        {{ getInitials(loggedinUser.fullname) }}
+                    </span>
+                    <span>Cards assigned to me</span>
                 </label>
                 <!-- <label for="task-members">
                     <input id="task-members" type="checkbox"> -->

@@ -111,7 +111,7 @@
                 </button>
             </section>
             <input type="text" placeholder="Search Photos..." @input="debounceHandler" v-model="searchTxt"
-                @keyup.enter="($event) => $event.target.blur()">
+                @keyup.enter="getPhotos">
             <section class="images flex row align-center wrap gap justify-between">
                 <img v-if="!imgUrls" src="../assets/svg/loader.svg" alt="" class="loader">
                 <img v-else v-for="imgUrl in imgUrls" :key="imgUrl" :src="imgUrl" class="color-sample"

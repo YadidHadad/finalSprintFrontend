@@ -2,7 +2,7 @@
     <section v-if="board" class="board-header flex row align-center justify-between wrap">
         <div class="flex align-center  wrap">
             <input type="text" v-model="board.title" :style="titleLength" @input="debounceHandler"
-                @keyup.enter="($event) => $event.target.blur()" />
+                @keyup.enter="setBoardTitle" />
             <button v-if="board" v-for="(btn, i) in btns" class="btn"
                 :class="{ isDark: !isDark, isClicked: btnClicked === btn.isClicked }" :style="buttonBackground"
                 @click="btn.function(btn.isClicked)">
@@ -72,8 +72,8 @@ export default {
         toggleBoardMenu() {
             this.$emit("toggleBoardMenu");
         },
-        setBoardTitle() {
-
+        setBoardTitle(event) {
+            event.target.blur()
             // if (this.board.title.length > 15) this.board.title = this.board.title.slice(0, 15) + '...'
 
             this.$store.dispatch({ type: "updateBoard", board: this.board });

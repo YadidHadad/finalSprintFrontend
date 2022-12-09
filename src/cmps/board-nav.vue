@@ -28,10 +28,10 @@
             </button>
         </div>
     </section>
-    <!-- <div class="add-board-in-board-nav">
+    <div class="add-board-in-board-nav">
         <add-board-modal v-if="isAddBoard" @addBoard="addBoard" v-click-outside="() => isAddBoard = false"
             @closeEdit="(isAddBoard = false)" />
-    </div> -->
+    </div>
 </template>
 
 <script>

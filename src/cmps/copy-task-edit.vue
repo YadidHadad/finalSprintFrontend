@@ -7,22 +7,17 @@
 
         <form class="copy-edit-main">
             <label class="mini-title" for="copy-input">Title</label>
-            <textarea type="text" v-model="task.title" id="copy-input"
-                @keyup.enter="($event) => $event.target.blur()"></textarea>
-
+            <textarea type="text" v-model="task.title" id="copy-input"></textarea>
             <label class="mini-title" for="copy-input">Choose board</label>
             <select class="board-select" v-model="toBoardId" @change="setBoard">
                 <option v-for="board in getBoards" :key="board._id" :value="board._id">{{ board.title }}</option>
             </select>
-
             <!-- {{ toBoardId }} -->
-
             <label class="mini-title" for="copy-input">Choose list</label>
             <select class="group-select" v-model="toGroupId" @change="setGroup">
                 <option v-for="group in board.groups" :key="group.id" :value="group.id">{{ group.title }}
                 </option>
             </select>
-
             <!-- {{ toGroupId }} -->
             <button class="btn-add" @click="copyTask">Copy card</button>
         </form>

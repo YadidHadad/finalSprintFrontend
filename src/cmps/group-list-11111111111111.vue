@@ -10,7 +10,7 @@
             <transition name="slide-out">
                 <form v-if="isFormOpen" @submit.prevent="addGroup" class="flex group-list-form">
                     <input v-model="group.title" type="text" name="add-list" placeholder="Enter list title..." v-focus
-                        @keyup.enter="($event) => $event.target.blur()">
+                        @keyup.enter="addGroup">
                     <div class="add-list-btns flex">
                         <button class="add-list-btn">Add list</button>
                         <button type="button" @click="toggleForm"><span class="fa-solid x-icon"></span></button>

@@ -17,7 +17,7 @@
             <transition name="close">
                 <form v-if="isFormOpen" @submit.prevent="addGroup" class="flex group-list-form">
                     <input v-model="group.title" type="text" name="add-list" placeholder="Enter list title..." v-focus
-                        @keyup.enter="($event) => $event.target.blur()">
+                        @keyup.enter="addGroup">
                     <div class="add-list-btns flex">
                         <button class="add-list-btn">Add
                             list</button>

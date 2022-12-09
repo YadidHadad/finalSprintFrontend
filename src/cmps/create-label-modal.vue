@@ -9,7 +9,7 @@
         <div class="create-label-main">
             <div class="picked-color" :style="{ backgroundColor: getPickedColor }"><span>{{ title }}</span></div>
             <h4 class="mini-title">Title</h4>
-            <input type="text" v-model="title" @keyup.enter="($event) => $event.target.blur()">
+            <input type="text" v-model="title" @keyup.enter="save">
 
             <h4 class="mini-title">Select a color</h4>
             <div class="colors-container flex row wrap gap5 justify-between">
@@ -38,6 +38,7 @@ export default {
     },
     methods: {
         save() {
+            if (!this.pickedColor) return
             this.$emit('createdLabel', { color: this.pickedColor, title: this.title })
         },
         closeEdit() {

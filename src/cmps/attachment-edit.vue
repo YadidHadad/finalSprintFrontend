@@ -17,12 +17,10 @@
             <h4 class="mini-title">Attach a link</h4>
             <input type="text" placeholder="Paste any link here" v-model="url"
                 @keyup.enter="($event) => $event.target.blur()">
-
             <div v-if="url" class="link-name">
                 <div>Link name (optional)</div>
-                <input type="text" v-model="name" @keyup.enter="($event) => $event.target.blur()">
+                <input type="text" v-model="name" ref="input" @keyup.enter="attachLink">
             </div>
-
             <button class="btn-remove" @click="attachLink">Attach</button>
         </div>
     </section>
@@ -38,8 +36,11 @@ export default {
             url: ''
         }
     },
+    mounted() {
+    },
 
     methods: {
+
         attachImage(url) {
             const attachment = {
                 url,
@@ -51,6 +52,7 @@ export default {
             this.$emit('updateTask', attachment)
         },
         attachLink() {
+            if (!this.url) return
             const attachment = {
                 url: this.url,
                 name: this.name,
