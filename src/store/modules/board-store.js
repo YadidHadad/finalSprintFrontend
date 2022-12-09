@@ -134,6 +134,7 @@ export const boardStore = {
             activity.createdAt = Date.now()
             activity.id = utilService.makeId()
             if (!state.board?.activities) state.board.activities = []
+            if (!state.board?.activities.length > 100) state.board.activities.splice(0, 1)
             state.board.activities.push(activity)
         },
 

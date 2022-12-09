@@ -19,7 +19,6 @@
   </GoogleMap>
 </template>
 <script>
-import { defineComponent } from "vue";
 import { GoogleMap, Marker, InfoWindow, MarkerCluster } from "vue3-google-map";
 export default {
   name: '',
