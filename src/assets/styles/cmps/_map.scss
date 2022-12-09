@@ -1,51 +1,11 @@
-.location-preview {
-    // height: 160px;
-    margin-bottom: 40px;
+.mapdiv[data-v-177d06e3] {
+    width: 99%;
+    height: 99%;
 
-    .map-container {
-        height: 160px;
-        width: 512px;
-        margin-inline-start: 40px;
-    }
+    border-radius: 3px;
 
-    .location-preview-footer {
-        position: relative;
-        padding: 8px 12px;
-        font-size: 14px;
-        font-weight: 400;
-        line-height: 20px;
-        background-color: #eaecf0;
+    left: 50%;
+    top: 50%;
 
-        .actions {
-            > * {
-                background-color: #eaecf0;
-                border-radius: 3px;
-                height: 20px;
-                margin: 0 2px;
-                padding: 6px;
-                &:hover {
-                    cursor: pointer;
-                    filter: brightness(95%);
-                }
-            }
-        }
-
-        button:last-of-type {
-            position: absolute;
-            width: 8rem;
-            height: 2rem;
-            right: 10px;
-            top: -40px;
-        }
-    }
-}
-
-// .gm-style,
-// .gm-style-moc,
-.mapdiv {
-    height: 100%;
-    width: 100%;
-    // height: 160px;
-    // width: 528px;
-    // position: inline;
+    transform: translate(-50%, -50%);
 }

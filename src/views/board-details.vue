@@ -28,7 +28,6 @@ import { boardService } from '../services/board.service.local'
 import { boardStore } from '../store/modules/board-store'
 import { FastAverageColor } from 'fast-average-color'
 import { socketService } from '../services/socket.service'
-
 import boardHeader from '.././cmps/board-header.vue'
 import groupList from '../cmps/group-list.vue'
 import boardNav from '../cmps/board-nav.vue'
