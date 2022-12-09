@@ -18,10 +18,6 @@
                         <span class="fa-regular img-icon"></span>
                         <span class="mini-title">Change background</span>
                     </button>
-                    <button class="btn delete-btn" @click="confirmDelete">
-                        <span class="fa-solid trash-icon"></span>
-                        <span class="mini-title">Delete board...</span>
-                    </button>
                 </section>
 
                 <section class="activities">
@@ -48,6 +44,13 @@
                             </div>
                         </div>
                     </div>
+                </section>
+                <section class="flex w-100">
+
+                    <button class="btn delete-btn w-100" @click="confirmDelete">
+                        <span class="trellicons archive"></span>
+                        <span class="mini-title">Archive board...</span>
+                    </button>
                 </section>
             </section>
         </section>

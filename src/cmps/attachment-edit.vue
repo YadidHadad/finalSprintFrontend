@@ -16,7 +16,7 @@
         <div class="attachment-link">
             <h4 class="mini-title">Attach a link</h4>
             <input type="text" placeholder="Paste any link here" v-model="url"
-                @keyup.enter="($event) => $event.target.blur()">
+                @keyup.enter="($event) => $event.target.blur()" v-focus>
             <div v-if="url" class="link-name">
                 <div>Link name (optional)</div>
                 <input type="text" v-model="name" ref="input" @keyup.enter="attachLink">

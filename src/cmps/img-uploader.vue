@@ -2,8 +2,7 @@
   <div className="upload-preview">
     <!-- <img v-if="imgUrl" :src="imgUrl" :style="{ width: '100%', float: 'right' }" /> -->
     <!-- <label for="imgUpload">{{ uploadMsg }}</label> -->
-    <input type="file" @change="uploadImg" accept="img/*" id="imgUpload"
-      @keyup.enter="($event) => $event.target.blur()" />
+    <input type="file" @change="uploadImg" accept="img/*" id="imgUpload" />
   </div>
 </template>
 

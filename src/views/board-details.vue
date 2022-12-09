@@ -5,7 +5,7 @@
                 @toggleBoardMenu="toggleBoardMenu" @filterTasks="filterTasks" />
             <filter-tasks-modal v-if="showFilter" @closeFilter="(showFilter = false)" @doFilter="doFilter" />
 
-            <group-list @addTask="addNewTask" @addGroup="addNewGroup" @removeGroup="removeGroup" :groups="board.groups"
+            <router-view @addTask="addNewTask" @addGroup="addNewGroup" @removeGroup="removeGroup" :groups="board.groups"
                 :boardId="board._id" :rgb="rgb" :filterBy="filterBy" />
         </section>
         <board-nav :rgb="rgb" :boards="boards" @showAddMembers="isAddBoardMembers = true"></board-nav>
@@ -18,7 +18,8 @@
     <task-details v-if="this.$route.params.taskId" />
 
 
-    <confirm-modal :msg="'Permanently delete board?'" v-if="isDelete" v-click-outside="() => {isDelete = false}" @remove="removeBoard"/>
+    <confirm-modal :msg="'Permanently delete board?'" v-if="isDelete" @closeModal="() => { isDelete = false }"
+        @remove="removeBoard" />
 </template>
 
 
@@ -100,11 +101,11 @@ export default {
             }
         },
         async removeBoard() {
-            try{             
+            try {
                 await this.$store.dispatch({ type: 'removeBoard', boardId: this.board._id })
                 this.$router.push('/board')
             }
-            catch(err) {
+            catch (err) {
                 console.log('fail in remove board');
             }
         },
