@@ -141,6 +141,18 @@ export const boardStore = {
             state.board.activities.pop()
         },
 
+        removeBoardLabel(state, { labelId }) {
+            const labelIdx = state.board.labels.findIndex(label => label.id === labelId)
+            state.board.labels.splice(labelIdx, 1)
+            state.board.groups.forEach(group => {
+                group.tasks.forEach(task => {
+                    if (task.labelIds?.includes(labelId)) {
+                        const taskLabelIdx = task.labelIds.findIndex(label => label.id === labelId)
+                        task.labelIds.splice(taskLabelIdx, 1)
+                    }
+                })
+            })
+        },
         // removeLastActivity(state) {
         //     state.board.activities.splice(0, 1)
         // },
@@ -185,8 +197,14 @@ export const boardStore = {
             }
         },
         updateBoardLabels(state, { label }) {
-            if (label) state.board.labels.push(label)
-            else state.board.labels.pop(label)
+            if (!label.id) {
+                label.id = utilService.makeId()
+                state.board.labels.push(label)
+            }
+            else {
+                const labelIdx = state.board.labels.findIndex(lbl => lbl.id === label.id)
+                state.board.labels.splice(labelIdx, 1, label)
+            }
         }
     },
 
@@ -222,9 +240,21 @@ export const boardStore = {
                 const board = await boardService.save(context.state.board)
             }
             catch (label) {
-                context.commit({ type: 'updateBoardLabels', label: null })
+                context.commit({ type: 'removeBoardLabel', labelId: label.id })
                 console.log('couldnt add label')
                 throw label
+            }
+        },
+
+        async removeBoardLabel(context, { label, activity }) {
+            try {
+                context.commit({ type: 'removeBoardLabel', labelId: label.id })
+                const board = await boardService.save(context.state.board)
+            }
+            catch (err) {
+                context.commit({ type: 'updateBoardLabels', label })
+                console.log('failed to remove label');
+                throw err
             }
         },
 

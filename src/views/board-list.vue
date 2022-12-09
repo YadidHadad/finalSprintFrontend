@@ -60,6 +60,7 @@ import { boardService } from '../services/board.service.local'
 import boardPreview from '../cmps/board-preview.vue'
 import addBoardModal from '../cmps/add-board-modal.vue'
 import appNav from '../cmps/app-nav.vue'
+import confirmModal from '../cmps/confirm-modal.vue'
 export default {
   data() {
     return {
@@ -148,7 +149,8 @@ export default {
   components: {
     boardPreview,
     appNav,
-    addBoardModal
+    addBoardModal,
+    confirmModal
   }
 
 

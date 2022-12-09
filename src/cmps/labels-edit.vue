@@ -16,7 +16,7 @@
                         <div :style="{ backgroundColor: label.color }" class="color-circle"></div>
                         {{ label.title }}
                     </div>
-                    <span @click.stop="editTitle(label.color)">
+                    <span @click.stop="editLabel(label)">
                         <svg xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" role="presentation"
                             focusable="false" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -24,15 +24,16 @@
                                 fill="#5E6C84"></path>
                         </svg></span>
                 </li>
-                <div v-if="isEditTitle" class="edit-title-container">
+                <!-- <div v-if="isEditLabel" class="edit-title-container">
                     <input type="text" placeholder="Enter title..." v-model="colorEdited.title"
                         @keyup.enter="($event) => $event.target.blur()">
                     <button @click.stop="save">Save</button>
-                </div>
+                </div> -->
             </ul>
             <button class="btn-remove" @click="openCreateLabel">Create a new label</button>
         </div>
-        <create-label-modal v-if="isOpenModal" @createdLabel="createdLabel" @closeEdit="() => isOpenModal = false" />
+        <create-label-modal v-if="(isOpenModal || isEditLabel)" @createdLabel="createdLabel"
+            @closeEdit="() => isOpenModal = false" @removeLabel="removeLabel" :label="editedLabel" />
     </section>
 </template>
 
@@ -45,11 +46,12 @@ export default {
         return {
             // baseColors: ['#d6ecd2', '#faf3c0', '#fce6c6', '#f5d3ce', '#eddbf4', '#bcd9ea'],
             labelIds: [],
-            isEditTitle: false,
+            isEditLabel: false,
             title: '',
             colorEdited: '',
             isOpenModal: false,
             rgbaColors: {},
+            editedLabel: null
 
         }
     },
@@ -72,14 +74,21 @@ export default {
             this.$emit('updateTask', { labelIds: [...this.labelIds] })
             // console.log(this.labelIds);
         },
-        editTitle(color) {
-            this.isEditTitle = true
-            this.colorEdited = this.labels.find(l => l.color === color)
+        editLabel(label) {
+            this.isEditLabel = true
+            this.editedLabel = label
+            // this.colorEdited = this.labels.find(l => l.color === color)
             // this.$emit('updateLabels' , {color: this.baseColors[idx] , title:})
         },
         save() {
             this.$emit('updateLabel', this.colorEdited)
-            this.isEditTitle = false
+            this.isEditLabel = false
+            this.colorEdited = ''
+            this.title = ''
+        },
+        removeLabel(label) {
+            this.$emit('removeLabel', label)
+            this.isEditLabel = false
             this.colorEdited = ''
             this.title = ''
         },
@@ -97,11 +106,16 @@ export default {
                 label = {
                     color,
                     title,
-                    id: utilService.makeId()
                 }
-                this.$emit('updateBoardLabels', label)
             }
-            this.updateLabels(label.id)
+            else {
+                label.title = title
+            }
+            this.$emit('updateBoardLabels', label)
+            this.isOpenModal = false
+            this.isEditLabel = false
+            this.editedLabel = null
+            // this.updateLabels(label.id)
             // console.log(label);
         },
         hexToRgbA(hex) {

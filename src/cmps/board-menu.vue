@@ -18,6 +18,10 @@
                         <span class="fa-regular img-icon"></span>
                         <span class="mini-title">Change background</span>
                     </button>
+                    <button class="btn delete-btn" @click="confirmDelete">
+                        <span class="fa-solid trash-icon"></span>
+                        <span class="mini-title">Delete board...</span>
+                    </button>
                 </section>
 
                 <section class="activities">
@@ -146,6 +150,10 @@ export default {
         };
     },
     methods: {
+        confirmDelete() {
+            console.log('hi');
+            this.$emit('confirmDelete')
+        },
         getPhotos() {
             const key = 'unsplashDB'
             this.imgUrls = ''

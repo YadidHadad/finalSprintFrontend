@@ -18,7 +18,7 @@
             </div>
             <button class="btn-remove">Remove color</button>
             <button class="btn-save" @click="save">Save</button>
-            <button class="btn-remove">Delete</button>
+            <button class="btn-remove" @click="removeLabel(label)" v-if="label">Delete</button>
         </div>
     </section>
 </template>
@@ -26,6 +26,12 @@
 <script>
 export default {
     name: 'create-label-modal',
+    props: {
+        label: {
+            type: String,
+            required: true
+        },
+    },
     data() {
         return {
             colorPallet: ['#b7ddb0', '#f5ea92', '#fad29c', '#efb3ab', '#dfc0eb'
@@ -36,18 +42,38 @@ export default {
             title: ''
         }
     },
+    created() {
+        console.log(this.label);
+        if(this.label) {
+            this.pickedColor = this.label.color
+            this.title = this.label.title
+        }
+    },
     methods: {
         save() {
+            if (!this.pickedColor) return
             this.$emit('createdLabel', { color: this.pickedColor, title: this.title })
         },
         closeEdit() {
             this.$emit('closeEdit')
         },
+        removeLabel(label) {
+            this.$emit('removeLabel', label)
+        }
     },
     computed: {
         getPickedColor() {
             return this.pickedColor
         }
-    }
+    },
+    watch: {
+        label: {
+            handler: function (val, oldVal) {
+                this.pickedColor = this.label.color
+                this.title = this.label.title
+            },
+            deep: true
+        }
+    },
 }
 </script>

@@ -9,12 +9,16 @@
                 :boardId="board._id" :rgb="rgb" :filterBy="filterBy" />
         </section>
         <board-nav :rgb="rgb" :boards="boards" @showAddMembers="isAddBoardMembers = true"></board-nav>
-        <board-menu :menuIsHidden="menuIsHidden" :activities="board.activities" @toggleBoardMenu="toggleBoardMenu" />
+        <board-menu :menuIsHidden="menuIsHidden" :activities="board.activities" @toggleBoardMenu="toggleBoardMenu"
+            @confirmDelete="(isDelete = true)" />
         <!-- <router-view class="task-details-view"></router-view> -->
     </section>
     <add-board-members v-if="isAddBoardMembers" @close="(isAddBoardMembers = false)" @addMember="addMember"
         @removeMember="removeMember" />
     <task-details v-if="this.$route.params.taskId" />
+
+
+    <confirm-modal :msg="'Permanently delete board?'" v-if="isDelete" v-click-outside="() => {isDelete = false}" @remove="removeBoard"/>
 </template>
 
 
@@ -31,6 +35,7 @@ import boardMenu from '../cmps/board-menu.vue'
 import taskDetails from '../views/task-details.vue'
 import filterTasksModal from '../cmps/filter-tasks-modal.vue'
 import addBoardMembers from '../cmps/add-board-members.vue'
+import confirmModal from '../cmps/confirm-modal.vue'
 
 const fac = new FastAverageColor();
 
@@ -50,6 +55,7 @@ export default {
             isAddBoardMembers: false,
             tasksToShow: [],
             filterBy: {},
+            isDelete: false
         }
     },
 
@@ -60,7 +66,8 @@ export default {
         boardMenu,
         taskDetails,
         filterTasksModal,
-        addBoardMembers
+        addBoardMembers,
+        confirmModal
     },
 
     created() {
@@ -90,6 +97,15 @@ export default {
 
             } catch (err) {
                 console.log(err)
+            }
+        },
+        async removeBoard() {
+            try{             
+                await this.$store.dispatch({ type: 'removeBoard', boardId: this.board._id })
+                this.$router.push('/board')
+            }
+            catch(err) {
+                console.log('fail in remove board');
             }
         },
         pushedBoard(board) {

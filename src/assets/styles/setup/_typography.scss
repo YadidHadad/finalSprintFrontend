@@ -370,6 +370,9 @@
     &.grid-icon::before {
         content: "\f58e";
     }
+    &.trash-icon::before {
+        content: "\f1f8";
+    }
 
     &.attachment-icon::before {
         content: "\f0c6";

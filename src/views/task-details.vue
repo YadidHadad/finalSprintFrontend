@@ -81,7 +81,7 @@
     <component :is="pickedEditor.editorType" @closeEdit="closeEditor" v-click-outside="closeEditor"
         @updateTask="updateTask(pickedEditor.editorType, $event)" @addChecklist="addChecklist"
         @updateLabel="updateLabel" @updateMembers="updateTask" @copyTask="copyTask"
-        @updateBoardLabels="updateBoardLabels" class="z-index-100">
+        @updateBoardLabels="updateBoardLabels" class="z-index-100" @removeLabel="removeBoardLabel">
     </component>
 </template>
 
@@ -395,6 +395,26 @@ export default {
             //     },
             // })
             this.$router.push(`/board/${this.$route.params.id}`)
+        },
+        async removeBoardLabel(label) {
+            try {
+                this.$store.dispatch({
+                    type: "removeBoardLabel",
+                    label,
+                    activity: {
+                        txt: "Deleted label",
+                        boardId: this.$route.params.id,
+                        groupId: this.groupId,
+                        taskId: this.task.id,
+                    },
+                })
+            }
+            catch(err) {
+                console.log(err);
+            }
+            // const labelIdx = taskToUpdate.labelIds.find(labelId => labelId === data)
+            // taskToUpdate.labelIds.splice(labelIdx, 1)
+            // txt = "removed label";
         },
         async addChecklist(checklist) {
             await this.$store.dispatch({
