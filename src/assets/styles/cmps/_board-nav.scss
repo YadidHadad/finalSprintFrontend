@@ -1,11 +1,13 @@
 .board-nav {
+    @include scroll-bar;
+
     min-width: 260px;
     max-width: 260px;
     // overflow-x: hidden;
     // overflow-y: scroll;
     height: 100%;
     backdrop-filter: blur(2px);
-    box-shadow: inset -1px 0px 0px rgba(0, 0, 0, 0.33);
+    box-shadow: inset -1px 0px 0px rgba(0, 0, 0, 0.2);
     margin-left: 0px;
     opacity: 1;
     transition: all 0.3s ease-out;
@@ -20,10 +22,10 @@
     }
 
     div:first-of-type {
-        // box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.33);
+        // box-shadow: inset 0px -1px 0px rgba(0, 0, 0,0.2);
 
         &.isDark {
-            box-shadow: inset 0px -1px 0px rgba(255, 255, 255, 0.33);
+            box-shadow: inset 0px -1px 0px rgba(255, 255, 255, 0.2);
 
             color: $textLight;
         }
@@ -33,7 +35,7 @@
     }
 
     &.isDark {
-        box-shadow: inset -1px 0px 0px rgba(255, 255, 255, 0.33);
+        box-shadow: inset -1px 0px 0px rgba(255, 255, 255, 0.2);
 
         * {
             color: $textLight;
@@ -43,7 +45,7 @@
     .btn {
         &-nav {
             &:first-of-type {
-                margin-block-start: 1rem;
+                // margin-block-start: 1rem;
             }
             @include btn($type: "board-nav");
             font-family: "segoe-regular-light";
@@ -62,16 +64,19 @@
             aspect-ratio: 1/1;
             color: white;
             margin-inline-start: 0;
-            margin-inline-end: 1rem;
+            margin-inline-end: 0.5rem;
         }
     }
     .nav-title {
         font-weight: bold;
-        padding-block: 1rem;
+        padding-block: 0.5rem;
         padding-inline-start: 1rem;
-        box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.33);
+
+        &:first-of-type {
+            box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.2);
+        }
         &.isDark {
-            box-shadow: inset 0px -1px 0px rgba(255, 255, 255, 0.33);
+            box-shadow: inset 0px -1px 0px rgba(255, 255, 255, 0.2);
 
             * {
                 color: $textLight;
@@ -95,13 +100,15 @@
     &.navIsHidden {
         margin-left: -245px;
         opacity: 0.6;
+        z-index: 500;
+        background-color: aqua;
 
         .btn-toggle {
             position: relative;
-            left: 30px;
+            left: 20px;
             top: 0;
             border-radius: 50% !important;
-            // background-color: rgba($textDark, 0.3);
+            background-color: rgba($textLight, 0.3);
             backdrop-filter: blur(200px);
             border: 1px solid $textDark;
             display: flex;
@@ -124,7 +131,6 @@
             }
         }
     }
-    @include scroll-bar;
     .boards-container {
         overflow-y: scroll;
     }

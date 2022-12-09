@@ -1,4 +1,6 @@
 .main-layout {
+    @include scroll-bar;
+
     display: grid;
     grid-template-rows: 44px 1fr;
     grid-template-areas:
