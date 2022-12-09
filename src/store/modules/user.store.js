@@ -35,6 +35,11 @@ export const userStore = {
         setUserScore(state, { score }) {
             state.loggedinUser.score = score
         },
+        updateNotifications(state, { notification }) {
+            if (!state.loggedinUser?.notifications) state.loggedinUser.notifications = []
+            if (state.loggedinUser.notifications.length >= 20) state.loggedinUser.notifications.splice(0, 1)
+            state.loggedinUser.notifications.unshift(notification)
+        }
     },
     actions: {
         async login({ commit }, { userCred }) {
@@ -47,6 +52,17 @@ export const userStore = {
             } catch (err) {
                 console.log('userStore: Error in login', err)
                 throw err
+            }
+        },
+        async updateNotifications(context, { notification }) {
+            const prevUser = context.state.loggedinUser
+            context.commit({ type: 'updateNotifications', notification })
+            try {
+                const user = await userService.update(context.state.loggedinUser)
+                console.log(user);
+            }
+            catch(err) {
+                console.log('error in update user notifications' , err);
             }
         },
         async loginWithGoogle({ commit }, { email }) {

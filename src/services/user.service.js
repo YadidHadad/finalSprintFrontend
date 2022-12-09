@@ -51,6 +51,7 @@ function remove(userId) {
 }
 
 async function update(user) {
+    console.log(user);
     // await storageService.put('user', user)
     user = await httpService.put(`user/${user._id}`, user)
     // Handle case in which admin updates other user's details
@@ -86,14 +87,15 @@ async function logout() {
 }
 
 function saveLocalUser(user) {
-    user = { _id: user._id, fullname: user.fullname, imgUrl: user.imgUrl}
-    sessionStorage.setItem(STORAGE_KEY_LOGGEDIN_USER, JSON.stringify(user))
-    return user
+    let miniUser = { _id: user._id, fullname: user.fullname, imgUrl: user.imgUrl }
+    if (user.notifications) miniUser.notifications = user.notifications
+    sessionStorage.setItem(STORAGE_KEY_LOGGEDIN_USER, JSON.stringify(miniUser))
+    return miniUser
 }
 
 function getLoggedinUser() {
     if (!sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER)) {
-       const user = {
+        const user = {
             _id: 'demoboy', fullname: 'Dima Demo', email: 'dima-demo@mystartup.org', isAdmin: false, imgUrl: 'src/assets/img/user1.jpg'
         }
         sessionStorage.setItem(STORAGE_KEY_LOGGEDIN_USER, JSON.stringify(user))
