@@ -39,7 +39,7 @@
 
 
 
-            <input type="text" placeholder="Email address or name" v-model="filterByName" @input="setSearchedMembers">
+            <input type="text" placeholder="Email address or name" v-model="filterByName" @input="setSearchedMembers" v-focus>
             <button>Share</button>
 
             <div v-if="(searchedMembers.length > 0)" class="search-results">

@@ -8,7 +8,7 @@
         </div>
         <div class="flex column">
             <label class="mini-title" for="checklist-input">Title</label>
-            <input type="text" v-model="checklist.title" id="checklist-input" @keyup.enter="addChecklist">
+            <input type="text" v-model="checklist.title" id="checklist-input" @keyup.enter="addChecklist" v-focus>
             <button class="btn-save" @click="addChecklist">Add</button>
         </div>
     </section>
