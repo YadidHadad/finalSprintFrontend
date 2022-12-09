@@ -118,8 +118,12 @@ export default {
                 // console.log(txt, createdAt, byMember);
                 const notification = {
                     txt: txt,
-                    byMember: byMember.fullname,
-                    createdAt
+                    byMember: {
+                        fullname: byMember.fullname,
+                        imgUrl: byMember.imgUrl
+                    },
+                    createdAt,
+                    isSeen: false
                 }
                 this.$store.dispatch({
                     type: 'updateNotifications',

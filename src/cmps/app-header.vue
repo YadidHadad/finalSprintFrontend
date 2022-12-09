@@ -27,7 +27,9 @@
                     </router-link>
                 </div>
             </div>
-            <span class="trello-home bell-icon"></span>
+            <span class="trello-home bell-icon">
+                <span>!</span>
+            </span>
             <span class="trello-home question-icon"></span>
 
             <div v-if="user?.imgUrl" class="member-image" :style="memberImage(user.imgUrl)"
