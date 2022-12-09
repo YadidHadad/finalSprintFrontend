@@ -16,7 +16,8 @@
                 <span class="trello-home filter-icon"></span>
                 <span class="txt">Filter</span>
             </button>
-            <div v-for="member in board.members.slice(0, 5)" :key="member._id" :title="member.fullname">
+            <div v-for="member in board.members.slice(0, 5)" :key="member._id" :title="member.fullname"
+                @click="isAddMembers = true">
                 <div v-if="member.imgUrl" class="member-image" :style="memberImage(member.imgUrl)"
                     :title="member.fullname"> </div>
                 <span v-else class="member-initials" :title="member.fullname">
@@ -32,10 +33,13 @@
             </button>
         </div>
     </section>
+    <!-- <add-board-members v-if="isAddMembers" @close="(isAddMembers = false)" v-click-outside="() => isAddMembers = false"
+        @addMember="addMember" @removeMember="removeMember"/> -->
 </template>
 
 <script>
 import { utilService } from "../services/util.service";
+import addBoardMembers from "./add-board-members.vue";
 
 export default {
     name: "board-header",
@@ -52,6 +56,7 @@ export default {
     data() {
         return {
             btnClicked: 'Board',
+            isAddMembers: false
         }
     },
 
@@ -157,6 +162,9 @@ export default {
             ]
         }
     },
+    components: {
+        addBoardMembers
+    }
 
 };
 </script>

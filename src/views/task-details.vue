@@ -53,7 +53,7 @@
                 </button>
             </section>
         </section>
-        <!-- @updateChecklists="updateTask('checklist-preview', $event)" /> -->
+        <!-- @updateChecklists="debounceHandler('checklist-preview', $event)" /> -->
         <section class="task-main flex column gap20">
             <section class="task-tags flex row pad-40 wrap gap20">
                 <members-preview v-if="task.memberIds" :memberIds="task.memberIds"
@@ -73,8 +73,7 @@
             <!-- <checklists-preview v-if="task.checklists" :checklists="task.checklists"
                 @updateChecklists="updateTask('checklist-preview', $event)" /> -->
             <!-- <checklists-preview v-if="task.checklists" :checklists="task.checklists" -->
-            <checklists-preview v-if="task.checklists"
-                @updateChecklists="debounceHandler('checklist-preview', $event)" />
+            <checklists-preview v-if="task.checklists" @updateChecklists="updateTask('checklist-preview', $event)" />
             <activities-preview :taskId="task.id" />
         </section>
 
@@ -165,7 +164,7 @@ export default {
         }
     },
     async created() {
-        this.debounceHandler = utilService.debounce(this.updateTask, 500)
+        this.debounceHandler = utilService.debounce(this.updateTask, 600)
         const { id, taskId, groupId } = this.$route.params;
         // console.log(taskId);
         try {
@@ -328,6 +327,7 @@ export default {
                             'imgUrl': data
                         }
                     }
+                    break
                 case 'location-edit':
                     taskToUpdate.location = data
                     this.closeEditor();

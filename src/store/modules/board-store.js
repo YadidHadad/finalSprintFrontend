@@ -287,7 +287,6 @@ export const boardStore = {
                 throw prevTasks
             }
         },
-
         async updateBoard(context, { board }) {
             const prevBoard = context.state.board
             try {

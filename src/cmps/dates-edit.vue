@@ -45,9 +45,11 @@ export default {
     methods: {
         addDate() {
             const dateStr = this.$refs.inputRef.selectedDate
+            if (!dateStr) return
             const dateParsed = JSON.parse(JSON.stringify(dateStr))
             const chosenDateAndTime = dateParsed.slice(0, 11) + this.timeStr + dateParsed.slice(16, -1)
             const timestamp = Date.parse(chosenDateAndTime)
+
             this.$emit('updateTask', timestamp)
         },
         removeDate() {

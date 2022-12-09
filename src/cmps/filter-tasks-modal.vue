@@ -25,18 +25,18 @@
                 </label>
                 <label for="self-assign">
                     <input id="self-assign" type="checkbox" @change="toggleIsAssignToMe">
-                    <div>
-                        <span class="user-icon">
+                        <div v-if="loggedinUser.imgUrl" class="member-image" :style="memberImage(loggedinUser.imgUrl)"
+                            :title="loggedinUser.fullname"> </div>
+                        <span v-else class="member-initials" :title="loggedinUser.fullname">
                             {{ getInitials(loggedinUser.fullname) }}
                         </span>
-                        Cards assigned to me
-                    </div>
+                        <span>Cards assigned to me</span>
                 </label>
                 <!-- <label for="task-members">
                     <input id="task-members" type="checkbox"> -->
                 <div @click="isShowMembers = !isShowMembers" class="board-members">
                     Select members
-                    <span>
+                    <span :style="rotateIcon">
                         >
                     </span>
 
@@ -44,12 +44,31 @@
                         <label @click.stop="">
                             <input type="checkbox" v-model="filterBy.membersIds" :value="member._id"
                                 @change="filterByMember">
-                            <span class="user-icon">
+                            <div v-if="member.imgUrl" class="member-image" :style="memberImage(member.imgUrl)"
+                                :title="member.fullname"> </div>
+                            <span v-else class="member-initials" :title="member.fullname">
                                 {{ getInitials(member.fullname) }}
                             </span>
                             <span>{{ member.fullname }}</span>
                         </label>
                     </div>
+                </div>
+
+                <div class="board-labels">
+                    <span>Labels</span>
+                    <label>
+                        <input type="checkbox" @change="toggleIsNoLabels">
+                        <span>No labels</span>
+                    </label>
+                    <label v-for="(label, index) in labels" :key="label.id" class="flex row align-center">
+                        <input class="check-box" type="checkbox" v-model="filterBy.labelIds" :value="label.id"
+                            @change="doFilter">
+                        <div class="label-color grow flex align-center"
+                            :style="{ backgroundColor: rgbaColors[label.id] }">
+                            <div :style="{ backgroundColor: label.color }" class="color-circle"></div>
+                            {{ label.title }}
+                        </div>
+                    </label>
                 </div>
                 <!-- </label> -->
             </div>
@@ -66,9 +85,12 @@ export default {
                 title: '',
                 membersIds: [],
                 isNoMembers: false,
-                isAssignToMe: false
+                isAssignToMe: false,
+                labelIds: [],
+                isNoLabels: false
             },
             isShowMembers: false,
+            rgbaColors: {}
         }
     },
     created() {
@@ -96,16 +118,46 @@ export default {
             // const memberIdx = this.membersIds.findIndex(memberId => memberId === id)
             // memberIdx === -1 ? this.membersIds.push(id) : this.membersIds.splice(memberIdx, 1)
         },
+        toggleIsNoLabels() {
+            this.filterBy.isNoLabels = !this.filterBy.isNoLabels
+            this.$emit('doFilter', this.filterBy)
+        },
         getInitials(fullname) {
             return utilService.getInitials(fullname)
+        },
+        memberImage(imgUrl) {
+            return { backgroundImage: `url(${imgUrl})` };
+        },
+        hexToRgbA(hex) {
+            // console.log(hex)
+            var c;
+            c = hex.substring(1).split('');
+            if (c.length == 3) {
+                c = [c[0], c[0], c[1], c[1], c[2], c[2]];
+            }
+            c = '0x' + c.join('');
+            return 'rgba(' + [(c >> 16) & 255, (c >> 8) & 255, c & 255].join(',') + ',0.5)';
         },
     },
     computed: {
         members() {
             return this.$store.getters.board.members
         },
+        labels() {
+            const labels = this.$store.getters.labels
+            labels.forEach(label => {
+                // console.log(label.color)
+                this.rgbaColors[label.id] = this.hexToRgbA(label.color)
+            })
+            return JSON.parse(JSON.stringify(labels))
+        },
         loggedinUser() {
             return this.$store.getters.loggedinUser
+        },
+        rotateIcon() {
+            if (this.isShowMembers) {
+                return { transform: 'rotate(90deg)' }
+            }
         }
     }
 }

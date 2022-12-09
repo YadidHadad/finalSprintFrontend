@@ -132,7 +132,7 @@ export default {
             if (!this.group.title) return
             this.$emit('addGroup', { ...this.group }, activity)
             this.group.title = ''
-            // this.group.tasks = []
+            this.group.tasks = []
         },
         updateGroup(group, activity) {
             // console.log('fhgfhghgfgf');

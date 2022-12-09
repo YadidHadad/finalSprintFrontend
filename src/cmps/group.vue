@@ -115,12 +115,12 @@ export default {
             // console.log('ON DROP! - group.vue', dropResult)
             // if(addedIndex !== null) this.$store.commit({type: 'updateTasks' ,payload: { tasks: this.tasksCopy, groupId: this.group.id } })
             try {
-                    this.tasksCopy = JSON.parse(JSON.stringify(this.group.tasks || []))
-                    this.tasksCopy = this.applyDrag(this.tasksCopy, dropResult)
-                    // console.log('Tasks Copy', this.tasksCopy)
-                    const tasks = await this.$store.dispatch({ type: 'updateTasks', payload: { tasks: this.tasksCopy, groupId: this.group.id } })
-                    // console.log('*****************', tasks)
-                    this.tasksCopy = JSON.parse(JSON.stringify(this.group.tasks || []))
+                this.tasksCopy = JSON.parse(JSON.stringify(this.group.tasks || []))
+                this.tasksCopy = this.applyDrag(this.tasksCopy, dropResult)
+                // console.log('Tasks Copy', this.tasksCopy)
+                const tasks = await this.$store.dispatch({ type: 'updateTasks', payload: { tasks: this.tasksCopy, groupId: this.group.id } })
+                // console.log('*****************', tasks)
+                this.tasksCopy = JSON.parse(JSON.stringify(this.group.tasks || []))
             }
             catch (prevTasks) {
                 console.log(prevTasks)
@@ -206,10 +206,13 @@ export default {
                 task: this.currTask
             }
 
-            this.currTask.id = utilService.makeId()
+            // this.currTask.id = utilService.makeId()
             // console.log('******************************', this.currTask)
             this.$emit('addTask', this.group.id, { ...this.currTask }, JSON.parse(JSON.stringify(activity)))
-            this.currTask.title = ''
+            this.currTask = {
+                id: utilService.makeId(),
+                title: '',
+            }
         },
         removeGroup() {
             this.toggleMenu
@@ -242,6 +245,15 @@ export default {
                         if (!task.memberIds?.length) return false
                         return task.memberIds.some(memberId => filterBy.membersIds.includes(memberId))
                         // task.memberIds?.includes(this.user._id)
+                    })
+                }
+                if (filterBy.isNoLabels) {
+                    this.tasksToShow = this.tasksToShow.filter(task => !task.labelIds?.length)
+                }
+                if (filterBy.labelIds.length) {
+                    this.tasksToShow = this.tasksToShow.filter(task => {
+                        if (!task.labelIds?.length) return false
+                        return task.labelIds.some(labelId => filterBy.labelIds.includes(labelId))
                     })
                 }
                 // console.log(this.tasksToShow);

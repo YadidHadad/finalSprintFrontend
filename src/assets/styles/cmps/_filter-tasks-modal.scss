@@ -11,6 +11,43 @@
     font-size: 14px;
     width: 385px;
     border-radius: 3px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    overflow : scroll;
+
+    .board-labels {
+
+        >:first-child {
+            color: var(--ds-text-subtle, #5e6c84);
+            font-size: 12px;
+            font-weight: 600;
+            line-height: 16px;
+            margin-top: 16px;
+            margin-bottom: 8px;
+        }
+
+        >*:not(:first-child) {
+            padding-bottom: 8px;
+        }
+
+        .label-color {
+            height: 32px;
+            border-radius: 3px;
+            background-color: white;
+
+            &:hover {
+                filter: brightness(95%);
+                cursor: pointer;
+            }
+
+            .color-circle {
+                border-radius: 50%;
+                width: 16px;
+                height: 16px;
+                margin: 8px;
+            }
+        }
+    }
 
 
     .tasks-filter-header {
@@ -80,6 +117,17 @@
         padding-right: 0;
     }
 
+    .member-initials,
+    .member-image {
+        height: 24px;
+        width: 24px;
+        line-height: 24px;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        border-radius: 50%;
+    }
+
     .user-icon {
         background-color: #de350b;
         color: white;
@@ -102,6 +150,10 @@
     justify-content: center;
     gap: 5px;
     flex-direction: column;
+
+    >:first-child {
+        align-self: flex-start;
+    }
 
     .board-member {
         label {
