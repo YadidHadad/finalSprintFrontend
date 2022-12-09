@@ -187,8 +187,10 @@ export default {
 
         toggleCard() {
             // console.log(this.isCardOpen);
-            this.$refs.group.containerElement['smooth-dnd-container-instance'].element.scrollTop = this.$refs.group.containerElement['smooth-dnd-container-instance'].element.scrollHeight
             this.isCardOpen = !this.isCardOpen;
+            this.$refs.group.containerElement['smooth-dnd-container-instance'].element.scrollTop = this.$refs.group.containerElement['smooth-dnd-container-instance'].element.scrollHeight
+            console.log(this.$refs.group.containerElement['smooth-dnd-container-instance'])
+
         },
         toggleMenu() {
             this.isMenuOpen = !this.isMenuOpen;
