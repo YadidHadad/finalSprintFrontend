@@ -27,12 +27,20 @@
         display: flex;
         gap: 10px;
 
-        input {
+        input[type="checkbox"] {
             opacity: 0.5;
             cursor: pointer;
+            transition: all ease-in-out 0.4s;
+            box-shadow: #0075ff;
+            transform: scale(0.9);
 
+            outline: none;
             &:checked {
+                border-radius: 0px;
+                outline: 1px solid #0075ff;
+                background-color: #0075ff;
                 opacity: 1;
+                transform: scale(1.1);
             }
             &:focus-visible {
                 outline-color: $clr2;
@@ -77,6 +85,7 @@
             background-color: transparent;
             opacity: 0;
             margin: 0;
+            padding-block: 0 1rem;
 
             &:hover {
                 background-color: transparent;
