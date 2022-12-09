@@ -308,7 +308,6 @@
     &.date-icon::before {
         content: "\f017";
     }
-
     &.settings-icon::before {
         content: "\f013";
     }
@@ -372,6 +371,9 @@
     }
     &.trash-icon::before {
         content: "\f1f8";
+    }
+    &.caret-down::before {
+        content: "\f0d7";
     }
 
     &.attachment-icon::before {
