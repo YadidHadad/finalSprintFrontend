@@ -282,18 +282,18 @@ export default {
                 case "labels-edit":
                     if (!taskToUpdate?.labelIds) taskToUpdate.labelIds = [];
                     taskToUpdate.labelIds = data.labelIds;
-                    txt = "updated label";
+                    txt = "Updated label";
                     break;
                 case "description":
-                    txt = "updated description";
+                    txt = `Updated ${taskToUpdate.title} description`
                     taskToUpdate.description = data;
                     break;
                 case "title":
-                    txt = "updated title";
+                    txt = `Updated ${taskToUpdate.title} title to ${data}`;
                     taskToUpdate.title = data;
                     break;
                 case "checklist-edit":
-                    txt = "added checklist";
+                    txt = `Added checklist ${data.title} in ${taskToUpdate.title}`
                     if (!taskToUpdate?.checklists) taskToUpdate.checklists = [];
                     data.id = utilService.makeId();
                     taskToUpdate.checklists.push(data);
@@ -305,22 +305,22 @@ export default {
                     txt = `${data.action} ${data.fullname} ${data.action === 'added' ? 'to' : 'from'} ${this.task.title}`
                     break;
                 case "checklist-preview":
-                    txt = "edited checklist";
+                    txt = `Edited checklist ${data.title} in ${taskToUpdate.title}`;
                     taskToUpdate.checklists = data
                     break
                 case "dates-edit":
-                    txt = "edited due date";
+                    txt = `Added due date for ${taskToUpdate.title}`
                     taskToUpdate.dueDate = data
                     this.closeEditor();
                     break
                 case 'dates-preview':
-                    data ? txt = `marked ${this.task.title} as complete` : txt = `unmarked ${this.task.title} as complete`
+                    data ? txt = `Marked ${this.task.title} as complete` : txt = `Unmarked ${this.task.title} as complete`
                     taskToUpdate.isComplete = data
                     // console.log(taskToUpdate);
                     break
                 case 'cover-edit':
                     console.log(data)
-                    txt = `updated  ${this.task.title} cover`;
+                    txt = `Updated  ${this.task.title} cover`;
                     if (data.startsWith('#')) {
                         taskToUpdate.style = {
                             'bgColor': data
@@ -332,12 +332,13 @@ export default {
                     }
                     break
                 case 'location-edit':
-                    if (!data) txt = `removed  ${this.task.title} location`;
-                    else txt = `updated  ${this.task.title} location to ${data.name}`;
+                    if (!data) txt = `Removed  ${this.task.title} location`
+                    else txt = `Updated  ${this.task.title} location to ${data.name}`
                     taskToUpdate.location = data
                     this.closeEditor();
                     break
                 case 'attachment-edit':
+                    txt = `Added  ${this.task.title} attachment`
                     if (data.type === 'image') {
                         taskToUpdate.style = {
                             'imgUrl': data.url
@@ -349,6 +350,7 @@ export default {
                     this.closeEditor();
                     break
                 case 'attachment-preview':
+                    txt = `Updated  ${this.task.title} attachments`
                     // if (taskToUpdate.style === data.url) 
                     // console.log(data.url);
                     taskToUpdate.attachments = data

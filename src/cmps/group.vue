@@ -174,7 +174,7 @@ export default {
             if (!this.newGroupTitle) return
             const activity = {
                 id: '',
-                txt: `Update Group: ${this.group.title}`,
+                txt: `Updated Group: ${this.group.title}`,
                 byMember: {
                     _id: this.user._id,
                     fullname: this.user.fullname,
@@ -226,7 +226,7 @@ export default {
             this.toggleMenu
             const activity = {
                 id: '',
-                txt: ` Removed list ${this.group.title} `,
+                txt: ` Deleted list ${this.group.title} `,
                 byMember: {
                     _id: this.user._id,
                     fullname: this.user.fullname,
