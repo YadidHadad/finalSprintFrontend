@@ -59,7 +59,7 @@
                 <members-preview v-if="task.memberIds" :memberIds="task.memberIds"
                     @openMembersEditor="openMembersEditor" :isTaskDetails="true" />
                 <labels-preview v-if="task.labelIds"
-                    @openLabelsDetails="pickedEditor = { isOpen: true, editorType: 'labels-edit' }"/>
+                    @openLabelsDetails="pickedEditor = { isOpen: true, editorType: 'labels-edit' }" />
             </section>
             <dates-preview class="pad-40" @markComplete="updateTask('dates-preview', $event)"
                 :isComplete="this.task.isComplete" />
@@ -86,7 +86,7 @@
     </component>
 
 
-<!-- <confirm-modal :msg="'Are you sure?'" v-if="isConfirmModal"/> -->
+    <!-- <confirm-modal :msg="'Are you sure?'" v-if="isConfirmModal"/> -->
 </template>
 
 <script>
@@ -332,6 +332,8 @@ export default {
                     }
                     break
                 case 'location-edit':
+                    if (!data) txt = `removed  ${this.task.title} location`;
+                    else txt = `updated  ${this.task.title} location to ${data.name}`;
                     taskToUpdate.location = data
                     this.closeEditor();
                     break
