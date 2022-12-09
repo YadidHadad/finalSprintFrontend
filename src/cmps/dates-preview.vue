@@ -27,13 +27,13 @@ export default {
     created() {
         // let isComplete = this.getIsComplete || false
         this.getIsComplete ? this.isComplete = true : this.isComplete = false
-        console.log(this.isComplete, 'from line 30');
+        // console.log(this.isComplete, 'from line 30');
     },
 
     methods: {
         toggleIsComplete() {
             // this.isComplete = !this.isComplete
-            console.log(this.isComplete);
+            // console.log(this.isComplete);
             this.$emit('markComplete', this.isComplete)
         }
     },

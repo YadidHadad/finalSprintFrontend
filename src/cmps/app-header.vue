@@ -8,7 +8,7 @@
                 <span class="logo">Kannban</span>
             </router-link>
         </section>
-        <section class="user-buttons flex row align-center gap">
+        <section class="user-buttons flex row align-center justify-center gap">
             <div class="search-boards flex row align-center gap justify-around"
                 :class="{ 'whiteBackground': isInputInFocus, isDark: isDark }">
                 <span class="trello-home glass-icon"></span>
@@ -53,7 +53,7 @@ export default {
     props: ['rgb'],
     components: {},
     created() {
-        console.log(this.isDefaultBGC)
+        // console.log(this.isDefaultBGC)
     },
     data() {
         return {
@@ -80,7 +80,7 @@ export default {
             return utilService.getInitials(fullname)
         },
         changeDivStyle() {
-            console.log('focus')
+            // console.log('focus')
             this.isInputInFocus = true
         },
         outOfFocus() {
@@ -118,7 +118,7 @@ export default {
             return boards.filter(board => regex.test(board.title)).slice(0, 5)
         },
         isDefaultBGC() {
-            console.log(this.$route.params)
+            // console.log(this.$route.params)
             if (!this.$route.params?.id) return true
             else return false
         }
@@ -126,7 +126,7 @@ export default {
     },
     watch: {
         isDefaultBGC() {
-            console.log(this.isDefaultBGC)
+            // console.log(this.isDefaultBGC)
             this.headerBackground
 
         }

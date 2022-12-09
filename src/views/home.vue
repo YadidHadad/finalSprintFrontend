@@ -8,30 +8,24 @@
       </div>
 
 
-      <div class="login-btn flex justify-center align-center" @click="loginDemo">
-        Continue as Demo
+      <div class="login-btn flex justify-center align-center">
+        <router-link :to="'/login'">
+          Login
+        </router-link>
       </div>
 
     </section>
 
     <section>
       <img class="wave" src="/src/assets/img/home-page/white-wave-bg.svg" alt="">
-      <div class="demo-invite flex row align-start w-100 justify-around wrap">
+      <div class="demo-invite flex row align-start w-100 justify-center wrap">
         <div>
-          <h1>Kannban brings all your tasks, teammates, and tools together</h1>
+          <h1>Kannban brings all your tasks, teammates, and tools together!</h1>
           <p>Keep everything in the same place-even if your team isn't.</p>
-
           <div class="flex row gap20 justify-center ">
-            <button class="btn-signup">
-              <router-link :to="'/login'">
-                Sign up -it's free!
-              </router-link>
+            <button class="btn-signup" @click="loginDemo">
+              See Demo
             </button>
-            <!-- <button class="btn-signup">
-              <router-link :to="'/board'">
-                or continue as demo
-              </router-link>
-            </button> -->
           </div>
         </div>
 

@@ -16,7 +16,9 @@
                 <span class="trello-home filter-icon"></span>
                 <span class="txt">Filter</span>
             </button>
-            <div v-for="member in board.members.slice(0, 5)" :key="member._id" :title="member.fullname">
+            <span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+            <div v-for="member in board.members.slice(0, 5)" :key="member._id" :title="member.fullname"
+                @click="isAddMembers = true">
                 <div v-if="member.imgUrl" class="member-image" :style="memberImage(member.imgUrl)"
                     :title="member.fullname"> </div>
                 <span v-else class="member-initials" :title="member.fullname">
@@ -27,15 +29,19 @@
                     (board.members.length - 5)
             }}</span>
             </div>
+            <span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
             <button class="btn " :class="{ isDark: !isDark }" :style="buttonBackground" @click="toggleBoardMenu">
                 <span class="trello-home elipsis-icon"></span>
             </button>
         </div>
     </section>
+    <!-- <add-board-members v-if="isAddMembers" @close="(isAddMembers = false)" v-click-outside="() => isAddMembers = false"
+        @addMember="addMember" @removeMember="removeMember"/> -->
 </template>
 
 <script>
 import { utilService } from "../services/util.service";
+import addBoardMembers from "./add-board-members.vue";
 
 export default {
     name: "board-header",
@@ -52,6 +58,7 @@ export default {
     data() {
         return {
             btnClicked: 'Board',
+            isAddMembers: false
         }
     },
 
@@ -72,7 +79,7 @@ export default {
             this.$store.dispatch({ type: "updateBoard", board: this.board });
         },
         setBoardStar() {
-            console.log('star')
+            // console.log('star')
             if (!this.board) return
             this.board.isStarred = !this.board.isStarred
             this.$store.dispatch({ type: "updateBoard", board: this.board });
@@ -97,7 +104,7 @@ export default {
         titleLength() {
             if (!this.board.title) return;
             // return { width: `${(this.board.title.length)}` + "ch" };
-            return { width: `${(this.board.title.length) * 10}` + "px" };
+            return { width: `${(this.board.title.length + 3) * 10}` + "px" };
         },
         board() {
 
@@ -157,6 +164,9 @@ export default {
             ]
         }
     },
+    components: {
+        addBoardMembers
+    }
 
 };
 </script>

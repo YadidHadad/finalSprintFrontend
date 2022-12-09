@@ -2,8 +2,7 @@
     <div class="group flex column">
         <div class="main-title flex column justify-between">
             <div class="flex row align-center justify-between w-100">
-                <input v-model="newGroupTitle" @input="debounceHandler"
-                    @keyup.enter="($event) => $event.target.blur()" />
+                <input v-model="newGroupTitle" @input="updateGroup" @keyup.enter="($event) => $event.target.blur()" />
                 <button class="btn-menu" @click="toggleMenu">
                     <span class="fa-solid elipsis-icon"></span>
                 </button>
@@ -31,9 +30,9 @@
             </div>
         </div>
 
-        <Container class="task-preview-container flex column" orientation="vertical" @drop="onDrop"
-            group-name="group-tasks" :get-child-payload="getChildPayload" :drag-class="dragClass"
-            :drop-class="dragClass">
+        <Container class="task-preview-container flex column" orientation="vertical" group-name="group-tasks"
+            @drop="onDrop" :shouldAcceptDrop="(e, payload) => (e.groupName === 'group-tasks' && !payload.loading)"
+            :get-child-payload="getChildPayload" drop-class="" :drop-class="dragClass">
             <Draggable class="task-preview" v-for="task in tasksToShow" :key="task.id">
                 <task-preview :task="task" :groupId="this.group.id" :boardId="boardId" />
             </Draggable>
@@ -44,8 +43,7 @@
                 </button>
                 <form class="add-card-form flex" v-if="isCardOpen" @submit.prevent="addTask">
                     <textarea v-model="currTask.title" type="textarea" name="add-task" rows="4"
-                        placeholder="Enter a title for this card..." v-focus
-                        @keyup.enter="($event) => $event.target.blur()"></textarea>
+                        placeholder="Enter a title for this card..." v-focus @keyup.enter="addTask"></textarea>
                     <div class="add-list-btns flex">
                         <button class="add-list-btn">Add card</button>
                         <button type="button" @click.stop="toggleCard">
@@ -87,43 +85,50 @@ export default {
             isMenuOpen: false,
             newGroupTitle: JSON.parse(JSON.stringify(this.group.title)),
             tasksCopy: [],
-            tasksToShow: []
+            tasksToShow: [],
+            dropCounter: 0
 
         }
     },
 
     async created() {
-        console.log(this.group, '************************')
-        console.log(this.filterBy);
+        // console.log(this.group, '************************')
+        // console.log(this.filterBy);
         this.tasksCopy = JSON.parse(JSON.stringify(this.group.tasks))
         this.tasksToShow = this.group.tasks
+        this.dropDebounce = utilService.debounce(this.onDrop, 500)
 
-        try {
-            this.debounceHandler = utilService.debounce(this.updateGroup, 500)
+        // try {
+        //     this.debounceHandler = utilService.debounce(this.updateGroup, 500)
 
-        } catch (err) {
-            console.log(err);
-        }
+        // } catch (err) {
+        //     console.log(err);
+        // }
     },
 
     methods: {
         async onDrop(dropResult) {
-            console.log(dropResult)
+            const { removedIndex, addedIndex, payload, element } = dropResult;
+            if (removedIndex === null && addedIndex === null) return
+
+            // console.log('ON DROP! - group.vue', dropResult)
+            // if(addedIndex !== null) this.$store.commit({type: 'updateTasks' ,payload: { tasks: this.tasksCopy, groupId: this.group.id } })
             try {
                 this.tasksCopy = JSON.parse(JSON.stringify(this.group.tasks || []))
                 this.tasksCopy = this.applyDrag(this.tasksCopy, dropResult)
-                console.log('Tasks Copy', this.tasksCopy)
+                // console.log('Tasks Copy', this.tasksCopy)
                 const tasks = await this.$store.dispatch({ type: 'updateTasks', payload: { tasks: this.tasksCopy, groupId: this.group.id } })
-                console.log('*****************', tasks)
+                // console.log('*****************', tasks)
                 this.tasksCopy = JSON.parse(JSON.stringify(this.group.tasks || []))
             }
-            catch (prevGroups) {
-                this.tasksCopy = JSON.parse(JSON.stringify(prevGroups))
+            catch (prevTasks) {
+                console.log(prevTasks)
+                this.tasksCopy = JSON.parse(JSON.stringify(prevTasks))
             }
         },
         applyDrag(arr, dragResult) {
             const { removedIndex, addedIndex, payload } = dragResult
-            console.log('PAYLOAD', payload)
+            // console.log('PAYLOAD', payload)
 
             if (removedIndex === null && addedIndex === null) return arr;
             const result = [...arr];
@@ -133,7 +138,7 @@ export default {
 
             if (removedIndex !== null) {
                 itemToAdd = result.splice(removedIndex, 1)[0];
-                console.log('ITEM-TO-ADD', itemToAdd)
+                // console.log('ITEM-TO-ADD', itemToAdd)
             }
             if (addedIndex !== null && removedIndex !== null) {
                 // console.log(itemToAdd);
@@ -143,7 +148,7 @@ export default {
                 // console.log(this.tasksCopy);
             }
             else if (addedIndex !== null) result.splice(addedIndex, 0, itemToAdd.itemToMove);
-            console.log('RESULT', result)
+            // console.log('RESULT', result)
             return result;
         },
         getShouldAcceptDrop(index, sourceContainerOptions, payload) {
@@ -151,11 +156,11 @@ export default {
         },
 
         getChildPayload(index) {
-            console.log('get child copy', index)
+            // console.log('get child copy', index)
 
             this.tasksCopy = JSON.parse(JSON.stringify(this.group.tasks))
 
-            console.log('get child copy', this.tasksCopy);
+            // console.log('get child copy', this.tasksCopy);
 
             return {
                 itemToMove: this.tasksCopy[index]
@@ -175,7 +180,7 @@ export default {
             }
             const group = JSON.parse(JSON.stringify(this.group))
             group.title = this.newGroupTitle
-            console.log(group);
+            // console.log(group);
             this.$emit('updateGroup', group, activity)
         },
 
@@ -200,10 +205,13 @@ export default {
                 task: this.currTask
             }
 
-            this.currTask.id = utilService.makeId()
-            console.log('******************************', this.currTask)
+            // this.currTask.id = utilService.makeId()
+            // console.log('******************************', this.currTask)
             this.$emit('addTask', this.group.id, { ...this.currTask }, JSON.parse(JSON.stringify(activity)))
-            this.currTask.title = ''
+            this.currTask = {
+                id: utilService.makeId(),
+                title: '',
+            }
         },
         removeGroup() {
             this.toggleMenu
@@ -224,7 +232,7 @@ export default {
     watch: {
         filterBy: {
             handler: function (filterBy, oldVal) {
-                console.log('hiiiiiiiiiiiiiiii');
+                // console.log('hiiiiiiiiiiiiiiii');
                 const regex = new RegExp(filterBy.title, 'i');
                 this.tasksToShow = this.group.tasks.filter(task => regex.test(task.title))
                 if (filterBy.isNoMembers)
@@ -236,6 +244,15 @@ export default {
                         if (!task.memberIds?.length) return false
                         return task.memberIds.some(memberId => filterBy.membersIds.includes(memberId))
                         // task.memberIds?.includes(this.user._id)
+                    })
+                }
+                if (filterBy.isNoLabels) {
+                    this.tasksToShow = this.tasksToShow.filter(task => !task.labelIds?.length)
+                }
+                if (filterBy.labelIds.length) {
+                    this.tasksToShow = this.tasksToShow.filter(task => {
+                        if (!task.labelIds?.length) return false
+                        return task.labelIds.some(labelId => filterBy.labelIds.includes(labelId))
                     })
                 }
                 // console.log(this.tasksToShow);

@@ -8,7 +8,7 @@
 
             <GoogleMap api-key="AIzaSyAV_zVjXKofPeV5nwAzfNKJ7Gt4VEMjHOw" style="width: 100%; height: 100%"
                 :center="location.cords" :zoom="14">
-                <Marker :options="{ position: location }" @click="center = location" />
+                <Marker :options="{ position: location.cords }" @click="(center = location.cords)" />
 
             </GoogleMap>
             <div class="location-preview-footer flex justify-between row">
@@ -46,7 +46,7 @@ export default {
         }
     },
     created() {
-        this.center = this.location
+        this.center = this.location.cords
         // console.log(this.center, this.location, '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
         const marker = {
             title: this.location.name || 'no name',
@@ -55,7 +55,7 @@ export default {
 
         }
         this.markers.push(marker)
-        console.log(this.location)
+        // console.log(this.location)
     },
     methods: {
         remove() {

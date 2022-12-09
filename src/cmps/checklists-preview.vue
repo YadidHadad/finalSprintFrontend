@@ -52,12 +52,13 @@
                         </div>
 
                         <button v-if="(todoEditId !== todo.id)" class="btn-delete margin-0"
-                            @click="removeTodo(index, checklist)">Remove</button>
-                        <button v-if="(todoEditId !== todo.id)" class="btn-delete margin-0"
+                            @click="removeTodo(index, checklist)"> <span class=" trello-home archive-icon">
+                            </span></button>
+                        <!-- <button v-if="(todoEditId !== todo.id)" class="btn-delete margin-0"
                             @click="isOpenOptions = !isOpenOptions">
                             <span class=" fa-solid elipsis-icon">
                             </span>
-                        </button>
+                        </button> -->
                     </div>
                 </form>
 
@@ -143,7 +144,7 @@ export default {
         },
         editChecklistTitle(checklist, ev) {
             // this.editedChecklist = JSON.parse(JSON.stringify(checklist))
-            console.log(ev.target.value)
+            // console.log(ev.target.value)
             this.editedChecklist.title = ev.target.value
         },
         close() {
@@ -170,7 +171,7 @@ export default {
             this.todoTxt = ''
         },
         removeTodo(todoIdx, checklist) {
-            console.log(todoIdx, checklist);
+            // console.log(todoIdx, checklist);
             const newChecklist = JSON.parse(JSON.stringify(checklist || {}))
             checklist.todos.splice(todoIdx, 1)
 
@@ -250,7 +251,7 @@ export default {
                 const total = checklist.todos.length
                 const done = checklist.todos.filter(todo => todo.isDone === true).length
                 const progress = ((done / total) * 100).toFixed(0)
-                console.log(progress)
+                // console.log(progress)
                 if (+progress === 100) this.progressBarStyle[checklist.id] = { background: '#61bd4f', width: `${progress}%` }
                 else if (+progress > 0) this.progressBarStyle[checklist.id] = { background: '#5ba4cf', width: `${progress}%` }
                 else this.progressBarStyle[checklist.id] = { background: '#e2e4e9', width: `${progress}%` }
@@ -260,7 +261,7 @@ export default {
     computed: {
         checklists() {
             const task = this.$store.getters.getEditedTask
-            console.log('*******************', task.checklists)
+            // console.log('*******************', task.checklists)
             return task.checklists
         }
     },

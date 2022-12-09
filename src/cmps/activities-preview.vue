@@ -20,7 +20,7 @@
                     <span class="fullname">{{ activity.byMember.fullname + ' ' }}</span>
                     <span>{{ activity.txt }}</span>
                 </div>
-                <span>{{ getTimeAgo(activity.createdAt) }}</span>
+                <span class="activity-time">{{ getTimeAgo(activity.createdAt) }}</span>
             </div>
         </div>
     </section>

@@ -3,7 +3,8 @@
         <!-- <img :src="getBoardBc"> -->
         <div v-if="board.style.backgroundImage" class="board-icon" :style="boardBGC(board.style)"></div>
         <div v-else class="board-icon" :style="boardBGC(board.style)"></div>
-        <span class="trellicons star" @click.stop="toggleStar"></span>
+        <span v-if="!board.isStarred" class="trellicons star" @click.stop="toggleStar"></span>
+        <span v-else class="fa-solid star-icon" @click.stop="toggleStar"></span>
         <div class="board-title">{{ board.title }}</div>
         <!-- <group-list :group="board.groups"/> -->
     </section>
@@ -18,7 +19,7 @@ export default {
     },
     methods: {
         boardBGC(style) {
-            console.log()
+            // console.log()
             if (style.bgColor) return { backgroundColor: style.bgColor }
             return { backgroundImage: `url(${style.backgroundImage})` }
         },

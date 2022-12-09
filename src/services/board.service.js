@@ -15,7 +15,7 @@ export const boardService = {
     getEmptyBoard,
     saveTask,
     addBoardActivity,
-    addBoardMsg
+    addBoardMsg,
 }
 
 window.cs = boardService
@@ -38,17 +38,25 @@ async function query(filterBy = { title: '' }) {
     // return boards
 }
 async function save(board) {
-    var savedBoard
-    if (board._id) {
-        console.log(board._id)
-        savedBoard = await httpService.put(`${BOARD_URL}${board._id}`, board)
-        socketService.emit('board updated', board)
-    } else {
-        // Later, owner is set by the backend
-        board.createdBy = userService.getLoggedinUser()
-        savedBoard = await await httpService.post(BOARD_URL, board)
+    try {
+        console.log('SAVE service frontend')
+        var savedBoard
+        if (board._id) {
+            // console.log(board._id)
+            savedBoard = await httpService.put(`${BOARD_URL}${board._id}`, board)
+            socketService.emit('board updated', board)
+        } else {
+            // Later, owner is set by the backend
+            board.createdBy = userService.getLoggedinUser()
+            savedBoard = await await httpService.post(BOARD_URL, board)
+        }
+        return savedBoard
     }
-    return savedBoard
+    catch(err) {
+        const prevBoard = await getById(board._id)
+        console.log(err);
+        throw prevBoard
+    }
 }
 function getById(boardId) {
     // return storageService.get(STORAGE_KEY, boardId)

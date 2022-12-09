@@ -9,7 +9,7 @@
             </span>
             <h3>Starred boards</h3>
           </div>
-          <ul v-if="boards" class="starred-board-list">
+          <ul v-if="boards" class="starred-board-list flex row wrap gap">
             <li v-for="board in boards.filter(b => b.isStarred)" :key="board._id">
               <board-preview class="starred" :board="board" @click="goToBoard(board._id)"
                 @toggleStar="toggleStar(false, board)" />
@@ -22,7 +22,7 @@
             </span>
             <h3>Your boards</h3>
           </div>
-          <ul v-if="boards" class="board-list">
+          <ul v-if="boards" class="board-list flex row wrap gap">
             <li v-for="board in boards" :key="board._id">
               <!-- <pre>{{ board }}</pre> -->
               <!-- <div class="board-title">{{ board.title }}</div> -->

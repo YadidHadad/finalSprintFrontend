@@ -102,7 +102,7 @@ export default {
                 this.$emit('updateBoardLabels', label)
             }
             this.updateLabels(label.id)
-            console.log(label);
+            // console.log(label);
         },
         hexToRgbA(hex) {
             // console.log(hex)
