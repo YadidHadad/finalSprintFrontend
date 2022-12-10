@@ -3,7 +3,8 @@
         <div class="user-preview-header">
             <p>Account</p>
             <div class="header-links">
-                <span class="btn flex row profile-btn" @click="(showUserPreview = true)">
+                <div v-if="user.imgUrl" class="user-img" :style="memberImage(user.imgUrl)"> </div>
+                <span v-else class="btn flex row profile-btn" @click="(showUserPreview = true)">
                     {{ getInitials(user.fullname) }}
                 </span>
                 <div>
@@ -56,6 +57,9 @@ export default {
     methods: {
         getInitials(fullname) {
             return utilService.getInitials(fullname)
+        },
+        memberImage(imgUrl) {
+            return { backgroundImage: `url(${imgUrl})` };
         },
         logout() {
             this.$emit('logout')
