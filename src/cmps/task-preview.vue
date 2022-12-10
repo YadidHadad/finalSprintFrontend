@@ -1,6 +1,6 @@
 <template>
     <div v-if="getBackground" class="task-preview-cover" @click="goTo" :class="getCoverType"
-        :style="{backgroundColor: getBackground, backgroundImage: `url(${getBackground})`}"></div>
+        :style="{ backgroundColor: getBackground, backgroundImage: `url(${getBackground})` }"></div>
     <section class="task-preview-details flex column " @click="goTo">
         <section v-if="labels" class="labels-preview">
             <ul class="clean-list flex">
@@ -32,6 +32,13 @@
                     <!-- <span class="date-str">{{ getDueDateStr }}</span> -->
                 </div>
                 <span v-if="task.description" class="trellicons desc-icon" title="This card has a description"></span>
+                <div class="attachments flex" v-if="task.attachments" title="Attachments">
+                    <span class="trellicons attachment" ></span>
+                    <span>{{
+                            task.attachments.length
+                    }}</span>
+                </div>
+                <span v-if="task.location" class="trellicons location-icon"></span>
                 <div v-if="taskTodosLength" class="task-todos flex"
                     :style="{ backgroundColor: allTodosDone, color: allTodosDone ? '#fdfefd' : '' }"
                     title="Checklist items">
@@ -55,7 +62,7 @@
             <div class="flex row shrink justify-between grow">
                 <div class=""></div>
                 <members-preview v-if="task.memberIds" :memberIds="task.memberIds" :isTaskDetails="false"
-                    class="members-task-preview justify-end"/>
+                    class="members-task-preview justify-end" />
             </div>
         </section>
     </section>

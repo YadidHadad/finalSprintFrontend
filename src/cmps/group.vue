@@ -1,5 +1,10 @@
 <template>
     <div class="group flex column">
+        <!-- <div class="confirm-modal">
+            <header class="confirm-modal-header "> Are you sure ?</header>
+            <button class="btn">Delete</button>
+            <button class="btn">Go back</button>
+        </div> -->
         <div class="main-title flex column justify-between">
             <div class="flex row align-center justify-between w-100">
                 <input v-model="newGroupTitle" @input="updateGroup" @keyup.enter="($event) => $event.target.blur()" />
@@ -205,7 +210,7 @@ export default {
             this.isMenuOpen = !this.isMenuOpen;
         },
         addTask() {
-            this.$refs.group.containerElement['smooth-dnd-container-instance'].element.scrollTop = this.$refs.group.containerElement['smooth-dnd-container-instance'].element.scrollHeight + 100
+            // this.$refs.group.containerElement['smooth-dnd-container-instance'].element.scrollTop = this.$refs.group.containerElement['smooth-dnd-container-instance'].element.scrollHeight + 100
 
             // console.log('******************************', this.user)
             if (!this.currTask.title) return
@@ -227,6 +232,9 @@ export default {
                 id: utilService.makeId(),
                 title: '',
             }
+        },
+        confirmRemoveGroup(){
+
         },
         removeGroup() {
             this.toggleMenu
