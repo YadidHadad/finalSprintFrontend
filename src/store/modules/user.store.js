@@ -54,6 +54,7 @@ export const userStore = {
             state.loggedinUser.score = score
         },
         addNotification(state, { notification }) {
+            console.log('hi');
             notification.id = utilService.makeId()
             if (!state.loggedinUser?.notifications) state.loggedinUser.notifications = []
             if (state.loggedinUser.notifications.length >= 20) state.loggedinUser.notifications.pop()

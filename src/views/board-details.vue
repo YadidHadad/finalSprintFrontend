@@ -74,6 +74,7 @@ export default {
         this.setBoardId()
         socketService.emit('new board enter', this.board._id)
         socketService.on('board pushed', this.pushedBoard)
+        socketService.on('activity pushed', this.pushedActivity)
     },
 
     methods: {
@@ -108,25 +109,27 @@ export default {
                 console.log('fail in remove board');
             }
         },
+        pushedActivity(board) {
+            const membersIds = board.members.map(member => member._id)
+            if (membersIds.includes(this.user._id)) {
+                // console.log(this.board.activities[this.board.activities.length - 1]);
+                const { txt, createdAt, byMember } = board.activities[board.activities.length - 1]
+                console.log('hi');
+                const notification = {
+                    txt: txt + ' in ' + board.title,
+                    byMember: {
+                        fullname: byMember.fullname,
+                        imgUrl: byMember.imgUrl
+                    },
+                    createdAt,
+                    isSeen: false
+                }
+                this.$store.dispatch({ type: 'addNotification', notification })
+            }
+        },
         pushedBoard(board) {
             // console.log('hiiiiii board details');
             this.$store.commit({ type: 'setPushedBoard', board })
-            // const membersIds = board.members.map(member => member._id)
-            // if (membersIds.includes(this.user._id)) {
-            //     // console.log(this.board.activities[this.board.activities.length - 1]);
-            //     const { txt, createdAt, byMember } = this.board.activities[this.board.activities.length - 1]
-            //     // console.log(txt, createdAt, byMember);
-            //     const notification = {
-            //         txt: txt,
-            //         byMember: {
-            //             fullname: byMember.fullname,
-            //             imgUrl: byMember.imgUrl
-            //         },
-            //         createdAt,
-            //         isSeen: false
-            //     }
-            //     this.$store.dispatch({ type: 'addNotification', notification })
-            // }
         },
         removeMember(id) {
             this.$store.dispatch({ type: 'removeMember', memberId: id })

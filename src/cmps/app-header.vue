@@ -28,7 +28,8 @@
                 </div>
             </div>
             <span class="trello-home bell-icon" @click="updateSeenNotifications">
-                <span class="fa-solid notification-icon" v-if="user.notifications.length && !user.notifications[0].isSeen"></span>
+                <span class="fa-solid notification-icon"
+                    v-if="user.notifications.length && !user.notifications[0].isSeen"></span>
             </span>
             <span class="trello-home question-icon"></span>
 
@@ -65,12 +66,13 @@ export default {
             showUserPreview: false,
             isInputInFocus: false,
             filterByTitle: '',
-            isShowNotifications: false
+            isShowNotifications: false,
+            isSeenNotifications: false
         }
     },
     methods: {
         removeNotification(id) {
-            this.$emit('removeNotification' , id)
+            this.$emit('removeNotification', id)
         },
         getInitials(fullname = 'Guest') {
             return utilService.getInitials(fullname)
@@ -125,6 +127,9 @@ export default {
         user() {
             return this.$store.getters.loggedinUser
         },
+        notifications() {
+            return this.$store.getters.loggedinUser.notifications
+        },
         boards() {
             const boards = this.$store.getters.boards
             if (!this.filterByTitle) return boards.slice(0, 5)
@@ -143,7 +148,16 @@ export default {
             // console.log(this.isDefaultBGC)
             this.headerBackground
 
-        }
+        },
+        // notifications: {
+        //     handler: function (val, oldVal) {
+        //         console.log('hi');
+        //         if(notifications && notifications.length && !notification[0].isSeen)
+        //             this.isSeenNotifications = true
+        //         else this.isSeenNotifications = false
+        //     },
+        //     deep: true
+        // }
 
     },
 

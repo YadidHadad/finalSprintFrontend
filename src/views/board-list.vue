@@ -161,16 +161,6 @@ export default {
       this.updateBoard(newBoard)
     }
   },
-  watch: {
-    // loggedInUser: {
-    //   handler: function (val, oldVal) {
-    //     if(this.loggedInUser) {
-    //       if()
-    //     }
-    //   },
-    //   deep: true
-    // }
-  },
   components: {
     boardPreview,
     appNav,
