@@ -298,14 +298,25 @@ export const boardStore = {
 
         async updateTasks(context, { payload }) {
             console.log('UPDATE TASKS - store')
-            const { groupId, tasks } = payload
+            const { groupId, tasks, removedIndex } = payload
             const group = context.state.board.groups.find(group => groupId === group.id)
             const prevTasks = group.tasks
+            if (removedIndex !== null) {
+                var activity = {
+                    txt: `Moved ${group.tasks[removedIndex].title}`,
+                    byMember: {
+                        _id: context.getters.loggedinUser._id,
+                        fullname: context.getters.loggedinUser.fullname,
+                        imgUrl: context.getters.loggedinUser.imgUrl || "",
+                    },
+                }
+            }
             const newTasks = context.commit({ type: 'updateTasks', payload })
             try {
                 context.commit({ type: 'updateBoard', board: context.state.board })
                 context.commit({ type: 'setBoard', boardId: context.state.board._id })
                 const board = await boardService.save(context.state.board)
+                context.commit(({ type: 'addActivity', activity }))
                 return newTasks
             }
             catch (prevBoard) {

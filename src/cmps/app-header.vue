@@ -27,7 +27,7 @@
                     </router-link>
                 </div>
             </div>
-            <span class="trello-home bell-icon">
+            <span class="trello-home bell-icon" :style="headerBackground">
                 <span>!</span>
             </span>
             <span class="trello-home question-icon"></span>

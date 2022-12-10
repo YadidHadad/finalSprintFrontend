@@ -12,6 +12,13 @@ header {
 
     .bell-icon {
         position: relative;
+        padding-inline: 4px;
+        border-radius: 3px;
+
+        &:hover {
+            filter: brightness(90%);
+            cursor: pointer;
+        }
 
         span {
             position: absolute;
