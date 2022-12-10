@@ -24,7 +24,7 @@
         <section class="task-details-aside">
             <section class="add-to-card flex column">
                 <div class="btns-block">
-                    <button v-if="!isUserOnTask" class="btn btn-join" @click.stop="toggleMember()">
+                    <button v-if="!isUserOnTask" class="btn w-100 btn-join" @click.stop="toggleMember()">
                         <span class="trello-home  join-icon"></span>
                         <span>Join</span>
                     </button>
