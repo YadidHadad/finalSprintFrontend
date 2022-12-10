@@ -42,7 +42,7 @@
 
         <user-preview v-if="showUserPreview" :user="user" v-click-outside="closeUserPreview" @logout="logout" />
         <notification-modal v-if="isShowNotifications" v-click-outside="() => { isShowNotifications = false }"
-            @removeNotification="removeNotification" />
+            @removeNotification="removeNotification" :style="{color: '#172b4d'}"/>
     </header>
 </template>
 

@@ -6,7 +6,7 @@
     </main>
 
     <app-header v-if="isLoggedin" :rgb="getRGB" @logout="logout" @updateSeenNotifications="updateSeenNotifications"
-      @removeNotification="removeNotification" @removeAllNotification="removeAllNotification"/>
+      @removeNotification="removeNotification" @removeAllNotification="removeAllNotification" />
   </section>
 </template>
 
@@ -18,6 +18,8 @@ import appHeader from './cmps/app-header.vue'
 import userMsg from './cmps/user-msg.vue'
 
 import { userService } from './services/user.service'
+import axios from 'axios'
+import { utilService } from './services/util.service'
 
 export default {
   async created() {
@@ -25,6 +27,8 @@ export default {
     console.log('Vue App created')
     const user = userService.getLoggedinUser()
     if (user) store.commit({ type: 'setLoggedinUser', user })
+
+    this.loadPhotos()
 
     try {
       await this.$store.dispatch({ type: 'loadBoards' })
@@ -39,7 +43,8 @@ export default {
   data() {
     return {
       rgb: null,
-      isDark: false
+      isDark: false,
+      clientId: "wONkEH1Be08ksV3ijwHHpfu8tfvmD6SnhsRpvZBWVgg",
     }
   },
 
@@ -63,19 +68,19 @@ export default {
       }
     },
     removeNotification(id) {
-      this.$store.dispatch({ type: 'removeNotification', notId : id })
+      this.$store.dispatch({ type: 'removeNotification', notId: id })
     },
     removeAllNotification() {
-      this.$store.dispatch({ type: 'removeAllNotification'})
+      this.$store.dispatch({ type: 'removeAllNotification' })
     },
     loadPhotos() {
       const key = 'unsplashDB'
-      this.imgUrls = ''
-      if (!localStorage.getItem(key))
-        console.log(this.searchTxt);
-      let apiUrl = `https://api.unsplash.com/search/photos?query=${this.searchTxt ? this.searchTxt : 'landscape'}&orientation=landscape&per_page=20&client_id=${this.clientId}`
+      if (localStorage.getItem(key)) return
+      console.log('loading photos');
+      let apiUrl = `https://api.unsplash.com/search/photos?query=landscape&orientation=landscape&per_page=20&client_id=${this.clientId}`
       axios(apiUrl).then(({ data }) => {
-        this.imgUrls = data.results.map(res => res.urls.full).slice(0, 14)
+        const imgUrls = data.results.map(res => res.urls.full).slice(0, 14)
+        utilService.saveToStorage(key, imgUrls)
         // console.log(this.imgUrls);
       })
         .catch((err) => {

@@ -72,13 +72,18 @@ export default {
             const key = "unsplashDB";
 
             if (!localStorage.getItem(key)) console.log(this.searchTxt);
-            let apiUrl = `https://api.unsplash.com/search/photos?query=${this.searchTxt ? this.searchTxt : "landscape"
-                }&orientation=landscape&per_page=1200&client_id=${this.clientId}`;
-            axios(apiUrl).then(({ data }) => {
-                this.imgUrls = data.results.map((res) => res.urls.full).slice(0, 4);
+            if (!this.searchTxt && localStorage.getItem(key)) {
+                this.imgUrls = JSON.parse(localStorage.getItem(key))
+            }
+            else {
+                let apiUrl = `https://api.unsplash.com/search/photos?query=${this.searchTxt ? this.searchTxt : "landscape"
+                    }&orientation=landscape&per_page=1200&client_id=${this.clientId}`;
+                axios(apiUrl).then(({ data }) => {
+                    this.imgUrls = data.results.map((res) => res.urls.full).slice(0, 4);
 
-                // console.log(this.imgUrls);
-            });
+                    // console.log(this.imgUrls);
+                });
+            }
         },
         updateCover(background) {
             this.bcg = background;

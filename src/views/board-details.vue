@@ -110,11 +110,13 @@ export default {
             }
         },
         pushedActivity(board) {
+            if(board.activities[board.activities.length - 1].txt.includes('Moved')) return
+            // console.log(board.activities[board.activities.length - 1]);
             const membersIds = board.members.map(member => member._id)
             if (membersIds.includes(this.user._id)) {
                 // console.log(this.board.activities[this.board.activities.length - 1]);
                 const { txt, createdAt, byMember } = board.activities[board.activities.length - 1]
-                console.log('hi');
+                // console.log('hi');
                 const notification = {
                     txt: txt + ' in ' + board.title,
                     byMember: {

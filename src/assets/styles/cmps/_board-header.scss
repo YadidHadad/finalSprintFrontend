@@ -57,6 +57,7 @@
         @include btn($type: regular);
         font-family: "segoe-regular";
         font-size: 0.875rem;
+        // margin: 0;
         span {
             flex-grow: 1;
         }
@@ -125,3 +126,25 @@
         backdrop-filter: brightness(0.5);
     }
 }
+
+@media (max-width: 780px) {
+    .board-header {
+        // display: none;
+        // flex-direction: column !important;
+        flex-wrap: nowrap !important;
+
+        .views-container {
+            display: none;
+        }
+
+        .separation,
+        .member-plus,
+        .board-members {
+            display: none;
+        }
+
+        // & div {
+        //     flex-wrap: nowrap !important;
+        // }
+    }
+} ;
