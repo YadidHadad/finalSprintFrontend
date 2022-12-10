@@ -2,7 +2,7 @@
     <div v-if="getBackground" class="task-preview-cover" @click="goTo" :class="getCoverType"
         :style="{backgroundColor: getBackground, backgroundImage: `url(${getBackground})`}"></div>
     <section class="task-preview-details flex column " @click="goTo">
-        <section v-if="task.labelIds" class="labels-preview">
+        <section v-if="labels" class="labels-preview">
             <ul class="clean-list flex">
                 <li :title="(label.title)" @click.stop="togglePreviewLabels" v-for="label in labels" :key="label.id"
                     :style="{ backgroundColor: label.color, height: isPreviewLabelsOpen ? '17px' : '', transition: isPreviewLabelsOpen ? 'all 0.7s' : 'all 0.7s', filter: !isPreviewLabelsOpen ? 'saturate(5)' : 'saturate(1.5)' }">
@@ -15,16 +15,16 @@
         <div class="task-title">
             <h3>{{ task.title }}</h3>
         </div>
-        <section class="task-preview-icons flex wrap justify-between gap">
+        <section class="task-preview-icons flex wrap justify-between gap5">
             <div class="flex row gap align-center">
                 <div v-if="task.dueDate" class="task-date-preview flex">
                     <!-- <input class="trellicons icon-clock" type="checkbox" 
                         v-model="isComplete" /> -->
-                    <div class=" btn-date flex gap5" @click.stop="toggleIsComplete"
+                    <div class=" btn-date flex" @click.stop="toggleIsComplete"
                         :style="{ backgroundColor: isComplete ? '#61bd4f' : '', color: isComplete ? '#ffff' : '' }">
                         <span class="trellicons icon-clock"></span>
                         <span class="fa-regular square-icon"></span>
-                        <span :style="{ color: isComplete ? '#ffff' : '' }"> {{ getDueDateStr }}</span>
+                        <span class="date-str" :style="{ color: isComplete ? '#ffff' : '' }"> {{ getDueDateStr }}</span>
                         <span v-if="getDueDateStr < Date.now()" class="time-tag"
                             :style="{ backgroundColor: '#ec9488' }"></span>
 
@@ -156,7 +156,7 @@ export default {
 
     computed: {
         labels() {
-            if (!this.task.labelIds) return
+            if (!this.task.labelIds || !this.task.labelIds.length) return
             return this.$store.getters.board.labels.filter(labels => {
                 if (this.task.labelIds.includes(labels.id))
                     return labels

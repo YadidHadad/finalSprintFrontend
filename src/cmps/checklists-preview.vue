@@ -18,12 +18,16 @@
                 <button class="btn-save" @click="save">Save</button>
                 <button class="close-btn" @click="close">Cancel</button>
             </div>
+
             <section class=" flex column">
 
-                <!-- <section class="progress pad-40" v-if="checklist" :style="progressBarStyle[checklist.id]">
-                </section> -->
-                <section class="progress pad-40 w-100" v-if="checklist">
-                    <div class="inner-progress" :style="progressBarStyle[checklist.id]"></div>
+                <section class="flex row align-center justify-center">
+                    <span class="percentage">
+                        {{ progress[checklist.id] }}%
+                    </span>
+                    <div class="progress  w-100" v-if="checklist">
+                        <div class="inner-progress" :style="progressBarStyle[checklist.id]"></div>
+                    </div>
                 </section>
 
 
@@ -83,13 +87,7 @@ import { utilService } from '../services/util.service'
 
 export default {
     name: 'checklists-preview',
-
-    //DEBOUNCE FOR INPUT
     props: {
-        // checklists: {
-        //     type: Array,
-        //     required: true
-        // },
     },
     data() {
         return {
@@ -108,24 +106,19 @@ export default {
         }
     },
     created() {
-        // getting data stringified from cimputed
         this.editedChecklists = JSON.parse(JSON.stringify(this.checklists || {}))
-
         this.debounceHandler = utilService.debounce(this.updateTodos, 500)
-        //render progress styles
         this.updateProgressBarStyle()
-
         if (this.editedChecklists) {
             this.editedChecklists.forEach(checklist => {
                 checklist.todos.forEach(todo => {
                     if (todo.isDone) {
                         this.doneTodosIds.push(todo.id)
-                        this.progress[checklist.id] ? this.progress[checklist.id] += 1 : this.progress[checklist.id] = 1
+                        // this.progress[checklist.id] ? this.progress[checklist.id] += 1 : this.progress[checklist.id] = 1
                     }
                 })
             })
         }
-
     },
     methods: {
         pickChecklist(checklist) {
@@ -138,13 +131,8 @@ export default {
             this.$emit('updateChecklists', this.editedChecklists)
             this.editedChecklist = null
             this.checklistIdTitlePicked = ''
-            // setTimeout(() => {
-            //     this.checklistIdTitlePicked = ''
-            // }, 500)
         },
         editChecklistTitle(checklist, ev) {
-            // this.editedChecklist = JSON.parse(JSON.stringify(checklist))
-            // console.log(ev.target.value)
             this.editedChecklist.title = ev.target.value
         },
         close() {
@@ -158,8 +146,6 @@ export default {
         },
         saveTodo(checklist) {
             if (!this.todoTxt.trim()) return
-            // const newChecklist = JSON.parse(JSON.stringify(checklist))
-            // newChecklist.todos.push()
             const newTodo = {
                 id: utilService.makeId(),
                 title: this.todoTxt,
@@ -171,58 +157,43 @@ export default {
             this.todoTxt = ''
         },
         removeTodo(todoIdx, checklist) {
-            // console.log(todoIdx, checklist);
             const newChecklist = JSON.parse(JSON.stringify(checklist || {}))
             checklist.todos.splice(todoIdx, 1)
-
             this.updateChecklists(newChecklist, checklist)
         },
-
         updateChecklists() {
-            // const checklistIdx = this.editedChecklists.findIndex(currChecklist => currChecklist.id === checklist.id)
-            // this.editedChecklists.splice(checklistIdx, 1, newChecklist)
             this.$emit('updateChecklists', this.editedChecklists)
         },
 
         updateTodos(checklist) {
-            this.progress[checklist.id] = 0
-
-            // const newChecklist = JSON.parse(JSON.stringify(checklist))
-
+            // this.progress[checklist.id] = 0
             checklist.todos.forEach(todo => {
                 if (this.doneTodosIds.includes(todo.id)) {
                     todo.isDone = true
-                    this.progress[checklist.id] += 1
+                    // this.progress[checklist.id] += 1
                 }
                 else {
                     todo.isDone = false
                 }
             })
-
-            // this.updateChecklists(newChecklist, checklist)
             this.updateChecklists(checklist)
         },
-
         updateTodo() {
             this.todoEditId = ''
             this.updateChecklists()
         },
-
         toggleTodo(todoId) {
-            // const todoIdx = this.doneTodosIds.findIndex(id => id === todoId)
-            // if (todoIdx === -1) this.doneTodosIds.push(todoId)
-            // else this.doneTodosIds.splice(todoIdx, 1)
             this.editedChecklists.forEach(checklist => {
                 checklist.todos.forEach(todo => {
                     if (todo.id === todoId) {
                         todo.isDone = !todo.isDone
                         if (todo.isDone) {
-                            this.progress[checklist.id] += 1
+                            // this.progress[checklist.id] += 1
                             this.doneTodosIds.push(todoId)
                         }
                         else {
                             const todoIdx = this.doneTodosIds.findIndex(id => id === todoId)
-                            this.progress[checklist.id] = 1
+                            // this.progress[checklist.id] = 1
                             this.doneTodosIds.splice(todoIdx, 1)
                         }
                         this.updateProgressBarStyle()
@@ -235,23 +206,16 @@ export default {
             const numOfTodos = checklist.todos.filter(todo => todo.isDone).length
             this.progress = doneTodos / numOfTodos
         },
-        // updateProgressBarStyle() {
-        //     this.editedChecklists.forEach(checklist => {
-        //         const total = checklist.todos.length
-        //         const done = checklist.todos.filter(todo => todo.isDone === true).length
-        //         const progress = ((done / total) * 100).toFixed(0)
-        //         console.log(progress)
-        //         if (+progress === 100) this.progressBarStyle[checklist.id] = { background: 'linear-gradient(to right, #61bd4f ' + (progress * 5.28) + 'px, #61bd4f 20px)' }
-        //         else if (+progress > 0) this.progressBarStyle[checklist.id] = { background: 'linear-gradient(to right, #5ba4cf ' + (progress * 5.28) + 'px, #e2e4e9 20px)' }
-        //         else this.progressBarStyle[checklist.id] = { background: 'linear-gradient(to right, #e2e4e9 ' + (progress * 5.28) + 'px, #e2e4e9 20px)' }
-        //     })
-        // },
         updateProgressBarStyle() {
             this.editedChecklists.forEach(checklist => {
                 const total = checklist.todos.length
+                console.log(total)
                 const done = checklist.todos.filter(todo => todo.isDone === true).length
-                const progress = ((done / total) * 100).toFixed(0)
-                // console.log(progress)
+                console.log(done)
+                var progress = ((+done / +total) * 100).toFixed(0)
+                if (isNaN(progress)) progress = 0
+                console.log(progress)
+                this.progress[checklist.id] = progress
                 if (+progress === 100) this.progressBarStyle[checklist.id] = { background: '#61bd4f', width: `${progress}%` }
                 else if (+progress > 0) this.progressBarStyle[checklist.id] = { background: '#5ba4cf', width: `${progress}%` }
                 else this.progressBarStyle[checklist.id] = { background: '#e2e4e9', width: `${progress}%` }
@@ -261,7 +225,6 @@ export default {
     computed: {
         checklists() {
             const task = this.$store.getters.getEditedTask
-            // console.log('*******************', task.checklists)
             return task.checklists
         }
     },
@@ -269,7 +232,6 @@ export default {
     watch: {
         checklists: {
             handler: function (val, oldVal) {
-                // this.updateProgressBarStyle(); // call it in the context of your component object
                 this.editedChecklists = JSON.parse(JSON.stringify(this.checklists || {}))
             },
             deep: true

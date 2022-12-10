@@ -39,8 +39,7 @@
             </Draggable>
 
 
-
-            <form class="add-card-form flex" v-if="isCardOpen" @submit.prevent="addTask">
+            <form ref="form" class="add-card-form flex" v-if="isCardOpen" @submit.prevent="addTask">
                 <textarea v-model="currTask.title" type="textarea" name="add-task" rows="4"
                     placeholder="Enter a title for this card..." v-focus @keyup.enter="addTask"></textarea>
                 <div class="add-list-btns flex">
@@ -51,9 +50,10 @@
                 </div>
             </form>
 
+
         </Container>
-        <div class="add-card-container">
-            <button class="add-card-btn" v-if="!isCardOpen" @click="toggleCard">
+        <div  v-if="!isCardOpen" class="add-card-container flex">
+            <button class="add-card-btn" @click="toggleCard">
                 <span class="fa-regular plus-icon"></span><span>Add a card</span>
             </button>
         </div>
@@ -192,9 +192,14 @@ export default {
         toggleCard() {
             // console.log(this.isCardOpen);
             this.isCardOpen = !this.isCardOpen;
-            this.$refs.group.containerElement['smooth-dnd-container-instance'].element.scrollTop = this.$refs.group.containerElement['smooth-dnd-container-instance'].element.scrollHeight + 100
-            console.log(this.$refs.group.containerElement['smooth-dnd-container-instance'])
-
+            // this.$refs.group.containerElement['smooth-dnd-container-instance'].element.scrollTop = this.$refs.group.containerElement['smooth-dnd-container-instance'].element.scrollHeight
+            // console.log(this.$refs.group.containerElement['smooth-dnd-container-instance'])
+            if (this.isCardOpen) {
+                setTimeout(() => {
+                    console.log(this.$refs.form)
+                    this.$refs.form.scrollIntoView()
+                }, 100);
+            }
         },
         toggleMenu() {
             this.isMenuOpen = !this.isMenuOpen;
@@ -236,6 +241,10 @@ export default {
                 task: this.currTask
             }
             this.$emit('removeGroup', this.group.id, JSON.parse(JSON.stringify(activity)))
+        },
+        isScroll(){
+            var hasVerticalScrollbar = this.$refs.group.offsetHeight != this.$refs.group.clientHeight
+            return hasVerticalScrollbar
         }
 
     },

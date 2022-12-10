@@ -5,7 +5,7 @@
       <Marker v-for="(location, i) in locations" :options="{ position: location.position, title: location.title }"
         :key="i">
         <!-- <Marker :options="markerOptions"> -->
-        <InfoWindow>
+        <InfoWindow :open="true">
           <div id="content">
             <div id="siteNotice"></div>
             <h1 id="firstHeading" class="firstHeading">{{ location.taskTitle }}</h1>
@@ -33,91 +33,103 @@ export default {
       styles: [
         {
           "featureType": "all",
-          "elementType": "labels",
-          "stylers": [
-            {
-              "visibility": "off"
-            }
-          ]
-        },
-        {
-          "featureType": "administrative",
-          "elementType": "labels",
-          "stylers": [
-            {
-              "visibility": "off"
-            }
-          ]
-        },
-        {
-          "featureType": "administrative",
           "elementType": "labels.text.fill",
           "stylers": [
             {
-              "color": "#444444"
-            },
-            {
-              "visibility": "off"
+              "color": "#000000"
             }
           ]
         },
         {
-          "featureType": "administrative.neighborhood",
-          "elementType": "labels",
+          "featureType": "all",
+          "elementType": "labels.text.stroke",
           "stylers": [
             {
-              "visibility": "off"
+              "color": "#ffffff"
             }
           ]
         },
         {
-          "featureType": "landscape",
+          "featureType": "administrative.province",
           "elementType": "all",
           "stylers": [
             {
               "visibility": "on"
-            },
-            {
-              "color": "#e0dfe0"
             }
           ]
         },
         {
           "featureType": "landscape",
-          "elementType": "labels",
-          "stylers": [
-            {
-              "visibility": "off"
-            }
-          ]
-        },
-        {
-          "featureType": "poi",
           "elementType": "all",
           "stylers": [
             {
-              "visibility": "off"
-            }
-          ]
-        },
-        {
-          "featureType": "poi",
-          "elementType": "labels",
-          "stylers": [
+              "saturation": "-39"
+            },
             {
-              "visibility": "off"
+              "lightness": "35"
+            },
+            {
+              "gamma": "1.08"
             }
           ]
         },
         {
-          "featureType": "poi.park",
+          "featureType": "landscape",
           "elementType": "geometry",
           "stylers": [
             {
-              "color": "#a8a9a8"
+              "saturation": "0"
+            }
+          ]
+        },
+        {
+          "featureType": "landscape.man_made",
+          "elementType": "all",
+          "stylers": [
+            {
+              "saturation": "-100"
             },
             {
-              "visibility": "on"
+              "lightness": "10"
+            }
+          ]
+        },
+        {
+          "featureType": "landscape.man_made",
+          "elementType": "geometry.stroke",
+          "stylers": [
+            {
+              "saturation": "-100"
+            },
+            {
+              "lightness": "-14"
+            }
+          ]
+        },
+        {
+          "featureType": "poi",
+          "elementType": "all",
+          "stylers": [
+            {
+              "saturation": "-100"
+            },
+            {
+              "lightness": "10"
+            },
+            {
+              "gamma": "2.26"
+            }
+          ]
+        },
+        {
+          "featureType": "poi",
+          "elementType": "labels.text",
+          "stylers": [
+            {
+              "saturation": "-100"
+            },
+            {
+              "lightness": "-3"
             }
           ]
         },
@@ -126,97 +138,76 @@ export default {
           "elementType": "all",
           "stylers": [
             {
-              "saturation": -100
+              "saturation": "-100"
             },
             {
-              "lightness": 45
+              "lightness": "54"
             }
           ]
         },
         {
           "featureType": "road",
-          "elementType": "geometry.fill",
+          "elementType": "geometry.stroke",
           "stylers": [
             {
-              "visibility": "on"
+              "saturation": "-100"
             },
             {
-              "color": "#5b5b5a"
-            }
-          ]
-        },
-        {
-          "featureType": "road",
-          "elementType": "labels",
-          "stylers": [
-            {
-              "visibility": "off"
-            }
-          ]
-        },
-        {
-          "featureType": "road.highway",
-          "elementType": "all",
-          "stylers": [
-            {
-              "visibility": "simplified"
-            }
-          ]
-        },
-        {
-          "featureType": "road.highway",
-          "elementType": "labels",
-          "stylers": [
-            {
-              "visibility": "off"
+              "lightness": "-7"
             }
           ]
         },
         {
           "featureType": "road.arterial",
-          "elementType": "labels.icon",
-          "stylers": [
-            {
-              "visibility": "off"
-            }
-          ]
-        },
-        {
-          "featureType": "transit",
           "elementType": "all",
           "stylers": [
             {
-              "visibility": "off"
+              "saturation": "-100"
             }
           ]
         },
         {
-          "featureType": "transit",
-          "elementType": "labels",
-          "stylers": [
-            {
-              "visibility": "off"
-            }
-          ]
-        },
-        {
-          "featureType": "water",
+          "featureType": "road.local",
           "elementType": "all",
           "stylers": [
             {
-              "color": "#ffffff"
+              "saturation": "-100"
             },
             {
-              "visibility": "on"
+              "lightness": "-2"
+            }
+          ]
+        },
+        {
+          "featureType": "transit",
+          "elementType": "all",
+          "stylers": [
+            {
+              "saturation": "-100"
             }
           ]
         },
         {
           "featureType": "water",
-          "elementType": "labels",
+          "elementType": "geometry.fill",
           "stylers": [
             {
-              "visibility": "off"
+              "saturation": "-100"
+            },
+            {
+              "lightness": "100"
+            }
+          ]
+        },
+        {
+          "featureType": "water",
+          "elementType": "geometry.stroke",
+          "stylers": [
+            {
+              "saturation": "-100"
+            },
+            {
+              "lightness": "-100"
             }
           ]
         }

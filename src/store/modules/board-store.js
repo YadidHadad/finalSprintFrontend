@@ -17,12 +17,8 @@ export const boardStore = {
         getEditedTask({ editedTask }) { return editedTask },
         labels({ board }) { return board.labels },
         checklists({ editedTask }) { return editedTask.checklists },
-        activities({ board }) {
-            return board.activities
-        },
-        members({ board }) {
-            return board.members
-        },
+        activities({ board }) { return board.activities },
+        members({ board }) { return board.members },
         taskLabels({ editedTask, board }) {
             if (!editedTask.labelIds) return []
             return board.labels.filter(bl => {
@@ -134,7 +130,7 @@ export const boardStore = {
             activity.createdAt = Date.now()
             activity.id = utilService.makeId()
             if (!state.board?.activities) state.board.activities = []
-            if (!state.board?.activities.length > 100) state.board.activities.splice(0, 1)
+            if (state.board.activities.length >= 100) state.board.activities.splice(0, 1)
             state.board.activities.push(activity)
         },
 
