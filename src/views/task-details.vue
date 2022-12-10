@@ -281,9 +281,7 @@ export default {
                 console.log("Failed in task copy", err)
             }
         },
-        updateDescription(payload) {
-            // console.log(payload);
-        },
+
         async updateTask(type, data) {
             console.log('hi')
             let taskToUpdate = JSON.parse(JSON.stringify(this.task))

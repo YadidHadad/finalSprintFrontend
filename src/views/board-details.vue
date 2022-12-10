@@ -81,8 +81,10 @@ export default {
         async setBoardId() {
             if (!this.$route.params.id) return
             const { id } = this.$route.params
+            console.log(id)
             this.$store.commit({ type: 'setBoard', boardId: id })
             try {
+                console.log(this.board)
                 if (this.board.style.bgColor) {
                     this.rgb.value = this.hexToRgbA(this.board.style.bgColor)
                     // console.log(this.rgb.value)
@@ -103,14 +105,14 @@ export default {
         async removeBoard() {
             try {
                 await this.$store.dispatch({ type: 'removeBoard', boardId: this.board._id })
-                this.$router.push('/boards')
+                this.$router.push('/board')
             }
             catch (err) {
                 console.log('fail in remove board');
             }
         },
         pushedActivity(board) {
-            if(board.activities[board.activities.length - 1].txt.includes('Moved')) return
+            if (board.activities[board.activities.length - 1].txt.includes('Moved')) return
             // console.log(board.activities[board.activities.length - 1]);
             const membersIds = board.members.map(member => member._id)
             if (membersIds.includes(this.user._id)) {

@@ -4,7 +4,7 @@
             <router-link class="header-btn" :to="'/'" :class="{ isDark: isDark }">
                 <span class="fa-brands trello-icon "></span>
             </router-link>
-            <router-link class="header-btn" :to="'/boards'" :class="{ isDark: isDark }">
+            <router-link class="header-btn" :to="'/board'" :class="{ isDark: isDark }">
                 <span class="logo">Kannban</span>
             </router-link>
         </section>
@@ -42,7 +42,7 @@
 
         <user-preview v-if="showUserPreview" :user="user" v-click-outside="closeUserPreview" @logout="logout" />
         <notification-modal v-if="isShowNotifications" v-click-outside="() => { isShowNotifications = false }"
-            @removeNotification="removeNotification" :style="{color: '#172b4d'}"/>
+            @removeNotification="removeNotification" :style="{ color: '#172b4d' }" />
     </header>
 </template>
 

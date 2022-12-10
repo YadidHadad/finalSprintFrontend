@@ -74,7 +74,7 @@ import copyTaskEdit from './copy-task-edit.vue'
 import confirmModal from './confirm-modal.vue'
 export default {
     name: 'group',
-    emits:["addTask", "updateGroup", "removeGroup"],
+    emits: ["addTask", "updateGroup", "removeGroup"],
     props: {
         group: {
             type: Object,
@@ -121,7 +121,7 @@ export default {
 
     methods: {
         async onDrop(dropResult) {
-            console.log(this.$refs.group)
+            console.log('ONDROP')
             const { removedIndex, addedIndex, payload, element } = dropResult;
             if (removedIndex === null && addedIndex === null) return
 
@@ -131,12 +131,13 @@ export default {
                 this.tasksCopy = JSON.parse(JSON.stringify(this.group.tasks || []))
                 this.tasksCopy = this.applyDrag(this.tasksCopy, dropResult)
                 // console.log('Tasks Copy', this.tasksCopy)
-                const tasks = await this.$store.dispatch({
+                await this.$store.dispatch({
                     type: 'updateTasks',
-                    payload: { tasks: this.tasksCopy, groupId: this.group.id, removedIndex }
+                    payload: { tasks: this.tasksCopy, groupId: this.group.id, addedIndex }
                 })
-                // console.log('*****************', tasks)
+
                 this.tasksCopy = JSON.parse(JSON.stringify(this.group.tasks || []))
+
             }
             catch (prevTasks) {
                 console.log(prevTasks)
@@ -201,7 +202,7 @@ export default {
             this.$emit('updateGroup', group, activity)
         },
         copyGroup() {
-            this.$stor.dispatch({ type: 'addGroup', group: JSON.parse(JSON.stringify(this.group))})
+            this.$stor.dispatch({ type: 'addGroup', group: JSON.parse(JSON.stringify(this.group)) })
         },
         toggleCard() {
             // console.log(this.isCardOpen);

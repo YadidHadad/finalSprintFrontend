@@ -59,7 +59,7 @@ export default {
       try {
         const user = await this.$store.dispatch({ type: "login", userCred: { email: 'dima-demo@mystartup.org', password: '123', imgUrl: 'https://res.cloudinary.com/dnznyz6om/image/upload/v1670495585/htkfdnkkhbrxd3nddln7.webp' } })
         console.log(user);
-        if (user) this.$router.push('/boards')
+        if (user) this.$router.push('/board')
         else console.log('User name and password dont match');
       } catch (err) {
         console.log(err)
