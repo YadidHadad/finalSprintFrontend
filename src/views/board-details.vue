@@ -103,14 +103,14 @@ export default {
         async removeBoard() {
             try {
                 await this.$store.dispatch({ type: 'removeBoard', boardId: this.board._id })
-                this.$router.push('/boards')
+                this.$router.push('/board')
             }
             catch (err) {
                 console.log('fail in remove board');
             }
         },
         pushedActivity(board) {
-            if(board.activities[board.activities.length - 1].txt.includes('Moved')) return
+            if (board.activities[board.activities.length - 1].txt.includes('Moved')) return
             // console.log(board.activities[board.activities.length - 1]);
             const membersIds = board.members.map(member => member._id)
             if (membersIds.includes(this.user._id)) {

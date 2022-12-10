@@ -83,7 +83,7 @@ export default {
         openView(view) {
             switch (view) {
                 case 'Boards':
-                    this.$router.push('/boards')
+                    this.$router.push('/board')
                     break
                 case 'Members':
                     this.$emit('showAddMembers')

@@ -130,7 +130,7 @@ export const boardStore = {
             activity.createdAt = Date.now()
             activity.id = utilService.makeId()
             if (!state.board?.activities) state.board.activities = []
-            if (state.board.activities.length >= 100) state.board.activities.splice(0, 1)
+            if (state.board.activities.length >= 50) state.board.activities.splice(0, 1)
             state.board.activities.push(activity)
         },
 
@@ -312,11 +312,11 @@ export const boardStore = {
                 }
                 context.commit({ type: 'updateBoard', board: context.state.board })
                 context.commit({ type: 'setBoard', boardId: context.state.board._id })
-                const board = await boardService.save(context.state.board)
+                await boardService.save(context.state.board)
                 return newTasks
             }
             catch (prevBoard) {
-                // console.log('boardStore: Error in updateTasks')
+                console.log('boardStore: Error in updateTasks')
                 context.commit({ type: 'updateBoard', board: prevBoard })
                 context.commit({ type: 'setBoard', boardId: prevBoard._id })
                 context.commit({ type: 'removeActivity' })
@@ -355,22 +355,17 @@ export const boardStore = {
             const taskId = payload.task.id
             const prevGroup = context.state.board.groups.find(g => g.id === groupId)
             const prevTask = prevGroup.tasks.find(t => t.id === taskId)
-            // context.commit({ type: 'updateTask', payload })
+            context.commit({ type: 'updateTask', payload })
+            console.log('fffffffffffffff')
             if (payload.activity) context.commit({ type: 'addActivity', activity: payload.activity })
             const board = context.state.board
             try {
-                const newBoard = await boardService.save(board)
+                await boardService.save(board)
                 return payload.task
             }
             catch (err) {
                 {
                     console.log('boardStore: Error in updateLabels', err)
-                    // // context.commit({
-                    // //     type: 'updateTask', payload: {
-                    // //         task: prevTask,
-                    // //         groupId: payload.groupId
-                    // //     }
-                    // })
                     context.commit(({ type: 'removeActivity' }))
                     throw err
                 }
@@ -429,7 +424,7 @@ export const boardStore = {
                 throw err
             }
         },
-        
+
         async updateGroup(context, { group, activity }) {
             const groupIdx = context.state.board.groups.findIndex((currGroup) => currGroup.id === group.id)
             const prevGroup = context.state.board.groups[groupIdx]
