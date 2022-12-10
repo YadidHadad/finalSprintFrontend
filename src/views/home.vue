@@ -21,7 +21,7 @@
       <div class="demo-invite flex row align-start w-100 justify-center wrap">
         <div>
           <h1>Kannban brings all your tasks, teammates, and tools together!</h1>
-          <p>Keep everything in the same place-even if your team isn't.</p>
+          <p>Keep everything in the same place, even if your team isn't.</p>
           <div class="flex row gap20 justify-center ">
             <button class="btn-signup" @click="loginDemo">
               See Demo

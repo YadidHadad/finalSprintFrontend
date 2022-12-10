@@ -247,3 +247,18 @@ header {
         }
     }
 }
+
+@media (max-width: 480px) {
+    .search-boards {
+        display: none;
+    }
+    // .board-header {
+    //     // display: none;
+    //     // flex-direction: column !important;
+    //     flex-wrap: nowrap !important;
+
+    //     & div {
+    //         flex-wrap: nowrap !important;
+    //     }
+    // }
+} ;

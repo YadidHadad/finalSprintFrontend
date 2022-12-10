@@ -18,3 +18,11 @@
         backdrop-filter: blur(100px);
     }
 }
+
+@media (max-width: 768px) {
+    .cover-preview {
+        width: 100%;
+        max-width: 100%;
+        min-width: 100%;
+    }
+}
