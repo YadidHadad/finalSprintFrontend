@@ -126,7 +126,8 @@ export default {
                 this.tasksCopy = JSON.parse(JSON.stringify(this.group.tasks || []))
                 this.tasksCopy = this.applyDrag(this.tasksCopy, dropResult)
                 // console.log('Tasks Copy', this.tasksCopy)
-                const tasks = await this.$store.dispatch({ type: 'updateTasks', payload: { tasks: this.tasksCopy, groupId: this.group.id } })
+                const tasks = await this.$store.dispatch({ type: 'updateTasks',
+                payload: { tasks: this.tasksCopy, groupId: this.group.id , removedIndex} })
                 // console.log('*****************', tasks)
                 this.tasksCopy = JSON.parse(JSON.stringify(this.group.tasks || []))
             }

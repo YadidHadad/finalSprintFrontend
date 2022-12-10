@@ -125,10 +125,7 @@ export default {
                     createdAt,
                     isSeen: false
                 }
-                this.$store.dispatch({
-                    type: 'updateNotifications',
-                    notification
-                })
+                this.$store.dispatch({ type: 'addNotification', notification })
             }
         },
         removeMember(id) {

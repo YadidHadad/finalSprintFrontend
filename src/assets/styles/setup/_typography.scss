@@ -366,6 +366,10 @@
 .fa-solid {
     font-family: "fa-solid";
 
+    &.notification-icon::before {
+        content: "\f06a";
+        color: #f20000;
+    }
     &.grid-icon::before {
         content: "\f58e";
     }

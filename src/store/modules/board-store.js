@@ -17,12 +17,8 @@ export const boardStore = {
         getEditedTask({ editedTask }) { return editedTask },
         labels({ board }) { return board.labels },
         checklists({ editedTask }) { return editedTask.checklists },
-        activities({ board }) {
-            return board.activities
-        },
-        members({ board }) {
-            return board.members
-        },
+        activities({ board }) { return board.activities },
+        members({ board }) { return board.members },
         taskLabels({ editedTask, board }) {
             if (!editedTask.labelIds) return []
             return board.labels.filter(bl => {
@@ -298,14 +294,25 @@ export const boardStore = {
 
         async updateTasks(context, { payload }) {
             console.log('UPDATE TASKS - store')
-            const { groupId, tasks } = payload
+            const { groupId, tasks, removedIndex } = payload
             const group = context.state.board.groups.find(group => groupId === group.id)
             const prevTasks = group.tasks
+            if (removedIndex !== null) {
+                var activity = {
+                    txt: `Moved ${group.tasks[removedIndex].title}`,
+                    byMember: {
+                        _id: context.getters.loggedinUser._id,
+                        fullname: context.getters.loggedinUser.fullname,
+                        imgUrl: context.getters.loggedinUser.imgUrl || "",
+                    },
+                }
+            }
             const newTasks = context.commit({ type: 'updateTasks', payload })
             try {
                 context.commit({ type: 'updateBoard', board: context.state.board })
                 context.commit({ type: 'setBoard', boardId: context.state.board._id })
                 const board = await boardService.save(context.state.board)
+                context.commit(({ type: 'addActivity', activity }))
                 return newTasks
             }
             catch (prevBoard) {
@@ -379,6 +386,7 @@ export const boardStore = {
                 context.commit({ type: 'addActivity', activity })
                 // console.log(context.state.board);
                 const updatedBoard = await context.dispatch({ type: 'updateBoard', board: context.state.board })
+                console.log(updatedBoard);
                 return updatedBoard
             } catch (err) {
                 context.commit({ type: 'updateBoard', prevBoard: prevBoard})

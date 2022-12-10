@@ -12,17 +12,24 @@ header {
 
     .bell-icon {
         position: relative;
+        padding-inline: 4px;
+        border-radius: 3px;
+
+        &:hover {
+            filter: brightness(90%);
+            cursor: pointer;
+        }
 
         span {
             position: absolute;
-            top: -3px;
-            right: -8px;
-            background-color: var(--ds-background-danger-bold, #DE350B);
-            color: var(--ds-text-inverse, #FFFFFF);
+            top: -8px;
+            right: -13px;
+            // background-color: var(--ds-background-danger-bold, #de350b);
+            // color: var(--ds-text-inverse, #ffffff);
             border-radius: 50%;
             padding-block: 2px;
             padding-inline: 6px;
-            font-size: 10px;
+            font-size: 1rem;
         }
     }
 
@@ -226,7 +233,7 @@ header {
         .profile-btn {
             height: 32px;
             width: 32px;
-            background-color: #de350b;
+            // background-color: #de350b;
             border-radius: 50%;
             display: flex;
             justify-content: center;
