@@ -39,7 +39,7 @@
     // gap: rem(8px);
     min-height: 5px;
     height: 100%;
-    padding: rem(8px) rem(8px) rem(6px);
+    padding: rem(8px) rem(8px) rem(2px);
     
 
     .labels-preview {
@@ -47,7 +47,7 @@
         display: flex;
         flex-wrap: wrap;
         max-height: fit-content;
-        // padding-bottom: rem(4px);
+        margin-bottom: rem(4px);
         
         
         ul {
@@ -109,8 +109,8 @@
 
     .task-title {
       height: fit-content;
-      padding-bottom: rem(8px);
-      padding-top: rem(4px);
+      margin-bottom: rem(4px);
+    //   padding-top: rem(4px);
     h3 {
         
         font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
@@ -132,6 +132,7 @@
         // flex-wrap: wrap;
         // gap: rem(10px);
         width: 100%;
+        padding-bottom: rem(4px);
         // position: relative;
         // justify-content: space-between;
         align-content: center;

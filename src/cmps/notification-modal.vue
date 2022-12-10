@@ -4,9 +4,9 @@
             <p>Notifications</p>
         </div>
         <div class="mark-all">
-            <span @click="removeAll" v-if="notifications.length">Mark all as read</span>
+            <span @click="removeAll" v-if="notifications && notifications.length">Mark all as read</span>
         </div>
-        <div class="notifications-main" v-if="notifications.length">
+        <div class="notifications-main" v-if="notifications && notifications.length">
             <div class="notification" v-for="notification in notifications">
                 <span class="circle" @click="removeNotification(notification.id)">
                 </span>
@@ -24,7 +24,7 @@
 
                         <small>
                             {{ getDueDateStr(notification.createdAt) }} at {{ new
-        Date(notification.createdAt).toLocaleTimeString('en-GB').slice(0, 5)
+                                Date(notification.createdAt).toLocaleTimeString('en-GB').slice(0, 5)
                             }}
                         </small>
                         <!-- <span>{{ getDueDateStr(notification.createdAt) }}</span>
