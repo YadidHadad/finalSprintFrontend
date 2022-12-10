@@ -121,6 +121,7 @@ export default {
 
     methods: {
         async onDrop(dropResult) {
+            console.log(this.$refs.group)
             const { removedIndex, addedIndex, payload, element } = dropResult;
             if (removedIndex === null && addedIndex === null) return
 
