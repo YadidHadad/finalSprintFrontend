@@ -31,14 +31,13 @@
             </div>
         </div>
 
-        <Container  v-if="group.tasks.task || group.tasks.length" class="task-preview-container flex column" orientation="vertical" group-name="group-tasks"
+        <Container   class="task-preview-container flex column" orientation="vertical" group-name="group-tasks"
             ref="group" @drop="onDrop"
             :shouldAcceptDrop="(e, payload) => (e.groupName === 'group-tasks' && !payload.loading)"
             :get-child-payload="getChildPayload" drop-class="" :drop-class="dragClass">
-            <Draggable class="task-preview" v-for="task in tasksToShow" :key="task.id">
+            <Draggable  class="task-preview" v-for="task in tasksToShow" :key="task.id">
                 <task-preview :task="task" :groupId="this.group.id" :boardId="boardId" />
             </Draggable>
-
 
             <form ref="form" class="add-card-form flex" v-if="isCardOpen" @submit.prevent="addTask">
                 <textarea v-model="currTask.title" type="textarea" name="add-task" rows="4"
