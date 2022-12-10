@@ -130,7 +130,9 @@ export const boardStore = {
             activity.createdAt = Date.now()
             activity.id = utilService.makeId()
             if (!state.board?.activities) state.board.activities = []
-            if (state.board.activities.length >= 50) state.board.activities.splice(0, 1)
+            console.time('timer')
+            // if (state.board.activities.length >= 50) state.board.activities.splice(0, 1)
+            console.timeEnd('timer')
             state.board.activities.push(activity)
         },
 
@@ -360,7 +362,7 @@ export const boardStore = {
             if (payload.activity) context.commit({ type: 'addActivity', activity: payload.activity })
             const board = context.state.board
             try {
-                await boardService.save(board)
+                const newBoard = await boardService.save(board)
                 return payload.task
             }
             catch (err) {

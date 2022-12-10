@@ -9,7 +9,9 @@
             </span>
             <h3>Starred boards</h3>
           </div>
-          <ul v-if="boards" class="starred-board-list flex row wrap gap">
+          <img v-if="!boards" src="../assets/svg/loader.svg" alt="" class="loader">
+          <ul v-else class="starred-board-list flex row wrap gap">
+
             <li v-for="board in boards.filter(b => b.isStarred)" :key="board._id">
               <board-preview class="starred" :board="board" @click="goToBoard(board._id)"
                 @toggleStar="toggleStar(false, board)" />
