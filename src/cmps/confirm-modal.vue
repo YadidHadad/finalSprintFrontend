@@ -17,6 +17,7 @@
 
 <script>
 export default {
+    emits: ["remove", "closeModal"],
     props: {
         msg: {
             type: String,

@@ -429,7 +429,7 @@ export const boardStore = {
                 throw err
             }
         },
-
+        
         async updateGroup(context, { group, activity }) {
             const groupIdx = context.state.board.groups.findIndex((currGroup) => currGroup.id === group.id)
             const prevGroup = context.state.board.groups[groupIdx]

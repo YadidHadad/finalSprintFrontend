@@ -21,21 +21,21 @@
                     <button @click="removeGroup" class="remove btn">
                         <span> Move list</span>
                     </button>
-                    <button @click="removeGroup" class="remove btn">
+                    <button @click="copyGroup" class="remove btn">
                         <span> Copy list</span>
                     </button>
-                    <button @click="removeGroup" class="remove btn">
+                    <button @click="toggleModal" class="remove btn">
                         <span> Remove list</span>
                     </button>
                 </div>
             </div>
         </div>
 
-        <Container   class="task-preview-container flex column" orientation="vertical" group-name="group-tasks"
+        <Container class="task-preview-container flex column" orientation="vertical" group-name="group-tasks"
             ref="group" @drop="onDrop"
             :shouldAcceptDrop="(e, payload) => (e.groupName === 'group-tasks' && !payload.loading)"
             :get-child-payload="getChildPayload" drop-class="" :drop-class="dragClass">
-            <Draggable  class="task-preview" v-for="task in tasksToShow" :key="task.id">
+            <Draggable class="task-preview" v-for="task in tasksToShow" :key="task.id">
                 <task-preview :task="task" :groupId="this.group.id" :boardId="boardId" />
             </Draggable>
 
@@ -49,8 +49,6 @@
                     </button>
                 </div>
             </form>
-
-
         </Container>
         <div v-if="!isCardOpen" class="add-card-container flex">
             <button class="add-card-btn" @click="toggleCard">
@@ -65,7 +63,7 @@
                 <button class="btn-cancel">Go back</button>
             </div>
         </div> -->
-        <!-- <confirm-modal :msg="'Are you sure?'"/> -->
+    <confirm-modal v-if="isRemoveClicked" :msg="'Are you sure?'" @remove="removeGroup" @closeModal="toggleModal" />
 </template>
 
 <script>
@@ -76,6 +74,7 @@ import copyTaskEdit from './copy-task-edit.vue'
 import confirmModal from './confirm-modal.vue'
 export default {
     name: 'group',
+    emits:["addTask", "updateGroup", "removeGroup"],
     props: {
         group: {
             type: Object,
@@ -200,7 +199,9 @@ export default {
             // console.log(group);
             this.$emit('updateGroup', group, activity)
         },
-
+        copyGroup() {
+            this.$stor.dispatch({ type: 'addGroup', group: JSON.parse(JSON.stringify(this.group))})
+        },
         toggleCard() {
             // console.log(this.isCardOpen);
             this.isCardOpen = !this.isCardOpen;
@@ -215,6 +216,9 @@ export default {
         },
         toggleMenu() {
             this.isMenuOpen = !this.isMenuOpen;
+        },
+        toggleModal() {
+            this.isRemoveClicked = !this.isRemoveClicked
         },
         addTask() {
             // this.$refs.group.containerElement['smooth-dnd-container-instance'].element.scrollTop = this.$refs.group.containerElement['smooth-dnd-container-instance'].element.scrollHeight + 100
@@ -240,13 +244,8 @@ export default {
                 title: '',
             }
         },
-        confirmRemoveGroup() {
-
-        },
-
         removeGroup() {
             this.toggleMenu
-            this.isRemoveClicked = !this.isRemoveClicked
             const activity = {
                 id: '',
                 txt: ` Deleted list ${this.group.title} `,
