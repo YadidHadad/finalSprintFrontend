@@ -121,8 +121,8 @@
                 @keyup.enter="getPhotos">
             <section class="images flex row align-center wrap gap justify-between">
                 <img v-if="!imgUrls" src="../assets/svg/loader.svg" alt="" class="loader">
-                <img v-else v-for="imgUrl in imgUrls" :key="imgUrl" :src="imgUrl" class="color-sample"
-                    @click="setBoardStyle(imgUrl)">
+                <img v-else v-for="(imgUrl, index) in imgUrls" :key="imgUrl" :src="imgUrl" class="color-sample"
+                    @click="setBoardStyle(imgUrl)" v-show="isShowImg[index]" @load="() => { isShowImg[index] = true }">
             </section>
         </section>
     </section>
@@ -142,6 +142,8 @@ export default {
     },
     data() {
         return {
+            isShowImg: [false, false, false, false, false, false,
+                false, false, false, false, false, false, false, false],
             page: 'main',
             imageDownloadUrl: '',
             imgUrls: '',
@@ -158,18 +160,22 @@ export default {
             this.$emit('confirmDelete')
         },
         getPhotos() {
-            const key = 'unsplashDB'
-            this.imgUrls = ''
-            if (!localStorage.getItem(key))
-                console.log(this.searchTxt);
-            let apiUrl = `https://api.unsplash.com/search/photos?query=${this.searchTxt ? this.searchTxt : 'landscape'}&orientation=landscape&per_page=20&client_id=${this.clientId}`
-            axios(apiUrl).then(({ data }) => {
-                this.imgUrls = data.results.map(res => res.urls.full).slice(0, 14)
-                // console.log(this.imgUrls);
-            })
-                .catch((err) => {
-                    console.log('Cant load imgs', err);
-                })
+            const key = "unsplashDB";
+
+            // if (!localStorage.getItem(key)) console.log(this.searchTxt);
+            if (!this.searchTxt && localStorage.getItem(key)) {
+                this.imgUrls = JSON.parse(localStorage.getItem(key))
+                console.log('from cache');
+            }
+            else {
+                let apiUrl = `https://api.unsplash.com/search/photos?query=${this.searchTxt ? this.searchTxt : "landscape"
+                    }&orientation=landscape&per_page=1200&client_id=${this.clientId}`;
+                axios(apiUrl).then(({ data }) => {
+                    this.imgUrls = data.results.map((res) => res.urls.full).slice(0, 4);
+
+                    // console.log(this.imgUrls);
+                });
+            }
         },
         memberImage(imgUrl) {
             return { backgroundImage: `url(${imgUrl})` };
