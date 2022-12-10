@@ -6,7 +6,7 @@
     </main>
 
     <app-header v-if="isLoggedin" :rgb="getRGB" @logout="logout" @updateSeenNotifications="updateSeenNotifications"
-      @removeNotification="removeNotification" />
+      @removeNotification="removeNotification" @removeAllNotification="removeAllNotification"/>
   </section>
 </template>
 
@@ -64,6 +64,9 @@ export default {
     },
     removeNotification(id) {
       this.$store.dispatch({ type: 'removeNotification', notId : id })
+    },
+    removeAllNotification() {
+      this.$store.dispatch({ type: 'removeAllNotification'})
     },
     loadPhotos() {
       const key = 'unsplashDB'

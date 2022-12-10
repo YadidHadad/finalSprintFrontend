@@ -31,8 +31,11 @@ export const userStore = {
         },
         removeNotification(state, { notId }) {
             // console.log(notId)
-            const notIdx = state.loggedinUser.notifications.findIndex(not => not.id === notId)
-            state.loggedinUser.notifications.splice(notIdx, 1)
+            if (notId === 'all') state.loggedinUser.notifications = []
+            else {
+                const notIdx = state.loggedinUser.notifications.findIndex(not => not.id === notId)
+                state.loggedinUser.notifications.splice(notIdx, 1)
+            }
         },
         setLoggedinUser(state, { user }) {
             state.loggedinUser = (user) ? { ...user } : null
@@ -53,7 +56,7 @@ export const userStore = {
         addNotification(state, { notification }) {
             notification.id = utilService.makeId()
             if (!state.loggedinUser?.notifications) state.loggedinUser.notifications = []
-            if (state.loggedinUser.notifications.length >= 20) state.loggedinUser.notifications.splice(0, 1)
+            if (state.loggedinUser.notifications.length >= 20) state.loggedinUser.notifications.pop()
             state.loggedinUser.notifications.unshift(notification)
         }
     },

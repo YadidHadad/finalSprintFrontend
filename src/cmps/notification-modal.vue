@@ -4,9 +4,9 @@
             <p>Notifications</p>
         </div>
         <div class="mark-all">
-            <span>Mark all as read</span>
+            <span @click="removeAll" v-if="notifications.length">Mark all as read</span>
         </div>
-        <div class="notifications-main">
+        <div class="notifications-main" v-if="notifications.length">
             <div class="notification" v-for="notification in notifications">
                 <span class="circle" @click="removeNotification(notification.id)">
                 </span>
@@ -34,6 +34,12 @@
                 </div>
             </div>
         </div>
+        <div v-else class="placeholder">
+            <img src="https://a.trellocdn.com/prgb/dist/images/taco-sleep.ee2660df9335718b1a80.svg">
+            <div>
+                No unread notifications
+            </div>
+        </div>
     </section>
 </template>
 
@@ -53,7 +59,10 @@ export default {
             return new Date(timeStamp).toDateString().slice(4, 10)
         },
         removeNotification(id) {
-            this.$emit('removeNotification' , id)
+            this.$emit('removeNotification', id)
+        },
+        removeAll() {
+            this.$emit('removeNotification', 'all')
         }
     },
     computed: {
