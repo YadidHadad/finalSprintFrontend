@@ -27,8 +27,8 @@
                     </router-link>
                 </div>
             </div>
-            <span class="trello-home bell-icon">
-                <span class="fa-solid notification-icon"></span>
+            <span class="trello-home bell-icon" @click="updateSeenNotifications">
+                <span class="fa-solid notification-icon" v-if="!user.notifications[0].isSeen"></span>
             </span>
             <span class="trello-home question-icon"></span>
 
@@ -40,6 +40,8 @@
         </section>
 
         <user-preview v-if="showUserPreview" :user="user" v-click-outside="closeUserPreview" @logout="logout" />
+        <notification-modal v-if="isShowNotifications" v-click-outside="() => { isShowNotifications = false }"
+            @removeNotification="removeNotification" />
     </header>
 </template>
 
@@ -50,10 +52,11 @@ import { router } from '../router'
 import { utilService } from '../services/util.service'
 
 import userPreview from './user-preview.vue'
+import notificationModal from './notification-modal.vue'
 export default {
     name: 'app-header',
     props: ['rgb'],
-    components: {},
+    components: { userPreview, notificationModal },
     created() {
         // console.log(this.isDefaultBGC)
     },
@@ -62,11 +65,20 @@ export default {
             showUserPreview: false,
             isInputInFocus: false,
             filterByTitle: '',
+            isShowNotifications: false
         }
     },
     methods: {
+        removeNotification(id) {
+            this.$emit('removeNotification' , id)
+        },
         getInitials(fullname = 'Guest') {
             return utilService.getInitials(fullname)
+        },
+        updateSeenNotifications() {
+            this.isShowNotifications = true
+            if (!this.user.notifications || this.user.notifications[0].isSeen) return
+            this.$emit('updateSeenNotifications')
         },
         logout() {
             this.$emit('logout')
@@ -134,7 +146,6 @@ export default {
         }
 
     },
-    components: { userPreview }
 
 
 }

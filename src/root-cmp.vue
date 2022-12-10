@@ -5,7 +5,8 @@
       <router-view @setRGB="setRGB" />
     </main>
 
-    <app-header v-if="isLoggedin" :rgb="getRGB" @logout="logout" />
+    <app-header v-if="isLoggedin" :rgb="getRGB" @logout="logout" @updateSeenNotifications="updateSeenNotifications"
+      @removeNotification="removeNotification" />
   </section>
 </template>
 
@@ -61,6 +62,9 @@ export default {
         console.log('Fail to logout', err);
       }
     },
+    removeNotification(id) {
+      this.$store.dispatch({ type: 'removeNotification', notId : id })
+    },
     loadPhotos() {
       const key = 'unsplashDB'
       this.imgUrls = ''
@@ -74,6 +78,9 @@ export default {
         .catch((err) => {
           console.log('Cant load imgs', err);
         })
+    },
+    updateSeenNotifications() {
+      this.$store.dispatch({ type: 'updateSeenNotifications' })
     }
   },
   computed: {

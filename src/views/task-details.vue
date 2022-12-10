@@ -309,7 +309,9 @@ export default {
                     taskToUpdate.checklists = data
                     break
                 case "dates-edit":
-                    txt = `Added due date for ${taskToUpdate.title}`
+                    taskToUpdate.dueDate ?
+                    txt = `Changed due date for ${taskToUpdate.title}`
+                    : txt = `Added due date for ${taskToUpdate.title}`
                     taskToUpdate.dueDate = data
                     this.closeEditor();
                     break

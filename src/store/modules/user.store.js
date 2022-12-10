@@ -1,5 +1,6 @@
 import { userService } from '../../services/user.service'
 import { socketService, SOCKET_EMIT_USER_WATCH, SOCKET_EVENT_USER_UPDATED } from '../../services/socket.service'
+import { utilService } from '../../services/util.service'
 
 // var localLoggedinUser = null
 // if (sessionStorage.user) localLoggedinUser = JSON.parse(sessionStorage.user || null)
@@ -19,6 +20,20 @@ export const userStore = {
         watchedUser({ watchedUser }) { return watchedUser }
     },
     mutations: {
+        updateSeenNotifications(state) {
+            state.loggedinUser.notifications.some(notification => {
+                if (!notification.isSeen) {
+                    notification.isSeen = true
+                    return false
+                }
+                return true
+            })
+        },
+        removeNotification(state, { notId }) {
+            // console.log(notId)
+            const notIdx = state.loggedinUser.notifications.findIndex(not => not.id === notId)
+            state.loggedinUser.notifications.splice(notIdx, 1)
+        },
         setLoggedinUser(state, { user }) {
             state.loggedinUser = (user) ? { ...user } : null
             console.log(state.loggedinUser);
@@ -35,7 +50,8 @@ export const userStore = {
         setUserScore(state, { score }) {
             state.loggedinUser.score = score
         },
-        updateNotifications(state, { notification }) {
+        addNotification(state, { notification }) {
+            notification.id = utilService.makeId()
             if (!state.loggedinUser?.notifications) state.loggedinUser.notifications = []
             if (state.loggedinUser.notifications.length >= 20) state.loggedinUser.notifications.splice(0, 1)
             state.loggedinUser.notifications.unshift(notification)
@@ -54,15 +70,35 @@ export const userStore = {
                 throw err
             }
         },
-        async updateNotifications(context, { notification }) {
-            const prevUser = context.state.loggedinUser
-            context.commit({ type: 'updateNotifications', notification })
+        async updateSeenNotifications(context) {
+            // const preUser = JSON.parse(JSON.stringify(context.state.user))
+            context.commit({ type: 'updateSeenNotifications' })
+            try {
+                const user = await userService.update(context.state.loggedinUser)
+            }
+            catch (err) {
+                console.log('error in update user notifications', err);
+            }
+        },
+        async removeNotification(context, { notId }) {
+            context.commit({ type: 'removeNotification', notId })
+            try {
+                const user = await userService.update(context.state.loggedinUser)
+                // console.log(user);
+            }
+            catch (err) {
+                console.log('error in update user notifications', err);
+            }
+        },
+        async addNotification(context, { notification }) {
+            // const prevUser = context.state.loggedinUser
+            context.commit({ type: 'addNotification', notification })
             try {
                 const user = await userService.update(context.state.loggedinUser)
                 console.log(user);
             }
-            catch(err) {
-                console.log('error in update user notifications' , err);
+            catch (err) {
+                console.log('error in update user notifications', err);
             }
         },
         async loginWithGoogle({ commit }, { email }) {

@@ -384,6 +384,7 @@ export const boardStore = {
                 context.commit({ type: 'addTask', payload: { task, groupId } })
                 context.commit({ type: 'addActivity', activity })
                 const updatedBoard = await context.dispatch({ type: 'updateBoard', board: context.state.board })
+                console.log(updatedBoard);
                 return updatedBoard
             } catch (err) {
                 context.commit({ type: 'updateBoard', prevBoard })

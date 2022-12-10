@@ -1,21 +1,65 @@
 <template>
     <section class="notifications">
         <div class="notifications-header">
-            <h2>Notifications</h2>
-            <div>
-                <span>Mark all as read</span>
-            </div>
+            <p>Notifications</p>
+        </div>
+        <div class="mark-all">
+            <span>Mark all as read</span>
         </div>
         <div class="notifications-main">
-            <div class="notification">
-                
+            <div class="notification" v-for="notification in notifications">
+                <span class="circle" @click="removeNotification(notification.id)">
+                </span>
+                <div class="notification-main">
+                    <div class="header">
+                        <div v-if="notification.byMember.imgUrl" class="member-image"
+                            :style="memberImage(notification.byMember.imgUrl)"> </div>
+                        <span v-else class="member-initials">
+                            {{ getInitials(notification.byMember.fullname) }}
+                        </span>
+                        <strong>{{ notification.byMember.fullname }}</strong>
+                    </div>
+                    <div class="info">
+                        <p> {{ notification.txt }} </p>
+
+                        <small>
+                            {{ getDueDateStr(notification.createdAt) }} at {{ new
+        Date(notification.createdAt).toLocaleTimeString('en-GB').slice(0, 5)
+                            }}
+                        </small>
+                        <!-- <span>{{ getDueDateStr(notification.createdAt) }}</span>
+                        <small>at</small>
+                        <span>{{ new Date(notification.createdAt).toLocaleTimeString('en-GB').slice(0, 5) }}</span> -->
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 </template>
 
 <script>
-    export default {
-        
+import { utilService } from '../services/util.service';
+export default {
+    methods: {
+        memberImage(imgUrl) {
+            return { backgroundImage: `url(${imgUrl})` };
+        },
+        getInitials(fullname) {
+            if (fullname)
+                return utilService.getInitials(fullname)
+        },
+        getDueDateStr(timeStamp) {
+            // console.log(this.task.dueDate);
+            return new Date(timeStamp).toDateString().slice(4, 10)
+        },
+        removeNotification(id) {
+            this.$emit('removeNotification' , id)
+        }
+    },
+    computed: {
+        notifications() {
+            return this.$store.getters.loggedinUser.notifications
+        }
     }
+}
 </script>
