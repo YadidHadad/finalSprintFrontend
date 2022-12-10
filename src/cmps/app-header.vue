@@ -79,7 +79,7 @@ export default {
         },
         updateSeenNotifications() {
             this.isShowNotifications = true
-            if (!this.user.notifications || this.user.notifications[0].isSeen) return
+            if (!this.user.notifications || !this.user.notifications.length || this.user.notifications[0].isSeen) return
             this.$emit('updateSeenNotifications')
         },
         logout() {

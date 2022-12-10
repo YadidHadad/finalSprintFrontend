@@ -1,8 +1,8 @@
 .boards-page-container {
     display: grid;
-    grid-template-columns: auto 1100px auto;
+    grid-template-columns: auto minmax(auto, 1100px) auto;
 
-    > * {
+    >* {
         grid-column: 2;
     }
 
@@ -46,8 +46,8 @@
         padding: 0 0 20px;
 
         font-family: "segoe-regular";
-        & * {
-        }
+
+        & * {}
 
         li {
             color: $clr6;
@@ -61,7 +61,7 @@
             max-width: 193px;
         }
 
-        & > :last-child {
+        &> :last-child {
             display: flex;
             justify-content: center;
             align-items: center;
