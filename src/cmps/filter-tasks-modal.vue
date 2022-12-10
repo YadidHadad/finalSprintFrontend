@@ -8,8 +8,11 @@
         <div class="tasks-filter-main">
             <div class="text-filter">
                 <p>Keyword</p>
-                <input type="text" placeholder="Enter a keyword..." v-model="filterBy.title" @input="doFilter"
-                    @keyup.enter="doFilter">
+                <div class="text-filter-input">
+                    <input type="text" placeholder="Enter a keyword..." v-model="filterBy.title" @input="doFilter"
+                        @keyup.enter="doFilter">
+                        <voice-recognition @searchByVoice="searchByVoice"/>
+                </div>
                 <small>Search cards, members, labels, and more.</small>
             </div>
             <div class="members-filter">
@@ -47,7 +50,6 @@
                         <span class="fa-solid caret-down">
                         </span>
                     </label>
-
                     <div v-for="member in members" v-if="isShowMembers" class="board-member">
                         <label @click.stop="">
                             <input type="checkbox" v-model="filterBy.membersIds" :value="member._id"
@@ -83,24 +85,24 @@
                             {{ label.title }}
                         </div>
                     </label>
-                        <label class="header">
-                            <input type="checkbox"  @change="(showAllLabels = !showAllLabels)">
-                            <span>Select labels</span>
-                            <span class="fa-solid caret-down">
-                            </span>
-                        </label>
+                    <label class="header">
+                        <input type="checkbox" @change="(showAllLabels = !showAllLabels)">
+                        <span>Select labels</span>
+                        <span class="fa-solid caret-down">
+                        </span>
+                    </label>
 
-                        
-                        <label v-for="(label, index) in labels.slice(4, labels.length - 1)" :key="label.id"
-                            class="flex row align-center all-labels" v-if="showAllLabels">
-                            <input class="check-box" type="checkbox" v-model="filterBy.labelIds" :value="label.id"
-                                @change="doFilter">
-                            <div class="label-color grow flex align-center"
-                                :style="{ backgroundColor: rgbaColors[label.id] }">
-                                <div :style="{ backgroundColor: label.color }" class="color-circle"></div>
-                                {{ label.title }}
-                            </div>
-                        </label>
+
+                    <label v-for="(label, index) in labels.slice(4, labels.length - 1)" :key="label.id"
+                        class="flex row align-center all-labels" v-if="showAllLabels">
+                        <input class="check-box" type="checkbox" v-model="filterBy.labelIds" :value="label.id"
+                            @change="doFilter">
+                        <div class="label-color grow flex align-center"
+                            :style="{ backgroundColor: rgbaColors[label.id] }">
+                            <div :style="{ backgroundColor: label.color }" class="color-circle"></div>
+                            {{ label.title }}
+                        </div>
+                    </label>
                 </div>
                 <!-- </label> -->
             </div>
@@ -109,7 +111,8 @@
 </template>
 
 <script>
-import { utilService } from '../services/util.service';
+import { utilService } from '../services/util.service'
+import voiceRecognition from './voice-recognition.vue';
 export default {
     data() {
         return {
@@ -130,6 +133,10 @@ export default {
         console.log(this.loggedinUser);
     },
     methods: {
+        searchByVoice(transcript) {
+            this.filterBy.title = transcript
+            this.$emit('doFilter', this.filterBy)
+        },
         doFilter() {
             this.$emit('doFilter', this.filterBy)
         },
@@ -192,6 +199,7 @@ export default {
                 return { transform: 'rotate(90deg)' }
             }
         }
-    }
+    },
+    components: { voiceRecognition }
 }
 </script>
