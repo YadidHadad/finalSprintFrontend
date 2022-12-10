@@ -111,22 +111,22 @@ export default {
         pushedBoard(board) {
             // console.log('hiiiiii board details');
             this.$store.commit({ type: 'setPushedBoard', board })
-            const membersIds = board.members.map(member => member._id)
-            if (membersIds.includes(this.user._id)) {
-                // console.log(this.board.activities[this.board.activities.length - 1]);
-                const { txt, createdAt, byMember } = this.board.activities[this.board.activities.length - 1]
-                // console.log(txt, createdAt, byMember);
-                const notification = {
-                    txt: txt,
-                    byMember: {
-                        fullname: byMember.fullname,
-                        imgUrl: byMember.imgUrl
-                    },
-                    createdAt,
-                    isSeen: false
-                }
-                this.$store.dispatch({ type: 'addNotification', notification })
-            }
+            // const membersIds = board.members.map(member => member._id)
+            // if (membersIds.includes(this.user._id)) {
+            //     // console.log(this.board.activities[this.board.activities.length - 1]);
+            //     const { txt, createdAt, byMember } = this.board.activities[this.board.activities.length - 1]
+            //     // console.log(txt, createdAt, byMember);
+            //     const notification = {
+            //         txt: txt,
+            //         byMember: {
+            //             fullname: byMember.fullname,
+            //             imgUrl: byMember.imgUrl
+            //         },
+            //         createdAt,
+            //         isSeen: false
+            //     }
+            //     this.$store.dispatch({ type: 'addNotification', notification })
+            // }
         },
         removeMember(id) {
             this.$store.dispatch({ type: 'removeMember', memberId: id })

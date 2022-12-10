@@ -162,7 +162,7 @@ export default {
     }
   },
   watch: {
-    // boards: {
+    // loggedInUser: {
     //   handler: function (val, oldVal) {
     //     if(this.loggedInUser) {
     //       if()
