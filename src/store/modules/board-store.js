@@ -130,7 +130,9 @@ export const boardStore = {
             activity.createdAt = Date.now()
             activity.id = utilService.makeId()
             if (!state.board?.activities) state.board.activities = []
-            if (state.board.activities.length >= 100) state.board.activities.splice(0, 1)
+            console.time('timer')
+            // if (state.board.activities.length >= 50) state.board.activities.splice(0, 1)
+            console.timeEnd('timer')
             state.board.activities.push(activity)
         },
 
@@ -360,6 +362,8 @@ export const boardStore = {
             const board = context.state.board
             try {
                 const newBoard = await boardService.save(board)
+                context.commit({ type: 'updateBoard', board: newBoard })
+                context.commit({ type: 'setBoard', board: newBoard })
                 return payload.task
             }
             catch (err) {
@@ -429,7 +433,7 @@ export const boardStore = {
                 throw err
             }
         },
-        
+
         async updateGroup(context, { group, activity }) {
             const groupIdx = context.state.board.groups.findIndex((currGroup) => currGroup.id === group.id)
             const prevGroup = context.state.board.groups[groupIdx]

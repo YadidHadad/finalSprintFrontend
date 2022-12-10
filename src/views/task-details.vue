@@ -68,7 +68,7 @@
                     @openLabelsDetails="pickedEditor = { isOpen: true, editorType: 'labels-edit' }" />
             </section>
             <dates-preview class="pad-40" @markComplete="updateTask('dates-preview', $event)"
-                :isComplete="this.task.isComplete" />
+                :isComplete="task.isComplete" />
             <description-preview :description="task.description"
                 @updateDescription="updateTask('description', $event)" />
             <location-preview v-if="task.location" :location="task.location"
@@ -120,7 +120,8 @@ import { utilService } from "../services/util.service";
 import { socketService } from "../services/socket.service";
 
 export default {
-    emits: ["setRGB"],
+    emits: ["setRGB" , 'closeEdit', 'updateTask', 'addChecklist', 'updateLabel'
+    , 'updateMembers', 'copyTask', 'updateBoardLabels', 'removeLabel'],
     props: {},
     components: {
         labelsEdit,
@@ -282,8 +283,9 @@ export default {
             // console.log(payload);
         },
         async updateTask(type, data) {
+            console.log('hi')
             let taskToUpdate = JSON.parse(JSON.stringify(this.task))
-            let txt
+            var txt
             switch (type) {
                 case "labels-edit":
                     if (!taskToUpdate?.labelIds) taskToUpdate.labelIds = [];
@@ -369,6 +371,7 @@ export default {
                 var prevTask = JSON.parse(JSON.stringify(this.task))
                 this.$store.commit({ type: 'updateTask', payload: { task: taskToUpdate, groupId: this.groupId } })
                 this.task = JSON.parse(JSON.stringify(this.getTask))
+                console.log(this.task);
                 let updatedTask = await this.$store.dispatch({
                     type: "updateTask",
                     payload: {
@@ -392,7 +395,7 @@ export default {
                         },
                     },
                 });
-                this.task = updatedTask;
+                // this.task = updatedTask;
             } catch (err) {
                 this.$store.commit({ type: 'updateTask', payload: { task: prevTask, groupId: this.groupId } })
                 this.task = JSON.parse(JSON.stringify(this.getTask))
