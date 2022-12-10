@@ -34,7 +34,7 @@ form > * {
     background-color: white;
     padding-inline: 0.8rem;
     padding-block-end: 0.8rem;
-    box-shadow: 0px 0px 1px 1px rgb(0 0 0 / 10%);
+    box-shadow: 0px 0px 18px 11px rgb(0 0 0 / 35%);
     color: $textDark;
     width: 300px;
 
@@ -108,3 +108,11 @@ form > * {
         margin-block: 0.5rem;
     }
 }
+
+@media (max-width: 780px) {
+    .task-editor {
+        position: fixed;
+        top: 50%;
+        right: 50%;
+    }
+} ;

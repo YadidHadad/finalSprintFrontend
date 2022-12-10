@@ -3,12 +3,14 @@
         <div class="flex align-center  wrap">
             <input type="text" v-model="board.title" :style="titleLength" @input="debounceHandler"
                 @keyup.enter="setBoardTitle" />
-            <button v-if="board" v-for="(btn, i) in btns" class="btn"
-                :class="{ isDark: !isDark, isClicked: btnClicked === btn.isClicked }" :style="buttonBackground"
-                @click="btn.function(btn.isClicked)">
-                <span :class="btn.icon"></span>
-                <span v-if="btn.txt" class="txt">{{ btn.txt }}</span>
-            </button>
+            <div class="views-container flex align-center  wrap">
+                <button v-if="board" v-for="(btn, i) in btns" class="btn"
+                    :class="{ isDark: !isDark, isClicked: btnClicked === btn.isClicked }" :style="buttonBackground"
+                    @click="btn.function(btn.isClicked)">
+                    <span :class="btn.icon"></span>
+                    <span v-if="btn.txt" class="txt">{{ btn.txt }}</span>
+                </button>
+            </div>
         </div>
         <div class="btns-container shrink  flex align-center row wrap justify-end  ">
             <span class="grow "></span>
@@ -16,9 +18,9 @@
                 <span class="trello-home filter-icon"></span>
                 <span class="txt">Filter</span>
             </button>
-            <span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+            <span class="separation">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
             <div v-for="member in board.members.slice(0, 5)" :key="member._id" :title="member.fullname"
-                @click="isAddMembers = true">
+                @click="isAddMembers = true" class="board-members">
                 <div v-if="member.imgUrl" class="member-image" :style="memberImage(member.imgUrl)"
                     :title="member.fullname"> </div>
                 <span v-else class="member-initials" :title="member.fullname">
@@ -29,7 +31,7 @@
                     (board.members.length - 5)
             }}</span>
             </div>
-            <span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+            <span class="separation">&nbsp;|&nbsp;</span>
             <button class="btn " :class="{ isDark: !isDark }" :style="buttonBackground" @click="toggleBoardMenu">
                 <span class="trello-home elipsis-icon"></span>
             </button>
@@ -133,20 +135,20 @@ export default {
                     isClicked: "Board",
 
                 },
-                {
-                    txt: "Table",
-                    icon: "trello-home table-icon",
-                    function: () => { this.btnClicked = 'Table' },
-                    isClicked: "Table",
+                // {
+                //     txt: "Table",
+                //     icon: "trello-home table-icon",
+                //     function: () => { this.btnClicked = 'Table' },
+                //     isClicked: "Table",
 
-                },
-                {
-                    txt: "Calender",
-                    icon: "trello-home calender-icon",
-                    function: () => { this.btnClicked = 'Calender' },
-                    isClicked: "Calender",
+                // },
+                // {
+                //     txt: "Calender",
+                //     icon: "trello-home calender-icon",
+                //     function: () => { this.btnClicked = 'Calender' },
+                //     isClicked: "Calender",
 
-                },
+                // },
                 {
                     txt: "Dashboard",
                     icon: "trello-home dashboard-icon",

@@ -22,35 +22,41 @@
         </section>
 
         <section class="task-details-aside">
-            <section class="flex column">
-                <button v-if="!isUserOnTask" class="btn btn-join" @click.stop="toggleMember()">
-                    <span class="trello-home  join-icon"></span>
-                    <span>Join</span>
-                </button>
+            <section class="add-to-card flex column">
+                <div class="btns-block">
+                    <button v-if="!isUserOnTask" class="btn btn-join" @click.stop="toggleMember()">
+                        <span class="trello-home  join-icon"></span>
+                        <span>Join</span>
+                    </button>
+                </div>
                 <h4>Add to card</h4>
-                <button v-for="btn in addBtns" :key="btn.arg" class="btn" @click="pickEditor(btn.arg)">
-                    <span :class="btn.icon"></span>
-                    <span>{{ btn.title }}</span>
-                </button>
+                <div class="btns-block">
+                    <button v-for="btn in addBtns" :key="btn.arg" class="btn  w-100" @click="pickEditor(btn.arg)">
+                        <span :class="btn.icon"></span>
+                        <span>{{ btn.title }}</span>
+                    </button>
+                </div>
             </section>
-            <section class="btns-actions flex column">
+            <section class="btns-actions  flex column">
                 <h4>Actions</h4>
                 <!-- <button class="btn" @click="pickEditor('copy-task-edit')">
                     <span class="trellicons move"></span>
                     <span>Move</span>
                 </button> -->
-                <button class="btn" @click="pickEditor('copy-task-edit')">
-                    <span class="trellicons copy"></span>
-                    <span>Copy</span>
-                </button>
-                <button class="btn" @click="isShowDelete = !isShowDelete">
-                    <span class="trellicons archive"></span>
-                    <span>Remove</span>
-                </button>
-                <button v-if="isShowDelete" class="delete-btn btn" @click="removeTask"
-                    v-click-outside="() => isShowDelete = false">
-                    <span class="grow">Confirm deletion </span>
-                </button>
+                <div class="btns-block">
+                    <button class="btn  w-100" @click="pickEditor('copy-task-edit')">
+                        <span class="trellicons copy"></span>
+                        <span>Copy</span>
+                    </button>
+                    <button class="btn  w-100" @click="isShowDelete = !isShowDelete">
+                        <span class="trellicons archive"></span>
+                        <span>Remove</span>
+                    </button>
+                    <button v-if="isShowDelete" class="delete-btn btn  w-100" @click="removeTask"
+                        v-click-outside="() => isShowDelete = false">
+                        <span class="grow">Confirm deletion </span>
+                    </button>
+                </div>
             </section>
         </section>
         <!-- @updateChecklists="debounceHandler('checklist-preview', $event)" /> -->
@@ -310,8 +316,8 @@ export default {
                     break
                 case "dates-edit":
                     taskToUpdate.dueDate ?
-                    txt = `Changed due date for ${taskToUpdate.title}`
-                    : txt = `Added due date for ${taskToUpdate.title}`
+                        txt = `Changed due date for ${taskToUpdate.title}`
+                        : txt = `Added due date for ${taskToUpdate.title}`
                     taskToUpdate.dueDate = data
                     this.closeEditor();
                     break

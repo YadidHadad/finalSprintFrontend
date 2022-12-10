@@ -255,3 +255,63 @@
         }
     }
 }
+
+@media (max-width: 768px) {
+    .task-details {
+        width: 100%;
+
+        min-height: 100vh;
+        max-width: 100%;
+        min-width: 100%;
+        grid-template-areas:
+            "cover "
+            "header "
+            "aside"
+            "main ";
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 85px 1fr auto;
+
+        margin-top: 0;
+        margin-bottom: 0;
+
+        .task-main {
+            // display: none;
+        }
+        .task-header {
+            // width: 100%;
+        }
+        .btns-block {
+            display: flex;
+            justify-content: start;
+            align-items: start;
+            gap: 5px;
+            .btn {
+                width: 130px;
+                // margin-inline-end: 0.5rem;
+                flex: 1 1 125px;
+                margin: 0;
+            }
+            // display: none;
+            flex-direction: row !important;
+            flex-wrap: wrap !important;
+        }
+
+        .task-details-aside {
+            .add-to-card {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            .btns-actions {
+                h4 {
+                    margin-block-end: 0.5rem;
+                }
+                margin-block-start: 0.5rem;
+            }
+        }
+    }
+
+    .task-tags {
+        flex-wrap: wrap !important;
+    }
+} ;

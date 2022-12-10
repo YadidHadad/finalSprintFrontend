@@ -176,7 +176,7 @@ header {
         position: fixed;
         width: 780px;
         top: 45px;
-        right: 109px;
+        right: 117px;
         background-color: white;
         border-radius: 3px;
 
@@ -247,3 +247,18 @@ header {
         }
     }
 }
+
+@media (max-width: 480px) {
+    .search-boards {
+        display: none;
+    }
+    // .board-header {
+    //     // display: none;
+    //     // flex-direction: column !important;
+    //     flex-wrap: nowrap !important;
+
+    //     & div {
+    //         flex-wrap: nowrap !important;
+    //     }
+    // }
+} ;

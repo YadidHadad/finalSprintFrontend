@@ -1,7 +1,7 @@
 <template>
     <div v-if="getBackground" class="task-preview-cover" @click="goTo" :class="getCoverType"
         :style="{ backgroundColor: getBackground, backgroundImage: `url(${getBackground})` }"></div>
-    <section class="task-preview-details flex column " @click="goTo">
+    <section v-if="task" class="task-preview-details flex column " @click="goTo">
         <section v-if="labels" class="labels-preview">
             <ul class="clean-list flex">
                 <li :title="(label.title)" @click.stop="togglePreviewLabels" v-for="label in labels" :key="label.id"
@@ -32,8 +32,8 @@
                     <!-- <span class="date-str">{{ getDueDateStr }}</span> -->
                 </div>
                 <span v-if="task.description" class="trellicons desc-icon" title="This card has a description"></span>
-                <div class="attachments flex" v-if="task.attachments" title="Attachments">
-                    <span class="trellicons attachment" ></span>
+                <div class="attachments flex" v-if="task.attachments && task.attachments.length " title="Attachments">
+                    <span  class="trellicons attachment" ></span>
                     <span>{{
                             task.attachments.length
                     }}</span>
