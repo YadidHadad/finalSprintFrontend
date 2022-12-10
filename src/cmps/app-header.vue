@@ -28,7 +28,7 @@
                 </div>
             </div>
             <span class="trello-home bell-icon">
-                <span>!</span>
+                <span class="fa-solid notification-icon"></span>
             </span>
             <span class="trello-home question-icon"></span>
 

@@ -17,12 +17,8 @@ export const boardStore = {
         getEditedTask({ editedTask }) { return editedTask },
         labels({ board }) { return board.labels },
         checklists({ editedTask }) { return editedTask.checklists },
-        activities({ board }) {
-            return board.activities
-        },
-        members({ board }) {
-            return board.members
-        },
+        activities({ board }) { return board.activities },
+        members({ board }) { return board.members },
         taskLabels({ editedTask, board }) {
             if (!editedTask.labelIds) return []
             return board.labels.filter(bl => {
