@@ -61,7 +61,7 @@ export default {
         return {
             boardToAdd: boardService.getEmptyBoard(),
             isAddBoard: false,
-            navIsHidden: false,
+            navIsHidden: true,
             isClicked: false,
             // btns: [
             //     {

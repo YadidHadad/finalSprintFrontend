@@ -31,11 +31,11 @@
             </div>
         </div>
 
-        <Container   class="task-preview-container flex column" orientation="vertical" group-name="group-tasks"
+        <Container class="task-preview-container flex column" orientation="vertical" group-name="group-tasks"
             ref="group" @drop="onDrop"
             :shouldAcceptDrop="(e, payload) => (e.groupName === 'group-tasks' && !payload.loading)"
             :get-child-payload="getChildPayload" drop-class="" :drop-class="dragClass">
-            <Draggable  class="task-preview" v-for="task in tasksToShow" :key="task.id">
+            <Draggable class="task-preview" v-for="task in tasksToShow" :key="task.id">
                 <task-preview :task="task" :groupId="this.group.id" :boardId="boardId" />
             </Draggable>
 
@@ -65,7 +65,7 @@
                 <button class="btn-cancel">Go back</button>
             </div>
         </div> -->
-        <!-- <confirm-modal :msg="'Are you sure?'"/> -->
+    <!-- <confirm-modal :msg="'Are you sure?'"/> -->
 </template>
 
 <script>
@@ -122,6 +122,7 @@ export default {
 
     methods: {
         async onDrop(dropResult) {
+            console.log(this.$refs.group)
             const { removedIndex, addedIndex, payload, element } = dropResult;
             if (removedIndex === null && addedIndex === null) return
 
