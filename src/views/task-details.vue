@@ -376,7 +376,7 @@ export default {
                         groupId: this.groupId,
                         activity: {
                             txt,
-                            memberIds: this.task.memberIds,
+                            // memberIds: this.task.memberIds,
                             boardId: this.$route.params.id,
                             groupId: this.groupId,
                             taskId: this.task.id,

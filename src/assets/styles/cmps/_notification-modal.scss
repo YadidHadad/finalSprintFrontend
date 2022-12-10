@@ -1,3 +1,7 @@
+#notifications {
+    color: var(--ds-text, #172b4d);
+}
+
 .notifications {
     background-color: white;
     position: absolute;
@@ -14,7 +18,7 @@
     font-family: "segoe-regular";
     padding-bottom: 50px;
     overflow-y: auto;
-    min-height: 450px;
+    min-height: 300px;
     max-height: calc(100vh - 95px);
 
     .placeholder {
@@ -35,6 +39,7 @@
             line-height: 1.2;
             margin-bottom: 24px;
             text-align: center;
+            color: var(--ds-text, #172b4d) !important;
         }
     }
 
@@ -53,6 +58,7 @@
             font-size: 20px;
             line-height: 24px;
             font-weight: 600;
+            color: var(--ds-text, #172b4d) !important;
         }
 
 
@@ -66,13 +72,14 @@
         flex-direction: row;
         background-color: var(--ds-surface-overlay, #FFFFFF);
         padding: 8px 16px 8px 12px;
+        color: var(--ds-text, #172b4d) !important;
         // width: 404px;
 
         span {
             background: none;
             border: none;
             box-shadow: none;
-            color: var(--ds-text-subtlest, #6B778C);
+            color: var(--ds-text-subtlest, #6B778C) !important;
             padding: 0;
             font-weight: normal;
             margin-top: 4px;
@@ -93,6 +100,7 @@
         flex-direction: column;
         background-color: #e4f7fa;
         gap: 15px;
+        color: var(--ds-text, #172b4d) !important;
 
         >:last-child {
             margin-bottom: 5px !important;
@@ -108,14 +116,17 @@
             padding: 0 0 8px;
             display: flex;
             position: relative;
+            color: var(--ds-text, #172b4d) !important;
+            margin-top: 6px;
+
 
             .circle {
                 height: 14px;
                 width: 14px;
                 border-radius: 100%;
                 border: 1px solid var(--ds-border, #DFE1E6);
-                background-color: var(--ds-background-information-bold, #00C2E0);
-                border-color: var(--ds-border-information, #00AECC);
+                background-color: var(--ds-background-information-bold, #00C2E0) !important;
+                border-color: var(--ds-border-information, #00AECC) !important;
                 position: absolute;
                 top: 32px;
                 right: -35px;
@@ -139,6 +150,13 @@
         margin: 16px 8px 8px 8px;
         display: flex;
         align-items: center;
+        color: var(--ds-text, #172b4d) !important;
+
+        strong {
+            color: var(--ds-text, #172b4d) !important;
+
+        }
+
 
         .member-image,
         .member-initials {
@@ -159,10 +177,12 @@
         p {
             margin: 0;
             // margin-inline-end: 5px;
+            color: var(--ds-text, #172b4d) !important;
         }
 
         small {
             text-align: end;
+            color: var(--ds-text, #172b4d) !important;
         }
     }
 }

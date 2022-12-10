@@ -1,5 +1,5 @@
 <template>
-    <section class="notifications">
+    <section class="notifications" id="notifications">
         <div class="notifications-header">
             <p>Notifications</p>
         </div>

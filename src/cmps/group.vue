@@ -1,10 +1,6 @@
 <template>
     <div class="group flex column">
-        <!-- <div class="confirm-modal">
-            <header class="confirm-modal-header "> Are you sure ?</header>
-            <button class="btn">Delete</button>
-            <button class="btn">Go back</button>
-        </div> -->
+
         <div class="main-title flex column justify-between">
             <div class="flex row align-center justify-between w-100">
                 <input v-model="newGroupTitle" @input="updateGroup" @keyup.enter="($event) => $event.target.blur()" />
@@ -35,7 +31,7 @@
             </div>
         </div>
 
-        <Container class="task-preview-container flex column" orientation="vertical" group-name="group-tasks"
+        <Container  v-if="group.tasks.task || group.tasks.length" class="task-preview-container flex column" orientation="vertical" group-name="group-tasks"
             ref="group" @drop="onDrop"
             :shouldAcceptDrop="(e, payload) => (e.groupName === 'group-tasks' && !payload.loading)"
             :get-child-payload="getChildPayload" drop-class="" :drop-class="dragClass">
@@ -57,19 +53,28 @@
 
 
         </Container>
-        <div  v-if="!isCardOpen" class="add-card-container flex">
+        <div v-if="!isCardOpen" class="add-card-container flex">
             <button class="add-card-btn" @click="toggleCard">
                 <span class="fa-regular plus-icon"></span><span>Add a card</span>
             </button>
         </div>
     </div>
+    <!-- <div class="confirm-modal">
+            <header class="confirm-modal-header"> Are you sure ?</header>
+            <div class="flex gap">
+                <button class="btn-ok">Delete</button>
+                <button class="btn-cancel">Go back</button>
+            </div>
+        </div> -->
+        <!-- <confirm-modal :msg="'Are you sure?'"/> -->
 </template>
 
 <script>
-import taskPreview from "../cmps/task-preview.vue";
-import { utilService } from "../services/util.service.js";
-import { Container, Draggable } from "vue3-smooth-dnd";
-import copyTaskEdit from './copy-task-edit.vue';
+import taskPreview from "../cmps/task-preview.vue"
+import { utilService } from "../services/util.service.js"
+import { Container, Draggable } from "vue3-smooth-dnd"
+import copyTaskEdit from './copy-task-edit.vue'
+import confirmModal from './confirm-modal.vue'
 export default {
     name: 'group',
     props: {
@@ -95,7 +100,8 @@ export default {
             newGroupTitle: JSON.parse(JSON.stringify(this.group.title)),
             tasksCopy: [],
             tasksToShow: [],
-            dropCounter: 0
+            dropCounter: 0,
+            isRemoveClicked: false
 
         }
     },
@@ -126,8 +132,10 @@ export default {
                 this.tasksCopy = JSON.parse(JSON.stringify(this.group.tasks || []))
                 this.tasksCopy = this.applyDrag(this.tasksCopy, dropResult)
                 // console.log('Tasks Copy', this.tasksCopy)
-                const tasks = await this.$store.dispatch({ type: 'updateTasks',
-                payload: { tasks: this.tasksCopy, groupId: this.group.id , removedIndex} })
+                const tasks = await this.$store.dispatch({
+                    type: 'updateTasks',
+                    payload: { tasks: this.tasksCopy, groupId: this.group.id, removedIndex }
+                })
                 // console.log('*****************', tasks)
                 this.tasksCopy = JSON.parse(JSON.stringify(this.group.tasks || []))
             }
@@ -233,11 +241,13 @@ export default {
                 title: '',
             }
         },
-        confirmRemoveGroup(){
+        confirmRemoveGroup() {
 
         },
+
         removeGroup() {
             this.toggleMenu
+            this.isRemoveClicked = !this.isRemoveClicked
             const activity = {
                 id: '',
                 txt: ` Deleted list ${this.group.title} `,
@@ -250,7 +260,7 @@ export default {
             }
             this.$emit('removeGroup', this.group.id, JSON.parse(JSON.stringify(activity)))
         },
-        isScroll(){
+        isScroll() {
             var hasVerticalScrollbar = this.$refs.group.offsetHeight != this.$refs.group.clientHeight
             return hasVerticalScrollbar
         }
@@ -303,6 +313,6 @@ export default {
             return 'on-drag'
         }
     },
-    components: { taskPreview, Container, Draggable, copyTaskEdit },
+    components: { taskPreview, Container, Draggable, copyTaskEdit, confirmModal },
 };
 </script>

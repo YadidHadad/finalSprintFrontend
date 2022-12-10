@@ -51,7 +51,7 @@ function remove(userId) {
 }
 
 async function update(user) {
-    console.log(user);
+    // console.log(user);
     // await storageService.put('user', user)
     user = await httpService.put(`user/${user._id}`, user)
     // Handle case in which admin updates other user's details
@@ -65,7 +65,7 @@ async function login(userCred) {
     // const user = users.find(user => user.email === userCred.email)
     // console.log(user, '.......................');
     const user = await httpService.post('auth/login', userCred)
-    console.log(user);
+    // console.log(user);
     if (user) {
         socketService.login(user._id)
         return saveLocalUser(user)
@@ -73,7 +73,7 @@ async function login(userCred) {
 }
 async function signup(userCred) {
     // userCred.score = 10000
-    console.log(userCred);
+    // console.log(userCred);
     if (!userCred.imgUrl) userCred.imgUrl = 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png'
     // const user = await storageService.post('user', userCred)
     const user = await httpService.post('auth/signup', userCred)
