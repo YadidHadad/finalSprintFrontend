@@ -130,9 +130,7 @@ export const boardStore = {
             activity.createdAt = Date.now()
             activity.id = utilService.makeId()
             if (!state.board?.activities) state.board.activities = []
-            console.time('timer')
-            // if (state.board.activities.length >= 50) state.board.activities.splice(0, 1)
-            console.timeEnd('timer')
+            if (state.board.activities.length >= 15) state.board.activities.splice(0, 1)
             state.board.activities.push(activity)
         },
 
@@ -362,7 +360,10 @@ export const boardStore = {
             if (payload.activity) context.commit({ type: 'addActivity', activity: payload.activity })
             const board = context.state.board
             try {
-                const newBoard = await boardService.save(board)
+                const newBoard = await boardService.save(context.state.board)
+                context.commit({ type: 'updateBoard', board: newBoard })
+                context.commit({ type: 'setBoard', board: newBoard })
+                // console.log(newBoard.activities.length)                
                 return payload.task
             }
             catch (err) {
@@ -497,7 +498,10 @@ export const boardStore = {
             context.commit({ type: 'updateLabel', label: payload.label })
             try {
                 context.commit({ type: 'addActivity', activity: payload.activity })
-                await boardService.save(context.state.board)
+                const newBoard = await boardService.save(context.state.board)
+                context.commit({ type: 'updateBoard', board: newBoard })
+                context.commit({ type: 'setBoard', board: newBoard })
+                console.log(newBoard.activities.length)
             } catch (err) {
                 console.log('boardStore: Error in updateLabel', err)
                 context.commit({ type: 'updateLabel', prevLabel })
