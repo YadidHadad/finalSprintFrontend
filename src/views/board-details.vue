@@ -81,8 +81,10 @@ export default {
         async setBoardId() {
             if (!this.$route.params.id) return
             const { id } = this.$route.params
+            console.log(id)
             this.$store.commit({ type: 'setBoard', boardId: id })
             try {
+                console.log(this.board)
                 if (this.board.style.bgColor) {
                     this.rgb.value = this.hexToRgbA(this.board.style.bgColor)
                     // console.log(this.rgb.value)

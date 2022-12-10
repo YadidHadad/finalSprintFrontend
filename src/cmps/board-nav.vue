@@ -30,7 +30,7 @@
             <button v-for="board in boards" :key="board._id" class="btn-nav"
                 :class="{ isDark: isDark, isClicked: this.$route.params.id === board._id }"
                 @click="goToBoard(board._id)">
-                <div v-if="board.style.backgroundImage" class="board-icon" :style="boardBGC(board.style)"></div>
+                <div v-if="board.style?.backgroundImage" class="board-icon" :style="boardBGC(board.style)"></div>
                 <div v-else class="board-icon" :style="boardBGC(board.style)"></div>
                 <span v-if="(board.title.length > 40)">{{ board.title.slice(0, 40) }}...</span>
                 <span v-else>{{ board.title }}</span>
@@ -135,5 +135,10 @@ export default {
         },
 
     },
+    watch: {
+        boards: function (newVal, oldVal) { // watch it
+            console.log(this.boards)
+        }
+    }
 }
 </script>

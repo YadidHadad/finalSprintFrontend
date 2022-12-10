@@ -67,7 +67,7 @@ export default {
     },
     created() {
         this.groupsCopy = JSON.parse(JSON.stringify(this.groups))
-        console.log(this.filterBy);
+        // console.log(this.filterBy);
     },
 
     methods: {
