@@ -320,7 +320,8 @@ export const boardStore = {
             try {
                 context.commit({ type: 'updateBoard', board })
                 context.commit({ type: 'setBoard', boardId: board._id })
-                return board
+              const newBoard =  await boardService.save(context.state.board)
+                return newBoard
             } catch (err) {
                 context.commit({ type: 'updateBoard', board: prevBoard })
                 context.commit({ type: 'setBoard', boardId: prevBoard._id })
@@ -376,10 +377,11 @@ export const boardStore = {
             try {
                 context.commit({ type: 'addTask', payload: { task, groupId } })
                 context.commit({ type: 'addActivity', activity })
+                // console.log(context.state.board);
                 const updatedBoard = await context.dispatch({ type: 'updateBoard', board: context.state.board })
                 return updatedBoard
             } catch (err) {
-                context.commit({ type: 'updateBoard', prevBoard })
+                context.commit({ type: 'updateBoard', prevBoard: prevBoard})
                 context.commit({ type: 'setBoard', boardId: prevBoard._id })
                 context.commit({ type: 'removeActivity' })
                 throw err
