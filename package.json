@@ -19,6 +19,7 @@
     "socket.io-client": "^4.5.4",
     "vue": "^3.2.37",
     "vue-chart-3": "^3.1.8",
+    "vue-contenteditable": "^4.1.0",
     "vue-google-oauth2": "^1.5.8",
     "vue-router": "^4.1.2",
     "vue3-facebook-login": "^0.0.1",

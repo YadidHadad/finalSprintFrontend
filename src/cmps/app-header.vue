@@ -7,6 +7,9 @@
             <router-link class="header-btn" :to="'/board'" :class="{ isDark: isDark }">
                 <span class="logo">Kannban</span>
             </router-link>
+            <button class="create-btn" :style="buttonBackground">
+                Create
+            </button>
         </section>
         <section class="user-buttons flex row align-center justify-center gap">
             <div class="search-boards flex row align-center gap justify-around"

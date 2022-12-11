@@ -143,7 +143,7 @@ export default {
             const url = this.board.style.backgroundImage
             try {
                 const color = await fac.getColorAsync(url)
-                // console.log(color)
+                console.log(color)
                 return color
             } catch (err) {
                 console.log(`err:`, err)
