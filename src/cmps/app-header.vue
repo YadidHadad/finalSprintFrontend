@@ -7,7 +7,7 @@
             <router-link class="header-btn" :to="'/board'" :class="{ isDark: isDark }">
                 <span class="logo">Kannban</span>
             </router-link>
-            <button class="create-btn" :style="buttonBackground">
+            <button class="create-btn" :style="buttonBackground" @click="isAddBoard = true">
                 Create
             </button>
         </section>
@@ -47,6 +47,10 @@
         <notification-modal v-if="isShowNotifications" v-click-outside="() => { isShowNotifications = false }"
             @removeNotification="removeNotification" :style="{ color: '#172b4d' }" />
     </header>
+    <div class="add-board-in-board-nav">
+        <add-board-modal v-if="isAddBoard" @addBoard="addBoard" v-click-outside="() => isAddBoard = false"
+            @closeEdit="(isAddBoard = false)" />
+    </div>
 </template>
 
 
@@ -54,13 +58,17 @@
 
 import { router } from '../router'
 import { utilService } from '../services/util.service'
+import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
+import { boardService } from '../services/board.service.local'
 
+import addBoardModal from '../cmps/add-board-modal.vue'
 import userPreview from './user-preview.vue'
 import notificationModal from './notification-modal.vue'
 export default {
     name: 'app-header',
     props: ['rgb'],
-    components: { userPreview, notificationModal },
+    emits: ['showAddMembers', 'boards', 'logout', 'updateSeenNotifications', 'removeNotification', 'removeAllNotification'],
+    components: { userPreview, notificationModal, addBoardModal },
     created() {
         // console.log(this.isDefaultBGC)
     },
@@ -70,7 +78,10 @@ export default {
             isInputInFocus: false,
             filterByTitle: '',
             isShowNotifications: false,
-            isSeenNotifications: false
+            isSeenNotifications: false,
+
+            boardToAdd: boardService.getEmptyBoard(),
+            isAddBoard: false,
         }
     },
     methods: {
@@ -104,7 +115,25 @@ export default {
         },
         outOfFocus() {
             this.isInputInFocus = false
-        }
+        },
+        async addBoard({ bcg, title, members }) {
+            if (bcg.startsWith('#')) {
+                this.boardToAdd.style = { bgColor: bcg }
+            } else {
+                this.boardToAdd.style = { backgroundImage: bcg }
+            }
+            this.boardToAdd.title = title
+            this.boardToAdd.members = members
+            this.isAddBoard = false
+            try {
+                await this.$store.dispatch({ type: 'addBoard', board: this.boardToAdd })
+                showSuccessMsg('Board added')
+                this.boardToAdd = boardService.getEmptyBoard()
+            } catch (err) {
+                console.log(err)
+                showErrorMsg('Cannot add board')
+            }
+        },
 
     },
     computed: {

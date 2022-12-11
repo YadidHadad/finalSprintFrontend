@@ -247,6 +247,13 @@ header {
         }
     }
 }
+.add-board-in-board-nav {
+    & > section {
+        position: fixed;
+        top: 50%;
+        left: 120px;
+    }
+}
 
 @media (max-width: 480px) {
     .search-boards {
