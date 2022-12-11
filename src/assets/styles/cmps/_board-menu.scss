@@ -65,7 +65,9 @@
         .activities {
             @include scroll-bar;
             padding-inline-end: 0 !important;
+            margin-inline-end: -0.5rem;
             .activities-container {
+                padding-inline-end: 0.5rem !important;
                 font-size: 0.8rem;
                 height: calc(100vh - 300px);
                 overflow-y: scroll;
@@ -74,7 +76,7 @@
     }
 
     span:first-of-type:not(.fullname):not(.title span):not(.btn-close span) {
-        margin-inline-end: 1rem;
+        margin-inline-end: 0.5rem;
     }
     .btn-back,
     .btn-close {
@@ -104,7 +106,7 @@
             background-size: cover;
             background-position: center;
             border-radius: 50%;
-            margin-inline-end: 1rem;
+            margin-inline-end: 0.5rem;
             height: 2rem;
             aspect-ratio: 1/1;
             box-shadow: inset 0px -1px 0px rgb(0 0 0 / 33%);
@@ -118,7 +120,7 @@
             @include btn($type: "initials");
             height: 2rem;
             aspect-ratio: 1/1;
-            margin-inline-end: 1rem;
+            margin-inline-end: 0.5rem;
             box-shadow: inset 0px -1px 0px rgb(0 0 0 / 33%);
         }
 

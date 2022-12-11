@@ -1,6 +1,6 @@
 <template>
   <GoogleMap api-key="AIzaSyAV_zVjXKofPeV5nwAzfNKJ7Gt4VEMjHOw" style="width: 100%; height: 100%" :center="center"
-    :zoom="3.5" :controlSize="20" :styles="styles">
+    :zoom="12" :controlSize="20" :styles="styles">
     <MarkerCluster>
       <Marker v-for="(location, i) in locations" :options="{ position: location.position, title: location.title }"
         :key="i">
@@ -29,7 +29,7 @@ export default {
   },
   data() {
     return {
-      center: { lat: 35.509865, lng: -20.118092 },
+      center: { lat: 32.10729700940227, lng: 34.89875793457032 },
       styles: [
         {
           "featureType": "all",

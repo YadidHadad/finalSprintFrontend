@@ -5,6 +5,8 @@
                 @keyup.enter="setBoardTitle" /> -->
             <contenteditable class="input" tag="div" :contenteditable="isEditable" v-model="board.title" :no-nl="true"
                 :no-html="true" @returned="debounceHandler" />
+            <div class="separation"></div>
+
             <div class="views-container flex align-center  wrap">
                 <button v-if="board" v-for="(btn, i) in btns" class="btn"
                     :class="{ isDark: !isDark, isClicked: btnClicked === btn.isClicked }" :style="buttonBackground"
@@ -136,13 +138,13 @@ export default {
                     icon: this.board.isStarred ? "fa-solid star-icon" : "fa-regular star-icon",
                     function: this.setBoardStar
                 },
-                // {
-                //     txt: "Board",
-                //     icon: "trello-home board-icon",
-                //     function: () => { this.btnClicked = 'Board'; this.$router.push(`/board/${this.$route.params.id}`) },
-                //     isClicked: "Board",
+                {
+                    txt: "Board",
+                    icon: "trello-home board-icon",
+                    function: () => { this.btnClicked = 'Board'; this.$router.push(`/board/${this.$route.params.id}`) },
+                    isClicked: "Board",
 
-                // },
+                },
                 // {
                 //     txt: "Table",
                 //     icon: "trello-home table-icon",
@@ -163,13 +165,13 @@ export default {
                 //     function: () => { this.btnClicked = 'Dashboard'; this.$router.push(`/board/${this.$route.params.id}/dashboard`) },
                 //     isClicked: "Dashboard",
                 // },
-                // {
-                //     txt: "Map",
-                //     icon: "trello-home location-icon",
-                //     function: () => { this.btnClicked = 'Map'; this.$router.push(`/board/${this.$route.params.id}/map`) },
-                //     isClicked: "Map",
+                {
+                    txt: "Map",
+                    icon: "trello-home location-icon",
+                    function: () => { this.btnClicked = 'Map'; this.$router.push(`/board/${this.$route.params.id}/map`) },
+                    isClicked: "Map",
 
-                // },
+                },
             ]
         }
     },
