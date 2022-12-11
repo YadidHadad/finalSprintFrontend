@@ -347,7 +347,8 @@ export const boardStore = {
                 // console.log('boardStore: Error in updateTasks')
                 context.commit({ type: 'updateBoard', board: prevBoard })
                 context.commit({ type: 'setBoard', boardId: prevBoard._id })
-                context.commit({ type: 'removeActivity' })
+                // context.commit({ type: 'removeActivity' })
+                console.log('TESTTTTTTTTTTTTTTTTTTTTTTTT');
                 throw prevTasks
             }
         },
