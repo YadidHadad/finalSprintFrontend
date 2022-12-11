@@ -5,11 +5,11 @@
             <span class="trellicons x-icon" @click="close"></span>
         </div>
 
-        <div class="tasks-filter-main">
+        <form class="tasks-filter-main" @change.prevent="doFilter">
             <div class="text-filter">
                 <p>Keyword</p>
                 <div class="text-filter-input">
-                    <input type="text" placeholder="Enter a keyword..." v-model="filterBy.title" @input="doFilter"
+                    <input type="text" placeholder="Enter a keyword..." v-model="filterBy.title"
                         @keyup.enter="doFilter">
                     <voice-recognition @searchByVoice="searchByVoice" />
                 </div>
@@ -18,7 +18,7 @@
             <div class="members-filter">
                 <p>Members</p>
                 <label for="no-members" class="no-members">
-                    <input id="no-members" type="checkbox" @change="toggleIsNoMembers">
+                    <input id="no-members" type="checkbox" v-model="filterBy.isNoMembers">
                     <span class="member-icon">
                         <svg width="18" height="18" role="presentation" focusable="false" viewBox="0 0 24 24"
                             xmlns="http://www.w3.org/2000/svg">
@@ -33,7 +33,7 @@
                     <span>No members</span>
                 </label>
                 <label for="self-assign">
-                    <input id="self-assign" type="checkbox" @change="toggleIsAssignToMe">
+                    <input id="self-assign" type="checkbox" v-model="filterBy.isAssignToMe">
                     <div v-if="loggedinUser.imgUrl" class="member-image" :style="memberImage(loggedinUser.imgUrl)"
                         :title="loggedinUser.fullname"> </div>
                     <span v-else class="member-initials" :title="loggedinUser.fullname">
@@ -45,15 +45,14 @@
                     <input id="task-members" type="checkbox"> -->
                 <div class="board-members">
                     <label class="header">
-                        <input type="checkbox" @change="isShowMembers = !isShowMembers">
+                        <input type="checkbox" v-model="isShowMembers">
                         <span>Select members</span>
                         <span class="fa-solid caret-down">
                         </span>
                     </label>
                     <div v-for="member in members" v-if="isShowMembers" class="board-member">
                         <label @click.stop="">
-                            <input type="checkbox" v-model="filterBy.membersIds" :value="member._id"
-                                @change="filterByMember">
+                            <input type="checkbox" v-model="filterBy.membersIds" :value="member._id">
                             <div v-if="member.imgUrl" class="member-image" :style="memberImage(member.imgUrl)"
                                 :title="member.fullname"> </div>
                             <span v-else class="member-initials" :title="member.fullname">
@@ -67,7 +66,7 @@
                 <div class="board-labels">
                     <span>Labels</span>
                     <label>
-                        <input type="checkbox" @change="toggleIsNoLabels">
+                        <input type="checkbox" v-model="filterBy.isNoLabels">
                         <span class="label-icon"><svg width="18" height="18" role="presentation" focusable="false"
                                 viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" clip-rule="evenodd"
@@ -77,8 +76,7 @@
                         <span>No labels</span>
                     </label>
                     <label v-for="(label, index) in labels.slice(0, 3)" :key="label.id" class="flex row align-center">
-                        <input class="check-box" type="checkbox" v-model="filterBy.labelIds" :value="label.id"
-                            @change="doFilter">
+                        <input class="check-box" type="checkbox" v-model="filterBy.labelIds" :value="label.id">
                         <div class="label-color grow flex align-center"
                             :style="{ backgroundColor: rgbaColors[label.id] }">
                             <div :style="{ backgroundColor: label.color }" class="color-circle"></div>
@@ -95,8 +93,7 @@
 
                     <label v-for="(label, index) in labels.slice(4, labels.length - 1)" :key="label.id"
                         class="flex row align-center all-labels" v-if="showAllLabels">
-                        <input class="check-box" type="checkbox" v-model="filterBy.labelIds" :value="label.id"
-                            @change="doFilter">
+                        <input class="check-box" type="checkbox" v-model="filterBy.labelIds" :value="label.id">
                         <div class="label-color grow flex align-center"
                             :style="{ backgroundColor: rgbaColors[label.id] }">
                             <div :style="{ backgroundColor: label.color }" class="color-circle"></div>
@@ -106,7 +103,7 @@
                 </div>
                 <!-- </label> -->
             </div>
-        </div>
+        </form>
     </section>
 </template>
 
@@ -132,6 +129,9 @@ export default {
     created() {
         // console.log(this.loggedinUser);
         this.filterBy = JSON.parse(JSON.stringify(this.$store.getters.getFilterBy))
+        // if (this.filterBy.membersIds && this.filterBy.length > 0) {
+        //     this.isShowMembers = true
+        // }
         console.log(this.filterBy);
     },
     methods: {
@@ -144,12 +144,11 @@ export default {
             this.$emit('doFilter', this.filterBy)
         },
         toggleIsNoMembers() {
-            this.filterBy.isNoMembers = !this.filterBy.isNoMembers
+            // this.filterBy.isNoMembers = !this.filterBy.isNoMembers
             // console.log(this.filterBy.isNoMembers)
             this.$emit('doFilter', this.filterBy)
         },
         toggleIsAssignToMe() {
-            this.filterBy.isAssignToMe = !this.filterBy.isAssignToMe
             this.$emit('doFilter', this.filterBy)
         },
         close() {
@@ -162,7 +161,6 @@ export default {
             // memberIdx === -1 ? this.membersIds.push(id) : this.membersIds.splice(memberIdx, 1)
         },
         toggleIsNoLabels() {
-            this.filterBy.isNoLabels = !this.filterBy.isNoLabels
             this.$emit('doFilter', this.filterBy)
         },
         getInitials(fullname) {
