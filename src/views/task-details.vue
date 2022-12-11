@@ -177,6 +177,7 @@ export default {
             // labelIds: this.$store.getters.labelIds
         }
     },
+    
     async created() {
         this.debounceHandler = utilService.debounce(this.updateTask, 600)
         const { id, taskId, groupId } = this.$route.params;
@@ -193,6 +194,7 @@ export default {
             console.log(err);
         }
     },
+
     methods: {
         updateTitle(ev) {
             if (typeof ev.data !== "string") return;
