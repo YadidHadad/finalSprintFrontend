@@ -21,10 +21,10 @@
                     <!-- <input class="trellicons icon-clock" type="checkbox" 
                         v-model="isComplete" /> -->
                     <div class=" btn-date flex" @click.stop="toggleIsComplete"
-                        :style="{ backgroundColor: isComplete ? '#61bd4f' : '', color: isComplete ? '#ffff' : '' }">
+                        :style="{ backgroundColor: getIsComplete ? '#61bd4f' : '', color: getIsComplete ? '#ffff' : '' }">
                         <span class="trellicons icon-clock"></span>
                         <span class="fa-regular square-icon"></span>
-                        <span class="date-str" :style="{ color: isComplete ? '#ffff' : '' }"> {{ getDueDateStr }}</span>
+                        <span class="date-str" :style="{ color: getIsComplete ? '#ffff' : '' }"> {{ getDueDateStr }}</span>
                         <span v-if="getDueDateStr < Date.now()" class="time-tag"
                             :style="{ backgroundColor: '#ec9488' }"></span>
 
@@ -116,8 +116,8 @@ export default {
             this.$store.commit({ type: 'togglePreviewLabels', isOpen: this.isLabelsOpen })
         },
         toggleIsComplete() {
-            this.isComplete = !this.isComplete
-            this.updateTask(this.isComplete)
+            // this.isComplete = !this.isComplete
+            this.updateTask(!this.getIsComplete)
         },
         async updateTask(data) {
             // console.log(data)
