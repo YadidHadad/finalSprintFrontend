@@ -16,7 +16,7 @@
             <h3>{{ task.title }}</h3>
         </div>
         <section class="task-preview-icons flex wrap justify-between gap5">
-            <div class="flex row gap align-center">
+            <div class="preview-icons flex row align-center">
                 <div v-if="task.dueDate" class="task-date-preview flex">
                     <!-- <input class="trellicons icon-clock" type="checkbox" 
                         v-model="isComplete" /> -->

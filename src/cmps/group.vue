@@ -194,7 +194,6 @@ export default {
                     fullname: this.user.fullname,
                     imgUrl: this.user.imgUrl || '',
                 },
-                // task: this.task
             }
             const group = JSON.parse(JSON.stringify(this.group))
             group.title = this.newGroupTitle
