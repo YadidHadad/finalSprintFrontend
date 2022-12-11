@@ -7,8 +7,8 @@
             <router-link class="header-btn" :to="'/board'" :class="{ isDark: isDark }">
                 <span class="logo">Kannban</span>
             </router-link>
-            <button class="create-btn flex align-center justify-center" :style="buttonBackground"
-                @click="isAddBoard = true">
+            <button v-if="this.$route.params?.id" class="create-btn flex align-center justify-center"
+                :style="buttonBackground" @click="isAddBoard = true">
                 <span>Create</span>
             </button>
         </section>
