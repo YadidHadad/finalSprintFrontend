@@ -3,7 +3,8 @@
         <section class="main flex column grow">
             <board-header :board="board" :class="{ isDark: rgb.isDark, menuIsShown: !menuIsHidden }" :rgb="rgb"
                 @toggleBoardMenu="toggleBoardMenu" @filterTasks="filterTasks" />
-            <filter-tasks-modal v-if="showFilter" @closeFilter="(showFilter = false)" @doFilter="doFilter" />
+            <filter-tasks-modal v-if="showFilter" @closeFilter="(showFilter = false)" @doFilter="doFilter"
+                :filterBy="filterBy" />
 
             <router-view @addTask="addNewTask" @addGroup="addNewGroup" @removeGroup="removeGroup" :groups="board.groups"
                 :boardId="board._id" :rgb="rgb" :filterBy="filterBy" />
@@ -211,6 +212,7 @@ export default {
 
         doFilter(filterBy) {
             this.filterBy = filterBy
+            this.$store.commit({ type: 'setFilterBy', filterBy: JSON.parse(JSON.stringify(filterBy)) })
             console.log(this.filterBy);
         },
         toggleMember(memberId) {

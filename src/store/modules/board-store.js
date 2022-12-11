@@ -8,7 +8,15 @@ export const boardStore = {
         boards: null,
         board: null,
         editedTask: null,
-        previewTask: null
+        previewTask: null,
+        filterBy: {
+            title: '',
+            membersIds: [],
+            isNoMembers: false,
+            isAssignToMe: false,
+            labelIds: [],
+            isNoLabels: false
+        }
     },
 
     getters: {
@@ -19,6 +27,7 @@ export const boardStore = {
         checklists({ editedTask }) { return editedTask.checklists },
         activities({ board }) { return board.activities },
         members({ board }) { return board.members },
+        getFilterBy({ filterBy }) { return filterBy },
         taskLabels({ editedTask, board }) {
             if (!editedTask.labelIds) return []
             return board.labels.filter(bl => {
@@ -64,6 +73,14 @@ export const boardStore = {
             console.log(currBoard)
             // console.log(currBoard);
             state.board = currBoard
+            state.filterBy = {
+                title: '',
+                membersIds: [],
+                isNoMembers: false,
+                isAssignToMe: false,
+                labelIds: [],
+                isNoLabels: false
+            }
             // console.log(state.board);
         },
 
@@ -139,6 +156,10 @@ export const boardStore = {
 
         removeActivity({ state }) {
             state.board.activities.pop()
+        },
+
+        setFilterBy(state, { filterBy }) {
+            state.filterBy = filterBy
         },
 
         removeBoardLabel(state, { labelId }) {

@@ -11,7 +11,7 @@
                 <div class="text-filter-input">
                     <input type="text" placeholder="Enter a keyword..." v-model="filterBy.title" @input="doFilter"
                         @keyup.enter="doFilter">
-                        <voice-recognition @searchByVoice="searchByVoice"/>
+                    <voice-recognition @searchByVoice="searchByVoice" />
                 </div>
                 <small>Search cards, members, labels, and more.</small>
             </div>
@@ -130,7 +130,9 @@ export default {
         }
     },
     created() {
-        console.log(this.loggedinUser);
+        // console.log(this.loggedinUser);
+        this.filterBy = JSON.parse(JSON.stringify(this.$store.getters.getFilterBy))
+        console.log(this.filterBy);
     },
     methods: {
         searchByVoice(transcript) {
@@ -138,6 +140,7 @@ export default {
             this.$emit('doFilter', this.filterBy)
         },
         doFilter() {
+            console.log(this.filterBy);
             this.$emit('doFilter', this.filterBy)
         },
         toggleIsNoMembers() {
