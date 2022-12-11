@@ -65,7 +65,16 @@ header {
     }
 
     .create-btn {
+        position: relative;
         @include btn($type: regular);
+        font-family: "segoe-regular";
+        font-size: 0.875rem;
+        width: 60px;
+
+        & span {
+            position: absolute;
+            top: 7px;
+        }
     }
 
     & * {
