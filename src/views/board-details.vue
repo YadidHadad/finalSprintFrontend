@@ -144,7 +144,7 @@ export default {
             const url = this.board.style.backgroundImage
             try {
                 const color = await fac.getColorAsync(url)
-                console.log(color)
+                // console.log(color)
                 return color
             } catch (err) {
                 console.log(`err:`, err)
@@ -218,6 +218,18 @@ export default {
         toggleMember(memberId) {
             console.log(memberId);
         }
+    },
+    unmounted() {
+        this.$store.commit({
+            type: 'setFilterBy', filterBy: {
+                title: '',
+                membersIds: [],
+                isNoMembers: false,
+                isAssignToMe: false,
+                labelIds: [],
+                isNoLabels: false
+            }
+        })
     },
 
     computed: {

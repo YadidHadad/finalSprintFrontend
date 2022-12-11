@@ -10,35 +10,6 @@
         </div>
 
         <div class="add-board-members-search">
-            <!-- <div>
-                <Multiselect v-model="value" mode="tags" placeholder="Select employees" track-by="fullname"
-                    label="fullname" :close-on-select="false" :search="true" :options="searchedMembersObjects">
-                    <template v-slot:tag="{ option, handleTagRemove, disabled }">
-                        <div class="multiselect-tag is-user" :class="{
-                            'is-disabled': disabled
-                        }">
-                            <img :src="option.imgUrl">
-                            {{ option.fullname }}
-                            <span v-if="!disabled" class="multiselect-tag-remove"
-                                @mousedown.prevent="handleTagRemove(option, $event)">
-                                <span class="multiselect-tag-remove-icon"></span>
-                            </span>
-                        </div>
-                    </template>
-                </Multiselect>
-            </div> -->
-
-            <!-- <div class="m-4">
-                <p>use remote-show-suffix</p>
-                <el-select v-model="value" multiple filterable remote reserve-keyword
-                    placeholder="Please enter a keyword" remote-show-suffix :remote-method="remoteMethod"
-                    :loading="loading">
-                    <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
-                </el-select>
-            </div> -->
-
-
-
             <input type="text" placeholder="Email address or name" v-model="filterByName" @input="setSearchedMembers"
                 v-focus>
             <button>Share</button>
@@ -55,7 +26,6 @@
                 </div>
             </div>
         </div>
-
         <div class="board-members">
             <span>Recently joined</span>
             <div v-for="member in boardMembers" :key="member._id" class="board-member w-100">
@@ -196,7 +166,7 @@ export default {
 
             //     }
             // })
-            return boardMembers.slice(0, 5)
+            return boardMembers
 
         },
         users() {
