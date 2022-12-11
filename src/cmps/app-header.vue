@@ -7,8 +7,9 @@
             <router-link class="header-btn" :to="'/board'" :class="{ isDark: isDark }">
                 <span class="logo">Kannban</span>
             </router-link>
-            <button class="create-btn" :style="buttonBackground" @click="isAddBoard = true">
-                Create
+            <button class="create-btn flex align-center justify-center" :style="buttonBackground"
+                @click="isAddBoard = true">
+                <span>Create</span>
             </button>
         </section>
         <section class="user-buttons flex row align-center justify-center gap">

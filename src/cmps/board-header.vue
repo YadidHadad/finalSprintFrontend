@@ -33,8 +33,8 @@
                     {{ getInitials(member.fullname) }}
                 </span>
             </div>
-            <div v-if="(board.members.length > 5)" class="btn member-plus"><span class="fa-regular plus-icon">{{
-                    (board.members.length - 5)
+            <div v-if="(board.members.length > 5)" class="btn member-plus"><span class="fa-regular plus-icon"> {{
+                     (board.members.length - 5)
             }}</span>
             </div>
             <!-- <div class="separation">&nbsp;|&nbsp;</div> -->
