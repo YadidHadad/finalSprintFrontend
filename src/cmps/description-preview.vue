@@ -32,7 +32,7 @@ export default {
     },
     methods: {
         descClosed() {
-            console.log('outside********************')
+            // console.log('outside********************')
             this.isDescOpen = false
         },
         updateDescription(event) {

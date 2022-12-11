@@ -137,7 +137,7 @@ export default {
     },
     watch: {
         boards: function (newVal, oldVal) { // watch it
-            console.log(this.boards)
+            // console.log(this.boards)
         }
     }
 }
