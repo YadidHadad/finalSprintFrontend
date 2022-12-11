@@ -40,8 +40,8 @@ async function getById(userId) {
     const user = await httpService.get(`user/${userId}`)
 
     // socketService.emit(SOCKET_EMIT_USER_WATCH, userId)
-    socketService.off(SOCKET_EVENT_USER_UPDATED, onUserUpdate)
-    socketService.on(SOCKET_EVENT_USER_UPDATED, onUserUpdate)
+    // socketService.off(SOCKET_EVENT_USER_UPDATED, onUserUpdate)
+    // socketService.on(SOCKET_EVENT_USER_UPDATED, onUserUpdate)
 
     return user
 }
@@ -67,7 +67,7 @@ async function login(userCred) {
     const user = await httpService.post('auth/login', userCred)
     // console.log(user);
     if (user) {
-        socketService.login(user._id)
+        // socketService.login(user._id)
         return saveLocalUser(user)
     }
 }
@@ -77,12 +77,12 @@ async function signup(userCred) {
     if (!userCred.imgUrl) userCred.imgUrl = 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png'
     // const user = await storageService.post('user', userCred)
     const user = await httpService.post('auth/signup', userCred)
-    socketService.login(user._id)
+    // socketService.login(user._id)
     return saveLocalUser(user)
 }
 async function logout() {
     sessionStorage.removeItem(STORAGE_KEY_LOGGEDIN_USER)
-    socketService.logout()
+    // socketService.logout()
     return await httpService.post('auth/logout')
 }
 

@@ -79,25 +79,7 @@ export default {
     }
   },
   async created() {
-    // console.log(this.boards)
-    // // socketService.on('board pushed', () => {
-    // if (this.loggedInUser) {
-    //   console.log('hi');
-    //   socketService.on('board pushed', this.updateUser)
-    //   // this.boards.forEach(board => {
-    //   //   const membersIds = board.members.map(member => member._id)
-    //   //   if (membersIds.includes(this.loggedInUser._id)) {
-    //   //     socketService.on('user notifications pushed', this.updateNotifications)
-    //   //   }
-    //   // })
-    // }
-    // })
-    // try {
-    //   // await this.$store.dispatch({ type: 'loadBoards' })
-    // } catch (err) {
-    //   console.log(err)
 
-    // }
   },
   methods: {
     updateUser() {

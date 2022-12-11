@@ -3,7 +3,7 @@
 
     <section v-if="task" class="task-details" v-click-outside="closeDetails">
         <section class="task-cover">
-            <button class=" close-task" @click="closeDetails">
+            <button class="close-task" @click="closeDetails">
                 <span class="trellicons x-icon"></span>
             </button>
             <!-- <cover-preview v-if="task.style?.imgUrl" class="full" :coverBcg="task.style" /> -->
@@ -25,35 +25,35 @@
             <section class="add-to-card flex column">
                 <div class="btns-block">
                     <button v-if="!isUserOnTask" class="btn w-100 btn-join" @click.stop="toggleMember()">
-                        <span class="trello-home  join-icon"></span>
+                        <span class="trello-home join-icon"></span>
                         <span>Join</span>
                     </button>
                 </div>
                 <h4>Add to card</h4>
                 <div class="btns-block">
-                    <button v-for="btn in addBtns" :key="btn.arg" class="btn  w-100" @click="pickEditor(btn.arg)">
+                    <button v-for="btn in addBtns" :key="btn.arg" class="btn w-100" @click="pickEditor(btn.arg)">
                         <span :class="btn.icon"></span>
                         <span>{{ btn.title }}</span>
                     </button>
                 </div>
             </section>
-            <section class="btns-actions  flex column">
+            <section class="btns-actions flex column">
                 <h4>Actions</h4>
                 <!-- <button class="btn" @click="pickEditor('copy-task-edit')">
                     <span class="trellicons move"></span>
                     <span>Move</span>
                 </button> -->
                 <div class="btns-block">
-                    <button class="btn  w-100" @click="pickEditor('copy-task-edit')">
+                    <button class="btn w-100" @click="pickEditor('copy-task-edit')">
                         <span class="trellicons copy"></span>
                         <span>Copy</span>
                     </button>
-                    <button class="btn  w-100" @click="isShowDelete = !isShowDelete">
+                    <button class="btn w-100" @click="isShowDelete = !isShowDelete">
                         <span class="trellicons archive"></span>
                         <span>Remove</span>
                     </button>
-                    <button v-if="isShowDelete" class="delete-btn btn  w-100" @click="removeTask"
-                        v-click-outside="() => isShowDelete = false">
+                    <button v-if="isShowDelete" class="delete-btn btn w-100" @click="removeTask"
+                        v-click-outside="() => (isShowDelete = false)">
                         <span class="grow">Confirm deletion </span>
                     </button>
                 </div>
@@ -82,7 +82,6 @@
             <checklists-preview v-if="task.checklists" @updateChecklists="updateTask('checklist-preview', $event)" />
             <activities-preview :taskId="task.id" />
         </section>
-
     </section>
 
     <component :is="pickedEditor.editorType" @closeEdit="closeEditor" v-click-outside="closeEditor"
@@ -90,7 +89,6 @@
         @updateLabel="updateLabel" @updateMembers="updateTask" @copyTask="copyTask"
         @updateBoardLabels="updateBoardLabels" class="z-index-100" @removeLabel="removeBoardLabel">
     </component>
-
 
     <!-- <confirm-modal :msg="'Are you sure?'" v-if="isConfirmModal"/> -->
 </template>
@@ -115,13 +113,20 @@ import attachmentEdit from "../cmps/attachment-edit.vue";
 import attachmentPreview from "../cmps/attachment-preview.vue";
 import confirmModal from "../cmps/confirm-modal.vue";
 
-
 import { utilService } from "../services/util.service";
-import { socketService } from "../services/socket.service";
 
 export default {
-    emits: ["setRGB", 'closeEdit', 'updateTask', 'addChecklist', 'updateLabel'
-        , 'updateMembers', 'copyTask', 'updateBoardLabels', 'removeLabel'],
+    emits: [
+        "setRGB",
+        "closeEdit",
+        "updateTask",
+        "addChecklist",
+        "updateLabel",
+        "updateMembers",
+        "copyTask",
+        "updateBoardLabels",
+        "removeLabel",
+    ],
     props: {},
     components: {
         labelsEdit,
@@ -141,8 +146,7 @@ export default {
         locationPreview,
         attachmentEdit,
         attachmentPreview,
-        confirmModal
-
+        confirmModal,
     },
 
     data() {
@@ -162,33 +166,32 @@ export default {
             title: "",
             isShowDelete: false,
             addBtns: [
-                { arg: 'members-edit', icon: 'trellicons members-icon', title: 'Members' },
-                { arg: 'labels-edit', icon: 'trellicons labels-icon', title: 'Labels' },
-                { arg: 'checklist-edit', icon: 'trellicons checklist-icon', title: 'Checklist' },
-                { arg: 'dates-edit', icon: 'fa-regular date-icon', title: 'Dates' },
-                { arg: 'attachment-edit', icon: 'fa-solid attachment-icon', title: 'Attachment' },
-                { arg: 'location-edit', icon: 'trellicons location-icon', title: 'Location' },
-                { arg: 'cover-edit', icon: 'trellicons cover-icon', title: 'Cover' },
-
+                { arg: "members-edit", icon: "trellicons members-icon", title: "Members" },
+                { arg: "labels-edit", icon: "trellicons labels-icon", title: "Labels" },
+                { arg: "checklist-edit", icon: "trellicons checklist-icon", title: "Checklist" },
+                { arg: "dates-edit", icon: "fa-regular date-icon", title: "Dates" },
+                { arg: "attachment-edit", icon: "fa-solid attachment-icon", title: "Attachment" },
+                { arg: "location-edit", icon: "trellicons location-icon", title: "Location" },
+                { arg: "cover-edit", icon: "trellicons cover-icon", title: "Cover" },
             ],
             isCreateLabel: false,
             isConfirmModal: false,
 
             // labelIds: this.$store.getters.labelIds
-        }
+        };
     },
 
     async created() {
-        this.debounceHandler = utilService.debounce(this.updateTask, 600)
+        this.debounceHandler = utilService.debounce(this.updateTask, 600);
         const { id, taskId, groupId } = this.$route.params;
         // console.log(taskId);
         try {
             // await this.$store.dispatch({ type: 'loadBoards' })
             this.$store.commit({ type: "setBoard", boardId: id });
             this.$store.commit({ type: "setEditedTask", taskId, groupId, boardId: id });
-            this.task = JSON.parse(JSON.stringify(this.getTask))
+            this.task = JSON.parse(JSON.stringify(this.getTask));
 
-            this.title = this.getTask.title
+            this.title = this.getTask.title;
             this.description = this.task.description;
         } catch (err) {
             console.log(err);
@@ -223,7 +226,7 @@ export default {
                         taskId: this.task.id,
                         task: {
                             id: this.task.id,
-                            title: this.task.title
+                            title: this.task.title,
                         },
                         byMember: {
                             _id: this.user._id,
@@ -237,7 +240,8 @@ export default {
         async removeTask() {
             try {
                 await this.$store.dispatch({
-                    type: 'removeTask', payload: {
+                    type: "removeTask",
+                    payload: {
                         taskId: this.task.id,
                         activity: {
                             txt: `Deleted ${this.task.title}`,
@@ -250,22 +254,24 @@ export default {
                                 imgUrl: this.user.imgUrl || "",
                             },
                         },
-                    }
-                })
+                    },
+                });
                 // console.log('remove!');
-                this.closeDetails()
-            }
-            catch (err) {
-                console.log("Failed in task remove", err)
+                this.closeDetails();
+            } catch (err) {
+                console.log("Failed in task remove", err);
             }
         },
         async copyTask(data) {
             try {
-                const { task, toGroupId, toBoardId } = data
+                const { task, toGroupId, toBoardId } = data;
                 // console.log(data, 'BOARDDDDDDDDDDDDDDDDDDD');
-                task.id = utilService.makeId()
+                task.id = utilService.makeId();
                 this.$store.dispatch({
-                    type: 'copyTask', toBoardId, toGroupId, task,
+                    type: "copyTask",
+                    toBoardId,
+                    toGroupId,
+                    task,
                     activity: {
                         txt: `Made copy for ${task.title}`,
                         byMember: {
@@ -273,19 +279,18 @@ export default {
                             fullname: this.user.fullname,
                             imgUrl: this.user.imgUrl || "",
                         },
-                    }
-                })
-                this.closeEditor()
-            }
-            catch (err) {
-                console.log("Failed in task copy", err)
+                    },
+                });
+                this.closeEditor();
+            } catch (err) {
+                console.log("Failed in task copy", err);
             }
         },
 
         async updateTask(type, data) {
-            console.log('hi')
-            let taskToUpdate = JSON.parse(JSON.stringify(this.task))
-            var txt
+            console.log("hi");
+            let taskToUpdate = JSON.parse(JSON.stringify(this.task));
+            var txt;
             switch (type) {
                 case "labels-edit":
                     if (!taskToUpdate?.labelIds) taskToUpdate.labelIds = [];
@@ -293,7 +298,7 @@ export default {
                     txt = "Updated label";
                     break;
                 case "description":
-                    txt = `Updated ${taskToUpdate.title} description`
+                    txt = `Updated ${taskToUpdate.title} description`;
                     taskToUpdate.description = data;
                     break;
                 case "title":
@@ -301,7 +306,7 @@ export default {
                     taskToUpdate.title = data;
                     break;
                 case "checklist-edit":
-                    txt = `Added checklist ${data.title} in ${taskToUpdate.title}`
+                    txt = `Added checklist ${data.title} in ${taskToUpdate.title}`;
                     if (!taskToUpdate?.checklists) taskToUpdate.checklists = [];
                     data.id = utilService.makeId();
                     taskToUpdate.checklists.push(data);
@@ -309,68 +314,73 @@ export default {
                     break;
                 case "members-edit":
                     // console.log('update task', data)
-                    taskToUpdate.memberIds = data.memberIds
-                    txt = `${data.action} ${data.fullname} ${data.action === 'added' ? 'to' : 'from'} ${this.task.title}`
+                    taskToUpdate.memberIds = data.memberIds;
+                    txt = `${data.action} ${data.fullname} ${data.action === "added" ? "to" : "from"
+                        } ${this.task.title}`;
                     break;
                 case "checklist-preview":
                     txt = `Edited checklist ${data.title} in ${taskToUpdate.title}`;
-                    taskToUpdate.checklists = data
-                    break
+                    taskToUpdate.checklists = data;
+                    break;
                 case "dates-edit":
-                    taskToUpdate.dueDate ?
-                        txt = `Changed due date for ${taskToUpdate.title}`
-                        : txt = `Added due date for ${taskToUpdate.title}`
-                    taskToUpdate.dueDate = data
+                    taskToUpdate.dueDate
+                        ? (txt = `Changed due date for ${taskToUpdate.title}`)
+                        : (txt = `Added due date for ${taskToUpdate.title}`);
+                    taskToUpdate.dueDate = data;
                     this.closeEditor();
-                    break
-                case 'dates-preview':
-                    data ? txt = `Marked ${this.task.title} as complete` : txt = `Unmarked ${this.task.title} as complete`
-                    taskToUpdate.isComplete = data
+                    break;
+                case "dates-preview":
+                    data
+                        ? (txt = `Marked ${this.task.title} as complete`)
+                        : (txt = `Unmarked ${this.task.title} as complete`);
+                    taskToUpdate.isComplete = data;
                     // console.log(taskToUpdate);
-                    break
-                case 'cover-edit':
-                    console.log(data)
+                    break;
+                case "cover-edit":
+                    console.log(data);
                     txt = `Updated  ${this.task.title} cover`;
-                    if (data.startsWith('#')) {
+                    if (data.startsWith("#")) {
                         taskToUpdate.style = {
-                            'bgColor': data
-                        }
+                            bgColor: data,
+                        };
                     } else {
                         taskToUpdate.style = {
-                            'imgUrl': data
-                        }
+                            imgUrl: data,
+                        };
                     }
-                    break
-                case 'location-edit':
-                    if (!data) txt = `Removed  ${this.task.title} location`
-                    else txt = `Updated  ${this.task.title} location to ${data.name}`
-                    taskToUpdate.location = data
+                    break;
+                case "location-edit":
+                    if (!data) txt = `Removed  ${this.task.title} location`;
+                    else txt = `Updated  ${this.task.title} location to ${data.name}`;
+                    taskToUpdate.location = data;
                     this.closeEditor();
-                    break
-                case 'attachment-edit':
-                    txt = `Added  ${this.task.title} attachment`
-                    if (data.type === 'image') {
+                    break;
+                case "attachment-edit":
+                    txt = `Added  ${this.task.title} attachment`;
+                    if (data.type === "image") {
                         taskToUpdate.style = {
-                            'imgUrl': data.url
-                        }
+                            imgUrl: data.url,
+                        };
                     }
-                    if (!taskToUpdate.attachments) taskToUpdate.attachments = []
-                    taskToUpdate.attachments.unshift(data)
+                    if (!taskToUpdate.attachments) taskToUpdate.attachments = [];
+                    taskToUpdate.attachments.unshift(data);
                     console.log(data);
                     this.closeEditor();
-                    break
-                case 'attachment-preview':
-                    txt = `Updated  ${this.task.title} attachments`
-                    // if (taskToUpdate.style === data.url) 
+                    break;
+                case "attachment-preview":
+                    txt = `Updated  ${this.task.title} attachments`;
+                    // if (taskToUpdate.style === data.url)
                     // console.log(data.url);
-                    taskToUpdate.attachments = data
-                    break
-
+                    taskToUpdate.attachments = data;
+                    break;
             }
             try {
-                var prevTask = JSON.parse(JSON.stringify(this.task))
-                this.$store.commit({ type: 'updateTask', payload: { task: taskToUpdate, groupId: this.groupId } })
-                this.task = JSON.parse(JSON.stringify(this.getTask))
+                var prevTask = JSON.parse(JSON.stringify(this.task));
+                this.$store.commit({
+                    type: "updateTask",
+                    payload: { task: taskToUpdate, groupId: this.groupId },
+                });
+                this.task = JSON.parse(JSON.stringify(this.getTask));
                 console.log(this.task);
                 let updatedTask = await this.$store.dispatch({
                     type: "updateTask",
@@ -385,7 +395,7 @@ export default {
                             taskId: this.task.id,
                             task: {
                                 id: this.task.id,
-                                title: this.task.title
+                                title: this.task.title,
                             },
                             byMember: {
                                 _id: this.user._id,
@@ -397,9 +407,12 @@ export default {
                 });
                 // this.task = updatedTask;
             } catch (err) {
-                this.$store.commit({ type: 'updateTask', payload: { task: prevTask, groupId: this.groupId } })
-                this.task = JSON.parse(JSON.stringify(this.getTask))
-                console.log("Failed in task update")
+                this.$store.commit({
+                    type: "updateTask",
+                    payload: { task: prevTask, groupId: this.groupId },
+                });
+                this.task = JSON.parse(JSON.stringify(this.getTask));
+                console.log("Failed in task update");
                 // this.task = prevTask
             }
         },
@@ -412,10 +425,10 @@ export default {
             //         groupId: this.groupId,
             //     },
             // })
-            this.$router.push(`/board/${this.$route.params.id}`)
+            this.$router.push(`/board/${this.$route.params.id}`);
         },
         confirm() {
-            this.isConfirmModal = true
+            this.isConfirmModal = true;
         },
         async removeBoardLabel(label) {
             try {
@@ -428,13 +441,12 @@ export default {
                         groupId: this.groupId,
                         taskId: this.task.id,
                     },
-                })
-            }
-            catch (err) {
+                });
+            } catch (err) {
                 console.log(err);
             }
-            const labelIdx = taskToUpdate.labelIds.find(labelId => labelId === data)
-            taskToUpdate.labelIds.splice(labelIdx, 1)
+            const labelIdx = taskToUpdate.labelIds.find((labelId) => labelId === data);
+            taskToUpdate.labelIds.splice(labelIdx, 1);
             txt = "removed label";
         },
         async addChecklist(checklist) {
@@ -451,15 +463,14 @@ export default {
                         taskId: this.task.id,
                     },
                 },
-            })
+            });
             this.closeEditor();
         },
         openMembersEditor() {
-            this.pickEditor('members-edit')
-
+            this.pickEditor("members-edit");
         },
         openCreateLabel() {
-            this.isCreateLabel = true
+            this.isCreateLabel = true;
             this.closeEditor();
         },
         async updateBoardLabels(label) {
@@ -473,29 +484,32 @@ export default {
                 //     groupId: this.groupId,
                 //     taskId: this.task.id,
                 // },
-            })
+            });
         },
         toggleMember() {
-            const user = this.user
-            const memberIds = JSON.parse(JSON.stringify(this.getTask.memberIds || []))
-            console.log(user)
-            console.log(memberIds)
-            console.log('********************')
-            var action
-            const memberIdx = memberIds.findIndex(id => {
-                return user._id === id
-            })
+            const user = this.user;
+            const memberIds = JSON.parse(JSON.stringify(this.getTask.memberIds || []));
+            console.log(user);
+            console.log(memberIds);
+            console.log("********************");
+            var action;
+            const memberIdx = memberIds.findIndex((id) => {
+                return user._id === id;
+            });
             if (memberIdx < 0) {
-                memberIds.push(user._id)
-                action = 'added'
+                memberIds.push(user._id);
+                action = "added";
             } else {
-                memberIds.splice(memberIdx, 1)
-                action = 'removed'
+                memberIds.splice(memberIdx, 1);
+                action = "removed";
             }
 
-            this.updateTask('members-edit', { memberIds: memberIds, fullname: user.fullname, action })
+            this.updateTask("members-edit", {
+                memberIds: memberIds,
+                fullname: user.fullname,
+                action,
+            });
             // this.$emit('updateMembers', 'members-edit', { memberIds: memberIds, fullname: user.fullname, action })
-
         },
     },
     computed: {
@@ -525,20 +539,17 @@ export default {
             // console.log(`board:`, board);
             const group = board.groups.find((group) => group.id === this.$route.params.groupId);
             // console.log(group.title, 'TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT');
-            if (!group.title) return ''
+            if (!group.title) return "";
             return group.title;
 
             // return JSON.parse(JSON.stringify(this.$store.getters.getEditedTask)).title
         },
         isUserOnTask() {
-            const memberIds = JSON.parse(JSON.stringify(this.getTask.memberIds || []))
+            const memberIds = JSON.parse(JSON.stringify(this.getTask.memberIds || []));
 
-            const idx = memberIds.findIndex(id => id === this.user._id)
-            return idx === -1 ? false : true
-
-
-        }
+            const idx = memberIds.findIndex((id) => id === this.user._id);
+            return idx === -1 ? false : true;
+        },
     },
-
 };
 </script>

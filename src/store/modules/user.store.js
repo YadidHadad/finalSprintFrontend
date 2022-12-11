@@ -1,5 +1,4 @@
 import { userService } from '../../services/user.service'
-import { socketService, SOCKET_EMIT_USER_WATCH, SOCKET_EVENT_USER_UPDATED } from '../../services/socket.service'
 import { utilService } from '../../services/util.service'
 
 // var localLoggedinUser = null

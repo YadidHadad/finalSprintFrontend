@@ -73,9 +73,9 @@ export default {
 
     created() {
         this.setBoardId()
-        socketService.emit('new board enter', this.board._id)
-        socketService.on('board pushed', this.pushedBoard)
-        socketService.on('activity pushed', this.pushedActivity)
+        // socketService.emit('new board enter', this.board._id)
+        // socketService.on('board pushed', this.pushedBoard)
+        // socketService.on('activity pushed', this.pushedActivity)
     },
 
     methods: {
@@ -246,7 +246,7 @@ export default {
         $route(to, from) {
             console.log(to, from, '.................................');
             this.setBoardId()
-            socketService.emit('New board enter', this.board._id)
+            // socketService.emit('New board enter', this.board._id)
         },
         style(to, from) {
             this.setBoardId()
