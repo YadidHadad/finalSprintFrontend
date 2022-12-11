@@ -33,11 +33,12 @@
             transition: all ease-in-out 0.4s;
             box-shadow: #0075ff;
             transform: scale(0.9);
+  
 
             outline: none;
             &:checked {
                 border-radius: 0px;
-                outline: 1px solid #0075ff;
+                // outline: 1px solid #0075ff;
                 background-color: #0075ff;
                 opacity: 1;
                 transform: scale(1.1);
