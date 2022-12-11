@@ -3,8 +3,8 @@
         <div class="flex align-center  wrap">
             <!-- <input type="text" v-model="board.title" :style="titleLength" @input="debounceHandler"
                 @keyup.enter="setBoardTitle" /> -->
-            <contenteditable class="input" tag="div" :contenteditable="isEditable" v-model="board.title" :no-nl="true"
-                :no-html="true" @returned="debounceHandler" />
+            <contenteditable class="input" tag="div" ref="title" :contenteditable="isEditable" v-model="board.title"
+                :no-nl="true" :no-html="true" @returned="setBoardTitle" />
             <div class="separation"></div>
 
             <div class="views-container flex align-center  wrap">
@@ -84,8 +84,8 @@ export default {
         toggleBoardMenu() {
             this.$emit("toggleBoardMenu");
         },
-        setBoardTitle(event) {
-            // event.target.blur()
+        setBoardTitle() {
+
             // if (this.board.title.length > 15) this.board.title = this.board.title.slice(0, 15) + '...'
 
             this.$store.dispatch({ type: "updateBoard", board: this.board });
