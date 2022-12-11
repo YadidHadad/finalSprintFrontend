@@ -37,6 +37,7 @@ async function query(filterBy = { title: '' }) {
     // // }
     // return boards
 }
+
 async function save(board) {
     board = JSON.parse(JSON.stringify(board))
     console.log('BOARD COPIED SUCCESSFULLY')
@@ -50,7 +51,7 @@ async function save(board) {
         } else {
             // Later, owner is set by the backend
             board.createdBy = userService.getLoggedinUser()
-            savedBoard = await await httpService.post(BOARD_URL, board)
+            savedBoard = await httpService.post(BOARD_URL, board)
         }
         return savedBoard
     }
@@ -60,17 +61,16 @@ async function save(board) {
         throw prevBoard
     }
 }
-function getById(boardId) {
+
+async function getById(boardId) {
     // return storageService.get(STORAGE_KEY, boardId)
-    return httpService.get(`${BOARD_URL}${boardId}`)
+    return await httpService.get(`${BOARD_URL}${boardId}`)
 }
 
 async function remove(boardId) {
     // await storageService.remove(STORAGE_KEY, boardId)
     return httpService.delete(`${BOARD_URL}${boardId}`)
 }
-
-
 
 async function addBoardMsg(boardId, txt) {
     const savedMsg = await httpService.post(`${BOARD_URL}${boardId}/msg`, { txt })

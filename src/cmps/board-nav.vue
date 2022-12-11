@@ -25,8 +25,6 @@
             <button class="btn-regular" @click="isAddBoard = true"> <span class="fa-regular plus-icon"></span></button>
         </div>
         <div class="boards-container flex column ">
-
-
             <button v-for="board in boards" :key="board._id" class="btn-nav"
                 :class="{ isDark: isDark, isClicked: this.$route.params.id === board._id }"
                 @click="goToBoard(board._id)">

@@ -122,6 +122,8 @@ export default {
     methods: {
         async onDrop(dropResult) {
             console.log('ONDROP')
+            console.log(Date.now())
+            console.log('THS BOARD:', this.$store.getters.board)
             const { removedIndex, addedIndex, payload, element } = dropResult;
             if (removedIndex === null && addedIndex === null) return
 
