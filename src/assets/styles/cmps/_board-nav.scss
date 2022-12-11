@@ -7,7 +7,7 @@
     // overflow-y: scroll;
     height: 100%;
     backdrop-filter: blur(2px);
-    box-shadow: inset -1px 0px 0px rgba(0, 0, 0, 0.2);
+    box-shadow: inset -1px 0px 0px rgba(0, 0, 0, 0.1);
     margin-left: 0px;
     opacity: 1;
     transition: all 0.3s ease-out;
@@ -106,7 +106,7 @@
         .btn-toggle {
             position: relative;
             left: 20px;
-            top: 0;
+            top: 6px;
             border-radius: 50% !important;
             background-color: rgba($textLight, 0.3);
             backdrop-filter: blur(200px);
@@ -116,7 +116,10 @@
             align-items: center;
             height: 1.5rem;
             width: 1.5rem;
-
+            span {
+                position: absolute;
+                top: 1.5px;
+            }
             span::before {
                 font-size: 0.6rem;
                 content: "\f054";

@@ -109,8 +109,8 @@ header {
         min-width: 200px;
         height: 2rem;
         border-radius: 5px;
-        background-color: rgba($textLight, 0.2);
-        border: 1px solid rgba($textDark, 0.3);
+        background-color: rgba($textLight, 0.1);
+        border: 1px solid rgba($textDark, 0.2);
         padding: 0 0.5rem;
 
         input {
@@ -132,8 +132,8 @@ header {
         }
 
         &.isDark {
-            background-color: rgba($textLight, 0.2);
-            border: 1px solid rgba($textLight, 0.3);
+            background-color: rgba($textLight, 0.1);
+            border: 1px solid rgba($textLight, 0.2);
 
             * {
                 color: $textLight;

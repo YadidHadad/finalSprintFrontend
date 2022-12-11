@@ -105,7 +105,7 @@
 
     .member-plus {
         @include btn($type: regular);
-
+        position: relative;
         border-radius: 50%;
         // margin: 0;
         height: 2rem;
@@ -114,7 +114,10 @@
         color: $textDark;
         background-color: rgba($textLight, 0.2);
         font-size: 0.75rem;
-
+        span {
+            position: absolute;
+            right: 0.4rem;
+        }
         &.isDark {
             * {
                 color: $textLight;
@@ -123,7 +126,12 @@
         }
     }
     .isClicked {
-        backdrop-filter: brightness(0.5);
+        * {
+            color: $textDark !important;
+        }
+        background-color: #ebecf0 !important;
+
+        // backdrop-filter: brightness(0.5);
     }
     .separation {
         margin-inline: 0.5rem;
