@@ -128,13 +128,13 @@ export default {
                     icon: this.board.isStarred ? "fa-solid star-icon" : "fa-regular star-icon",
                     function: this.setBoardStar
                 },
-                {
-                    txt: "Board",
-                    icon: "trello-home board-icon",
-                    function: () => { this.btnClicked = 'Board'; this.$router.push(`/board/${this.$route.params.id}`) },
-                    isClicked: "Board",
+                // {
+                //     txt: "Board",
+                //     icon: "trello-home board-icon",
+                //     function: () => { this.btnClicked = 'Board'; this.$router.push(`/board/${this.$route.params.id}`) },
+                //     isClicked: "Board",
 
-                },
+                // },
                 // {
                 //     txt: "Table",
                 //     icon: "trello-home table-icon",
@@ -149,20 +149,19 @@ export default {
                 //     isClicked: "Calender",
 
                 // },
-                {
-                    txt: "Dashboard",
-                    icon: "trello-home dashboard-icon",
-                    function: () => { this.btnClicked = 'Dashboard'; this.$router.push(`/board/${this.$route.params.id}/dashboard`) },
-                    isClicked: "Dashboard",
+                // {
+                //     txt: "Dashboard",
+                //     icon: "trello-home dashboard-icon",
+                //     function: () => { this.btnClicked = 'Dashboard'; this.$router.push(`/board/${this.$route.params.id}/dashboard`) },
+                //     isClicked: "Dashboard",
+                // },
+                // {
+                //     txt: "Map",
+                //     icon: "trello-home location-icon",
+                //     function: () => { this.btnClicked = 'Map'; this.$router.push(`/board/${this.$route.params.id}/map`) },
+                //     isClicked: "Map",
 
-                },
-                {
-                    txt: "Map",
-                    icon: "trello-home location-icon",
-                    function: () => { this.btnClicked = 'Map'; this.$router.push(`/board/${this.$route.params.id}/map`) },
-                    isClicked: "Map",
-
-                },
+                // },
             ]
         }
     },

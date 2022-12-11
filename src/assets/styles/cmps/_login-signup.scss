@@ -170,7 +170,8 @@
     opacity: 0;
 }
 
-.g-btn {}
+.g-btn {
+}
 
 .google-btn {
     box-shadow: rgb(0 0 0 / 20%) 1px 1px 5px 0px !important;
@@ -221,3 +222,10 @@
         margin-inline: 8px;
     }
 }
+
+@media (max-width: 780px) {
+    .bottom-right-img,
+    .bottom-left-img {
+        width: 50%;
+    }
+} ;
