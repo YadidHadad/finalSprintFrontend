@@ -35,6 +35,10 @@
     color: $textDark;
     background-color: $taskDetailsBGC;
 
+    .task-title {
+        width: 100%;
+    }
+
     & > *:not(.task-cover) {
         padding: 0 16px 16px 16px;
     }

@@ -4,7 +4,7 @@ header {
     display: flex;
     justify-content: space-between;
     font-size: 1rem;
-    box-shadow: inset 0px -1px 0px rgb(0 0 0 / 33%);
+    box-shadow: inset 0px -1px 0px rgb(0 0 0 / 10%);
     transition: all 0.5s ease-out;
     position: fixed;
     width: 100%;
@@ -74,7 +74,7 @@ header {
     }
 
     &.isDark {
-        box-shadow: inset 0px -1px 0px rgb(255 255 255 / 33%);
+        box-shadow: inset 0px -1px 0px rgb(255 255 255 / 10%);
 
         * {
             color: $textLight;

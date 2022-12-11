@@ -11,7 +11,7 @@
                 @closeEdit="closeEditor" />
         </section>
         <section class="task-header task-cmp flex column align-start">
-            <div class="flex row align-center">
+            <div class="task-title flex row align-center">
                 <span class="trellicons card-icon large"></span>
                 <input v-model="title" @input="debounceHandler('title', title)"
                     @keyup.enter="($event) => $event.target.blur()" />
@@ -120,8 +120,8 @@ import { utilService } from "../services/util.service";
 import { socketService } from "../services/socket.service";
 
 export default {
-    emits: ["setRGB" , 'closeEdit', 'updateTask', 'addChecklist', 'updateLabel'
-    , 'updateMembers', 'copyTask', 'updateBoardLabels', 'removeLabel'],
+    emits: ["setRGB", 'closeEdit', 'updateTask', 'addChecklist', 'updateLabel'
+        , 'updateMembers', 'copyTask', 'updateBoardLabels', 'removeLabel'],
     props: {},
     components: {
         labelsEdit,
@@ -177,7 +177,7 @@ export default {
             // labelIds: this.$store.getters.labelIds
         }
     },
-    
+
     async created() {
         this.debounceHandler = utilService.debounce(this.updateTask, 600)
         const { id, taskId, groupId } = this.$route.params;

@@ -20,7 +20,9 @@
                 <span class="trello-home filter-icon"></span>
                 <span class="txt">Filter</span>
             </button>
-            <span class="separation">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+            <!-- <span class="separation">&nbsp;&nbsp;|&nbsp;&nbsp;</span> -->
+            <div class="separation"></div>
+
             <div v-for="member in board.members.slice(0, 5)" :key="member._id" :title="member.fullname"
                 @click="isAddMembers = true" class="board-members">
                 <div v-if="member.imgUrl" class="member-image" :style="memberImage(member.imgUrl)"
@@ -33,7 +35,8 @@
                     (board.members.length - 5)
             }}</span>
             </div>
-            <span class="separation">&nbsp;|&nbsp;</span>
+            <!-- <div class="separation">&nbsp;|&nbsp;</div> -->
+            <div class="separation"></div>
             <button class="btn " :class="{ isDark: !isDark }" :style="buttonBackground" @click="toggleBoardMenu">
                 <span class="trello-home elipsis-icon"></span>
             </button>
