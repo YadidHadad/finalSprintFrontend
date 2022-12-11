@@ -1,8 +1,10 @@
 <template>
     <section v-if="board" class="board-header flex row align-center justify-between wrap">
         <div class="flex align-center  wrap">
-            <input type="text" v-model="board.title" :style="titleLength" @input="debounceHandler"
-                @keyup.enter="setBoardTitle" />
+            <!-- <input type="text" v-model="board.title" :style="titleLength" @input="debounceHandler"
+                @keyup.enter="setBoardTitle" /> -->
+            <contenteditable class="input" tag="div" :contenteditable="isEditable" v-model="board.title" :no-nl="true"
+                :no-html="true" @returned="debounceHandler" />
             <div class="views-container flex align-center  wrap">
                 <button v-if="board" v-for="(btn, i) in btns" class="btn"
                     :class="{ isDark: !isDark, isClicked: btnClicked === btn.isClicked }" :style="buttonBackground"
@@ -44,6 +46,7 @@
 <script>
 import { utilService } from "../services/util.service";
 import addBoardMembers from "./add-board-members.vue";
+import contenteditable from 'vue-contenteditable'; // Not needed it registered globally
 
 export default {
     name: "board-header",
@@ -54,13 +57,15 @@ export default {
         },
     },
     created() {
-        this.debounceHandler = utilService.debounce(this.setBoardTitle, 200)
+        this.debounceHandler = utilService.debounce(this.setBoardTitle, 1000)
     },
 
     data() {
         return {
             btnClicked: 'Board',
-            isAddMembers: false
+            isAddMembers: false,
+            isEditable: true,
+            message: "hello"
         }
     },
 
@@ -75,7 +80,7 @@ export default {
             this.$emit("toggleBoardMenu");
         },
         setBoardTitle(event) {
-            event.target.blur()
+            // event.target.blur()
             // if (this.board.title.length > 15) this.board.title = this.board.title.slice(0, 15) + '...'
 
             this.$store.dispatch({ type: "updateBoard", board: this.board });
@@ -106,7 +111,7 @@ export default {
         titleLength() {
             if (!this.board.title) return;
             // return { width: `${(this.board.title.length)}` + "ch" };
-            return { width: `${(this.board.title.length + 3) * 10}` + "px" };
+            return { width: `${(this.board.title.length) * 1}` + "ch" };
         },
         board() {
 
@@ -128,13 +133,13 @@ export default {
                     icon: this.board.isStarred ? "fa-solid star-icon" : "fa-regular star-icon",
                     function: this.setBoardStar
                 },
-                {
-                    txt: "Board",
-                    icon: "trello-home board-icon",
-                    function: () => { this.btnClicked = 'Board'; this.$router.push(`/board/${this.$route.params.id}`) },
-                    isClicked: "Board",
+                // {
+                //     txt: "Board",
+                //     icon: "trello-home board-icon",
+                //     function: () => { this.btnClicked = 'Board'; this.$router.push(`/board/${this.$route.params.id}`) },
+                //     isClicked: "Board",
 
-                },
+                // },
                 // {
                 //     txt: "Table",
                 //     icon: "trello-home table-icon",
@@ -149,25 +154,25 @@ export default {
                 //     isClicked: "Calender",
 
                 // },
-                {
-                    txt: "Dashboard",
-                    icon: "trello-home dashboard-icon",
-                    function: () => { this.btnClicked = 'Dashboard'; this.$router.push(`/board/${this.$route.params.id}/dashboard`) },
-                    isClicked: "Dashboard",
+                // {
+                //     txt: "Dashboard",
+                //     icon: "trello-home dashboard-icon",
+                //     function: () => { this.btnClicked = 'Dashboard'; this.$router.push(`/board/${this.$route.params.id}/dashboard`) },
+                //     isClicked: "Dashboard",
+                // },
+                // {
+                //     txt: "Map",
+                //     icon: "trello-home location-icon",
+                //     function: () => { this.btnClicked = 'Map'; this.$router.push(`/board/${this.$route.params.id}/map`) },
+                //     isClicked: "Map",
 
-                },
-                {
-                    txt: "Map",
-                    icon: "trello-home location-icon",
-                    function: () => { this.btnClicked = 'Map'; this.$router.push(`/board/${this.$route.params.id}/map`) },
-                    isClicked: "Map",
-
-                },
+                // },
             ]
         }
     },
     components: {
-        addBoardMembers
+        addBoardMembers,
+        contenteditable
     }
 
 };

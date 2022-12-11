@@ -31,10 +31,13 @@
                         @updateAttachment="updateAttachment" @closeModal="closeModal" />
                 </div>
             </div>
-            <div class="show-attachments" v-if="!isShowAll" @click="toggleShowAll">View all attachments
-                ({{ (attachmentLength - attachmentsForDisplay.length) }} hidden)
+            <div v-if="attachmentsCopy.length > 4">
+                <div class="show-attachments" v-if="!isShowAll" @click="toggleShowAll">View
+                    all attachments
+                    ({{ (attachmentLength - attachmentsForDisplay.length) }} hidden)
+                </div>
+                <div class="show-attachments" v-else @click="toggleShowAll">Show fewer attachments</div>
             </div>
-            <div class="show-attachments" v-else @click="toggleShowAll">Show fewer attachments</div>
             <button>Add an attachment</button>
         </div>
     </section>

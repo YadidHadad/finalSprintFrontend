@@ -20,8 +20,8 @@
                 <div v-if="task.dueDate" class="task-date-preview flex">
                     <!-- <input class="trellicons icon-clock" type="checkbox" 
                         v-model="isComplete" /> -->
-                    <div class=" btn-date flex" @click.stop="toggleIsComplete"
-                        :style="{ backgroundColor: getIsComplete ? '#61bd4f' : '', color: getIsComplete ? '#ffff' : '' }">
+                    <div class="btn-date flex" @click.stop="toggleIsComplete"
+                        :style="{ backgroundColor: getIsComplete ? '#61bd4f' : '', color: getIsComplete ? '#ffff' : ''}">
                         <span class="trellicons icon-clock"></span>
                         <span class="fa-regular square-icon"></span>
                         <span class="date-str" :style="{ color: getIsComplete ? '#ffff' : '' }"> {{ getDueDateStr }}</span>
