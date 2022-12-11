@@ -3,7 +3,6 @@ import { socketService, SOCKET_EVENT_ACTIVITY_ADDED } from './socket.service.js'
 import { httpService } from './http.service.js'
 import { utilService } from './util.service.js'
 import { userService } from './user.service.js'
-
 import { store } from '../store/store'
 
 
@@ -37,6 +36,7 @@ async function query(filterBy = { title: '' }) {
     // // }
     // return boards
 }
+
 async function save(board) {
     board = JSON.parse(JSON.stringify(board))
     // console.log('BOARD COPIED SUCCESSFULLY')
