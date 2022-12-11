@@ -52,11 +52,9 @@
         top: 97px;
         min-width: 280px;
         border-radius: 3px;
-        box-shadow: var(
-            --ds-shadow-overlay,
-            0 8px 16px -4px rgba(9, 30, 66, 0.2509803922),
-            0 0 0 1px var(--ds-border, rgba(9, 30, 66, 0.0784313725))
-        );
+        box-shadow: var(--ds-shadow-overlay,
+                0 8px 16px -4px rgba(9, 30, 66, 0.2509803922),
+                0 0 0 1px var(--ds-border, rgba(9, 30, 66, 0.0784313725)));
         margin: 4px;
         right: 89px;
         padding: 4px;
@@ -73,12 +71,18 @@
     }
 
     .board-members {
-        display: flex;
-        flex-direction: column;
-        // margin-bottom: 20px;
         max-height: 488px;
-        overflow-y: auto;
         padding-right: 20px;
+        margin-right: 4px;
+        overflow-y: auto;
+        display: flex;
+        gap: 5px;
+        flex-direction: column;
+        margin-bottom: 1px;
+
+        >:last-child {
+            margin-bottom: 16px;
+        }
 
         .member-user {
             padding-top: 16px;
