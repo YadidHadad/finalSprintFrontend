@@ -32,7 +32,7 @@
         </div>
 
         <Container class="task-preview-container flex column" orientation="vertical" group-name="group-tasks"
-            ref="group" @drop="onDrop"
+            ref="group" @drop="onDrop" @drag-start="onDragStart"
             :shouldAcceptDrop="(e, payload) => (e.groupName === 'group-tasks' && !payload.loading)"
             :get-child-payload="getChildPayload" drop-class="" :drop-class="dragClass">
             <Draggable class="task-preview" v-for="task in tasksToShow" :key="task.id">
@@ -99,16 +99,16 @@ export default {
             tasksCopy: [],
             tasksToShow: [],
             dropCounter: 0,
-            isRemoveClicked: false
-
+            isRemoveClicked: false,
+            prevBoard: null
         }
     },
 
     async created() {
         // console.log(this.group, '************************')
         // console.log(this.filterBy);
-        this.tasksCopy = JSON.parse(JSON.stringify(this.group.tasks))
-        this.tasksToShow = this.group.tasks
+        this.tasksToShow = JSON.parse(JSON.stringify(this.group.tasks))
+        // this.tasksToShow = this.group.tasks
         this.dropDebounce = utilService.debounce(this.onDrop, 500)
 
         // try {
@@ -121,30 +121,34 @@ export default {
 
     methods: {
         async onDrop(dropResult) {
-            console.log('ONDROP')
-            console.log(Date.now())
-            console.log('THS BOARD:', this.$store.getters.board)
             const { removedIndex, addedIndex, payload, element } = dropResult;
             if (removedIndex === null && addedIndex === null) return
 
             // console.log('ON DROP! - group.vue', dropResult)
-            // if(addedIndex !== null) this.$store.commit({type: 'updateTasks' ,payload: { tasks: this.tasksCopy, groupId: this.group.id } })
+            // if(addedIndex !== null) this.$store.commit({type: 'updateTasks' ,payload: { tasks: this.tasksToShow, groupId: this.group.id } })
             try {
-                this.tasksCopy = JSON.parse(JSON.stringify(this.group.tasks || []))
-                this.tasksCopy = this.applyDrag(this.tasksCopy, dropResult)
-                // console.log('Tasks Copy', this.tasksCopy)
+                this.tasksToShow = JSON.parse(JSON.stringify(this.group.tasks || []))
+                this.tasksToShow = this.applyDrag(this.tasksToShow, dropResult)
+                // console.log('Tasks Copy', this.tasksToShow)
                 await this.$store.dispatch({
                     type: 'updateTasks',
-                    payload: { tasks: this.tasksCopy, groupId: this.group.id, addedIndex }
+                    payload: { tasks: this.tasksToShow, groupId: this.group.id, addedIndex }
                 })
 
-                this.tasksCopy = JSON.parse(JSON.stringify(this.group.tasks || []))
+                this.tasksToShow = JSON.parse(JSON.stringify(this.group.tasks || []))
 
             }
             catch (prevTasks) {
-                console.log(prevTasks)
-                this.tasksCopy = JSON.parse(JSON.stringify(prevTasks))
+                this.$store.commit({ type: 'updateBoard', board: this.prevBoard })
+                this.$store.commit({ type: 'setBoard', boardId: this.prevBoard._id })
+                console.log(this.tasksToShow, 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
             }
+        },
+        onDragStart(dragResult) {
+            const { isSource, payload, willAcceptDropt } = dragResult;
+            if (!isSource) return
+            this.prevBoard = JSON.parse(JSON.stringify(this.$store.getters.board))
+            console.log(JSON.parse(JSON.stringify(this.$store.getters.board.groups)), '000000000');
         },
         applyDrag(arr, dragResult) {
             const { removedIndex, addedIndex, payload } = dragResult
@@ -165,7 +169,7 @@ export default {
                 // console.log(itemToAdd.itemToMove);
                 result.splice(addedIndex, 0, itemToAdd);
                 // result.splice(addedIndex, 0, itemToAdd.itemToMove);
-                // console.log(this.tasksCopy);
+                // console.log(this.tasksToShow);
             }
             else if (addedIndex !== null) result.splice(addedIndex, 0, itemToAdd.itemToMove);
             // console.log('RESULT', result)
@@ -178,12 +182,12 @@ export default {
         getChildPayload(index) {
             // console.log('get child copy', index)
 
-            this.tasksCopy = JSON.parse(JSON.stringify(this.group.tasks))
+            this.tasksToShow = JSON.parse(JSON.stringify(this.group.tasks))
 
-            // console.log('get child copy', this.tasksCopy);
+            // console.log('get child copy', this.tasksToShow);
 
             return {
-                itemToMove: this.tasksCopy[index]
+                itemToMove: this.tasksToShow[index]
             }
         },
         updateGroup() {
@@ -212,7 +216,7 @@ export default {
             // console.log(this.$refs.group.containerElement['smooth-dnd-container-instance'])
             if (this.isCardOpen) {
                 setTimeout(() => {
-                    console.log(this.$refs.form)
+                    // console.log(this.$refs.form)
                     this.$refs.form.scrollIntoView()
                 }, 100);
             }

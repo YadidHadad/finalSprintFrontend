@@ -72,7 +72,7 @@ export default {
 
     methods: {
         async onDropGroup(dropResult) {
-            console.log('ON DRAG groupList')
+            // console.log('ON DRAG groupList')
             try {
                 this.groupsCopy = JSON.parse(JSON.stringify(this.groups))
                 this.groupsCopy = this.applyDragGroup(this.groupsCopy, dropResult);
@@ -141,7 +141,7 @@ export default {
             this.$store.dispatch({ type: 'updateGroup', group, activity })
         },
         addTask(groupId, task, activity) {
-            console.log('**************************', task)
+            // console.log('**************************', task)
             this.$emit('addTask', groupId, task, activity)
         }
     },

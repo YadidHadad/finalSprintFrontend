@@ -288,7 +288,7 @@ export default {
         },
 
         async updateTask(type, data) {
-            console.log("hi");
+            // console.log("hi");
             let taskToUpdate = JSON.parse(JSON.stringify(this.task));
             var txt;
             switch (type) {
@@ -337,7 +337,7 @@ export default {
                     // console.log(taskToUpdate);
                     break;
                 case "cover-edit":
-                    console.log(data);
+                    // console.log(data);
                     txt = `Updated  ${this.task.title} cover`;
                     if (data.startsWith("#")) {
                         taskToUpdate.style = {
@@ -364,7 +364,7 @@ export default {
                     }
                     if (!taskToUpdate.attachments) taskToUpdate.attachments = [];
                     taskToUpdate.attachments.unshift(data);
-                    console.log(data);
+                    // console.log(data);
                     this.closeEditor();
                     break;
                 case "attachment-preview":
@@ -381,7 +381,7 @@ export default {
                     payload: { task: taskToUpdate, groupId: this.groupId },
                 });
                 this.task = JSON.parse(JSON.stringify(this.getTask));
-                console.log(this.task);
+                // console.log(this.task);
                 let updatedTask = await this.$store.dispatch({
                     type: "updateTask",
                     payload: {
@@ -474,7 +474,7 @@ export default {
             this.closeEditor();
         },
         async updateBoardLabels(label) {
-            console.log(label);
+            // console.log(label);
             this.$store.dispatch({
                 type: "updateBoardLabels",
                 label,
@@ -489,9 +489,9 @@ export default {
         toggleMember() {
             const user = this.user;
             const memberIds = JSON.parse(JSON.stringify(this.getTask.memberIds || []));
-            console.log(user);
-            console.log(memberIds);
-            console.log("********************");
+            // console.log(user);
+            // console.log(memberIds);
+            // console.log("********************");
             var action;
             const memberIdx = memberIds.findIndex((id) => {
                 return user._id === id;

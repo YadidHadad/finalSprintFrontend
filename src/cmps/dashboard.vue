@@ -18,7 +18,7 @@ export default {
         // console.log(this.mapLabels)
         // console.log(this.nextDueDate)
         // console.log(this.locations)
-        console.log(this.levels)
+        // console.log(this.levels)
     },
     data() {
         return {
@@ -137,7 +137,7 @@ export default {
     },
     watch: {
         nextDueDate() {
-            console.log(this.nextDueDate)
+            // console.log(this.nextDueDate)
         }
     }
 }

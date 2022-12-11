@@ -132,7 +132,7 @@ export default {
         // if (this.filterBy.membersIds && this.filterBy.length > 0) {
         //     this.isShowMembers = true
         // }
-        console.log(this.filterBy);
+        // console.log(this.filterBy);
     },
     methods: {
         searchByVoice(transcript) {
@@ -140,7 +140,7 @@ export default {
             this.$emit('doFilter', this.filterBy)
         },
         doFilter() {
-            console.log(this.filterBy);
+            // console.log(this.filterBy);
             this.$emit('doFilter', this.filterBy)
         },
         toggleIsNoMembers() {

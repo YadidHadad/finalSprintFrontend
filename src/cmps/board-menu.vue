@@ -156,7 +156,7 @@ export default {
     },
     methods: {
         confirmDelete() {
-            console.log('hi');
+            // console.log('hi');
             this.$emit('confirmDelete')
         },
         getPhotos() {

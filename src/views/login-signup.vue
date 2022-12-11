@@ -189,7 +189,7 @@ export default {
   },
   watch: {
     getLoggedInUser() {
-      console.log(this.getLoggedInUser)
+      // console.log(this.getLoggedInUser)
     }
   },
 }
