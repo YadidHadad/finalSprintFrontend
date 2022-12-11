@@ -32,13 +32,13 @@
             </ul>
             <button class="btn-remove" @click="openCreateLabel">Create a new label</button>
         </div>
-        <create-label-modal v-if="(isOpenModal || isEditLabel)" @createdLabel="createdLabel"
-            @closeEdit="() => isOpenModal = false" @removeLabel="confirm" :label="editedLabel" />
+        <create-label-modal v-if="(isOpenModal || isEditLabel)" @createdLabel="createdLabel" @closeEdit="closeEditModal"
+            @removeLabel="confirm" :label="editedLabel" />
     </section>
 
 
     <confirm-modal :msg="'Are you sure?'" v-if="isConfirmModal" @remove="removeLabel()"
-    @closeModal="() => { isConfirmModal = false }" v-click-outside="() => { isConfirmModal = false }"  />
+        @closeModal="() => { isConfirmModal = false }" v-click-outside="() => { isConfirmModal = false }" />
 </template>
 
 <script>
@@ -72,6 +72,10 @@ export default {
     methods: {
         closeEdit() {
             this.$emit('closeEdit')
+        },
+        closeEditModal() {
+            this.isOpenModal = false
+            this.isEditLabel = false
         },
         updateLabels(labelId = '') {
             if (labelId) {
@@ -114,9 +118,10 @@ export default {
             this.isOpenModal = true
             // this.$emit('closeEditor')
         },
-        createdLabel({ color, title }) {
-            let label = this.labels.find(label => label.color === color)
-            if (!label) {
+        createdLabel({ color, title, id }) {
+            if (id)
+                var label = this.labels.find(label => label.id === id)
+            if (!id || !label) {
                 label = {
                     color,
                     title,
@@ -124,12 +129,13 @@ export default {
             }
             else {
                 label.title = title
+                label.color = color
             }
             this.$emit('updateBoardLabels', label)
             this.isOpenModal = false
             this.isEditLabel = false
             this.editedLabel = null
-            // this.updateLabels(label.id)
+            this.updateLabels(label.id)
             // console.log(label);
         },
         hexToRgbA(hex) {

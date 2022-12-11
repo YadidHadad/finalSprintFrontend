@@ -44,7 +44,7 @@ export default {
     },
     created() {
         console.log(this.label);
-        if(this.label) {
+        if (this.label) {
             this.pickedColor = this.label.color
             this.title = this.label.title
         }
@@ -52,7 +52,7 @@ export default {
     methods: {
         save() {
             if (!this.pickedColor) return
-            this.$emit('createdLabel', { color: this.pickedColor, title: this.title })
+            this.$emit('createdLabel', { color: this.pickedColor, title: this.title, id: this.label?.id || '' })
         },
         closeEdit() {
             this.$emit('closeEdit')
