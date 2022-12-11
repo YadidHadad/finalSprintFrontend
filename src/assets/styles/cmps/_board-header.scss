@@ -125,6 +125,18 @@
     .isClicked {
         backdrop-filter: brightness(0.5);
     }
+    .separation {
+        margin-inline: 0.5rem;
+        height: 1.5rem;
+        width: 1px;
+        background-color: rgba($textLight, 0.2);
+
+        &.isDark {
+            * {
+                background-color: rgba($textDark, 0.2);
+            }
+        }
+    }
 }
 
 @media (max-width: 780px) {
