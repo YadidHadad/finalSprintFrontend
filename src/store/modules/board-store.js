@@ -320,6 +320,7 @@ export const boardStore = {
         async updateTasks(context, { payload }) {
             // console.log('PAYLOAD', payload)
             // console.log('UPDATE TASKS - store')
+            var prevBoard = JSON.parse(JSON.stringify(context.state.board))
             const { groupId, tasks, addedIndex } = payload
             const group = context.state.board.groups.find(group => groupId === group.id)
             var prevTasks = group.tasks
@@ -343,7 +344,7 @@ export const boardStore = {
                 const board = await boardService.save(context.state.board)
                 // return newTasks
             }
-            catch (prevBoard) {
+            catch (err) {
                 console.log('boardStore: Error in updateTasks')
                 console.log(prevBoard)
                 context.commit({ type: 'updateBoard', board: prevBoard })

@@ -55,7 +55,7 @@ async function save(board) {
         return savedBoard
     }
     catch (err) {
-        const prevBoard = await getById(board._id)
+        // const prevBoard = await getById(board._id)
         console.log(prevBoard);
         console.log(err);
         throw prevBoard
