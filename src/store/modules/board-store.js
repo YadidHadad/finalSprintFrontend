@@ -322,9 +322,7 @@ export const boardStore = {
         },
 
         async updateTasks(context, { payload }) {
-            console.log(context.state.board.groups)
-            context.commit({ type: 'setDragAndDropCounter' })
-            // if (context.state.dragAndDropCounter === 1) return
+            // console.log(context.state.board.groups)
             // console.log(context.state.dragAndDropCounter , 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
             // console.log('PAYLOAD', payload)
             // console.log('UPDATE TASKS - store')
@@ -403,17 +401,17 @@ export const boardStore = {
                 return payload.task
             }
             catch (err) {
-                {
-                    console.log('boardStore: Error in updateLabels', err)
-                    // // context.commit({
-                    // //     type: 'updateTask', payload: {
-                    // //         task: prevTkjkljask,
-                    // //         groupId: payload.groupId
-                    // //     }
-                    // })
-                    context.commit({ type: 'removeActivity' })
-                    throw err
-                }
+
+                console.log('boardStore: Error in updateLabels', err)
+                // // context.commit({
+                // //     type: 'updateTask', payload: {
+                // //         task: prevTkjkljask,
+                // //         groupId: payload.groupId
+                // //     }
+                // })
+                context.commit({ type: 'removeActivity' })
+                throw err
+
             }
         },
 

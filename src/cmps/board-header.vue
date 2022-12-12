@@ -20,7 +20,7 @@
         </div>
         <div class="btns-container shrink  flex align-center row wrap justify-end  ">
             <span class="grow "></span>
-            <button class="btn" :class="{ isDark: !isDark }" :style="buttonBackground" @click="filterTasks">
+            <button class="btn filter" :class="{ isDark: !isDark }" :style="buttonBackground" @click="filterTasks">
                 <span class="trello-home filter-icon"></span>
                 <span class="txt">Filter</span>
             </button>
@@ -41,7 +41,7 @@
             </div>
             <!-- <div class="separation">&nbsp;|&nbsp;</div> -->
             <div class="separation"></div>
-            <button class="btn " :class="{ isDark: !isDark }" :style="buttonBackground" @click="toggleBoardMenu">
+            <button class="btn elipsis" :class="{ isDark: !isDark }" :style="buttonBackground" @click="toggleBoardMenu">
                 <span class="trello-home elipsis-icon"></span>
             </button>
         </div>
