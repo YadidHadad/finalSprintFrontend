@@ -105,7 +105,7 @@ export default {
     },
 
     async created() {
-        // console.log(this.group, '************************')
+        console.log('************************HIIIIIIIIIIIIII')
         // console.log(this.filterBy);
         this.tasksToShow = JSON.parse(JSON.stringify(this.group.tasks))
         // this.tasksToShow = this.group.tasks
@@ -141,6 +141,7 @@ export default {
             catch (prevTasks) {
                 this.$store.commit({ type: 'updateBoard', board: this.prevBoard })
                 this.$store.commit({ type: 'setBoard', boardId: this.prevBoard._id })
+                this.tasksToShow = JSON.parse(JSON.stringify(this.group.tasks || []))
                 console.log(this.tasksToShow, 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
             }
         },
