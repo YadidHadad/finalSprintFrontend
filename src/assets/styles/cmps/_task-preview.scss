@@ -135,7 +135,7 @@
         padding-bottom: rem(4px);
         // position: relative;
         // justify-content: space-between;
-        align-content: center;
+        // align-content: center;
         // height: rem(35px);
         height: fit-content;
 
@@ -203,6 +203,12 @@
             width: fit-content;
             padding: 0 rem(3px);
             height: fit-content;
+
+            .checklist-icon {
+                position: relative;
+                bottom: -1px;
+    
+            }
 
             :not(:first-of-type) {
                 font-size: rem(12px);

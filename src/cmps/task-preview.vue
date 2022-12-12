@@ -42,7 +42,7 @@
                 <div v-if="taskTodosLength" class="task-todos flex"
                     :style="{ backgroundColor: allTodosDone, color: allTodosDone ? '#fdfefd' : '' }"
                     title="Checklist items">
-                    <span class="trellicons checklist-icon"></span>
+                    <span class="trellicons checklist-icon flex"></span>
                     <span>{{ taskDoneTodos }}/{{ taskTodosLength }}</span>
                 </div>
             </div>

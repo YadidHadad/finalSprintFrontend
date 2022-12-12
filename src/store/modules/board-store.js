@@ -324,8 +324,8 @@ export const boardStore = {
         async updateTasks(context, { payload }) {
             console.log(context.state.board.groups)
             context.commit({ type: 'setDragAndDropCounter' })
-            if (context.state.dragAndDropCounter === 1) return
-            console.log(context.state.dragAndDropCounter , 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
+            // if (context.state.dragAndDropCounter === 1) return
+            // console.log(context.state.dragAndDropCounter , 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
             // console.log('PAYLOAD', payload)
             // console.log('UPDATE TASKS - store')
             var prevBoard = JSON.parse(JSON.stringify(context.state.board))
