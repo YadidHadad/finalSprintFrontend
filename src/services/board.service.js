@@ -46,7 +46,7 @@ async function save(board) {
         if (board._id) {
             // console.log(board._id)
             savedBoard = await httpService.put(`${BOARD_URL}${board._id}`, board)
-            socketService.emit('board updated', board)
+            socketService.emit('board updated', savedBoard)
         } else {
             // Later, owner is set by the backend
             board.createdBy = userService.getLoggedinUser()
