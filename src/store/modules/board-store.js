@@ -401,17 +401,17 @@ export const boardStore = {
                 return payload.task
             }
             catch (err) {
-                {
-                    console.log('boardStore: Error in updateLabels', err)
-                    // // context.commit({
-                    // //     type: 'updateTask', payload: {
-                    // //         task: prevTkjkljask,
-                    // //         groupId: payload.groupId
-                    // //     }
-                    // })
-                    context.commit({ type: 'removeActivity' })
-                    throw err
-                }
+
+                console.log('boardStore: Error in updateLabels', err)
+                // // context.commit({
+                // //     type: 'updateTask', payload: {
+                // //         task: prevTkjkljask,
+                // //         groupId: payload.groupId
+                // //     }
+                // })
+                context.commit({ type: 'removeActivity' })
+                throw err
+
             }
         },
 

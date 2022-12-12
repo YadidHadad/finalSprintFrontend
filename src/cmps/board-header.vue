@@ -3,8 +3,10 @@
         <div class="flex align-center  wrap">
             <!-- <input type="text" v-model="board.title" :style="titleLength" @input="debounceHandler"
                 @keyup.enter="setBoardTitle" /> -->
-            <contenteditable class="input" tag="div" :contenteditable="isEditable" v-model="board.title" :no-nl="true"
-                :no-html="true" @returned="debounceHandler" />
+            <!-- <div class="input" ref="title" contenteditable="isEditable" @returned="setBoardTitle">{{ board.title }}
+            </div> -->
+            <contenteditable class="input" tag="div" ref="title" :contenteditable="isEditable" v-model="board.title"
+                :no-nl="true" :no-html="true" @returned="setBoardTitle" />
             <div class="separation"></div>
 
             <div class="views-container flex align-center  wrap">
@@ -34,7 +36,7 @@
                 </span>
             </div>
             <div v-if="(board.members.length > 5)" class="btn member-plus"><span class="fa-regular plus-icon"> {{
-                     (board.members.length - 5)
+                    (board.members.length - 5)
             }}</span>
             </div>
             <!-- <div class="separation">&nbsp;|&nbsp;</div> -->
@@ -84,8 +86,8 @@ export default {
         toggleBoardMenu() {
             this.$emit("toggleBoardMenu");
         },
-        setBoardTitle(event) {
-            // event.target.blur()
+        setBoardTitle() {
+            console.log(this.$refs.title)
             // if (this.board.title.length > 15) this.board.title = this.board.title.slice(0, 15) + '...'
 
             this.$store.dispatch({ type: "updateBoard", board: this.board });
@@ -108,10 +110,8 @@ export default {
             return this.rgb.isDark;
         },
         buttonBackground() {
-            if (!this.rgb) return;
-            return this.rgb.isDark
-                ? utilService.getBCG(this.rgb.value, -20, 0.5)
-                : utilService.getBCG(this.rgb.value, 20, 0.5);
+            if (!this.rgb) return
+            return this.rgb.isDark ? utilService.getBCG(this.rgb.value, 30, 0.5) : utilService.getBCG(this.rgb.value, 60, 0.5)
         },
         titleLength() {
             if (!this.board.title) return;

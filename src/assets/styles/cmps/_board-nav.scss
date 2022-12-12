@@ -5,7 +5,7 @@
     max-width: 260px;
     // overflow-x: hidden;
     // overflow-y: scroll;
-    height: 100%;
+    height: calc(100vh - 44px);
     backdrop-filter: blur(2px);
     box-shadow: inset -1px 0px 0px rgba(0, 0, 0, 0.1);
     margin-left: 0px;
@@ -136,6 +136,7 @@
     }
     .boards-container {
         overflow-y: scroll;
+        height: 100%;
     }
 }
 
