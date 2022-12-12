@@ -16,7 +16,8 @@ export const boardStore = {
             isAssignToMe: false,
             labelIds: [],
             isNoLabels: false
-        }
+        },
+        dragAndDropCounter: 0
     },
 
     getters: {
@@ -63,6 +64,9 @@ export const boardStore = {
     },
 
     mutations: {
+        setDragAndDropCounter(state) {
+            state.dragAndDropCounter < 1 ? state.dragAndDropCounter++ : state.dragAndDropCounter = 0
+        },
         setBoards(state, { boards }) {
             state.boards = boards
         },
@@ -318,8 +322,13 @@ export const boardStore = {
         },
 
         async updateTasks(context, { payload }) {
+            console.log(context.state.board.groups)
+            context.commit({ type: 'setDragAndDropCounter' })
+            if (context.state.dragAndDropCounter === 1) return
+            console.log(context.state.dragAndDropCounter , 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
             // console.log('PAYLOAD', payload)
             // console.log('UPDATE TASKS - store')
+            var prevBoard = JSON.parse(JSON.stringify(context.state.board))
             const { groupId, tasks, addedIndex } = payload
             const group = context.state.board.groups.find(group => groupId === group.id)
             var prevTasks = group.tasks
@@ -343,7 +352,7 @@ export const boardStore = {
                 const board = await boardService.save(context.state.board)
                 // return newTasks
             }
-            catch (prevBoard) {
+            catch (err) {
                 console.log('boardStore: Error in updateTasks')
                 console.log(prevBoard)
                 context.commit({ type: 'updateBoard', board: prevBoard })

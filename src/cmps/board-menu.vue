@@ -171,7 +171,7 @@ export default {
                 let apiUrl = `https://api.unsplash.com/search/photos?query=${this.searchTxt ? this.searchTxt : "landscape"
                     }&orientation=landscape&per_page=1200&client_id=${this.clientId}`;
                 axios(apiUrl).then(({ data }) => {
-                    this.imgUrls = data.results.map((res) => res.urls.full).slice(0, 4);
+                    this.imgUrls = data.results.map((res) => res.urls.full).slice(0, 12);
 
                     // console.log(this.imgUrls);
                 });

@@ -32,7 +32,7 @@
         </div>
 
         <Container class="task-preview-container flex column" orientation="vertical" group-name="group-tasks"
-            ref="group" @drop="onDrop"
+            ref="group" @drop="onDrop" @drag-start="onDragStart"
             :shouldAcceptDrop="(e, payload) => (e.groupName === 'group-tasks' && !payload.loading)"
             :get-child-payload="getChildPayload" drop-class="" :drop-class="dragClass">
             <Draggable class="task-preview" v-for="task in tasksToShow" :key="task.id">
@@ -99,8 +99,8 @@ export default {
             tasksCopy: [],
             tasksToShow: [],
             dropCounter: 0,
-            isRemoveClicked: false
-
+            isRemoveClicked: false,
+            prevBoard: null
         }
     },
 
@@ -121,7 +121,6 @@ export default {
 
     methods: {
         async onDrop(dropResult) {
-            // console.log('ONDROP')
             const { removedIndex, addedIndex, payload, element } = dropResult;
             if (removedIndex === null && addedIndex === null) return
 
@@ -140,9 +139,16 @@ export default {
 
             }
             catch (prevTasks) {
-                this.tasksToShow = JSON.parse(JSON.stringify(this.group.tasks))
-                console.log(this.tasksToShow , 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+                this.$store.commit({ type: 'updateBoard', board: this.prevBoard })
+                this.$store.commit({ type: 'setBoard', boardId: this.prevBoard._id })
+                console.log(this.tasksToShow, 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
             }
+        },
+        onDragStart(dragResult) {
+            const { isSource, payload, willAcceptDropt } = dragResult;
+            if (!isSource) return
+            this.prevBoard = JSON.parse(JSON.stringify(this.$store.getters.board))
+            console.log(JSON.parse(JSON.stringify(this.$store.getters.board.groups)), '000000000');
         },
         applyDrag(arr, dragResult) {
             const { removedIndex, addedIndex, payload } = dragResult
